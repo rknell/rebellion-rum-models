@@ -6,7 +6,7 @@ part of 'coupon.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Coupon _$CouponFromJson(Map<String, dynamic> json) => Coupon(
+CouponModel _$CouponModelFromJson(Map<String, dynamic> json) => CouponModel(
       id: json['_id'] as String,
       code: json['code'] as String,
       description: json['description'] as String,
@@ -18,7 +18,8 @@ Coupon _$CouponFromJson(Map<String, dynamic> json) => Coupon(
       originalAmount: (json['originalAmount'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$CouponToJson(Coupon instance) => <String, dynamic>{
+Map<String, dynamic> _$CouponModelToJson(CouponModel instance) =>
+    <String, dynamic>{
       '_id': instance.id,
       'code': instance.code,
       'description': instance.description,

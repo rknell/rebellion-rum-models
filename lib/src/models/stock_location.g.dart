@@ -6,8 +6,8 @@ part of 'stock_location.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-StockLocation _$StockLocationFromJson(Map<String, dynamic> json) =>
-    StockLocation(
+StockLocationModel _$StockLocationModelFromJson(Map<String, dynamic> json) =>
+    StockLocationModel(
       id: json['_id'] as String,
       name: json['name'] as String,
       barcode: json['barcode'] as String,
@@ -20,7 +20,7 @@ StockLocation _$StockLocationFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$StockLocationToJson(StockLocation instance) =>
+Map<String, dynamic> _$StockLocationModelToJson(StockLocationModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'name': instance.name,

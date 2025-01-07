@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:rebellion_rum_models/src/models/distillation_record.dart';
 
 void main() {
-  group('DistillationRecord', () {
+  group('DistillationRecordModel', () {
     late List<Map<String, dynamic>> sampleData;
 
     setUpAll(() async {
@@ -16,7 +16,7 @@ void main() {
 
     test('should serialize and deserialize all sample records', () {
       for (final data in sampleData) {
-        final model = DistillationRecord.fromJson(data);
+        final model = DistillationRecordModel.fromJson(data);
         final serialized = model.toJson();
 
         // Compare individual fields
@@ -49,7 +49,7 @@ void main() {
 
     test('Invalid JSON handling', () {
       expect(
-        () => DistillationRecord.fromJson({'invalid': 'data'}),
+        () => DistillationRecordModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
     });

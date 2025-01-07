@@ -4,12 +4,12 @@ part 'sale_item.g.dart';
 
 /// Represents an individual item line in a sale.
 ///
-/// Each SaleItem captures the essential information about a product
+/// Each SaleItemModel captures the essential information about a product
 /// that was sold, including its description, price, and quantity.
 ///
 /// Example:
 /// ```dart
-/// final item = SaleItem(
+/// final item = SaleItemModel(
 ///   description: 'Premium Dark Rum 750ml',
 ///   price: 49.99,
 ///   itemId: 'PROD-001',
@@ -17,7 +17,7 @@ part 'sale_item.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class SaleItem {
+class SaleItemModel {
   /// Product description as shown on receipt
   final String description;
 
@@ -30,14 +30,14 @@ class SaleItem {
   /// Quantity sold
   final int qty;
 
-  const SaleItem({
+  const SaleItemModel({
     required this.description,
     required this.price,
     required this.itemId,
     required this.qty,
   });
 
-  factory SaleItem.fromJson(Map<String, dynamic> json) =>
-      _$SaleItemFromJson(json);
-  Map<String, dynamic> toJson() => _$SaleItemToJson(this);
+  factory SaleItemModel.fromJson(Map<String, dynamic> json) =>
+      _$SaleItemModelFromJson(json);
+  Map<String, dynamic> toJson() => _$SaleItemModelToJson(this);
 }

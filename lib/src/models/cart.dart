@@ -9,15 +9,15 @@ part 'cart.g.dart';
 ///
 /// Example:
 /// ```dart
-/// final cart = Cart(
+/// final cart = CartModel(
 ///   id: '123',
 ///   cartId: 'cart_456',
-///   products: [CartProduct(...)],
-///   userInfo: UserInfo(...),
+///   products: [CartProductModel(...)],
+///   userInfo: UserInfoModel(...),
 /// );
 /// ```
 @JsonSerializable()
-class Cart {
+class CartModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
@@ -26,18 +26,18 @@ class Cart {
   final String cartId;
 
   /// Selected delivery method and pricing
-  final DeliveryMethod? deliveryMethod;
+  final DeliveryMethodModel? deliveryMethod;
 
   /// List of products in the cart
-  final List<CartProduct> products;
+  final List<CartProductModel> products;
 
   /// Customer information for delivery
-  final UserInfo userInfo;
+  final UserInfoModel userInfo;
 
   /// Payment processing information
-  final PaymentIntent? paymentIntent;
+  final PaymentIntentModel? paymentIntent;
 
-  const Cart({
+  const CartModel({
     required this.id,
     required this.cartId,
     this.deliveryMethod,
@@ -46,22 +46,23 @@ class Cart {
     this.paymentIntent,
   });
 
-  factory Cart.fromJson(Map<String, dynamic> json) => _$CartFromJson(json);
-  Map<String, dynamic> toJson() => _$CartToJson(this);
+  factory CartModel.fromJson(Map<String, dynamic> json) =>
+      _$CartModelFromJson(json);
+  Map<String, dynamic> toJson() => _$CartModelToJson(this);
 }
 
 /// Represents a delivery method with associated service details and pricing.
 ///
 /// Example:
 /// ```dart
-/// final delivery = DeliveryMethod(
+/// final delivery = DeliveryMethodModel(
 ///   service_code: 'express',
 ///   total_price: 15.99,
 ///   service_name: 'Express Delivery',
 /// );
 /// ```
 @JsonSerializable()
-class DeliveryMethod {
+class DeliveryMethodModel {
   /// Unique code identifying the delivery service
   final String service_code;
 
@@ -71,15 +72,15 @@ class DeliveryMethod {
   /// Display name of the delivery service
   final String service_name;
 
-  const DeliveryMethod({
+  const DeliveryMethodModel({
     required this.service_code,
     required this.total_price,
     required this.service_name,
   });
 
-  factory DeliveryMethod.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryMethodFromJson(json);
-  Map<String, dynamic> toJson() => _$DeliveryMethodToJson(this);
+  factory DeliveryMethodModel.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryMethodModelFromJson(json);
+  Map<String, dynamic> toJson() => _$DeliveryMethodModelToJson(this);
 }
 
 /// Represents a product in the shopping cart with quantity and display information.
@@ -89,7 +90,7 @@ class DeliveryMethod {
 ///
 /// Example:
 /// ```dart
-/// final cartProduct = CartProduct(
+/// final cartProduct = CartProductModel(
 ///   id: '123',
 ///   name: 'Premium Rum',
 ///   href: '/products/premium-rum',
@@ -103,7 +104,7 @@ class DeliveryMethod {
 /// );
 /// ```
 @JsonSerializable()
-class CartProduct {
+class CartProductModel {
   /// Product identifier
   final String id;
 
@@ -134,7 +135,7 @@ class CartProduct {
   /// Current stock level
   final int stock;
 
-  const CartProduct({
+  const CartProductModel({
     required this.id,
     required this.name,
     required this.href,
@@ -147,16 +148,16 @@ class CartProduct {
     required this.stock,
   });
 
-  factory CartProduct.fromJson(Map<String, dynamic> json) =>
-      _$CartProductFromJson(json);
-  Map<String, dynamic> toJson() => _$CartProductToJson(this);
+  factory CartProductModel.fromJson(Map<String, dynamic> json) =>
+      _$CartProductModelFromJson(json);
+  Map<String, dynamic> toJson() => _$CartProductModelToJson(this);
 }
 
 /// Contains customer information for delivery and contact purposes.
 ///
 /// Example:
 /// ```dart
-/// final userInfo = UserInfo(
+/// final userInfo = UserInfoModel(
 ///   email: 'customer@example.com',
 ///   phone: '1234567890',
 ///   firstName: 'John',
@@ -170,7 +171,7 @@ class CartProduct {
 /// );
 /// ```
 @JsonSerializable()
-class UserInfo {
+class UserInfoModel {
   /// Customer email address
   final String email;
 
@@ -201,7 +202,7 @@ class UserInfo {
   /// Postal code
   final String postcode;
 
-  const UserInfo({
+  const UserInfoModel({
     required this.email,
     required this.phone,
     required this.firstName,
@@ -214,9 +215,9 @@ class UserInfo {
     required this.postcode,
   });
 
-  factory UserInfo.fromJson(Map<String, dynamic> json) =>
-      _$UserInfoFromJson(json);
-  Map<String, dynamic> toJson() => _$UserInfoToJson(this);
+  factory UserInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$UserInfoModelFromJson(json);
+  Map<String, dynamic> toJson() => _$UserInfoModelToJson(this);
 }
 
 /// Represents a Stripe payment intent for processing payments.
@@ -226,7 +227,7 @@ class UserInfo {
 ///
 /// Example:
 /// ```dart
-/// final intent = PaymentIntent(
+/// final intent = PaymentIntentModel(
 ///   object: 'payment_intent',
 ///   id: 'pi_123456',
 ///   amount: 4999,
@@ -241,7 +242,7 @@ class UserInfo {
 /// );
 /// ```
 @JsonSerializable()
-class PaymentIntent {
+class PaymentIntentModel {
   /// Object type (always 'payment_intent')
   final String object;
 
@@ -275,7 +276,7 @@ class PaymentIntent {
   /// List of allowed payment method types
   final List<String> payment_method_types;
 
-  const PaymentIntent({
+  const PaymentIntentModel({
     required this.object,
     required this.id,
     required this.amount,
@@ -289,7 +290,7 @@ class PaymentIntent {
     required this.payment_method_types,
   });
 
-  factory PaymentIntent.fromJson(Map<String, dynamic> json) =>
-      _$PaymentIntentFromJson(json);
-  Map<String, dynamic> toJson() => _$PaymentIntentToJson(this);
+  factory PaymentIntentModel.fromJson(Map<String, dynamic> json) =>
+      _$PaymentIntentModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PaymentIntentModelToJson(this);
 }

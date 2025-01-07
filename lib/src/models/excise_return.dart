@@ -4,7 +4,7 @@ part 'excise_return.g.dart';
 
 /// Represents an excise duty return for regulatory compliance.
 @JsonSerializable()
-class ExciseReturn {
+class ExciseReturnModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
@@ -15,13 +15,13 @@ class ExciseReturn {
   /// Whether remission has been applied to this return
   final bool remissionApplied;
 
-  const ExciseReturn({
+  const ExciseReturnModel({
     required this.id,
     required this.totalLals,
     required this.remissionApplied,
   });
 
-  factory ExciseReturn.fromJson(Map<String, dynamic> json) =>
-      _$ExciseReturnFromJson(json);
-  Map<String, dynamic> toJson() => _$ExciseReturnToJson(this);
+  factory ExciseReturnModel.fromJson(Map<String, dynamic> json) =>
+      _$ExciseReturnModelFromJson(json);
+  Map<String, dynamic> toJson() => _$ExciseReturnModelToJson(this);
 }

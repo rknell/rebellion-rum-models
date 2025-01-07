@@ -6,24 +6,25 @@ part of 'cart.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Cart _$CartFromJson(Map<String, dynamic> json) => Cart(
+CartModel _$CartModelFromJson(Map<String, dynamic> json) => CartModel(
       id: json['_id'] as String,
       cartId: json['cartId'] as String,
       deliveryMethod: json['deliveryMethod'] == null
           ? null
-          : DeliveryMethod.fromJson(
+          : DeliveryMethodModel.fromJson(
               json['deliveryMethod'] as Map<String, dynamic>),
       products: (json['products'] as List<dynamic>)
-          .map((e) => CartProduct.fromJson(e as Map<String, dynamic>))
+          .map((e) => CartProductModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      userInfo: UserInfo.fromJson(json['userInfo'] as Map<String, dynamic>),
+      userInfo:
+          UserInfoModel.fromJson(json['userInfo'] as Map<String, dynamic>),
       paymentIntent: json['paymentIntent'] == null
           ? null
-          : PaymentIntent.fromJson(
+          : PaymentIntentModel.fromJson(
               json['paymentIntent'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$CartToJson(Cart instance) => <String, dynamic>{
+Map<String, dynamic> _$CartModelToJson(CartModel instance) => <String, dynamic>{
       '_id': instance.id,
       'cartId': instance.cartId,
       if (instance.deliveryMethod?.toJson() case final value?)
@@ -34,21 +35,23 @@ Map<String, dynamic> _$CartToJson(Cart instance) => <String, dynamic>{
         'paymentIntent': value,
     };
 
-DeliveryMethod _$DeliveryMethodFromJson(Map<String, dynamic> json) =>
-    DeliveryMethod(
+DeliveryMethodModel _$DeliveryMethodModelFromJson(Map<String, dynamic> json) =>
+    DeliveryMethodModel(
       service_code: json['service_code'] as String,
       total_price: (json['total_price'] as num).toDouble(),
       service_name: json['service_name'] as String,
     );
 
-Map<String, dynamic> _$DeliveryMethodToJson(DeliveryMethod instance) =>
+Map<String, dynamic> _$DeliveryMethodModelToJson(
+        DeliveryMethodModel instance) =>
     <String, dynamic>{
       'service_code': instance.service_code,
       'total_price': instance.total_price,
       'service_name': instance.service_name,
     };
 
-CartProduct _$CartProductFromJson(Map<String, dynamic> json) => CartProduct(
+CartProductModel _$CartProductModelFromJson(Map<String, dynamic> json) =>
+    CartProductModel(
       id: json['id'] as String,
       name: json['name'] as String,
       href: json['href'] as String,
@@ -61,7 +64,7 @@ CartProduct _$CartProductFromJson(Map<String, dynamic> json) => CartProduct(
       stock: (json['stock'] as num).toInt(),
     );
 
-Map<String, dynamic> _$CartProductToJson(CartProduct instance) =>
+Map<String, dynamic> _$CartProductModelToJson(CartProductModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -75,7 +78,8 @@ Map<String, dynamic> _$CartProductToJson(CartProduct instance) =>
       'stock': instance.stock,
     };
 
-UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
+UserInfoModel _$UserInfoModelFromJson(Map<String, dynamic> json) =>
+    UserInfoModel(
       email: json['email'] as String,
       phone: json['phone'] as String,
       firstName: json['firstName'] as String,
@@ -88,7 +92,8 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
       postcode: json['postcode'] as String,
     );
 
-Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
+Map<String, dynamic> _$UserInfoModelToJson(UserInfoModel instance) =>
+    <String, dynamic>{
       'email': instance.email,
       'phone': instance.phone,
       'firstName': instance.firstName,
@@ -101,8 +106,8 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'postcode': instance.postcode,
     };
 
-PaymentIntent _$PaymentIntentFromJson(Map<String, dynamic> json) =>
-    PaymentIntent(
+PaymentIntentModel _$PaymentIntentModelFromJson(Map<String, dynamic> json) =>
+    PaymentIntentModel(
       object: json['object'] as String,
       id: json['id'] as String,
       amount: (json['amount'] as num).toInt(),
@@ -119,7 +124,7 @@ PaymentIntent _$PaymentIntentFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$PaymentIntentToJson(PaymentIntent instance) =>
+Map<String, dynamic> _$PaymentIntentModelToJson(PaymentIntentModel instance) =>
     <String, dynamic>{
       'object': instance.object,
       'id': instance.id,

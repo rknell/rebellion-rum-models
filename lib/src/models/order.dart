@@ -11,9 +11,9 @@ part 'order.g.dart';
 ///
 /// Example:
 /// ```dart
-/// final order = Order(
+/// final order = OrderModel(
 ///   id: '123',
-///   customer: Customer(...),
+///   customer: CustomerModel(...),
 ///   date: DateTime.now(),
 ///   items: {'PRODUCT-001': 2, 'PRODUCT-002': 1},
 ///   orderNumber: 'ORD-2024-001',
@@ -22,13 +22,13 @@ part 'order.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class Order {
+class OrderModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
 
   /// Customer who placed the order
-  final Customer customer;
+  final CustomerModel customer;
 
   /// When the order was placed
   final DateTime date;
@@ -55,7 +55,7 @@ class Order {
   /// Total quoted price for the order
   final double totalQuote;
 
-  const Order({
+  const OrderModel({
     required this.id,
     required this.customer,
     required this.date,
@@ -68,6 +68,7 @@ class Order {
     this.shippingReceipt,
   });
 
-  factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
-  Map<String, dynamic> toJson() => _$OrderToJson(this);
+  factory OrderModel.fromJson(Map<String, dynamic> json) =>
+      _$OrderModelFromJson(json);
+  Map<String, dynamic> toJson() => _$OrderModelToJson(this);
 }

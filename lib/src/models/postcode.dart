@@ -10,7 +10,7 @@ part 'postcode.g.dart';
 ///
 /// Example:
 /// ```dart
-/// final postcode = Postcode(
+/// final postcode = PostcodeModel(
 ///   id: '123',
 ///   postcode: '3000',
 ///   suburb: 'Melbourne',
@@ -19,7 +19,7 @@ part 'postcode.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class Postcode {
+class PostcodeModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
@@ -36,7 +36,7 @@ class Postcode {
   /// Delivery zone classification for shipping
   final String combined;
 
-  const Postcode({
+  const PostcodeModel({
     required this.id,
     required this.postcode,
     required this.locality,
@@ -44,7 +44,7 @@ class Postcode {
     required this.combined,
   });
 
-  factory Postcode.fromJson(Map<String, dynamic> json) =>
-      _$PostcodeFromJson(json);
-  Map<String, dynamic> toJson() => _$PostcodeToJson(this);
+  factory PostcodeModel.fromJson(Map<String, dynamic> json) =>
+      _$PostcodeModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PostcodeModelToJson(this);
 }

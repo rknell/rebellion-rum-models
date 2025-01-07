@@ -6,8 +6,9 @@ part of 'packaging_run_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PackagingRunItem _$PackagingRunItemFromJson(Map<String, dynamic> json) =>
-    PackagingRunItem(
+PackagingRunItemModel _$PackagingRunItemModelFromJson(
+        Map<String, dynamic> json) =>
+    PackagingRunItemModel(
       id: json['_id'] as String,
       productBarcode: json['productBarcode'] as String,
       unitSize: (json['unitSize'] as num).toDouble(),
@@ -20,7 +21,8 @@ PackagingRunItem _$PackagingRunItemFromJson(Map<String, dynamic> json) =>
       exciseReturn: json['exciseReturn'] as String,
     );
 
-Map<String, dynamic> _$PackagingRunItemToJson(PackagingRunItem instance) =>
+Map<String, dynamic> _$PackagingRunItemModelToJson(
+        PackagingRunItemModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'productBarcode': instance.productBarcode,

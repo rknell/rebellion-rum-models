@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:rebellion_rum_models/src/models/product.dart';
 
 void main() {
-  group('Product', () {
+  group('ProductModel', () {
     late List<Map<String, dynamic>> sampleData;
 
     setUpAll(() async {
@@ -17,7 +17,7 @@ void main() {
     test('should deserialize all sample records', () {
       for (final data in sampleData) {
         expect(
-          () => Product.fromJson(data),
+          () => ProductModel.fromJson(data),
           returnsNormally,
           reason: 'Failed to deserialize record with id: ${data['_id']}',
         );
@@ -26,9 +26,9 @@ void main() {
 
     test('should serialize and deserialize correctly', () {
       for (final data in sampleData) {
-        final product = Product.fromJson(data);
+        final product = ProductModel.fromJson(data);
         final serialized = product.toJson();
-        final deserialized = Product.fromJson(serialized);
+        final deserialized = ProductModel.fromJson(serialized);
 
         expect(deserialized.id, equals(product.id));
         expect(deserialized.barcode, equals(product.barcode));
@@ -51,7 +51,7 @@ void main() {
     });
 
     test('should handle all field combinations', () {
-      final productWithAllFields = Product(
+      final productWithAllFields = ProductModel(
         id: 'test-id',
         barcode: 'TEST123',
         description: 'Test product',
@@ -70,7 +70,7 @@ void main() {
         enabled: true,
       );
 
-      final productWithMinimalFields = Product(
+      final productWithMinimalFields = ProductModel(
         id: 'test-id',
         barcode: 'TEST123',
         description: 'Test product',
@@ -114,12 +114,12 @@ void main() {
 
     test('Invalid JSON handling', () {
       expect(
-        () => Product.fromJson({'invalid': 'data'}),
+        () => ProductModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
 
       expect(
-        () => Product.fromJson({
+        () => ProductModel.fromJson({
           '_id': 'test',
           'barcode': 'TEST',
           'description': 'Test',

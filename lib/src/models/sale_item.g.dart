@@ -6,14 +6,16 @@ part of 'sale_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SaleItem _$SaleItemFromJson(Map<String, dynamic> json) => SaleItem(
+SaleItemModel _$SaleItemModelFromJson(Map<String, dynamic> json) =>
+    SaleItemModel(
       description: json['description'] as String,
       price: (json['price'] as num).toDouble(),
       itemId: json['itemId'] as String,
       qty: (json['qty'] as num).toInt(),
     );
 
-Map<String, dynamic> _$SaleItemToJson(SaleItem instance) => <String, dynamic>{
+Map<String, dynamic> _$SaleItemModelToJson(SaleItemModel instance) =>
+    <String, dynamic>{
       'description': instance.description,
       'price': instance.price,
       'itemId': instance.itemId,

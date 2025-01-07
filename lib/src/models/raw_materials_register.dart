@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'raw_materials_register.g.dart';
 
 @JsonSerializable()
-class RawMaterialsRegister {
+class RawMaterialsRegisterModel {
   @JsonKey(name: '_id')
   final String id;
   final String? invoiceNumber;
@@ -12,7 +12,7 @@ class RawMaterialsRegister {
   final int qtyIn;
   final int qtyOut;
 
-  const RawMaterialsRegister({
+  const RawMaterialsRegisterModel({
     required this.id,
     this.invoiceNumber,
     this.fermentationRecordId,
@@ -21,7 +21,7 @@ class RawMaterialsRegister {
     required this.qtyOut,
   });
 
-  factory RawMaterialsRegister.fromJson(Map<String, dynamic> json) =>
-      _$RawMaterialsRegisterFromJson(json);
-  Map<String, dynamic> toJson() => _$RawMaterialsRegisterToJson(this);
+  factory RawMaterialsRegisterModel.fromJson(Map<String, dynamic> json) =>
+      _$RawMaterialsRegisterModelFromJson(json);
+  Map<String, dynamic> toJson() => _$RawMaterialsRegisterModelToJson(this);
 }

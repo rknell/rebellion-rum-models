@@ -10,18 +10,18 @@ part 'fermentation_record.g.dart';
 ///
 /// Example:
 /// ```dart
-/// final record = FermentationRecord(
+/// final record = FermentationRecordModel(
 ///   id: '123',
-///   date: DateTime.now(),
-///   fermentationVessel: 'FV-01',
-///   startingGravity: 1.080,
-///   finalGravity: 1.010,
-///   temperature: 25.5,
-///   duration: 72,
+///   batchNumber: 1,
+///   type: 'sugar',
+///   washVolume: 10.0,
+///   vesselBarcode: 'FV-01',
+///   sgStart: 1.080,
+///   sgEnd: 1.010,
 /// );
 /// ```
 @JsonSerializable()
-class FermentationRecord {
+class FermentationRecordModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
@@ -45,12 +45,12 @@ class FermentationRecord {
   final double sgEnd;
 
   /// Progress measurements during fermentation
-  final List<FermentationProgress> fermentationProgress;
+  final List<FermentationProgressModel> fermentationProgress;
 
   /// Notes and observations
   final String notes;
 
-  const FermentationRecord({
+  const FermentationRecordModel({
     required this.id,
     required this.batchNumber,
     required this.type,
@@ -62,20 +62,20 @@ class FermentationRecord {
     this.notes = '',
   });
 
-  factory FermentationRecord.fromJson(Map<String, dynamic> json) =>
-      _$FermentationRecordFromJson(json);
-  Map<String, dynamic> toJson() => _$FermentationRecordToJson(this);
+  factory FermentationRecordModel.fromJson(Map<String, dynamic> json) =>
+      _$FermentationRecordModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FermentationRecordModelToJson(this);
 }
 
 @JsonSerializable()
-class FermentationProgress {
+class FermentationProgressModel {
   final double sg;
   final double? ph;
   final double? temp;
   final DateTime timestamp;
   final String notes;
 
-  const FermentationProgress({
+  const FermentationProgressModel({
     required this.sg,
     this.ph,
     this.temp,
@@ -83,7 +83,7 @@ class FermentationProgress {
     required this.notes,
   });
 
-  factory FermentationProgress.fromJson(Map<String, dynamic> json) =>
-      _$FermentationProgressFromJson(json);
-  Map<String, dynamic> toJson() => _$FermentationProgressToJson(this);
+  factory FermentationProgressModel.fromJson(Map<String, dynamic> json) =>
+      _$FermentationProgressModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FermentationProgressModelToJson(this);
 }

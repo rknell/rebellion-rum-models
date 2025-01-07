@@ -6,7 +6,7 @@ part of 'product.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Product _$ProductFromJson(Map<String, dynamic> json) => Product(
+ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       id: json['_id'] as String,
       barcode: json['barcode'] as String,
       description: json['description'] as String,
@@ -28,7 +28,8 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       enabled: json['enabled'] as bool?,
     );
 
-Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
+Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
+    <String, dynamic>{
       '_id': instance.id,
       'barcode': instance.barcode,
       'description': instance.description,

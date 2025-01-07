@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:rebellion_rum_models/src/models/coupon.dart';
 
 void main() {
-  group('Coupon', () {
+  group('CouponModel', () {
     late List<Map<String, dynamic>> sampleData;
 
     setUpAll(() async {
@@ -17,7 +17,7 @@ void main() {
     test('should deserialize all sample records', () {
       for (final data in sampleData) {
         expect(
-          () => Coupon.fromJson(data),
+          () => CouponModel.fromJson(data),
           returnsNormally,
           reason: 'Failed to deserialize record with id: ${data['_id']}',
         );
@@ -26,9 +26,9 @@ void main() {
 
     test('should serialize and deserialize correctly', () {
       for (final data in sampleData) {
-        final coupon = Coupon.fromJson(data);
+        final coupon = CouponModel.fromJson(data);
         final serialized = coupon.toJson();
-        final deserialized = Coupon.fromJson(serialized);
+        final deserialized = CouponModel.fromJson(serialized);
 
         expect(deserialized.id, equals(coupon.id));
         expect(deserialized.code, equals(coupon.code));
@@ -43,7 +43,7 @@ void main() {
     });
 
     test('should handle optional fields correctly', () {
-      final couponWithAllFields = Coupon(
+      final couponWithAllFields = CouponModel(
         id: 'test-id',
         code: 'TEST123',
         description: 'Test coupon',
@@ -55,7 +55,7 @@ void main() {
         originalAmount: 100.0,
       );
 
-      final couponWithMinimalFields = Coupon(
+      final couponWithMinimalFields = CouponModel(
         id: 'test-id',
         code: 'TEST123',
         description: 'Test coupon',
@@ -79,9 +79,8 @@ void main() {
     });
 
     test('should handle mixed optional fields', () {
-      // Test each optional field independently
       final coupons = [
-        Coupon(
+        CouponModel(
           id: 'test-id',
           code: 'TEST123',
           description: 'Test coupon',
@@ -89,7 +88,7 @@ void main() {
           email: 'test@example.com',
           phone: '1234567890', // Only phone set
         ),
-        Coupon(
+        CouponModel(
           id: 'test-id',
           code: 'TEST123',
           description: 'Test coupon',
@@ -97,7 +96,7 @@ void main() {
           email: 'test@example.com',
           redeemed: true, // Only redeemed set
         ),
-        Coupon(
+        CouponModel(
           id: 'test-id',
           code: 'TEST123',
           description: 'Test coupon',
@@ -105,7 +104,7 @@ void main() {
           email: 'test@example.com',
           remainingValue: 50.0, // Only remainingValue set
         ),
-        Coupon(
+        CouponModel(
           id: 'test-id',
           code: 'TEST123',
           description: 'Test coupon',
@@ -117,7 +116,7 @@ void main() {
 
       for (final coupon in coupons) {
         final json = coupon.toJson();
-        final decoded = Coupon.fromJson(json);
+        final decoded = CouponModel.fromJson(json);
         expect(decoded.id, equals(coupon.id));
         expect(decoded.code, equals(coupon.code));
         expect(decoded.description, equals(coupon.description));
@@ -131,7 +130,7 @@ void main() {
     });
 
     test('should handle explicit null values', () {
-      final coupon = Coupon(
+      final coupon = CouponModel(
         id: 'test-id',
         code: 'TEST123',
         description: 'Test coupon',
@@ -149,7 +148,7 @@ void main() {
       expect(json.containsKey('remainingValue'), isFalse);
       expect(json.containsKey('originalAmount'), isFalse);
 
-      final decoded = Coupon.fromJson(json);
+      final decoded = CouponModel.fromJson(json);
       expect(decoded.phone, isNull);
       expect(decoded.redeemed, isNull);
       expect(decoded.remainingValue, isNull);
@@ -158,12 +157,12 @@ void main() {
 
     test('Invalid JSON handling', () {
       expect(
-        () => Coupon.fromJson({'invalid': 'data'}),
+        () => CouponModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
 
       expect(
-        () => Coupon.fromJson({
+        () => CouponModel.fromJson({
           '_id': 'test',
           'code': 'TEST',
           'description': 'Test',
@@ -174,7 +173,7 @@ void main() {
       );
 
       expect(
-        () => Coupon.fromJson({
+        () => CouponModel.fromJson({
           '_id': 'test',
           'code': 'TEST',
           'description': 'Test',
@@ -186,7 +185,7 @@ void main() {
       );
 
       expect(
-        () => Coupon.fromJson({
+        () => CouponModel.fromJson({
           '_id': 'test',
           'code': 'TEST',
           'description': 'Test',

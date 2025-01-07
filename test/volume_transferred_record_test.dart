@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:rebellion_rum_models/src/models/volume_transferred_record.dart';
 
 void main() {
-  group('VolumeTransferredRecord', () {
+  group('VolumeTransferredRecordModel', () {
     late List<Map<String, dynamic>> sampleData;
 
     setUpAll(() async {
@@ -16,7 +16,7 @@ void main() {
 
     test('should serialize and deserialize all sample records', () {
       for (final data in sampleData) {
-        final model = VolumeTransferredRecord.fromJson(data);
+        final model = VolumeTransferredRecordModel.fromJson(data);
         final serialized = model.toJson();
         expect(
           jsonEncode(serialized),
@@ -28,7 +28,7 @@ void main() {
 
     test('Invalid JSON handling', () {
       expect(
-        () => VolumeTransferredRecord.fromJson({'invalid': 'data'}),
+        () => VolumeTransferredRecordModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
     });

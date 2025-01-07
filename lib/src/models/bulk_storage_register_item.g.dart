@@ -6,9 +6,9 @@ part of 'bulk_storage_register_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BulkStorageRegisterItem _$BulkStorageRegisterItemFromJson(
+BulkStorageRegisterItemModel _$BulkStorageRegisterItemModelFromJson(
         Map<String, dynamic> json) =>
-    BulkStorageRegisterItem(
+    BulkStorageRegisterItemModel(
       id: json['_id'] as String,
       lals: (json['lals'] as num).toDouble(),
       feintsDestroyed: json['feintsDestroyed'] as bool,
@@ -22,8 +22,8 @@ BulkStorageRegisterItem _$BulkStorageRegisterItemFromJson(
       fromPackagingId: json['fromPackagingId'] as String?,
     );
 
-Map<String, dynamic> _$BulkStorageRegisterItemToJson(
-        BulkStorageRegisterItem instance) =>
+Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
+        BulkStorageRegisterItemModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'lals': instance.lals,

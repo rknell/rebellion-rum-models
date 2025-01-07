@@ -4,7 +4,7 @@ part 'bulk_storage_vessel.g.dart';
 
 /// Represents a bulk storage vessel used for storing spirits.
 @JsonSerializable()
-class BulkStorageVessel {
+class BulkStorageVesselModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
@@ -21,7 +21,7 @@ class BulkStorageVessel {
   /// Remaining LALs in the vessel
   final double remainingLALs;
 
-  const BulkStorageVessel({
+  const BulkStorageVesselModel({
     required this.id,
     required this.barcode,
     required this.name,
@@ -29,7 +29,7 @@ class BulkStorageVessel {
     required this.remainingLALs,
   });
 
-  factory BulkStorageVessel.fromJson(Map<String, dynamic> json) =>
-      _$BulkStorageVesselFromJson(json);
-  Map<String, dynamic> toJson() => _$BulkStorageVesselToJson(this);
+  factory BulkStorageVesselModel.fromJson(Map<String, dynamic> json) =>
+      _$BulkStorageVesselModelFromJson(json);
+  Map<String, dynamic> toJson() => _$BulkStorageVesselModelToJson(this);
 }

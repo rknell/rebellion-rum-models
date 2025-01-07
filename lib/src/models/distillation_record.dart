@@ -7,7 +7,7 @@ part 'distillation_record.g.dart';
 /// Each distillation record tracks the details of a single distillation run,
 /// including the still used, LALs measurements, and any notes taken during the process.
 @JsonSerializable()
-class DistillationRecord {
+class DistillationRecordModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
@@ -28,9 +28,9 @@ class DistillationRecord {
   final double totalLALsYield;
 
   /// Notes taken during the distillation process
-  final List<Note> notes;
+  final List<NoteModel> notes;
 
-  const DistillationRecord({
+  const DistillationRecordModel({
     required this.id,
     required this.stillUsed,
     required this.feintsAdded,
@@ -40,21 +40,22 @@ class DistillationRecord {
     required this.notes,
   });
 
-  factory DistillationRecord.fromJson(Map<String, dynamic> json) =>
-      _$DistillationRecordFromJson(json);
-  Map<String, dynamic> toJson() => _$DistillationRecordToJson(this);
+  factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>
+      _$DistillationRecordModelFromJson(json);
+  Map<String, dynamic> toJson() => _$DistillationRecordModelToJson(this);
 }
 
 @JsonSerializable()
-class Note {
+class NoteModel {
   final String content;
   final DateTime date;
 
-  const Note({
+  const NoteModel({
     required this.content,
     required this.date,
   });
 
-  factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
-  Map<String, dynamic> toJson() => _$NoteToJson(this);
+  factory NoteModel.fromJson(Map<String, dynamic> json) =>
+      _$NoteModelFromJson(json);
+  Map<String, dynamic> toJson() => _$NoteModelToJson(this);
 }

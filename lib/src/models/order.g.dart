@@ -6,9 +6,10 @@ part of 'order.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Order _$OrderFromJson(Map<String, dynamic> json) => Order(
+OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
       id: json['_id'] as String,
-      customer: Customer.fromJson(json['customer'] as Map<String, dynamic>),
+      customer:
+          CustomerModel.fromJson(json['customer'] as Map<String, dynamic>),
       date: DateTime.parse(json['date'] as String),
       items: Map<String, int>.from(json['items'] as Map),
       orderNumber: json['orderNumber'] as String,
@@ -19,7 +20,8 @@ Order _$OrderFromJson(Map<String, dynamic> json) => Order(
       shippingReceipt: json['shippingReceipt'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
+Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
+    <String, dynamic>{
       '_id': instance.id,
       'customer': instance.customer.toJson(),
       'date': instance.date.toIso8601String(),

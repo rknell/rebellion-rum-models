@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:rebellion_rum_models/src/models/packaging_run_item.dart';
 
 void main() {
-  group('PackagingRunItem', () {
+  group('PackagingRunItemModel', () {
     late List<Map<String, dynamic>> sampleData;
 
     setUpAll(() async {
@@ -16,7 +16,7 @@ void main() {
 
     test('should serialize and deserialize all sample records', () {
       for (final data in sampleData) {
-        final model = PackagingRunItem.fromJson(data);
+        final model = PackagingRunItemModel.fromJson(data);
         final serialized = model.toJson();
         expect(
           jsonEncode(serialized),
@@ -28,7 +28,7 @@ void main() {
 
     test('Invalid JSON handling', () {
       expect(
-        () => PackagingRunItem.fromJson({'invalid': 'data'}),
+        () => PackagingRunItemModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
     });

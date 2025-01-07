@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:rebellion_rum_models/src/models/cart.dart';
 
 void main() {
-  group('Cart', () {
+  group('CartModel', () {
     late List<Map<String, dynamic>> sampleData;
 
     setUpAll(() async {
@@ -17,7 +17,7 @@ void main() {
     test('should successfully deserialize all sample records', () {
       for (final data in sampleData) {
         expect(
-          () => Cart.fromJson(data),
+          () => CartModel.fromJson(data),
           returnsNormally,
           reason: 'Failed to deserialize record with id: ${data['_id']}',
         );
@@ -25,16 +25,16 @@ void main() {
     });
 
     test('should serialize and deserialize cart with all fields', () {
-      final cart = Cart(
+      final cart = CartModel(
         id: 'test-id',
         cartId: 'test-cart',
-        deliveryMethod: DeliveryMethod(
+        deliveryMethod: DeliveryMethodModel(
           service_code: 'express',
           total_price: 15.0,
           service_name: 'Express Delivery',
         ),
         products: [
-          CartProduct(
+          CartProductModel(
             id: 'prod1',
             name: 'Test Product',
             href: '/products/test',
@@ -47,7 +47,7 @@ void main() {
             stock: 10,
           ),
         ],
-        userInfo: UserInfo(
+        userInfo: UserInfoModel(
           email: 'test@example.com',
           phone: '1234567890',
           firstName: 'John',
@@ -59,7 +59,7 @@ void main() {
           state: 'VIC',
           postcode: '3000',
         ),
-        paymentIntent: PaymentIntent(
+        paymentIntent: PaymentIntentModel(
           object: 'payment_intent',
           id: 'pi_123',
           amount: 2999,
@@ -75,7 +75,7 @@ void main() {
       );
 
       final json = cart.toJson();
-      final decoded = Cart.fromJson(json);
+      final decoded = CartModel.fromJson(json);
 
       // Test Cart fields
       expect(decoded.id, equals(cart.id));
@@ -136,11 +136,11 @@ void main() {
     });
 
     test('should handle cart with minimal fields', () {
-      final cart = Cart(
+      final cart = CartModel(
         id: 'test-id',
         cartId: 'test-cart',
         products: [],
-        userInfo: UserInfo(
+        userInfo: UserInfoModel(
           email: 'test@example.com',
           phone: '1234567890',
           firstName: 'John',
@@ -155,7 +155,7 @@ void main() {
       );
 
       final json = cart.toJson();
-      final decoded = Cart.fromJson(json);
+      final decoded = CartModel.fromJson(json);
 
       expect(decoded.id, equals(cart.id));
       expect(decoded.cartId, equals(cart.cartId));
@@ -166,13 +166,12 @@ void main() {
 
     test('Invalid JSON handling', () {
       expect(
-        () => Cart.fromJson({'invalid': 'data'}),
+        () => CartModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
 
-      // Test invalid nested objects
       expect(
-        () => Cart.fromJson({
+        () => CartModel.fromJson({
           '_id': 'test',
           'cartId': 'test',
           'products': [
@@ -184,22 +183,22 @@ void main() {
       );
 
       expect(
-        () => DeliveryMethod.fromJson({'invalid': 'data'}),
+        () => DeliveryMethodModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
 
       expect(
-        () => CartProduct.fromJson({'invalid': 'data'}),
+        () => CartProductModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
 
       expect(
-        () => UserInfo.fromJson({'invalid': 'data'}),
+        () => UserInfoModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
 
       expect(
-        () => PaymentIntent.fromJson({'invalid': 'data'}),
+        () => PaymentIntentModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
     });
