@@ -8,25 +8,23 @@ class Coupon {
   final String id;
   final String code;
   final String description;
-  final double discount;
-  final bool isPercentage;
-  final bool isEnabled;
-  final DateTime? expiryDate;
-  final int? maxUses;
-  final int usedCount;
-  final List<String> applicableProducts;
+  final double amount;
+  final String email;
+  final String? phone;
+  final bool? redeemed;
+  final double? remainingValue;
+  final double? originalAmount;
 
   const Coupon({
     required this.id,
     required this.code,
     required this.description,
-    required this.discount,
-    required this.isPercentage,
-    required this.isEnabled,
-    this.expiryDate,
-    this.maxUses,
-    required this.usedCount,
-    required this.applicableProducts,
+    required this.amount,
+    required this.email,
+    this.phone,
+    this.redeemed,
+    this.remainingValue,
+    this.originalAmount,
   });
 
   factory Coupon.fromJson(Map<String, dynamic> json) => _$CouponFromJson(json);

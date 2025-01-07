@@ -1,0 +1,8 @@
+update_models.sh
+.dart_tool/
+.packages
+build/
+*.g.dart
+pubspec.lock
+coverage/
+test/.test_coverage.dart 

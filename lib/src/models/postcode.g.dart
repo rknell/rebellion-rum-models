@@ -9,19 +9,15 @@ part of 'postcode.dart';
 Postcode _$PostcodeFromJson(Map<String, dynamic> json) => Postcode(
       id: json['_id'] as String,
       postcode: json['postcode'] as String,
-      suburb: json['suburb'] as String,
+      locality: json['locality'] as String,
       state: json['state'] as String,
-      country: json['country'] as String,
-      latitude: (json['latitude'] as num).toDouble(),
-      longitude: (json['longitude'] as num).toDouble(),
+      combined: json['combined'] as String,
     );
 
 Map<String, dynamic> _$PostcodeToJson(Postcode instance) => <String, dynamic>{
       '_id': instance.id,
       'postcode': instance.postcode,
-      'suburb': instance.suburb,
+      'locality': instance.locality,
       'state': instance.state,
-      'country': instance.country,
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
+      'combined': instance.combined,
     };

@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'sale_item.dart';
+import 'payment.dart';
 
 part 'sale.g.dart';
 
@@ -7,19 +8,27 @@ part 'sale.g.dart';
 class Sale {
   @JsonKey(name: '_id')
   final String id;
-  final DateTime timestamp;
+  final DateTime? timestamp;
+  @JsonKey(defaultValue: <SaleItem>[])
   final List<SaleItem> items;
   final String? customerId;
-  final Map<String, dynamic> coupons;
-  final double total;
+  final dynamic coupons; // Can be {} or []
+  final double? total;
+  final double? discountTotal;
+  final String? eftposSessionId;
+  @JsonKey(defaultValue: <Payment>[])
+  final List<Payment> payments;
 
   const Sale({
     required this.id,
-    required this.timestamp,
+    this.timestamp,
     required this.items,
     this.customerId,
     required this.coupons,
-    required this.total,
+    this.total,
+    this.discountTotal,
+    this.eftposSessionId,
+    required this.payments,
   });
 
   factory Sale.fromJson(Map<String, dynamic> json) => _$SaleFromJson(json);
