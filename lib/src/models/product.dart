@@ -12,14 +12,15 @@ class Product {
   final int stock;
   final String category;
   final bool isAvailableOnline;
-  final String name;
+  final String? name;
   final List<String> images;
-  final String longDescription;
-  final String shortDescription;
-  final int volume;
-  final double weight;
-  final double abv;
-  final String shortcut;
+  final String? longDescription;
+  final String? shortDescription;
+  final int? volume;
+  final double? weight;
+  final double? abv;
+  final String? shortcut;
+  final bool? enabled;
 
   const Product({
     required this.id,
@@ -28,15 +29,16 @@ class Product {
     required this.price,
     required this.stock,
     required this.category,
-    required this.isAvailableOnline,
-    required this.name,
-    required this.images,
-    required this.longDescription,
-    required this.shortDescription,
-    required this.volume,
-    required this.weight,
-    required this.abv,
-    required this.shortcut,
+    this.isAvailableOnline = false,
+    this.name,
+    this.images = const [],
+    this.longDescription,
+    this.shortDescription,
+    this.volume,
+    this.weight,
+    this.abv,
+    this.shortcut,
+    this.enabled,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) =>

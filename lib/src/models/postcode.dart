@@ -7,20 +7,16 @@ class Postcode {
   @JsonKey(name: '_id')
   final String id;
   final String postcode;
-  final String suburb;
+  final String locality;
   final String state;
-  final String country;
-  final double latitude;
-  final double longitude;
+  final String combined;
 
   const Postcode({
     required this.id,
     required this.postcode,
-    required this.suburb,
+    required this.locality,
     required this.state,
-    required this.country,
-    required this.latitude,
-    required this.longitude,
+    required this.combined,
   });
 
   factory Postcode.fromJson(Map<String, dynamic> json) =>

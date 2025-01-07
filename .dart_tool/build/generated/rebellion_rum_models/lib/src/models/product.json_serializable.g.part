@@ -9,16 +9,19 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       price: (json['price'] as num).toDouble(),
       stock: (json['stock'] as num).toInt(),
       category: json['category'] as String,
-      isAvailableOnline: json['isAvailableOnline'] as bool,
-      name: json['name'] as String,
-      images:
-          (json['images'] as List<dynamic>).map((e) => e as String).toList(),
-      longDescription: json['longDescription'] as String,
-      shortDescription: json['shortDescription'] as String,
-      volume: (json['volume'] as num).toInt(),
-      weight: (json['weight'] as num).toDouble(),
-      abv: (json['abv'] as num).toDouble(),
-      shortcut: json['shortcut'] as String,
+      isAvailableOnline: json['isAvailableOnline'] as bool? ?? false,
+      name: json['name'] as String?,
+      images: (json['images'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      longDescription: json['longDescription'] as String?,
+      shortDescription: json['shortDescription'] as String?,
+      volume: (json['volume'] as num?)?.toInt(),
+      weight: (json['weight'] as num?)?.toDouble(),
+      abv: (json['abv'] as num?)?.toDouble(),
+      shortcut: json['shortcut'] as String?,
+      enabled: json['enabled'] as bool?,
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
@@ -29,12 +32,14 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'stock': instance.stock,
       'category': instance.category,
       'isAvailableOnline': instance.isAvailableOnline,
-      'name': instance.name,
+      if (instance.name case final value?) 'name': value,
       'images': instance.images,
-      'longDescription': instance.longDescription,
-      'shortDescription': instance.shortDescription,
-      'volume': instance.volume,
-      'weight': instance.weight,
-      'abv': instance.abv,
-      'shortcut': instance.shortcut,
+      if (instance.longDescription case final value?) 'longDescription': value,
+      if (instance.shortDescription case final value?)
+        'shortDescription': value,
+      if (instance.volume case final value?) 'volume': value,
+      if (instance.weight case final value?) 'weight': value,
+      if (instance.abv case final value?) 'abv': value,
+      if (instance.shortcut case final value?) 'shortcut': value,
+      if (instance.enabled case final value?) 'enabled': value,
     };

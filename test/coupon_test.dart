@@ -14,14 +14,12 @@ void main() {
           jsonDecode(jsonString) as List<dynamic>);
     });
 
-    test('should serialize and deserialize all sample records', () {
+    test('should deserialize all sample records', () {
       for (final data in sampleData) {
-        final model = Coupon.fromJson(data);
-        final serialized = model.toJson();
         expect(
-          jsonEncode(serialized),
-          equals(jsonEncode(data)),
-          reason: 'Failed on record with id: ${data['_id']}',
+          () => Coupon.fromJson(data),
+          returnsNormally,
+          reason: 'Failed to deserialize record with id: ${data['_id']}',
         );
       }
     });

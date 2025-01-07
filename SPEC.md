@@ -39,8 +39,10 @@ A Dart library to maintain consistent data models across multiple projects using
 - Models follow singular naming (e.g., User for users collection)
 - No nested model grouping required
 - Plain Old Dart Objects (POCO) approach
-- Models must be immutable
 - All fields should be non-nullable unless explicitly required
+- Default values should be set in the constructor, not using @JsonKey annotations
+- Null fields should be omitted from JSON output (configured globally in build.yaml)
+- Field order in JSON should match the order in the model class
 
 ### Security Requirements
 - User collection password field handling:
@@ -54,9 +56,6 @@ A Dart library to maintain consistent data models across multiple projects using
 - MongoDB support only
 - No direct database operations in models
 - Models operate on JSON only
-- All models must implement toString() for debugging
-- All models must implement equality operators
-- All models must be immutable
 
 ### Testing Requirements
 - Focus on serialization/deserialization testing
