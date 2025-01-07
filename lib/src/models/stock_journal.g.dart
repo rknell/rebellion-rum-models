@@ -6,7 +6,8 @@ part of 'stock_journal.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-StockJournal _$StockJournalFromJson(Map<String, dynamic> json) => StockJournal(
+StockJournalModel _$StockJournalModelFromJson(Map<String, dynamic> json) =>
+    StockJournalModel(
       id: json['_id'] as String,
       barcode: json['barcode'] as String,
       type: json['type'] as String,
@@ -15,7 +16,7 @@ StockJournal _$StockJournalFromJson(Map<String, dynamic> json) => StockJournal(
       qty: (json['qty'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$StockJournalToJson(StockJournal instance) =>
+Map<String, dynamic> _$StockJournalModelToJson(StockJournalModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'barcode': instance.barcode,

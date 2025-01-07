@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'packaging_run_item.g.dart';
 
 @JsonSerializable()
-class PackagingRunItem {
+class PackagingRunItemModel {
   @JsonKey(name: '_id')
   final String id;
   final String productBarcode;
@@ -16,7 +16,7 @@ class PackagingRunItem {
   final double volumeRemaining;
   final String exciseReturn;
 
-  const PackagingRunItem({
+  const PackagingRunItemModel({
     required this.id,
     required this.productBarcode,
     required this.unitSize,
@@ -29,7 +29,7 @@ class PackagingRunItem {
     required this.exciseReturn,
   });
 
-  factory PackagingRunItem.fromJson(Map<String, dynamic> json) =>
-      _$PackagingRunItemFromJson(json);
-  Map<String, dynamic> toJson() => _$PackagingRunItemToJson(this);
+  factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
+      _$PackagingRunItemModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PackagingRunItemModelToJson(this);
 }

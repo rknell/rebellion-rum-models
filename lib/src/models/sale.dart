@@ -11,17 +11,17 @@ part 'sale.g.dart';
 ///
 /// Example:
 /// ```dart
-/// final sale = Sale(
+/// final sale = SaleModel(
 ///   id: '123',
 ///   timestamp: DateTime.now(),
-///   items: [SaleItem(...)],
+///   items: [SaleItemModel(...)],
 ///   total: 99.99,
-///   payments: [Payment(...)],
+///   payments: [PaymentModel(...)],
 ///   coupons: [],
 /// );
 /// ```
-@JsonSerializable()
-class Sale {
+@JsonSerializable(explicitToJson: true)
+class SaleModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
@@ -30,8 +30,8 @@ class Sale {
   final DateTime? timestamp;
 
   /// List of items included in the sale
-  @JsonKey(defaultValue: <SaleItem>[])
-  final List<SaleItem> items;
+  @JsonKey(defaultValue: <SaleItemModel>[])
+  final List<SaleItemModel> items;
 
   /// Optional reference to the customer who made the purchase
   final String? customerId;
@@ -50,10 +50,10 @@ class Sale {
   final String? eftposSessionId;
 
   /// List of payments made against this sale
-  @JsonKey(defaultValue: <Payment>[])
-  final List<Payment> payments;
+  @JsonKey(defaultValue: <PaymentModel>[])
+  final List<PaymentModel> payments;
 
-  const Sale({
+  const SaleModel({
     required this.id,
     this.timestamp,
     required this.items,
@@ -65,6 +65,7 @@ class Sale {
     required this.payments,
   });
 
-  factory Sale.fromJson(Map<String, dynamic> json) => _$SaleFromJson(json);
-  Map<String, dynamic> toJson() => _$SaleToJson(this);
+  factory SaleModel.fromJson(Map<String, dynamic> json) =>
+      _$SaleModelFromJson(json);
+  Map<String, dynamic> toJson() => _$SaleModelToJson(this);
 }

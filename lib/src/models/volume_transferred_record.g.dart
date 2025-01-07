@@ -6,9 +6,9 @@ part of 'volume_transferred_record.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-VolumeTransferredRecord _$VolumeTransferredRecordFromJson(
+VolumeTransferredRecordModel _$VolumeTransferredRecordModelFromJson(
         Map<String, dynamic> json) =>
-    VolumeTransferredRecord(
+    VolumeTransferredRecordModel(
       id: json['_id'] as String,
       chargeId: json['chargeId'] as String,
       washId: json['washId'] as String,
@@ -16,8 +16,8 @@ VolumeTransferredRecord _$VolumeTransferredRecordFromJson(
       lals: (json['lals'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$VolumeTransferredRecordToJson(
-        VolumeTransferredRecord instance) =>
+Map<String, dynamic> _$VolumeTransferredRecordModelToJson(
+        VolumeTransferredRecordModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'chargeId': instance.chargeId,

@@ -6,9 +6,9 @@ part of 'raw_materials_register.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RawMaterialsRegister _$RawMaterialsRegisterFromJson(
+RawMaterialsRegisterModel _$RawMaterialsRegisterModelFromJson(
         Map<String, dynamic> json) =>
-    RawMaterialsRegister(
+    RawMaterialsRegisterModel(
       id: json['_id'] as String,
       invoiceNumber: json['invoiceNumber'] as String?,
       fermentationRecordId: json['fermentationRecordId'] as String?,
@@ -17,8 +17,8 @@ RawMaterialsRegister _$RawMaterialsRegisterFromJson(
       qtyOut: (json['qtyOut'] as num).toInt(),
     );
 
-Map<String, dynamic> _$RawMaterialsRegisterToJson(
-        RawMaterialsRegister instance) =>
+Map<String, dynamic> _$RawMaterialsRegisterModelToJson(
+        RawMaterialsRegisterModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       if (instance.invoiceNumber case final value?) 'invoiceNumber': value,

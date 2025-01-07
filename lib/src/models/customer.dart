@@ -10,7 +10,7 @@ part 'customer.g.dart';
 ///
 /// Example:
 /// ```dart
-/// final customer = Customer(
+/// final customer = CustomerModel(
 ///   id: '123',
 ///   email: 'john.doe@example.com',
 ///   firstName: 'John',
@@ -20,7 +20,7 @@ part 'customer.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class Customer {
+class CustomerModel {
   /// Customer's first name
   final String firstName;
 
@@ -51,7 +51,7 @@ class Customer {
   /// Country
   final String country;
 
-  const Customer({
+  const CustomerModel({
     required this.firstName,
     required this.lastName,
     required this.email,
@@ -64,7 +64,7 @@ class Customer {
     required this.country,
   });
 
-  factory Customer.fromJson(Map<String, dynamic> json) =>
-      _$CustomerFromJson(json);
-  Map<String, dynamic> toJson() => _$CustomerToJson(this);
+  factory CustomerModel.fromJson(Map<String, dynamic> json) =>
+      _$CustomerModelFromJson(json);
+  Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
 }

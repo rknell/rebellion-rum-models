@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:rebellion_rum_models/src/models/postcode.dart';
 
 void main() {
-  group('Postcode', () {
+  group('PostcodeModel', () {
     late List<Map<String, dynamic>> sampleData;
 
     setUpAll(() async {
@@ -17,7 +17,7 @@ void main() {
     test('should deserialize all sample records successfully', () {
       for (final data in sampleData) {
         expect(
-          () => Postcode.fromJson(data),
+          () => PostcodeModel.fromJson(data),
           returnsNormally,
           reason: 'Failed to deserialize record with id: ${data['_id']}',
         );
@@ -25,7 +25,7 @@ void main() {
     });
 
     test('should serialize and deserialize correctly', () {
-      final postcode = Postcode(
+      final postcode = PostcodeModel(
         id: 'test-id',
         postcode: '3000',
         locality: 'MELBOURNE',
@@ -34,7 +34,7 @@ void main() {
       );
 
       final json = postcode.toJson();
-      final decoded = Postcode.fromJson(json);
+      final decoded = PostcodeModel.fromJson(json);
 
       expect(decoded.id, equals(postcode.id));
       expect(decoded.postcode, equals(postcode.postcode));
@@ -52,7 +52,7 @@ void main() {
 
     test('should handle sample data serialization', () {
       for (final data in sampleData) {
-        final postcode = Postcode.fromJson(data);
+        final postcode = PostcodeModel.fromJson(data);
         final serialized = postcode.toJson();
 
         // Verify all fields are correctly serialized
@@ -66,12 +66,12 @@ void main() {
 
     test('Invalid JSON handling', () {
       expect(
-        () => Postcode.fromJson({'invalid': 'data'}),
+        () => PostcodeModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
 
       expect(
-        () => Postcode.fromJson({
+        () => PostcodeModel.fromJson({
           '_id': 'test',
           'postcode': 123, // Wrong type (should be string)
           'locality': 'TEST',
@@ -82,7 +82,7 @@ void main() {
       );
 
       expect(
-        () => Postcode.fromJson({
+        () => PostcodeModel.fromJson({
           '_id': 'test',
           'postcode': '3000',
           // Missing required fields

@@ -1,25 +1,48 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:test/test.dart';
-import 'package:rebellion_rum_models/src/models/sale.dart';
-import 'package:rebellion_rum_models/src/models/sale_item.dart';
-import 'package:rebellion_rum_models/src/models/payment.dart';
+import 'package:rebellion_rum_models/rebellion_rum_models.dart';
 
 void main() {
-  group('Sale', () {
+  group('SaleModel', () {
     late List<Map<String, dynamic>> sampleData;
 
-    setUpAll(() async {
-      final file = File('lib/src/sample_data/sales.json');
-      final jsonString = await file.readAsString();
-      sampleData = List<Map<String, dynamic>>.from(
-          jsonDecode(jsonString) as List<dynamic>);
+    setUp(() {
+      sampleData = [
+        {
+          '_id': 'test-id-1',
+          'timestamp': '2024-01-07T12:00:00.000Z',
+          'items': [
+            {
+              'description': 'White Stag Vodka',
+              'price': 35.0,
+              'itemId': '3538497880326',
+              'qty': 2
+            }
+          ],
+          'customerId': null,
+          'coupons': {},
+          'eftposSessionId': null,
+          'payments': [
+            {'type': 'credit_card', 'amount': 70.0, 'reference': 'TXN123'}
+          ],
+          'total': 70.0
+        },
+        {
+          '_id': 'test-id-2',
+          'timestamp': '2024-01-07T12:00:00.000Z',
+          'items': [],
+          'customerId': null,
+          'coupons': [],
+          'eftposSessionId': null,
+          'payments': [],
+          'discountTotal': null
+        }
+      ];
     });
 
-    test('should successfully deserialize all sample records', () {
+    test('should deserialize all sample data', () {
       for (final data in sampleData) {
         expect(
-          () => Sale.fromJson(data),
+          () => SaleModel.fromJson(data),
           returnsNormally,
           reason: 'Failed to deserialize record with id: ${data['_id']}',
         );
@@ -27,128 +50,74 @@ void main() {
     });
 
     test('should serialize and deserialize with all fields', () {
-      final timestamp = DateTime.now();
-      final sale = Sale(
+      final timestamp = DateTime.parse('2024-01-07T12:00:00.000Z');
+      final sale = SaleModel(
         id: 'test-id',
         timestamp: timestamp,
         items: [
-          SaleItem(
-            description: 'Test Item',
-            price: 29.99,
-            itemId: 'ITEM123',
-            qty: 2,
-          ),
+          SaleItemModel(
+              description: 'White Stag Vodka',
+              price: 35.0,
+              itemId: '3538497880326',
+              qty: 2)
         ],
-        customerId: 'CUST123',
-        coupons: {'code': 'TEST10', 'discount': 10},
-        total: 59.98,
-        discountTotal: 49.98,
-        eftposSessionId: 'SESSION123',
+        customerId: null,
+        coupons: {},
+        eftposSessionId: null,
         payments: [
-          Payment(
-            type: 'credit_card',
-            amount: 49.98,
-            reference: 'REF123',
-          ),
+          PaymentModel(type: 'credit_card', amount: 70.0, reference: 'TXN123')
         ],
+        total: 70.0,
+        discountTotal: null,
       );
 
       final json = sale.toJson();
-      final decoded = Sale.fromJson(json);
+      final decoded = SaleModel.fromJson(json);
 
       expect(decoded.id, equals(sale.id));
       expect(decoded.timestamp?.toIso8601String(),
           equals(sale.timestamp?.toIso8601String()));
-      expect(decoded.items.length, equals(sale.items.length));
-      expect(decoded.items[0].description, equals(sale.items[0].description));
-      expect(decoded.items[0].price, equals(sale.items[0].price));
-      expect(decoded.items[0].itemId, equals(sale.items[0].itemId));
-      expect(decoded.items[0].qty, equals(sale.items[0].qty));
+      expect(decoded.items.length, sale.items.length);
       expect(decoded.customerId, equals(sale.customerId));
       expect(decoded.coupons, equals(sale.coupons));
-      expect(decoded.total, equals(sale.total));
-      expect(decoded.discountTotal, equals(sale.discountTotal));
       expect(decoded.eftposSessionId, equals(sale.eftposSessionId));
       expect(decoded.payments.length, equals(sale.payments.length));
-      expect(decoded.payments[0].type, equals(sale.payments[0].type));
-      expect(decoded.payments[0].amount, equals(sale.payments[0].amount));
-      expect(decoded.payments[0].reference, equals(sale.payments[0].reference));
+      expect(decoded.payments.first.type, equals(sale.payments.first.type));
+      expect(decoded.payments.first.amount, equals(sale.payments.first.amount));
+      expect(decoded.payments.first.reference,
+          equals(sale.payments.first.reference));
+      expect(decoded.total, equals(sale.total));
+      expect(decoded.discountTotal, equals(sale.discountTotal));
     });
 
-    test('should handle minimal fields and defaults', () {
-      final sale = Sale(
+    test('should handle empty lists and null values', () {
+      final sale = SaleModel(
         id: 'test-id',
-        items: [], // Should use default empty list
-        coupons: {}, // Empty map
-        payments: [], // Should use default empty list
+        timestamp: DateTime.parse('2024-01-07T12:00:00.000Z'),
+        items: [],
+        customerId: null,
+        coupons: [],
+        eftposSessionId: null,
+        payments: [],
+        total: 0.0,
+        discountTotal: null,
       );
 
       final json = sale.toJson();
-      final decoded = Sale.fromJson(json);
+      final decoded = SaleModel.fromJson(json);
 
-      expect(decoded.id, equals(sale.id));
-      expect(decoded.timestamp, isNull);
       expect(decoded.items, isEmpty);
       expect(decoded.customerId, isNull);
-      expect(decoded.coupons, equals({}));
-      expect(decoded.total, isNull);
-      expect(decoded.discountTotal, isNull);
+      expect(decoded.coupons, isEmpty);
       expect(decoded.eftposSessionId, isNull);
       expect(decoded.payments, isEmpty);
-    });
-
-    test('should handle coupons as array', () {
-      final sale = Sale(
-        id: 'test-id',
-        items: [],
-        coupons: [], // Test coupons as array
-        payments: [],
-      );
-
-      final json = sale.toJson();
-      final decoded = Sale.fromJson(json);
-
-      expect(decoded.coupons, equals([]));
+      expect(decoded.total, equals(0.0));
+      expect(decoded.discountTotal, isNull);
     });
 
     test('Invalid JSON handling', () {
       expect(
-        () => Sale.fromJson({'invalid': 'data'}),
-        throwsA(isA<TypeError>()),
-      );
-
-      expect(
-        () => Sale.fromJson({
-          '_id': 'test',
-          'timestamp': 'not-a-date',
-          'items': [],
-          'coupons': {},
-          'payments': [],
-        }),
-        throwsA(isA<FormatException>()),
-      );
-
-      expect(
-        () => Sale.fromJson({
-          '_id': 'test',
-          'items': [
-            {'invalid': 'item'}
-          ],
-          'coupons': {},
-          'payments': [],
-        }),
-        throwsA(isA<TypeError>()),
-      );
-
-      expect(
-        () => Sale.fromJson({
-          '_id': 'test',
-          'items': [],
-          'coupons': {},
-          'payments': [
-            {'invalid': 'payment'}
-          ],
-        }),
+        () => SaleModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
     });

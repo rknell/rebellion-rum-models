@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'coupon.g.dart';
 
 @JsonSerializable()
-class Coupon {
+class CouponModel {
   @JsonKey(name: '_id')
   final String id;
   final String code;
@@ -15,7 +15,7 @@ class Coupon {
   final double? remainingValue;
   final double? originalAmount;
 
-  const Coupon({
+  const CouponModel({
     required this.id,
     required this.code,
     required this.description,
@@ -28,7 +28,8 @@ class Coupon {
   });
 
   // coverage:ignore-line
-  factory Coupon.fromJson(Map<String, dynamic> json) => _$CouponFromJson(json);
+  factory CouponModel.fromJson(Map<String, dynamic> json) =>
+      _$CouponModelFromJson(json);
   // coverage:ignore-line
-  Map<String, dynamic> toJson() => _$CouponToJson(this);
+  Map<String, dynamic> toJson() => _$CouponModelToJson(this);
 }

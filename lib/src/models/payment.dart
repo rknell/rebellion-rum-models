@@ -9,14 +9,14 @@ part 'payment.g.dart';
 ///
 /// Example:
 /// ```dart
-/// final payment = Payment(
+/// final payment = PaymentModel(
 ///   type: 'credit_card',
 ///   amount: 99.99,
 ///   reference: 'TXN-123456',
 /// );
 /// ```
 @JsonSerializable()
-class Payment {
+class PaymentModel {
   /// Payment method used (e.g., 'cash', 'credit_card', 'eftpos')
   final String type;
 
@@ -26,13 +26,13 @@ class Payment {
   /// Optional reference number (e.g., transaction ID, receipt number)
   final String? reference;
 
-  const Payment({
+  const PaymentModel({
     required this.type,
     required this.amount,
     this.reference,
   });
 
-  factory Payment.fromJson(Map<String, dynamic> json) =>
-      _$PaymentFromJson(json);
-  Map<String, dynamic> toJson() => _$PaymentToJson(this);
+  factory PaymentModel.fromJson(Map<String, dynamic> json) =>
+      _$PaymentModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PaymentModelToJson(this);
 }

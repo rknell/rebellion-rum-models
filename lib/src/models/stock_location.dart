@@ -8,7 +8,7 @@ part 'stock_location.g.dart';
 /// within the facility. Each location has a unique identifier and specific flags
 /// indicating its type and purpose.
 @JsonSerializable()
-class StockLocation {
+class StockLocationModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
@@ -34,7 +34,7 @@ class StockLocation {
   /// Optional map of product barcodes to their stock levels
   final Map<String, double>? stockLevels;
 
-  const StockLocation({
+  const StockLocationModel({
     required this.id,
     required this.name,
     required this.barcode,
@@ -45,7 +45,7 @@ class StockLocation {
     this.stockLevels,
   });
 
-  factory StockLocation.fromJson(Map<String, dynamic> json) =>
-      _$StockLocationFromJson(json);
-  Map<String, dynamic> toJson() => _$StockLocationToJson(this);
+  factory StockLocationModel.fromJson(Map<String, dynamic> json) =>
+      _$StockLocationModelFromJson(json);
+  Map<String, dynamic> toJson() => _$StockLocationModelToJson(this);
 }

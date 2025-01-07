@@ -6,8 +6,9 @@ part of 'distillation_record.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DistillationRecord _$DistillationRecordFromJson(Map<String, dynamic> json) =>
-    DistillationRecord(
+DistillationRecordModel _$DistillationRecordModelFromJson(
+        Map<String, dynamic> json) =>
+    DistillationRecordModel(
       id: json['_id'] as String,
       stillUsed: json['stillUsed'] as String,
       feintsAdded: (json['feintsAdded'] as num).toDouble(),
@@ -15,11 +16,12 @@ DistillationRecord _$DistillationRecordFromJson(Map<String, dynamic> json) =>
       totalLALsCharged: (json['totalLALsCharged'] as num).toDouble(),
       totalLALsYield: (json['totalLALsYield'] as num).toDouble(),
       notes: (json['notes'] as List<dynamic>)
-          .map((e) => Note.fromJson(e as Map<String, dynamic>))
+          .map((e) => NoteModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$DistillationRecordToJson(DistillationRecord instance) =>
+Map<String, dynamic> _$DistillationRecordModelToJson(
+        DistillationRecordModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'stillUsed': instance.stillUsed,
@@ -30,12 +32,12 @@ Map<String, dynamic> _$DistillationRecordToJson(DistillationRecord instance) =>
       'notes': instance.notes.map((e) => e.toJson()).toList(),
     };
 
-Note _$NoteFromJson(Map<String, dynamic> json) => Note(
+NoteModel _$NoteModelFromJson(Map<String, dynamic> json) => NoteModel(
       content: json['content'] as String,
       date: DateTime.parse(json['date'] as String),
     );
 
-Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
+Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
       'content': instance.content,
       'date': instance.date.toIso8601String(),
     };

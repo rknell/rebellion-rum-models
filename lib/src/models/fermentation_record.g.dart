@@ -6,8 +6,9 @@ part of 'fermentation_record.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-FermentationRecord _$FermentationRecordFromJson(Map<String, dynamic> json) =>
-    FermentationRecord(
+FermentationRecordModel _$FermentationRecordModelFromJson(
+        Map<String, dynamic> json) =>
+    FermentationRecordModel(
       id: json['_id'] as String,
       batchNumber: (json['batchNumber'] as num).toInt(),
       type: json['type'] as String,
@@ -17,13 +18,14 @@ FermentationRecord _$FermentationRecordFromJson(Map<String, dynamic> json) =>
       sgEnd: (json['sgEnd'] as num).toDouble(),
       fermentationProgress: (json['fermentationProgress'] as List<dynamic>?)
               ?.map((e) =>
-                  FermentationProgress.fromJson(e as Map<String, dynamic>))
+                  FermentationProgressModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       notes: json['notes'] as String? ?? '',
     );
 
-Map<String, dynamic> _$FermentationRecordToJson(FermentationRecord instance) =>
+Map<String, dynamic> _$FermentationRecordModelToJson(
+        FermentationRecordModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'batchNumber': instance.batchNumber,
@@ -37,9 +39,9 @@ Map<String, dynamic> _$FermentationRecordToJson(FermentationRecord instance) =>
       'notes': instance.notes,
     };
 
-FermentationProgress _$FermentationProgressFromJson(
+FermentationProgressModel _$FermentationProgressModelFromJson(
         Map<String, dynamic> json) =>
-    FermentationProgress(
+    FermentationProgressModel(
       sg: (json['sg'] as num).toDouble(),
       ph: (json['ph'] as num?)?.toDouble(),
       temp: (json['temp'] as num?)?.toDouble(),
@@ -47,8 +49,8 @@ FermentationProgress _$FermentationProgressFromJson(
       notes: json['notes'] as String,
     );
 
-Map<String, dynamic> _$FermentationProgressToJson(
-        FermentationProgress instance) =>
+Map<String, dynamic> _$FermentationProgressModelToJson(
+        FermentationProgressModel instance) =>
     <String, dynamic>{
       'sg': instance.sg,
       if (instance.ph case final value?) 'ph': value,

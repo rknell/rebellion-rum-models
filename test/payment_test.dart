@@ -2,16 +2,16 @@ import 'package:test/test.dart';
 import 'package:rebellion_rum_models/src/models/payment.dart';
 
 void main() {
-  group('Payment', () {
+  group('PaymentModel', () {
     test('should serialize and deserialize with all fields', () {
-      final payment = Payment(
+      final payment = PaymentModel(
         type: 'credit_card',
         amount: 99.99,
         reference: 'REF123',
       );
 
       final json = payment.toJson();
-      final decoded = Payment.fromJson(json);
+      final decoded = PaymentModel.fromJson(json);
 
       expect(decoded.type, equals(payment.type));
       expect(decoded.amount, equals(payment.amount));
@@ -24,13 +24,13 @@ void main() {
     });
 
     test('should handle optional fields', () {
-      final payment = Payment(
+      final payment = PaymentModel(
         type: 'cash',
         amount: 50.0,
       );
 
       final json = payment.toJson();
-      final decoded = Payment.fromJson(json);
+      final decoded = PaymentModel.fromJson(json);
 
       expect(decoded.type, equals(payment.type));
       expect(decoded.amount, equals(payment.amount));
@@ -44,12 +44,12 @@ void main() {
 
     test('Invalid JSON handling', () {
       expect(
-        () => Payment.fromJson({'invalid': 'data'}),
+        () => PaymentModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
 
       expect(
-        () => Payment.fromJson({
+        () => PaymentModel.fromJson({
           'type': 123, // Wrong type (should be string)
           'amount': 50.0,
         }),
@@ -57,7 +57,7 @@ void main() {
       );
 
       expect(
-        () => Payment.fromJson({
+        () => PaymentModel.fromJson({
           'type': 'cash',
           'amount': 'not-a-number', // Wrong type (should be number)
         }),
@@ -65,7 +65,7 @@ void main() {
       );
 
       expect(
-        () => Payment.fromJson({
+        () => PaymentModel.fromJson({
           'type': 'cash',
           // Missing required amount field
         }),

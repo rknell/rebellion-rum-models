@@ -7,7 +7,7 @@ part 'stock_journal.g.dart';
 /// Stock journals track all changes to stock levels, including transfers
 /// between locations and packaging operations.
 @JsonSerializable()
-class StockJournal {
+class StockJournalModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
@@ -27,7 +27,7 @@ class StockJournal {
   /// Quantity moved
   final double qty;
 
-  const StockJournal({
+  const StockJournalModel({
     required this.id,
     required this.barcode,
     required this.type,
@@ -36,7 +36,7 @@ class StockJournal {
     required this.qty,
   });
 
-  factory StockJournal.fromJson(Map<String, dynamic> json) =>
-      _$StockJournalFromJson(json);
-  Map<String, dynamic> toJson() => _$StockJournalToJson(this);
+  factory StockJournalModel.fromJson(Map<String, dynamic> json) =>
+      _$StockJournalModelFromJson(json);
+  Map<String, dynamic> toJson() => _$StockJournalModelToJson(this);
 }

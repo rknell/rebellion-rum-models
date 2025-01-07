@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:rebellion_rum_models/src/models/bulk_storage_vessel.dart';
 
 void main() {
-  group('BulkStorageVessel', () {
+  group('BulkStorageVesselModel', () {
     late List<Map<String, dynamic>> sampleData;
 
     setUpAll(() async {
@@ -16,7 +16,7 @@ void main() {
 
     test('should serialize and deserialize all sample records', () {
       for (final data in sampleData) {
-        final model = BulkStorageVessel.fromJson(data);
+        final model = BulkStorageVesselModel.fromJson(data);
         final serialized = model.toJson();
         expect(
           jsonEncode(serialized),
@@ -28,7 +28,7 @@ void main() {
 
     test('Invalid JSON handling', () {
       expect(
-        () => BulkStorageVessel.fromJson({'invalid': 'data'}),
+        () => BulkStorageVesselModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
     });

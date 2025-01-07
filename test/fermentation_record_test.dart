@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:rebellion_rum_models/src/models/fermentation_record.dart';
 
 void main() {
-  group('FermentationRecord', () {
+  group('FermentationRecordModel', () {
     late List<Map<String, dynamic>> sampleData;
 
     setUpAll(() async {
@@ -17,7 +17,7 @@ void main() {
     test('should deserialize all sample records successfully', () {
       for (final data in sampleData) {
         expect(
-          () => FermentationRecord.fromJson(data),
+          () => FermentationRecordModel.fromJson(data),
           returnsNormally,
           reason: 'Failed to deserialize record with id: ${data['_id']}',
         );
@@ -26,7 +26,7 @@ void main() {
 
     test('Invalid JSON handling', () {
       expect(
-        () => FermentationRecord.fromJson({'invalid': 'data'}),
+        () => FermentationRecordModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
     });

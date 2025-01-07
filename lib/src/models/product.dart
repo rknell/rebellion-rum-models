@@ -10,7 +10,7 @@ part 'product.g.dart';
 ///
 /// Example:
 /// ```dart
-/// final product = Product(
+/// final product = ProductModel(
 ///   id: '123',
 ///   barcode: '9876543210',
 ///   description: 'Premium Dark Rum',
@@ -21,7 +21,7 @@ part 'product.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class Product {
+class ProductModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
@@ -71,7 +71,7 @@ class Product {
   /// Whether the product is currently enabled for sale
   final bool? enabled;
 
-  const Product({
+  const ProductModel({
     required this.id,
     required this.barcode,
     required this.description,
@@ -91,8 +91,8 @@ class Product {
   });
 
   // coverage:ignore-line
-  factory Product.fromJson(Map<String, dynamic> json) =>
-      _$ProductFromJson(json);
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
   // coverage:ignore-line
-  Map<String, dynamic> toJson() => _$ProductToJson(this);
+  Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }

@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:rebellion_rum_models/src/models/bulk_storage_register_item.dart';
 
 void main() {
-  group('BulkStorageRegisterItem', () {
+  group('BulkStorageRegisterItemModel', () {
     late List<Map<String, dynamic>> sampleData;
 
     setUpAll(() async {
@@ -17,7 +17,7 @@ void main() {
     test('should successfully deserialize all sample records', () {
       for (final data in sampleData) {
         expect(
-          () => BulkStorageRegisterItem.fromJson(data),
+          () => BulkStorageRegisterItemModel.fromJson(data),
           returnsNormally,
           reason: 'Failed to deserialize record with id: ${data['_id']}',
         );
@@ -26,7 +26,7 @@ void main() {
 
     test('Invalid JSON handling', () {
       expect(
-        () => BulkStorageRegisterItem.fromJson({'invalid': 'data'}),
+        () => BulkStorageRegisterItemModel.fromJson({'invalid': 'data'}),
         throwsA(isA<TypeError>()),
       );
     });

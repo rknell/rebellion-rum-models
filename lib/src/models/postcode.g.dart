@@ -6,7 +6,8 @@ part of 'postcode.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Postcode _$PostcodeFromJson(Map<String, dynamic> json) => Postcode(
+PostcodeModel _$PostcodeModelFromJson(Map<String, dynamic> json) =>
+    PostcodeModel(
       id: json['_id'] as String,
       postcode: json['postcode'] as String,
       locality: json['locality'] as String,
@@ -14,7 +15,8 @@ Postcode _$PostcodeFromJson(Map<String, dynamic> json) => Postcode(
       combined: json['combined'] as String,
     );
 
-Map<String, dynamic> _$PostcodeToJson(Postcode instance) => <String, dynamic>{
+Map<String, dynamic> _$PostcodeModelToJson(PostcodeModel instance) =>
+    <String, dynamic>{
       '_id': instance.id,
       'postcode': instance.postcode,
       'locality': instance.locality,
