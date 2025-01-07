@@ -19,8 +19,8 @@ FermentationRecord _$FermentationRecordFromJson(Map<String, dynamic> json) =>
               ?.map((e) =>
                   FermentationProgress.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          [],
-      notes: json['notes'] as String,
+          const [],
+      notes: json['notes'] as String? ?? '',
     );
 
 Map<String, dynamic> _$FermentationRecordToJson(FermentationRecord instance) =>

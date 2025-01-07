@@ -40,8 +40,17 @@ class Order {
   /// Human-readable order reference number
   final String orderNumber;
 
-  /// Method used for payment (e.g., 'credit_card', 'paypal')
+  /// Method used for payment (e.g., 'card')
   final String paymentMethod;
+
+  /// Payment receipt details
+  final Map<String, dynamic>? paymentReceipt;
+
+  /// Shipping method (e.g., 'FREEDELIVERY')
+  final String? shippingMethod;
+
+  /// Shipping receipt details
+  final Map<String, dynamic>? shippingReceipt;
 
   /// Total quoted price for the order
   final double totalQuote;
@@ -54,6 +63,9 @@ class Order {
     required this.orderNumber,
     required this.paymentMethod,
     required this.totalQuote,
+    this.paymentReceipt,
+    this.shippingMethod,
+    this.shippingReceipt,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);

@@ -28,20 +28,20 @@ class Postcode {
   final String postcode;
 
   /// Suburb or locality name
-  final String suburb;
+  final String locality;
 
   /// State or territory code (e.g., 'VIC', 'NSW')
   final String state;
 
   /// Delivery zone classification for shipping
-  final String deliveryZone;
+  final String combined;
 
   const Postcode({
     required this.id,
     required this.postcode,
-    required this.suburb,
+    required this.locality,
     required this.state,
-    required this.deliveryZone,
+    required this.combined,
   });
 
   factory Postcode.fromJson(Map<String, dynamic> json) =>

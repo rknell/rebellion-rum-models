@@ -5,58 +5,35 @@ part 'stock_journal.g.dart';
 /// Represents a stock movement or adjustment record.
 ///
 /// Stock journals track all changes to stock levels, including transfers
-/// between locations, adjustments, and stock takes. Each entry provides
-/// an audit trail of stock movements and modifications.
-///
-/// Example:
-/// ```dart
-/// final journal = StockJournal(
-///   id: '123',
-///   timestamp: DateTime.now(),
-///   type: 'transfer',
-///   productId: 'PROD-001',
-///   quantity: 50,
-///   fromLocation: 'WHSE-A',
-///   toLocation: 'WHSE-B',
-///   notes: 'Regular stock rotation',
-/// );
-/// ```
+/// between locations and packaging operations.
 @JsonSerializable()
 class StockJournal {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   final String id;
 
-  /// When the stock movement occurred
-  final DateTime timestamp;
+  /// Barcode identifier for the product or vessel
+  final String barcode;
 
-  /// Type of stock movement (e.g., 'transfer', 'adjustment', 'stocktake')
+  /// Type of stock movement (e.g., 'packaging')
   final String type;
 
-  /// Reference to the affected product
-  final String productId;
+  /// Source location or vessel ID
+  final String from;
 
-  /// Quantity moved or adjusted
-  final int quantity;
+  /// Destination location or vessel ID
+  final String to;
 
-  /// Source location for transfers
-  final String? fromLocation;
-
-  /// Destination location for transfers
-  final String? toLocation;
-
-  /// Additional information about the movement
-  final String? notes;
+  /// Quantity moved
+  final double qty;
 
   const StockJournal({
     required this.id,
-    required this.timestamp,
+    required this.barcode,
     required this.type,
-    required this.productId,
-    required this.quantity,
-    this.fromLocation,
-    this.toLocation,
-    this.notes,
+    required this.from,
+    required this.to,
+    required this.qty,
   });
 
   factory StockJournal.fromJson(Map<String, dynamic> json) =>

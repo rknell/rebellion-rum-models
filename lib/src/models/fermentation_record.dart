@@ -26,40 +26,40 @@ class FermentationRecord {
   @JsonKey(name: '_id')
   final String id;
 
-  /// Date when fermentation started
-  final DateTime date;
+  /// Batch number for this fermentation
+  final int batchNumber;
 
-  /// Identifier of the fermentation vessel used
-  final String fermentationVessel;
+  /// Type of fermentation (e.g., "sugar")
+  final String type;
 
-  /// Initial specific gravity reading
-  final double startingGravity;
+  /// Volume of wash in liters
+  final double washVolume;
 
-  /// Final specific gravity reading
-  final double finalGravity;
+  /// Barcode identifier of the fermentation vessel
+  final String vesselBarcode;
 
-  /// Fermentation temperature in Celsius
-  final double temperature;
+  /// Starting specific gravity
+  final double sgStart;
 
-  /// Duration of fermentation in hours
-  final int duration;
+  /// Final specific gravity
+  final double sgEnd;
 
-  /// Notes and observations during fermentation
-  final List<String> notes;
+  /// Progress measurements during fermentation
+  final List<FermentationProgress> fermentationProgress;
 
-  /// Ingredients used in the fermentation
-  final Map<String, double> ingredients;
+  /// Notes and observations
+  final String notes;
 
   const FermentationRecord({
     required this.id,
-    required this.date,
-    required this.fermentationVessel,
-    required this.startingGravity,
-    required this.finalGravity,
-    required this.temperature,
-    required this.duration,
-    this.notes = const [],
-    this.ingredients = const {},
+    required this.batchNumber,
+    required this.type,
+    required this.washVolume,
+    required this.vesselBarcode,
+    required this.sgStart,
+    required this.sgEnd,
+    this.fermentationProgress = const [],
+    this.notes = '',
   });
 
   factory FermentationRecord.fromJson(Map<String, dynamic> json) =>

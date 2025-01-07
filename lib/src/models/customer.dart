@@ -21,40 +21,47 @@ part 'customer.g.dart';
 /// ```
 @JsonSerializable()
 class Customer {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  final String id;
-
-  /// Customer's email address (used as username)
-  final String email;
-
   /// Customer's first name
   final String firstName;
 
   /// Customer's last name
   final String lastName;
 
+  /// Customer's email address
+  final String email;
+
   /// Contact phone number
   final String phone;
 
-  /// Whether this is a wholesale customer
-  final bool isWholesale;
+  /// First line of address
+  final String addressLine1;
 
-  /// Optional company name for business customers
-  final String? company;
+  /// Second line of address (optional)
+  final String addressLine2;
 
-  /// Customer's marketing preferences
-  final Map<String, bool> preferences;
+  /// City/suburb
+  final String city;
+
+  /// State/province/region
+  final String state;
+
+  /// Postal code
+  final String postcode;
+
+  /// Country
+  final String country;
 
   const Customer({
-    required this.id,
-    required this.email,
     required this.firstName,
     required this.lastName,
+    required this.email,
     required this.phone,
-    required this.isWholesale,
-    this.company,
-    this.preferences = const {},
+    required this.addressLine1,
+    required this.addressLine2,
+    required this.city,
+    required this.state,
+    required this.postcode,
+    required this.country,
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) =>

@@ -6,7 +6,6 @@ part of 'coupon.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-// coverage:ignore-start
 Coupon _$CouponFromJson(Map<String, dynamic> json) => Coupon(
       id: json['_id'] as String,
       code: json['code'] as String,
@@ -30,4 +29,3 @@ Map<String, dynamic> _$CouponToJson(Coupon instance) => <String, dynamic>{
       if (instance.remainingValue case final value?) 'remainingValue': value,
       if (instance.originalAmount case final value?) 'originalAmount': value,
     };
-// coverage:ignore-end
