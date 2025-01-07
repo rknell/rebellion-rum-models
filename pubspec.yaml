@@ -7,9 +7,10 @@ environment:
   sdk: ^3.6.0
 
 dependencies:
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   mongo_dart: ^0.10.0
   args: ^2.4.2
+  fixnum: ^1.1.0
 
 dev_dependencies:
   lints: ^3.0.0

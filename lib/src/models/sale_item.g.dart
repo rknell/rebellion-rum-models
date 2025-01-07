@@ -1,0 +1,21 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'sale_item.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+SaleItem _$SaleItemFromJson(Map<String, dynamic> json) => SaleItem(
+      description: json['description'] as String,
+      price: (json['price'] as num).toDouble(),
+      itemId: json['itemId'] as String,
+      qty: (json['qty'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$SaleItemToJson(SaleItem instance) => <String, dynamic>{
+      'description': instance.description,
+      'price': instance.price,
+      'itemId': instance.itemId,
+      'qty': instance.qty,
+    };

@@ -1,0 +1,352 @@
+[
+  {
+    "_id": "64780a7994d7d8f55ab90b0f",
+    "postcode": "0810",
+    "locality": "BRINKIN",
+    "state": "NT",
+    "combined": "BRINKIN 0810 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b11",
+    "postcode": "0810",
+    "locality": "COCONUT GROVE",
+    "state": "NT",
+    "combined": "COCONUT GROVE 0810 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b15",
+    "postcode": "0810",
+    "locality": "MILLNER",
+    "state": "NT",
+    "combined": "MILLNER 0810 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b1c",
+    "postcode": "0810",
+    "locality": "WAGAMAN",
+    "state": "NT",
+    "combined": "WAGAMAN 0810 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b1d",
+    "postcode": "0810",
+    "locality": "WANGURI",
+    "state": "NT",
+    "combined": "WANGURI 0810 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b1e",
+    "postcode": "0811",
+    "locality": "CASUARINA",
+    "state": "NT",
+    "combined": "CASUARINA 0811 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b1f",
+    "postcode": "0812",
+    "locality": "ANULA",
+    "state": "NT",
+    "combined": "ANULA 0812 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b20",
+    "postcode": "0812",
+    "locality": "BUFFALO CREEK",
+    "state": "NT",
+    "combined": "BUFFALO CREEK 0812 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b28",
+    "postcode": "0812",
+    "locality": "WOODLEIGH GARDENS",
+    "state": "NT",
+    "combined": "WOODLEIGH GARDENS 0812 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b2a",
+    "postcode": "0813",
+    "locality": "KARAMA",
+    "state": "NT",
+    "combined": "KARAMA 0813 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b2c",
+    "postcode": "0814",
+    "locality": "NIGHTCLIFF",
+    "state": "NT",
+    "combined": "NIGHTCLIFF 0814 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b31",
+    "postcode": "0820",
+    "locality": "COONAWARRA",
+    "state": "NT",
+    "combined": "COONAWARRA 0820 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b34",
+    "postcode": "0820",
+    "locality": "DARWIN INTERNATIONAL AIRPORT",
+    "state": "NT",
+    "combined": "DARWIN INTERNATIONAL AIRPORT 0820 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b37",
+    "postcode": "0820",
+    "locality": "EATON",
+    "state": "NT",
+    "combined": "EATON 0820 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b3e",
+    "postcode": "0820",
+    "locality": "THE GARDENS",
+    "state": "NT",
+    "combined": "THE GARDENS 0820 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b40",
+    "postcode": "0820",
+    "locality": "WINNELLIE",
+    "state": "NT",
+    "combined": "WINNELLIE 0820 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b41",
+    "postcode": "0820",
+    "locality": "WOOLNER",
+    "state": "NT",
+    "combined": "WOOLNER 0820 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b46",
+    "postcode": "0822",
+    "locality": "ANNIE RIVER",
+    "state": "NT",
+    "combined": "ANNIE RIVER 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b4d",
+    "postcode": "0822",
+    "locality": "BURRUNDIE",
+    "state": "NT",
+    "combined": "BURRUNDIE 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b50",
+    "postcode": "0822",
+    "locality": "CAMP CREEK",
+    "state": "NT",
+    "combined": "CAMP CREEK 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b53",
+    "postcode": "0822",
+    "locality": "CHARLOTTE",
+    "state": "NT",
+    "combined": "CHARLOTTE 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b59",
+    "postcode": "0822",
+    "locality": "CROKER ISLAND",
+    "state": "NT",
+    "combined": "CROKER ISLAND 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b5f",
+    "postcode": "0822",
+    "locality": "DOUGLAS-DALY",
+    "state": "NT",
+    "combined": "DOUGLAS-DALY 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b60",
+    "postcode": "0822",
+    "locality": "EAST ARM",
+    "state": "NT",
+    "combined": "EAST ARM 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b62",
+    "postcode": "0822",
+    "locality": "ELRUNDIE",
+    "state": "NT",
+    "combined": "ELRUNDIE 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b64",
+    "postcode": "0822",
+    "locality": "FINNISS VALLEY",
+    "state": "NT",
+    "combined": "FINNISS VALLEY 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b65",
+    "postcode": "0822",
+    "locality": "FLEMING",
+    "state": "NT",
+    "combined": "FLEMING 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b6b",
+    "postcode": "0822",
+    "locality": "GOULBURN ISLAND",
+    "state": "NT",
+    "combined": "GOULBURN ISLAND 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b6e",
+    "postcode": "0822",
+    "locality": "HAYES CREEK",
+    "state": "NT",
+    "combined": "HAYES CREEK 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b6f",
+    "postcode": "0822",
+    "locality": "HIDDEN VALLEY",
+    "state": "NT",
+    "combined": "HIDDEN VALLEY 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b71",
+    "postcode": "0822",
+    "locality": "HUGHES",
+    "state": "NT",
+    "combined": "HUGHES 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b79",
+    "postcode": "0822",
+    "locality": "MANDORAH",
+    "state": "NT",
+    "combined": "MANDORAH 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b7b",
+    "postcode": "0822",
+    "locality": "MAPURU",
+    "state": "NT",
+    "combined": "MAPURU 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b7c",
+    "postcode": "0822",
+    "locality": "MARANUNGA",
+    "state": "NT",
+    "combined": "MARANUNGA 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b7d",
+    "postcode": "0822",
+    "locality": "MARGARET RIVER",
+    "state": "NT",
+    "combined": "MARGARET RIVER 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b7e",
+    "postcode": "0822",
+    "locality": "MARRAKAI",
+    "state": "NT",
+    "combined": "MARRAKAI 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b80",
+    "postcode": "0822",
+    "locality": "MICKETT CREEK",
+    "state": "NT",
+    "combined": "MICKETT CREEK 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b85",
+    "postcode": "0822",
+    "locality": "MILYAKBURRA",
+    "state": "NT",
+    "combined": "MILYAKBURRA 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b8c",
+    "postcode": "0822",
+    "locality": "NGUIU",
+    "state": "NT",
+    "combined": "NGUIU 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b90",
+    "postcode": "0822",
+    "locality": "PEPPIMENARTI",
+    "state": "NT",
+    "combined": "PEPPIMENARTI 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b94",
+    "postcode": "0822",
+    "locality": "PULARUMPI",
+    "state": "NT",
+    "combined": "PULARUMPI 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b95",
+    "postcode": "0822",
+    "locality": "PULUMPA",
+    "state": "NT",
+    "combined": "PULUMPA 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b96",
+    "postcode": "0822",
+    "locality": "RAKULA",
+    "state": "NT",
+    "combined": "RAKULA 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b98",
+    "postcode": "0822",
+    "locality": "ROBIN FALLS",
+    "state": "NT",
+    "combined": "ROBIN FALLS 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b9a",
+    "postcode": "0822",
+    "locality": "SANDPALMS ROADHOUSE",
+    "state": "NT",
+    "combined": "SANDPALMS ROADHOUSE 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90b9c",
+    "postcode": "0822",
+    "locality": "STAPLETON",
+    "state": "NT",
+    "combined": "STAPLETON 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90ba0",
+    "postcode": "0822",
+    "locality": "TIWI ISLANDS",
+    "state": "NT",
+    "combined": "TIWI ISLANDS 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90ba4",
+    "postcode": "0822",
+    "locality": "VERNON ISLANDS",
+    "state": "NT",
+    "combined": "VERNON ISLANDS 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90baf",
+    "postcode": "0822",
+    "locality": "WOOLANING",
+    "state": "NT",
+    "combined": "WOOLANING 0822 NT"
+  },
+  {
+    "_id": "64780a7994d7d8f55ab90bb3",
+    "postcode": "0829",
+    "locality": "HOLTZE",
+    "state": "NT",
+    "combined": "HOLTZE 0829 NT"
+  }
+]

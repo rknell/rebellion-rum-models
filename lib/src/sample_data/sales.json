@@ -1,0 +1,1004 @@
+[
+  {
+    "_id": "622ecee507f110fbbb7db678",
+    "timestamp": "2022-03-14T15:13:09.752799",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 4
+      },
+      {
+        "description": "Ginnie in a Bottle - Traditional Fine Gin",
+        "price": 30.0,
+        "itemId": "003001",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 48.0
+  },
+  {
+    "_id": "622fcda75cdceddb133addf9",
+    "timestamp": "2022-03-15T09:20:07.947606",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 2
+      },
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 57.0
+  },
+  {
+    "_id": "622fcdc55cdceddb133addfa",
+    "timestamp": "2022-03-15T09:20:37.574113",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - The Leprechaun",
+        "price": 30.0,
+        "itemId": "003005",
+        "qty": 2
+      },
+      {
+        "description": "10 Pack Soft Drink",
+        "price": 10.0,
+        "itemId": "010003",
+        "qty": 1
+      },
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 3
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 61.0
+  },
+  {
+    "_id": "622fe499f6d27d2b656eb6bc",
+    "timestamp": "2022-03-15T10:58:01.395319",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - The Leprechaun",
+        "price": 30.0,
+        "itemId": "003005",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "622fef05d3de2cdcc0f842dc",
+    "timestamp": "2022-03-15T11:42:29.276155",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "623000a7562adb8aed8b908c",
+    "timestamp": "2022-03-15T12:57:43.169298",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - Lemon, Blood Orange, & Lime",
+        "price": 30.0,
+        "itemId": "003004",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "623006707d3d5fde5a9fe172",
+    "timestamp": "2022-03-15T13:22:24.721834",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 90.0
+  },
+  {
+    "_id": "62300f642c8397072b9ee379",
+    "timestamp": "2022-03-15T14:00:36.699017",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 3
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 90.0
+  },
+  {
+    "_id": "62302154d75c39d9645438bb",
+    "timestamp": "2022-03-15T15:17:08.537063",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 3
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 90.0
+  },
+  {
+    "_id": "62302941bfb2eeedb5a1451d",
+    "timestamp": "2022-03-15T15:50:57.251168",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "62312b84bfb2eeedb5a14520",
+    "timestamp": "2022-03-16T10:12:52.554017",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "623158b4bfb2eeedb5a14521",
+    "timestamp": "2022-03-16T13:25:40.544681",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - The Leprechaun",
+        "price": 30.0,
+        "itemId": "003005",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "623158b7bfb2eeedb5a14522",
+    "timestamp": "2022-03-16T13:25:43.131007",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "62315a1cbfb2eeedb5a14523",
+    "timestamp": "2022-03-16T13:31:40.769877",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "62315b8fbfb2eeedb5a14524",
+    "timestamp": "2022-03-16T13:37:51.100377",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "623284debfb2eeedb5a14525",
+    "timestamp": "2022-03-17T10:46:22.567842",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Surrender",
+        "price": 30.0,
+        "itemId": "001002",
+        "qty": 2
+      },
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - The Flamingo",
+        "price": 30.0,
+        "itemId": "003003",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 180.0
+  },
+  {
+    "_id": "62328561bfb2eeedb5a14526",
+    "timestamp": "2022-03-17T10:48:33.257253",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "623296e4bfb2eeedb5a14527",
+    "timestamp": "2022-03-17T12:03:16.410432",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - Lemon, Blood Orange, & Lime",
+        "price": 30.0,
+        "itemId": "003004",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - The Flamingo",
+        "price": 30.0,
+        "itemId": "003003",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "623298a2bfb2eeedb5a14528",
+    "timestamp": "2022-03-17T12:10:42.262466",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      },
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "6232a751bfb2eeedb5a14529",
+    "timestamp": "2022-03-17T13:13:21.434293",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "6233ce7bbfb2eeedb5a1452a",
+    "timestamp": "2022-03-18T10:12:43.989109",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 90.0
+  },
+  {
+    "_id": "6233cf31bfb2eeedb5a1452b",
+    "timestamp": "2022-03-18T10:15:45.296721",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - The Flamingo",
+        "price": 30.0,
+        "itemId": "003003",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "6233d428bfb2eeedb5a1452c",
+    "timestamp": "2022-03-18T10:36:56.486594",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 2
+      },
+      {
+        "description": "Ginnie in a Bottle - The Flamingo",
+        "price": 30.0,
+        "itemId": "003003",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 90.0
+  },
+  {
+    "_id": "6233d42bbfb2eeedb5a1452d",
+    "timestamp": "2022-03-18T10:36:59.826752",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "6233dafabfb2eeedb5a1452e",
+    "timestamp": "2022-03-18T11:06:02.957169",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "6233dd91bfb2eeedb5a1452f",
+    "timestamp": "2022-03-18T11:17:05.684626",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "6233e314bfb2eeedb5a14530",
+    "timestamp": "2022-03-18T11:40:36.336498",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 27.0
+  },
+  {
+    "_id": "6233ea39bfb2eeedb5a14531",
+    "timestamp": "2022-03-18T12:11:05.725867",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - Lemon, Blood Orange, & Lime",
+        "price": 30.0,
+        "itemId": "003004",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "6233ec4cbfb2eeedb5a14532",
+    "timestamp": "2022-03-18T12:19:56.318938",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - Traditional Fine Gin",
+        "price": 30.0,
+        "itemId": "003001",
+        "qty": 1
+      },
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "6233f305bfb2eeedb5a14533",
+    "timestamp": "2022-03-18T12:48:37.036786",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "6233f30dbfb2eeedb5a14534",
+    "timestamp": "2022-03-18T12:48:45.061562",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 3
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 90.0
+  },
+  {
+    "_id": "6234050bbfb2eeedb5a14535",
+    "timestamp": "2022-03-18T14:05:31.343954",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "623411d8bfb2eeedb5a14536",
+    "timestamp": "2022-03-18T15:00:08.842306",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - The Flamingo",
+        "price": 30.0,
+        "itemId": "003003",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 90.0
+  },
+  {
+    "_id": "62341649bfb2eeedb5a14537",
+    "timestamp": "2022-03-18T15:19:05.634325",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "623912c7bfb2eeedb5a14538",
+    "timestamp": "2022-03-22T10:05:27.483291",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      },
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 24.0
+  },
+  {
+    "_id": "623920b3bfb2eeedb5a14539",
+    "timestamp": "2022-03-22T11:04:51.961611",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "62392ef6bfb2eeedb5a1453a",
+    "timestamp": "2022-03-22T12:05:42.188207",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "623a8d92bfb2eeedb5a1453b",
+    "timestamp": "2022-03-23T13:01:38.124171",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 2
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - Traditional Fine Gin",
+        "price": 30.0,
+        "itemId": "003001",
+        "qty": 1
+      },
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 114.0
+  },
+  {
+    "_id": "623bbba2bfb2eeedb5a1453c",
+    "timestamp": "2022-03-24T10:30:26.873226",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 2
+      },
+      {
+        "description": "Ginnie in a Bottle - The Flamingo",
+        "price": 30.0,
+        "itemId": "003003",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 1
+      },
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 114.0
+  },
+  {
+    "_id": "623bbda4bfb2eeedb5a1453d",
+    "timestamp": "2022-03-24T10:39:00.156154",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - Lemon, Blood Orange, & Lime",
+        "price": 30.0,
+        "itemId": "003004",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - The Flamingo",
+        "price": 30.0,
+        "itemId": "003003",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 57.0
+  },
+  {
+    "_id": "623bc4b8bfb2eeedb5a1453e",
+    "timestamp": "2022-03-24T11:09:12.882813",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  },
+  {
+    "_id": "623bdf4fbfb2eeedb5a1453f",
+    "timestamp": "2022-03-24T13:02:39.180141",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "623beb60bfb2eeedb5a14540",
+    "timestamp": "2022-03-24T13:54:08.854913",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      },
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 90.0
+  },
+  {
+    "_id": "623bfaecbfb2eeedb5a14541",
+    "timestamp": "2022-03-24T15:00:28.791505",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 60.0
+  },
+  {
+    "_id": "623c1b91bfb2eeedb5a14542",
+    "timestamp": "2022-03-24T17:19:45.288518",
+    "items": [
+      {
+        "description": "Rebellion Rum Co - Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "001001",
+        "qty": 4
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 2
+      },
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 210.0
+  },
+  {
+    "_id": "6243a4e9bfb2eeedb5a14543",
+    "timestamp": "2022-03-30T10:31:37.905603",
+    "items": [
+      {
+        "description": "Ginnie in a Bottle - Butterfly Pea",
+        "price": 30.0,
+        "itemId": "003002",
+        "qty": 3
+      },
+      {
+        "description": "Ginnie in a Bottle - Lemon, Blood Orange, & Lime",
+        "price": 30.0,
+        "itemId": "003004",
+        "qty": 1
+      },
+      {
+        "description": "Rebellion Rum Co - Surrender",
+        "price": 30.0,
+        "itemId": "001002",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 30.0,
+        "itemId": "002001",
+        "qty": 1
+      },
+      {
+        "description": "Ginnie in a Bottle - The Flamingo",
+        "price": 30.0,
+        "itemId": "003003",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 210.0
+  },
+  {
+    "_id": "62453808ea1e2ae7092572b1",
+    "timestamp": "2022-03-31T15:11:36.893913",
+    "items": [
+      {
+        "description": "White Stag Vodka 1050ml",
+        "price": 40.0,
+        "itemId": "002002",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 80.0
+  },
+  {
+    "_id": "6411a56b5c6a4ce9446765f5",
+    "timestamp": "2023-03-15T21:00:59.419736",
+    "items": [
+      {
+        "description": "Cloak & Dagger",
+        "price": 30.0,
+        "itemId": "3531954279220",
+        "qty": 2
+      },
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 3
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 51.0
+  },
+  {
+    "_id": "64125ddc61309c87c75e4899",
+    "timestamp": "2023-03-16T10:07:56.571465",
+    "items": [
+      {
+        "description": "American Oak",
+        "price": 30.0,
+        "itemId": "3545540725800",
+        "qty": 1
+      },
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 27.0
+  },
+  {
+    "_id": "64125e2f61309c87c75e489a",
+    "timestamp": "2023-03-16T10:09:19.880427",
+    "items": [
+      {
+        "description": "American Oak",
+        "price": 30.0,
+        "itemId": "3545540725800",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "total": 30.0
+  }
+]

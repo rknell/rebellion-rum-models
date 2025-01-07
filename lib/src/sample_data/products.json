@@ -1,0 +1,370 @@
+[
+  {
+    "_id": "622ed1fc296b40868f617e5e",
+    "barcode": "3531954279220",
+    "description": "Cloak & Dagger",
+    "price": 35.0,
+    "stock": 110,
+    "category": "rum",
+    "isAvailableOnline": true,
+    "name": "Cloak & Dagger",
+    "images": [
+      "https://storage.googleapis.com/rebelrum-assets/cloak-dagger.jpg"
+    ],
+    "longDescription": "Indulge in a taste experience that celebrates local flavors and the art of distillation.\n\nWe take pride in using 100% local ingredients, sourcing the finest sugarcane molasses available. With every sip, you'll taste the rich depth and character that comes from our commitment to quality and the use of premium Australian ingredients.\n\nEnjoy this spirit on its own, over ice, or mixed with your favorite cola. Its smoothness and versatility make it a perfect choice for any occasion. Whether you're unwinding after a long day or toasting to special moments with friends, this spirit is sure to delight your senses.\n\nOur distillation process takes place onsite, where our skilled artisans carefully separate the purest essence of the spirit, known as the hearts cut. This ensures a clean and exceptional taste that showcases the true character of the sugarcane.\n\nTo add a touch of complexity, the spirit is briefly aged on American oak for approximately four weeks. This brief period of maturation allows the flavors to harmonize, creating a balanced and nuanced profile that will leave you craving another sip.\n\nEach bottle represents our unwavering dedication to craftsmanship and the pursuit of excellence. We invite you to savor the result of our passion and expertise in every pour.\n\nSo, raise your glass and experience the true Aussie spirit, crafted with care and infused with the flavors of Australia. Cheers to unforgettable moments and the enjoyment of exceptional taste.",
+    "shortDescription": "Premium Australian spirit, distilled onsite from local sugarcane, aged briefly on oak, offering rich, nuanced flavors.",
+    "volume": 700,
+    "weight": 1.5,
+    "abv": 0.37,
+    "shortcut": "c"
+  },
+  {
+    "_id": "622ed1fc296b40868f617e60",
+    "barcode": "3538497880326",
+    "description": "White Stag Vodka",
+    "price": 35.0,
+    "stock": 320,
+    "category": "vodka",
+    "isAvailableOnline": true,
+    "abv": 0.37,
+    "images": [
+      "https://storage.googleapis.com/rebelrum-assets/white-stag.jpg"
+    ],
+    "longDescription": "Prepare to be captivated by the unrivaled purity and smoothness of this incredibly clean vodka.\n\nWe start with the finest South Australian grapes, carefully selected for their quality and flavor. These grapes serve as the foundation for our exceptional vodka, ensuring a refined and distinct character that sets it apart from the rest. At the distillery, we take it a step further, refining the spirit to perfection, allowing its true essence to shine.\n\nUnlike other major vodka brands, we don't rely on glycerine to artificially thicken our vodka. Instead, our focus is on preserving its pure form, allowing it to effortlessly dissolve into your chosen drink. This results in a seamless integration, ensuring that every sip is a flawless experience.\n\nPrepare to be amazed, as this vodka may very well be one of the best you have ever tried. Each bottle is a testament to our commitment to excellence and our passion for creating a vodka that exceeds expectations. With every pour, you'll be met with a liquid masterpiece that captivates your senses and leaves a lasting impression.\n\nIt's no surprise that this vodka has become one of our best-selling products. Its exceptional quality and unparalleled smoothness have garnered a dedicated following of discerning individuals who appreciate the finer things in life. Join the ranks of those who have discovered a vodka experience like no other.\n\nSo, whether you're savoring it neat, enjoying a classic vodka cocktail, or incorporating it into your favorite mixed drink, let this incredibly clean vodka be your companion on a journey of refined taste and sophistication. Raise your glass and toast to unforgettable moments, as you indulge in the sheer excellence of this remarkable spirit. Cheers!",
+    "name": "White Stag Vodka",
+    "shortDescription": "Premium vodka, free of artificial thickeners, promising unmatched purity, smoothness, and an unforgettable tasting experience.",
+    "volume": 700,
+    "weight": 1.5,
+    "shortcut": "v"
+  },
+  {
+    "_id": "622ed1fc296b40868f617e61",
+    "barcode": "3545116261664",
+    "description": "Fine Dry Gin",
+    "price": 35.0,
+    "stock": 69,
+    "category": "gin",
+    "isAvailableOnline": true,
+    "abv": 0.37,
+    "images": [
+      "https://storage.googleapis.com/rebelrum-assets/fine-dry-gin.jpg"
+    ],
+    "longDescription": "Meticulously crafted to embody the timeless elegance of London-style fine dry gin.\n\nPrepare to be enchanted by the perfect balance and intricate flavors of this exceptional spirit.\n\nThis gin showcases a masterful blend of botanicals, carefully selected to create a symphony of tastes on your palate.\n\nAt the forefront, the unmistakable essence of juniper takes center stage, evoking the classic character of a traditional gin.\n\nHowever, the experience doesn't end there.\n\nDelve deeper, and you'll discover the subtle complexities brought by the inclusion of cardamom, angelica root, and a hint of cinnamon.\n\nIt's a sophisticated composition that will leave gin enthusiasts craving more.\n\nWhether you prefer a classic martini or a refreshing gin and tonic, this gin is the ultimate choice for discerning palates.\n\nIts versatility shines through, effortlessly adapting to any cocktail creation.\n\nWith every sip, you'll be transported to the timeless world of refined mixology, where the art of crafting cocktails takes center stage.\n\nIndulge in the possibilities this fine dry gin offers.\n\nSavor the subtle interplay of botanicals, allowing their nuances to dance on your taste buds.\n\nLet your creativity flourish as you experiment with different combinations and garnishes, discovering new dimensions of flavor.\n\nSo, gather your friends, raise your glasses, and let this London-style fine dry gin be your companion on a journey of taste and sophistication.\n\nWhether you're enjoying a leisurely evening at home or stepping out for a night on the town, let the elegance of this gin elevate your drinking experience.\n\nCheers to unforgettable moments and the timeless allure of fine spirits.",
+    "name": "Fine Dry Gin",
+    "shortDescription": "Refined Crafted Gin: Intricate Flavors, Timeless Sophistication.",
+    "volume": 700,
+    "weight": 1.5,
+    "shortcut": "g"
+  },
+  {
+    "_id": "622ed1fc296b40868f617e62",
+    "barcode": "003005",
+    "description": "The Leprechaun",
+    "price": 30,
+    "stock": 0,
+    "category": "gin",
+    "enabled": true
+  },
+  {
+    "_id": "622ed1fc296b40868f617e63",
+    "barcode": "003003",
+    "description": "Ginnie in a Bottle - The Flamingo",
+    "price": 30,
+    "stock": 0,
+    "category": "gin",
+    "enabled": false
+  },
+  {
+    "_id": "622ed1fc296b40868f617e64",
+    "barcode": "3544071619862",
+    "description": "Zesty Hound Gin",
+    "price": 43.0,
+    "stock": 141,
+    "category": "gin",
+    "isAvailableOnline": true,
+    "abv": 0.37,
+    "images": [
+      "https://storage.googleapis.com/rebelrum-assets/zesty-hound.jpg"
+    ],
+    "longDescription": "A tantalizing taste journey infused with the exotic flavors of Australian native botanicals: lemon myrtle and Tasmanian pepperberry.\n\nWe've delicately balanced the zesty notes of lemon myrtle with the subtle touch of Tasmanian pepperberry. This combination creates a symphony of flavors where the refreshing lemon myrtle takes center stage, while the pepperberry adds a gentle hint of complexity. It's a harmonious blend that tantalizes the palate without overpowering it.\n\nThis gin offers a unique experience, adding a distinctive twist to any classic gin-based cocktail. Whether it's a refreshing G&T, a vibrant martini, or your own creative concoction, this premium gin effortlessly complements your favorite mixers and opens doors to new taste adventures.\n\nCrafted using a sophisticated distilling method, each batch of our gin is a testament to our dedication to excellence. We spare no effort in ensuring that every bottle delivers the utmost quality, allowing you to savor the refined flavors and impeccable craftsmanship with each sip.\n\nAnd for all the dachshund lovers out there, this gin is a tribute to our four-legged friends. It's a delightful nod to their playful spirit and unwavering loyalty, embodied in every bottle. Enjoy this gin as a toast to the bond between humans and their furry companions.\n\nSo, gather your friends, raise your glasses, and let this premium gin take you on a journey of taste and sophistication. It's an invitation to explore new horizons and indulge in the art of mixology. Cheers to unforgettable moments and the joys of discovering exceptional flavors.",
+    "name": "Zesty Hound Gin",
+    "shortDescription": "Indulge in a harmonious blend of lemon myrtle and Tasmanian pepperberry, crafted with excellence for unforgettable taste adventures.",
+    "volume": 700,
+    "weight": 1.5,
+    "shortcut": "z"
+  },
+  {
+    "_id": "622ed1fc296b40868f617e65",
+    "barcode": "010001",
+    "description": "Bottle Return",
+    "price": -3.0,
+    "stock": -10633,
+    "category": "other",
+    "shortcut": "r"
+  },
+  {
+    "_id": "622ed513944f1a071b6e475b",
+    "barcode": "3547297877207",
+    "description": "Butterfly Pea Gin",
+    "price": 35.0,
+    "stock": 48,
+    "category": "gin",
+    "isAvailableOnline": true,
+    "abv": 0.37,
+    "images": [
+      "https://storage.googleapis.com/rebelrum-assets/butterfly-pea.jpg"
+    ],
+    "longDescription": "Prepare to be captivated by the enchanting colors of our color-changing butterfly pea gin, an all-natural wonder derived from a traditional flower.\n\nWith just a splash of tonic, this extraordinary gin undergoes a mesmerizing transformation, revealing vibrant hues that dance within your glass. Witness the magical interplay of colors as the butterfly pea flower reveals its true beauty. It's a visual spectacle that adds a touch of whimsy to your drinking experience.\n\nBut this gin is more than just a feast for the eyes. Immerse yourself in the refreshing embrace of our Tanqueray-style dry gin, carefully crafted to deliver a harmonious balance of flavors. Each sip invites you on a journey of crisp botanical notes, ensuring a satisfying and invigorating taste that lingers on the palate.\n\nTo fully enjoy the captivating color-changing effect, we recommend pairing this gin with tonic. Watch as the vibrant hues unfold before your eyes, transforming your drink into a work of art. However, this gin can also be enjoyed with soda or lemonade, ensuring a delightful experience no matter your preference.\n\nFor those seeking an extra touch of excitement, we invite you to explore the realm of cocktails. Picture yourself slowly adding a squeeze of lemon atop the mesmerizing blue surface or dropping a frozen lemon ice cube into your glass. Witness the interplay of flavors and colors as the gin evolves into a truly extraordinary libation.\n\nIndulge in the possibilities, as this gin sparks creativity and invites you to embrace the art of mixology. It's a catalyst for memorable moments, offering a canvas upon which you can craft your own unique gin experiences.\n\nSo, gather your friends, raise your glasses, and let this color-changing butterfly pea gin transport you to a realm of wonder. Celebrate the interplay of nature and craftsmanship, and toast to the vibrant tapestry of flavors and colors that await. Cheers to unforgettable experiences and the magic that lies within each sip.",
+    "name": "Butterfly Pea Gin",
+    "shortDescription": "Experience the enchantment of our color-changing butterfly pea gin, a visually stunning and harmoniously flavored libation.",
+    "volume": 700,
+    "weight": 1.5,
+    "shortcut": "b"
+  },
+  {
+    "_id": "624528e6944f1a071b7cdd2b",
+    "barcode": "3545540725800",
+    "description": "American Oak",
+    "price": 35.0,
+    "stock": 210,
+    "category": "rum",
+    "isAvailableOnline": true,
+    "abv": 0.37,
+    "images": [
+      "https://storage.googleapis.com/rebelrum-assets/american-oak.jpg"
+    ],
+    "longDescription": "Prepare yourself for an unparalleled drinking experience that will leave you in awe. Our extraordinary product not only offers a light honey bourbon-like flavor but also prides itself on using unfiltered natural honey sourced from hives in the scenic regions of Ormeau and Pimpama.\n\nWe have carefully selected the finest honey directly from local bees, ensuring that every sip encapsulates the authentic taste of the Australian bush. This isn't your ordinary sweetener, but nature's golden nectar, blended seamlessly with our expertly crafted recipe to create a flavor sensation that will delight your taste buds.\n\nBut that's not all! To add an extra touch of excitement, our master distillers briefly oak it in ex Jack Daniels barrels, infusing it with a subtle hint of American spirit. It's a harmonious fusion of flavors, where the essence of the outback meets the allure of the wild west.\n\nWhen you pour yourself a glass of this elixir, you'll be greeted with a smoothness that glides down your throat with ease. The mildness of the drink ensures a delightful experience with each sip, leaving no harsh aftertaste to spoil the pleasure.\n\nSo, gather your friends, fire up the grill, and prepare to indulge in this remarkable creation. With the unfiltered natural honey from Ormeau and Pimpama dancing on your palate and the gentle notes of oak tantalizing your senses, it's an experience that embodies the essence of refinement.\n\nDon't miss your chance to embark on this captivating journey in a bottle. It's a celebration of nature's bounty, the art of distilling, and the pursuit of exceptional taste. Grab a bottle of our exquisite creation and let the unfiltered honey transport you to a realm of pure enjoyment.",
+    "name": "American Oak",
+    "shortDescription": "Experience an awe-inspiring, honey-infused bourbon-like drink with Australian bush honey, Jack Daniels barrel infusion, and smoothness.",
+    "volume": 700,
+    "weight": 1.5,
+    "shortcut": "a"
+  },
+  {
+    "_id": "62d10bdf9096bb341bdcd87e",
+    "description": "Caninha",
+    "price": 35.0,
+    "stock": 108,
+    "category": "rum",
+    "enabled": true,
+    "barcode": "3543398584679",
+    "isAvailableOnline": true,
+    "abv": 0.4,
+    "images": [
+      "https://storage.googleapis.com/rebelrum-assets/caninha.jpg"
+    ],
+    "longDescription": "Get ready to embark on a taste experience that will transport you straight to the sunny shores of Brazil. Discover our Brazilian-style white rhum, a true gem crafted with precision and care.\n\nMade from the finest Australian sugar cane, this white rhum captures the essence of Brazil, bringing the spirit of the tropics to your glass. Close your eyes and imagine yourself strolling along the vibrant streets of Rio de Janeiro, feeling the rhythm of bossa nova in the air.\n\nBut this rhum is more than just a spirit—it's a gateway to cocktail paradise. Unleash your creativity and mix up sensational mojitos and caipirinhas. The smoothness of the rhum blends harmoniously with the zesty lime and refreshing mint, creating a symphony of flavors that will leave you craving another sip.\n\nAnd here's a tip: when the temperature rises and summer beckons, this rhum becomes the perfect alternative to gin. Trade your usual G&T for a refreshing twist that will transport you to tropical beaches and lazy afternoons. It's the perfect companion for those moments of relaxation and indulgence.\n\nEach bottle of our Brazilian-style white rhum is a testament to craftsmanship and adventure. With every sip, you'll taste the dedication and passion that went into its creation. It's a journey that brings together the richness of Australian sugar cane and the vibrant spirit of Brazil, resulting in an exceptional experience.\n\nSo, gather your friends, shake up some cocktails, and let the magic unfold. Indulge in the refreshing allure of this rhum and let it awaken your taste buds with its tropical vibes. Whether you're lounging by the pool or hosting a backyard gathering, this rhum will be the star of the show.\n\nDon't miss the chance to embark on this flavor-filled adventure. Grab a bottle of our Brazilian-style white rhum and celebrate unforgettable moments with the perfect balance of sweetness and zest. Cheers to memorable experiences and the spirit of Brazil!\n\nThe word \"caninha\" is pronounced as \"kah-nee-nyah\" in Portuguese. Here's a breakdown of the pronunciation:\n\n- \"ca\" is pronounced like the \"ka\" in \"car.\"\n- \"ni\" is pronounced like the \"nee\" in \"knee.\"\n- \"nha\" is pronounced as a nasalized \"nyah\" sound, similar to the \"nya\" in \"canyon\" but with a softer \"ah\" at the end.\n\nPut together, it sounds like \"kah-nee-nyah.\"",
+    "name": "Caninha",
+    "shortDescription": "Transport to Brazil with our crafted white rhum: tropical vibes, zesty cocktails, and unforgettable flavor adventures.",
+    "volume": 700,
+    "weight": 1.5,
+    "shortcut": "C"
+  },
+  {
+    "_id": "62d771929096bb341ba24d34",
+    "description": "Tincture Spirit",
+    "price": 90,
+    "stock": 0,
+    "category": "vodka",
+    "barcode": "tincture"
+  },
+  {
+    "_id": "6411a48024d5aa5f88f92ebb",
+    "barcode": "HONEY-MIXED",
+    "description": "Honey - Mixed",
+    "price": 7.5,
+    "stock": -29,
+    "category": "other",
+    "shortcut": "h"
+  },
+  {
+    "_id": "6411a4a324d5aa5f88f95df3",
+    "barcode": "HONEY-SINGLE",
+    "description": "Honey - Brush Box / Ironbark",
+    "price": 8.5,
+    "stock": -1,
+    "category": "other"
+  },
+  {
+    "_id": "6412c70f24d5aa5f88940b4b",
+    "barcode": "3541867132413",
+    "description": "Spiced Gold",
+    "price": 30,
+    "stock": 0,
+    "category": "rum"
+  },
+  {
+    "_id": "64cc7019e361cc3c3b1a820d",
+    "barcode": "ZESTY10G",
+    "description": "FRUIT - 10G BAG",
+    "price": 5,
+    "stock": -2,
+    "category": "other"
+  },
+  {
+    "_id": "64cc7030e361cc3c3b1a820e",
+    "barcode": "ZESTY20G",
+    "description": "FRUIT - 20G BAG",
+    "price": 8,
+    "stock": -4,
+    "category": "other"
+  },
+  {
+    "_id": "64cc7047e361cc3c3b1a820f",
+    "barcode": "ZESTY40G",
+    "description": "FRUIT - 40G BAG",
+    "price": 18,
+    "stock": 0,
+    "category": "other"
+  },
+  {
+    "_id": "64cc705be361cc3c3b1a8210",
+    "barcode": "ZESTY50G",
+    "description": "FRUIT - 50G JAR",
+    "price": 29,
+    "stock": 0,
+    "category": "other"
+  },
+  {
+    "_id": "64e47b958ecdbd35a553f875",
+    "barcode": "3545899450941",
+    "description": "Limoncello",
+    "price": 55.0,
+    "stock": 225,
+    "category": "vodka",
+    "isAvailableOnline": true,
+    "abv": 0.3,
+    "images": [
+      "https://storage.googleapis.com/rebelrum-assets/limoncello.jpg"
+    ],
+    "longDescription": "Embark on an enchanting flavor expedition with our meticulously crafted Limoncello, a true testament to the artistry of taste. Handmade in Australia, each velvety drop embodies the essence of our sun-soaked land, offering an experience that's as vibrant as it is refined.\n\nCrafted using time-honored techniques and all-natural ingredients, our Limoncello is a celebration of the extraordinary. We meticulously hand peel the freshest Australian lemons, capturing their zesty spirit and inviting fragrance in every batch. This traditional approach ensures that each bottle is a harmonious symphony of flavors, a tribute to the pureness of nature's bounty.\n\nTo savor the fullness of this exquisite libation, we recommend embracing the chill of the freezer. Allow our Limoncello to luxuriate in its icy haven, where its flavors deepen and its texture becomes lusciously smooth. When the moment comes, pour this golden elixir into chilled glasses, and witness how its velvety warmth unfurls with each sip.\n\nAs the liquid gold caresses your palate, you'll be greeted by an invigorating burst of tangy freshness. The hand-peeled Australian lemons infuse the Limoncello with their sunny character, while the traditional method of creation adds a touch of history to every drop. It's a liquid ode to the union of tradition and innovation, a synergy that dances on your taste buds.\n\nLet the Limoncello linger on your tongue, its flavors evolving and intertwining with a touch of sweetness that lingers like a whispered promise. Sip it as an indulgent digestif, or explore its versatility as a mixological muse. For a classic experience, enjoy it neat or over ice, savoring the complexity that unfolds with each sip.\n\nOur Limoncello is more than a libation; it's an invitation to celebrate life's simple pleasures, to raise a glass in honor of the unparalleled beauty that nature provides. Just as the sun-kissed lemons grace our landscapes, let them grace your glass. With every drop, you'll uncover the soul of Australia, the warmth of tradition, and the allure of all-natural perfection.\n\nSo, elevate your senses, gather your companions, and let our Limoncello transport you to a realm of taste that's as genuine as it is extraordinary. Cheers to preserving moments, to handcrafted wonder, and to the irresistible allure of nature's bounty.",
+    "name": "Limoncello",
+    "shortDescription": "Handmade in Australia, our Limoncello captures sun-soaked freshness. Chill, sip, and savor nature's zestful symphony.",
+    "volume": 700,
+    "weight": 1.5,
+    "shortcut": "l"
+  },
+  {
+    "_id": "64f7f005a8ef8c49dbbb2691",
+    "barcode": "9300675008419",
+    "description": "Can",
+    "price": 2.5,
+    "stock": -56,
+    "category": "softdrink",
+    "shortcut": "2"
+  },
+  {
+    "_id": "64f7f0b0a8ef8c49dbbb2694",
+    "barcode": "9300601292950",
+    "description": "1.25L Mixer",
+    "price": 3.5,
+    "stock": -245,
+    "category": "softdrink",
+    "shortcut": "1"
+  },
+  {
+    "_id": "64f7f238a8ef8c49dbbb269b",
+    "barcode": "9300675014779",
+    "description": "10 Pack Cans",
+    "price": 13,
+    "stock": 2,
+    "category": "softdrink"
+  },
+  {
+    "_id": "64f7f3d6a8ef8c49dbbb269f",
+    "barcode": "3546098780013",
+    "description": "Pepito's Hard Lemonade",
+    "price": 19,
+    "stock": -132,
+    "category": "vodka",
+    "isAvailableOnline": false,
+    "abv": 0.12,
+    "images": [],
+    "name": "Pepito's hard lemonade",
+    "volume": 700,
+    "weight": 1.5,
+    "shortcut": "p"
+  },
+  {
+    "_id": "6514cc9fa8ef8c49dbbb26aa",
+    "barcode": "LRG Decal Promotion",
+    "description": "LRG Decal Promotion",
+    "price": -35.0,
+    "stock": -35,
+    "category": "other"
+  },
+  {
+    "_id": "6514cca9a8ef8c49dbbb26ab",
+    "barcode": "SML Decal Promotion",
+    "description": "SML Decal Promotion",
+    "price": -15.0,
+    "stock": -29,
+    "category": "other"
+  },
+  {
+    "_id": "65307fe49e022e7c84b90bb2",
+    "barcode": "glitter",
+    "description": "+ Glitter",
+    "price": 1,
+    "stock": -132,
+    "category": "other",
+    "shortcut": "G"
+  },
+  {
+    "_id": "6530a2ed9e022e7c84b90bb4",
+    "barcode": "t3546098780013",
+    "description": "Tail Wagger",
+    "price": 22,
+    "stock": 120,
+    "category": "vodka",
+    "isAvailableOnline": false,
+    "abv": 0.12,
+    "images": [],
+    "name": "Pepito's hard lemonade",
+    "volume": 700,
+    "weight": 1.5
+  },
+  {
+    "_id": "663dc4cb65431b0cb61beb1d",
+    "barcode": "3549606338546",
+    "description": "Vodka Inferno",
+    "price": 45,
+    "stock": 29,
+    "category": "vodka",
+    "isAvailableOnline": true,
+    "abv": 0.33,
+    "images": [
+      "https://storage.googleapis.com/rebelrum-assets/vodka_inferno.jpg"
+    ],
+    "longDescription": "Ignite your senses with Vodka Inferno, a bold and fiery twist on classic vodka.\n\nCrafted with precision, this cinnamon-infused vodka liqueur offers an irresistible blend of smoothness and spice. Each batch begins with premium vodka, distilled to perfection for a clean, crisp finish. Infused with the warm, sweet heat of natural cinnamon, it delivers a flavor profile that’s as daring as it is delicious.\n\nEnjoy Vodka Inferno as a shot to fuel the night, mixed into cocktails for a fiery kick, or simply over ice to savor its balance of spice and smoothness. Its versatility makes it an exciting choice for parties, gatherings, or any occasion that calls for a spark of flavor.\n\nCarefully crafted to ensure a harmonious blend, Vodka Inferno embodies a dedication to quality and bold innovation. The smooth vodka base tempers the cinnamon’s intensity, creating a rich and approachable liqueur that’s perfect for anyone who craves a touch of heat.\n\nRaise your glass to bold flavor and unforgettable moments. With Vodka Inferno, every sip is an adventure. Cheers to the fire within!",
+    "name": "Vodka Inferno",
+    "shortDescription": "A bold cinnamon-infused vodka liqueur, combining smoothness and spice for a fiery flavor experience.",
+    "volume": 700,
+    "weight": 1.7,
+    "shortcut": "i"
+  },
+  {
+    "_id": "6763839b49b17d1d35788628",
+    "barcode": "ALOE-GEL",
+    "description": "Aloe Vera Gel",
+    "price": 9.45,
+    "stock": -1,
+    "category": "other"
+  },
+  {
+    "_id": "676383d449b17d1d3578862a",
+    "barcode": "ALOE-TEATREE",
+    "description": "Aloe Vera Tea Tree",
+    "price": 12.45,
+    "stock": -1,
+    "category": "other"
+  },
+  {
+    "_id": "676383f949b17d1d3578862c",
+    "barcode": "ALOE-SPORTSRUB",
+    "description": "Aloe Vera Sports Rub",
+    "price": 18.45,
+    "stock": -1,
+    "category": "other"
+  }
+]
