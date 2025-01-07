@@ -12,11 +12,11 @@ DistillationRecord _$DistillationRecordFromJson(Map<String, dynamic> json) =>
       stillUsed: json['stillUsed'] as String,
       feintsAdded: (json['feintsAdded'] as num).toDouble(),
       lalsCharged: (json['lalsCharged'] as num).toDouble(),
+      totalLALsCharged: (json['totalLALsCharged'] as num).toDouble(),
+      totalLALsYield: (json['totalLALsYield'] as num).toDouble(),
       notes: (json['notes'] as List<dynamic>)
           .map((e) => Note.fromJson(e as Map<String, dynamic>))
           .toList(),
-      totalLALsCharged: (json['totalLALsCharged'] as num).toDouble(),
-      totalLALsYield: (json['totalLALsYield'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$DistillationRecordToJson(DistillationRecord instance) =>
@@ -25,9 +25,9 @@ Map<String, dynamic> _$DistillationRecordToJson(DistillationRecord instance) =>
       'stillUsed': instance.stillUsed,
       'feintsAdded': instance.feintsAdded,
       'lalsCharged': instance.lalsCharged,
-      'notes': instance.notes.map((e) => e.toJson()).toList(),
       'totalLALsCharged': instance.totalLALsCharged,
       'totalLALsYield': instance.totalLALsYield,
+      'notes': instance.notes.map((e) => e.toJson()).toList(),
     };
 
 Note _$NoteFromJson(Map<String, dynamic> json) => Note(

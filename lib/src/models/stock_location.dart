@@ -5,20 +5,8 @@ part 'stock_location.g.dart';
 /// Represents a physical storage location for stock items.
 ///
 /// Stock locations are used to track where products and materials are stored
-/// within the facility. Each location has a unique identifier and can contain
-/// information about its capacity and current contents.
-///
-/// Example:
-/// ```dart
-/// final location = StockLocation(
-///   id: '123',
-///   name: 'Warehouse A',
-///   barcode: 'LOC-001',
-///   type: 'warehouse',
-///   capacity: 1000,
-///   currentStock: 750,
-/// );
-/// ```
+/// within the facility. Each location has a unique identifier and specific flags
+/// indicating its type and purpose.
 @JsonSerializable()
 class StockLocation {
   /// MongoDB document ID
@@ -31,22 +19,30 @@ class StockLocation {
   /// Unique barcode identifier for the location
   final String barcode;
 
-  /// Type of storage location (e.g., 'warehouse', 'shelf', 'bin')
-  final String type;
+  /// Indicates if this is a bond store location
+  final bool isBondStore;
 
-  /// Maximum storage capacity (units vary by type)
-  final int capacity;
+  /// Indicates if this is a retail location
+  final bool isRetail;
 
-  /// Current quantity of items stored
-  final int currentStock;
+  /// Indicates if stock in this location is available for online sales
+  final bool isAvailableOnline;
+
+  /// Indicates if this is a warehouse location
+  final bool isWarehouse;
+
+  /// Optional map of product barcodes to their stock levels
+  final Map<String, double>? stockLevels;
 
   const StockLocation({
     required this.id,
     required this.name,
     required this.barcode,
-    required this.type,
-    required this.capacity,
-    required this.currentStock,
+    required this.isBondStore,
+    required this.isRetail,
+    required this.isAvailableOnline,
+    required this.isWarehouse,
+    this.stockLevels,
   });
 
   factory StockLocation.fromJson(Map<String, dynamic> json) =>

@@ -51,7 +51,7 @@ Map<String, dynamic> _convertMongoDocument(Map<String, dynamic> document) {
     if (value is Int64) {
       return MapEntry(key, value.toString());
     } else if (value is ObjectId) {
-      return MapEntry(key, value.toHexString());
+      return MapEntry(key, value.oid);
     } else if (value is Map) {
       return MapEntry(
           key, _convertMongoDocument(value as Map<String, dynamic>));
