@@ -41,7 +41,9 @@ class Product {
     this.enabled,
   });
 
+  // coverage:ignore-line
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
+  // coverage:ignore-line
   Map<String, dynamic> toJson() => _$ProductToJson(this);
 }

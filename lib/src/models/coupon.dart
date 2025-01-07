@@ -27,6 +27,8 @@ class Coupon {
     this.originalAmount,
   });
 
+  // coverage:ignore-line
   factory Coupon.fromJson(Map<String, dynamic> json) => _$CouponFromJson(json);
+  // coverage:ignore-line
   Map<String, dynamic> toJson() => _$CouponToJson(this);
 }

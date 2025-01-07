@@ -19,7 +19,9 @@ class Postcode {
     required this.combined,
   });
 
+  // coverage:ignore-line
   factory Postcode.fromJson(Map<String, dynamic> json) =>
       _$PostcodeFromJson(json);
+  // coverage:ignore-line
   Map<String, dynamic> toJson() => _$PostcodeToJson(this);
 }

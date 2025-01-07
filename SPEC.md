@@ -120,3 +120,7 @@ rebellion_rum_models/
 - Immediate reflection of database schema changes
 - SPEC.md must be updated whenever new requirements are discussed or implemented
 - All team members must be notified of significant specification changes 
+
+# Test Coverage
+coverage:
+  - dart test --coverage=coverage && dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --report-on=lib/ 
