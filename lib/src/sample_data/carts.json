@@ -1,40 +1,5 @@
 [
   {
-    "_id": "64e5581af9d4bdef8648b9b8",
-    "cartId": "d45sfst88zon616j2b9fo",
-    "deliveryMethod": {
-      "service_code": "P",
-      "total_price": 18.63,
-      "service_name": "Aramex"
-    },
-    "products": [
-      {
-        "id": "622ed1fc296b40868f617e64",
-        "name": "Zesty Hound Gin",
-        "href": "#",
-        "volume": 700,
-        "price": 43,
-        "quantity": 3,
-        "imageSrc": "https://storage.googleapis.com/rebelrum-assets/zesty-hound.jpg",
-        "imageAlt": "Indulge in a harmonious blend of lemon myrtle and Tasmanian pepperberry, crafted with excellence for unforgettable taste adventures.",
-        "barcode": "3544071619862",
-        "stock": 24
-      }
-    ],
-    "userInfo": {
-      "email": "ryan.knell@gmail.com",
-      "phone": "0452323234",
-      "firstName": "Ryan",
-      "lastName": "Knell",
-      "address": "69 Bedivere Drive",
-      "apartment": "",
-      "suburb": "Cairns",
-      "country": "AU",
-      "state": "QLD",
-      "postcode": "4870"
-    }
-  },
-  {
     "_id": "64e55988f9d4bdef864a4fca",
     "cartId": "6x61jsjhtmidx79rigf5ge",
     "deliveryMethod": {
@@ -84,6 +49,41 @@
       "payment_method_types": [
         "card"
       ]
+    }
+  },
+  {
+    "_id": "64e5581af9d4bdef8648b9b8",
+    "cartId": "d45sfst88zon616j2b9fo",
+    "deliveryMethod": {
+      "service_code": "P",
+      "total_price": 18.63,
+      "service_name": "Aramex"
+    },
+    "products": [
+      {
+        "id": "622ed1fc296b40868f617e64",
+        "name": "Zesty Hound Gin",
+        "href": "#",
+        "volume": 700,
+        "price": 43,
+        "quantity": 3,
+        "imageSrc": "https://storage.googleapis.com/rebelrum-assets/zesty-hound.jpg",
+        "imageAlt": "Indulge in a harmonious blend of lemon myrtle and Tasmanian pepperberry, crafted with excellence for unforgettable taste adventures.",
+        "barcode": "3544071619862",
+        "stock": 24
+      }
+    ],
+    "userInfo": {
+      "email": "ryan.knell@gmail.com",
+      "phone": "0452323234",
+      "firstName": "Ryan",
+      "lastName": "Knell",
+      "address": "69 Bedivere Drive",
+      "apartment": "",
+      "suburb": "Cairns",
+      "country": "AU",
+      "state": "QLD",
+      "postcode": "4870"
     }
   }
 ]

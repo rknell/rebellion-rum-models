@@ -6,13 +6,19 @@
 ///
 /// Usage:
 /// ```bash
+/// # Using command line argument:
 /// dart run bin/export_models.dart --connection-string='mongodb://your-connection-string'
+///
+/// # Or using environment variable:
+/// export MONGODB_URI='mongodb://your-connection-string'
+/// dart run bin/export_models.dart
 /// ```
-/// Note: Use single quotes around the connection string if it contains special characters.
+///
+/// Note: Using environment variables is recommended for connection strings with special characters.
 ///
 /// Features:
 /// - Connects to any MongoDB database using a connection string
-/// - Exports the latest 50 documents from each collection
+/// - Exports the latest 50 documents from each collection (sorted by _id descending)
 /// - Creates JSON files named after each collection
 /// - Stores exports in lib/src/sample_data/ directory
 /// - Maintains data structure for model generation
@@ -70,10 +76,21 @@ Map<String, dynamic> _convertMongoDocument(Map<String, dynamic> document) {
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
     ..addOption('connection-string',
-        abbr: 'c', help: 'MongoDB connection string', mandatory: true);
+        abbr: 'c',
+        help:
+            'MongoDB connection string (or set MONGODB_URI environment variable)',
+        mandatory: false);
 
   final results = parser.parse(arguments);
-  final connectionString = results['connection-string'] as String;
+  final connectionString = results['connection-string'] as String? ??
+      Platform.environment['MONGODB_URI'];
+
+  if (connectionString == null) {
+    print(
+        'Error: MongoDB connection string must be provided either via --connection-string');
+    print('       or through the MONGODB_URI environment variable.');
+    exit(1);
+  }
 
   try {
     final db = await Db.create(connectionString);
@@ -96,8 +113,14 @@ Future<void> main(List<String> arguments) async {
       print('Processing collection: $collectionName');
 
       final collection = db.collection(collectionName);
-      final cursor = collection.find();
-      final documents = await cursor.take(50).toList();
+      final selector = where.sortBy('_id', descending: true).limit(50);
+      final documents = await collection.find(selector).toList();
+
+      // Skip collections with no documents
+      if (documents.isEmpty) {
+        print('Skipping $collectionName - no documents found');
+        continue;
+      }
 
       // Convert documents to JSON-serializable format
       final jsonDocuments =

@@ -16,8 +16,8 @@ Sale _$SaleFromJson(Map<String, dynamic> json) => Sale(
 Map<String, dynamic> _$SaleToJson(Sale instance) => <String, dynamic>{
       '_id': instance.id,
       'timestamp': instance.timestamp.toIso8601String(),
-      'items': instance.items,
-      'customerId': instance.customerId,
+      'items': instance.items.map((e) => e.toJson()).toList(),
+      if (instance.customerId case final value?) 'customerId': value,
       'coupons': instance.coupons,
       'total': instance.total,
     };

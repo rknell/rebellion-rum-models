@@ -1,0 +1,132 @@
+[
+  {
+    "_id": "636b150f4470ca03f609bd1b",
+    "name": "White Stag Trade",
+    "barcode": "3543121585799",
+    "price": 499,
+    "productType": "vodka",
+    "volume": 1000.0,
+    "abv": 0.3,
+    "percentAustralian": 1.0
+  },
+  {
+    "_id": "636b13a9c9a6764e874240d1",
+    "name": "Butterfly Pea",
+    "barcode": "3547297877207",
+    "price": 30.0,
+    "productType": "gin",
+    "volume": 700.0,
+    "abv": 0.4,
+    "percentAustralian": 0.99,
+    "description": "Wattleseed, elderberry, juniper, coriander, cardamom, angelica root & just a hint of citrus. This gin is then infused with butterfly pea flower to make a magical colour changing experience. Mixes well with your traditional gin mixers or layer it in a cocktail and squeeze some lemon over the top... Some have even been known to freeze a lemon ice cube and you can watch the drink change colour as it melts.",
+    "images": [
+      "https://rebellion-rum-server-h4vmgz7z3a-ts.a.run.app/assets/butterfly-pea.jpg"
+    ]
+  },
+  {
+    "_id": "636b139dc9a6764e874240d0",
+    "name": "Caninha",
+    "barcode": "3543398584679",
+    "price": 30.0,
+    "productType": "rum",
+    "volume": 700.0,
+    "abv": 0.4,
+    "percentAustralian": 1.0,
+    "description": "Similar to a Cachaça, but made with Australian ingredients, this is the right choice for making caipirinha or mojitos. Flavour wise its a bit funkier than your traditional white rum and aroma wise a bit milder."
+  },
+  {
+    "_id": "636b1390c9a6764e874240cf",
+    "name": "Spiced Gold",
+    "barcode": "3541867132413",
+    "price": 30.0,
+    "productType": "rum",
+    "volume": 700.0,
+    "abv": 0.4,
+    "percentAustralian": 1.0,
+    "description": "With cinnamon, nutmeg, allspice and a hint of clove, this is great for sipping by a fire on a cold winters day."
+  },
+  {
+    "_id": "636b1378c9a6764e874240ce",
+    "name": "American Oak",
+    "barcode": "3545540725800",
+    "price": 30.0,
+    "productType": "rum",
+    "volume": 700.0,
+    "abv": 0.4,
+    "percentAustralian": 1.0,
+    "description": "Smooth and easy drinking, American oak came about when customers came looking for a dark spirit but didn't want the rummy flavours. This is highly refined to pull out most of the rum character but maintain some of the heat, then put in an old bourbon barrel. Afterwards we add some honey and caramel - just enough to give it some body but not enough to sweeten it.",
+    "images": [
+      "https://rebellion-rum-server-h4vmgz7z3a-ts.a.run.app/assets/product_shots/americanoakhoney.jpg"
+    ]
+  },
+  {
+    "_id": "636b136dc9a6764e874240cd",
+    "name": "Pink",
+    "barcode": "3547098548252",
+    "price": 30.0,
+    "productType": "gin",
+    "volume": 700.0,
+    "abv": 0.4,
+    "percentAustralian": 1.0
+  },
+  {
+    "_id": "636b135bc9a6764e874240cc",
+    "name": "Lemon Myrtle & Pepperberry",
+    "barcode": "3544071619862",
+    "price": 30.0,
+    "productType": "gin",
+    "volume": 700.0,
+    "abv": 0.4,
+    "percentAustralian": 0.99,
+    "description": "Our Australian artisanal gin, distilled with lemon myrtle and pepperberry, offers a smooth and aromatic taste of native botanicals.",
+    "longDescription": "Introducing our latest creation, an Australian artisanal gin made with the native ingredients of lemon myrtle and pepperberry. Our small batch gin is carefully crafted to bring you the unique flavours of these native botanicals that are only found in Australia.\nThe lemon myrtle is a leafy plant that grows in the subtropical rainforests of Australia, known for its intense lemony scent and flavour. It has been used by indigenous Australians for thousands of years for its medicinal and culinary properties. The pepperberry, on the other hand, is a small fruit that grows on the Tasmanian pepper tree, a native plant to Tasmania. It is known for its complex, fruity flavour, and is often used as a substitute for traditional black pepper.\nAt our distillery, we use a carter head still, carefully timing the addition and removal of different botanicals throughout the run to achieve a perfect balance of flavours. We use fresh lemon myrtle leaves, carefully sourced from local farmers who grow them sustainably, and the leaves of the pepperberry plant, which impart a delicate, fruity note to the gin. Our unique distillation process allows us to extract the full flavour and aroma of the botanicals, resulting in a gin that is smooth, aromatic and well-balanced.\nOur lemon myrtle and pepperberry gin is best enjoyed in a classic gin and tonic, with a twist of lemon or lime to enhance the citrus notes of the lemon myrtle. It can also be used as a base for a variety of cocktails, such as a herbaceous martini or a refreshing gin fizz. The possibilities are endless, and we encourage you to experiment with different mixers and garnishes to find your perfect serve.\nAs an artisanal gin, we produce only a limited quantity of each batch, ensuring that every bottle is of the highest quality and full of flavour. Our commitment to using native Australian ingredients and sustainable production methods also ensures that our gin is not only delicious, but also environmentally responsible.\nIn summary, our lemon myrtle and pepperberry gin is a unique and delicious addition to any gin-lover's collection. With its carefully crafted distillation process and perfect balance of flavours, it is a gin that truly stands out from the rest. Try it today and experience the taste of Australia in a glass.",
+    "images": [
+      "https://rebellion-rum-server-h4vmgz7z3a-ts.a.run.app/assets/product_shots/lemonmyrtle.jpg"
+    ]
+  },
+  {
+    "_id": "636b134ec9a6764e874240cb",
+    "name": "Fine Dry",
+    "barcode": "3545116261664",
+    "price": 30.0,
+    "productType": "gin",
+    "volume": 700.0,
+    "abv": 0.4,
+    "percentAustralian": 0.99,
+    "description": "Our fine dry gin is an artisanal, Australian-made gin with a traditional recipe that blends juniper, coriander, and angelica root for a well-balanced and exceptionally smooth taste. Perfect for any gin-based cocktail.",
+    "longDescription": "Our fine dry gin is a true representation of the artisanal craftsmanship that Australia has to offer. Made with a traditional recipe and using only the finest botanicals, this gin is a testament to the passion and expertise of our master distillers.\nEvery bottle of our fine dry gin is crafted in small batches to ensure the utmost attention to detail, resulting in a gin that is not only beautifully balanced, but exceptionally smooth. Each sip is an experience in and of itself, with a delicate blend of juniper, coriander, and angelica root that comes together in perfect harmony.\nAs an Australian gin, we take pride in sourcing the highest quality local ingredients, which infuse the gin with the unique flavors and aromas of our beautiful country. The result is a gin that is not only delicious but also proudly showcases the unique character and identity of Australia.\nOur fine dry gin can be used anywhere a standard gin would go, from classic cocktails like the Martini or Gin and Tonic, to more creative and experimental concoctions. It is the perfect choice for those who appreciate a well-made gin that can hold its own in any cocktail.\nWhether you're sipping it neat, on the rocks, or mixing it up in a cocktail, our fine dry gin is sure to impress. With its exceptional balance and smooth finish, it is a testament to the art of gin-making and the beauty of traditional recipes.",
+    "images": [
+      "https://rebellion-rum-server-h4vmgz7z3a-ts.a.run.app/assets/product_shots/traditional-gin.jpg"
+    ]
+  },
+  {
+    "_id": "636b133dc9a6764e874240ca",
+    "name": "Cloak & Dagger",
+    "barcode": "3531954279220",
+    "price": 30.0,
+    "productType": "rum",
+    "volume": 700.0,
+    "abv": 0.4,
+    "percentAustralian": 1.0,
+    "description": "Introducing Cloak & Dagger - a premium spirit distilled with local molasses, aged in ex-Jack Daniels barrels, and crafted using traditional methods for a unique and complex flavor profile.",
+    "longDescription": "Introducing Cloak & Dagger - a premium cane spirit crafted with the finest ingredients and using traditional methods that have been perfected over time. Cloak & Dagger is distilled with local molasses, giving it a distinctive Australian-style flavour that will tantalise your taste buds.\nFrom the first sip, you'll be transported to a world of rich, complex flavours. The hint of caramel and the sweet aroma are sure to delight your senses. Our master distillers use a 1000 litre pot still, combined with their years of expertise, to create a product that is truly artisanal.\nCloak & Dagger is aged in ex-Jack Daniels barrels, which imparts a subtle and unique flavour that sets it apart from other rums. We only release each batch for sale when the flavour is just right, ensuring that you get the highest quality product every time you indulge.\nCrafted in small batches, it is made with the utmost care and attention to detail. This is why we take great pride in our product and are confident that you will taste the difference.\nCloak & Dagger is perfect for savouring on its own or for using in your favourite cocktail. The versatility of the spirit means that you can enjoy it any way you like, whether it's as a nightcap or a refreshing drink on a hot summer's day.\nWe believe that every bottle of Cloak & Dagger is a testament to the craftsmanship and expertise that has gone into making it. We invite you to experience the flavour and complexity for yourself and discover why it is one of the best on the market.",
+    "images": [
+      "https://rebellion-rum-server-h4vmgz7z3a-ts.a.run.app/assets/product_shots/cloak-and-dagger.jpg"
+    ]
+  },
+  {
+    "_id": "636b1286c9a6764e874240c9",
+    "name": "White Stag",
+    "barcode": "3538497880326",
+    "price": 30.0,
+    "productType": "vodka",
+    "volume": 700.0,
+    "abv": 0.4,
+    "percentAustralian": 1.0,
+    "description": "White Stag Vodka is a premium Australian-made spirit crafted from the finest Australian wine and pure spring water, offering exceptional purity, smoothness, and flavor that competes with any top-shelf brand.",
+    "longDescription": "Introducing the White Stag Vodka, the premium Australian-made vodka that is set to redefine your drinking experience. Crafted from the finest Australian wine, this premium spirit is a result of an intricate distillation process that guarantees exceptional quality and unmatched purity.\nAt the heart of the White Stag Vodka lies the use of pure Australian spring water, which is sourced from pristine locations and filtered through the highest quality processes to ensure the highest purity possible. This attention to detail ensures that every sip of the White Stag Vodka is crisp, clean, and refreshingly smooth.\nThe White Stag Vodka is set to amaze your taste buds with its exceptional flavor profile. As you take your first sip, you will experience a subtle yet sophisticated aroma that blends seamlessly with the exceptional smoothness of the vodka. The flavor is complex, yet subtle, with a silky texture that lingers on the palate long after the last sip.\nThe White Stag Vodka is a true testament to the art of distillation, and it may be the best vodka you have ever tasted. The exceptional quality of the ingredients and the meticulous attention to detail that goes into every bottle make the White Stag Vodka stand out from the competition. It is a vodka that will hold its own against any top-shelf brand, and its superior quality and taste will leave you yearning for more.\nThe White Stag Vodka is the perfect choice for discerning drinkers who demand the highest quality and flavor profile from their spirits. Whether you prefer to sip it neat, on the rocks, or in a cocktail, the White Stag Vodka is the ultimate choice for those who appreciate the finer things in life. So why not treat yourself to the White Stag Vodka and experience the best that Australian vodka has to offer?",
+    "images": [
+      "https://rebellion-rum-server-h4vmgz7z3a-ts.a.run.app/assets/product_shots/white-stag.jpg"
+    ]
+  }
+]

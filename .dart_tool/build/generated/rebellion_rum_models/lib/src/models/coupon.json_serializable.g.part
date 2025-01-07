@@ -26,8 +26,9 @@ Map<String, dynamic> _$CouponToJson(Coupon instance) => <String, dynamic>{
       'discount': instance.discount,
       'isPercentage': instance.isPercentage,
       'isEnabled': instance.isEnabled,
-      'expiryDate': instance.expiryDate?.toIso8601String(),
-      'maxUses': instance.maxUses,
+      if (instance.expiryDate?.toIso8601String() case final value?)
+        'expiryDate': value,
+      if (instance.maxUses case final value?) 'maxUses': value,
       'usedCount': instance.usedCount,
       'applicableProducts': instance.applicableProducts,
     };

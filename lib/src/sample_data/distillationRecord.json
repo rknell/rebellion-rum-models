@@ -1,0 +1,548 @@
+[
+  {
+    "_id": "672c301b2bc797c66af79669",
+    "stillUsed": "Lamb Chop",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 962.0,
+    "totalLALsYield": 962.0
+  },
+  {
+    "_id": "672c2d1bc87dd20cc338202c",
+    "stillUsed": "Lamb Chop",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 78.03,
+    "totalLALsYield": 17.79
+  },
+  {
+    "_id": "672c2c355f9f3bec96b71d07",
+    "stillUsed": "Lamb Chop",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 0.0,
+    "totalLALsYield": 65.80000000000001
+  },
+  {
+    "_id": "66c55c731ceff71a658f7c4c",
+    "stillUsed": "Lamb Chop",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 89.30250000000015,
+    "totalLALsYield": 68.77
+  },
+  {
+    "_id": "66456e07200e2f5bd62008c1",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "traditional 4/24",
+        "date": "2024-05-16T12:52:50.004394"
+      }
+    ],
+    "totalLALsCharged": 97.14,
+    "totalLALsYield": 96.33999999999999
+  },
+  {
+    "_id": "663c467fda65097c10152a49",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "between 18th to 19th may Ginny LALs dropped by 17.40 normal loss on cooling between 2-7LAL. suspect the 19.12 LALs should be closer to 30 likely scales shutdown error. ",
+        "date": "2024-05-09T13:59:01.568565"
+      }
+    ],
+    "totalLALsCharged": 94.74,
+    "totalLALsYield": 82.37
+  },
+  {
+    "_id": "6631c98612765e08e1de81bd",
+    "stillUsed": "",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 0.0,
+    "totalLALsYield": 0.0
+  },
+  {
+    "_id": "65aa00ae0f592f0d0f071f15",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 63.15,
+    "totalLALsYield": 63.15
+  },
+  {
+    "_id": "655c2387b94a80e3f6ef44b0",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "",
+        "date": "2023-11-21T13:31:39.538410"
+      }
+    ],
+    "totalLALsCharged": 82.68749999999994,
+    "totalLALsYield": 75.32000000000001
+  },
+  {
+    "_id": "65443c7e257d5dce5d62ccfd",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 69.93,
+    "totalLALsYield": 69.93
+  },
+  {
+    "_id": "654075551494982232165dfe",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 65.0,
+    "totalLALsYield": 65.0
+  },
+  {
+    "_id": "653b6e63a7cd9e5c386cc91f",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "spirit run. 32.7amps,column looks flooded but holding steady",
+        "date": "2023-10-30T18:32:05.647284"
+      }
+    ],
+    "totalLALsCharged": 444.64,
+    "totalLALsYield": 315.11
+  },
+  {
+    "_id": "6535ff41c3b58a80ed235187",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 82.68750000000009,
+    "totalLALsYield": 68.15
+  },
+  {
+    "_id": "652751fb0caea7c7938678f5",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "up to temp",
+        "date": "2023-10-12T11:55:25.946931"
+      }
+    ],
+    "totalLALsCharged": 87.41250000000008,
+    "totalLALsYield": 85.50999999999999
+  },
+  {
+    "_id": "651f937b5d117b67a645c384",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "diltill from terrible ferment after multiple explosion ",
+        "date": "2023-10-06T16:27:52.605342"
+      }
+    ],
+    "totalLALsCharged": 37.80000000000003,
+    "totalLALsYield": 51.33
+  },
+  {
+    "_id": "65167956954854f593aceb6c",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 36.0,
+    "totalLALsYield": 34.99
+  },
+  {
+    "_id": "6514e7aa34e4703c8df9abbf",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "started, missed a bit of the foreshots",
+        "date": "2023-09-28T12:41:19.601663"
+      }
+    ],
+    "totalLALsCharged": 67.33124999999993,
+    "totalLALsYield": 66.42
+  },
+  {
+    "_id": "6503deac7beb1733bb495859",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 0.0,
+    "totalLALsYield": 0.0
+  },
+  {
+    "_id": "64f545a4055d3f297fb4c5b9",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "equilibrium at end of run. deflag 6l l/min, condenser - barely running. still power 6. coolant, just below indicator. humming along extracting efficiency in deep tails",
+        "date": "2023-09-04T17:18:17.025091"
+      }
+    ],
+    "totalLALsCharged": 80.32500000000007,
+    "totalLALsYield": 86.61
+  },
+  {
+    "_id": "64e857a0a6436fa1f34a23a3",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "had a massive leak as left the CIP valves open and didn't see for 40 minutes ",
+        "date": "2023-08-25T17:27:04.035836"
+      }
+    ],
+    "totalLALsCharged": 72.42375000000006,
+    "totalLALsYield": 58.59
+  },
+  {
+    "_id": "64e7fdbd0f2ad0d5c2c3a08d",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 30.0,
+    "totalLALsYield": 60.28
+  },
+  {
+    "_id": "64d94955f41fb3dd1559f78d",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "filling still",
+        "date": "2023-08-14T07:22:47.266802"
+      },
+      {
+        "content": "doing spirit run",
+        "date": "2023-08-14T07:23:22.180531"
+      },
+      {
+        "content": "fireshots done. 7.3kg",
+        "date": "2023-08-14T10:39:34.048404"
+      }
+    ],
+    "totalLALsCharged": 261.1,
+    "totalLALsYield": 263.65000000000003
+  },
+  {
+    "_id": "64d06df51febd6c63630ee68",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 44.88750000000004,
+    "totalLALsYield": 34.57
+  },
+  {
+    "_id": "64c87cad8695d4d9113d705c",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 89.77500000000008,
+    "totalLALsYield": 86.30000000000001
+  },
+  {
+    "_id": "64b8d8fc444f517ac9764f38",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "fine dry gin",
+        "date": "2023-07-20T16:50:17.937476"
+      }
+    ],
+    "totalLALsCharged": 36.0,
+    "totalLALsYield": 34.37
+  },
+  {
+    "_id": "64a3ba02439ce8b03ff044a9",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 35.5,
+    "totalLALsYield": 35.5
+  },
+  {
+    "_id": "648fdabc009f406ff8162df8",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 105.0000000000001,
+    "totalLALsYield": 54.580000000000005
+  },
+  {
+    "_id": "647d3fea486b924b2559817c",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 35.21,
+    "totalLALsYield": 35.21
+  },
+  {
+    "_id": "647950aa5a4c264e1c558323",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 34.39,
+    "totalLALsYield": 34.39
+  },
+  {
+    "_id": "645892edef9ad2eeacde7b71",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 118.51875000000011,
+    "totalLALsYield": 96.93
+  },
+  {
+    "_id": "6418ef53a7229b19eec1c66a",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 36.4,
+    "totalLALsYield": 36.39
+  },
+  {
+    "_id": "6413b60e41109971c92a6e04",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 47.17,
+    "totalLALsYield": 47.17
+  },
+  {
+    "_id": "640e74772e4f3be7aa065463",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "hit tails, shutting down",
+        "date": "2023-03-14T15:08:56.257516"
+      }
+    ],
+    "totalLALsCharged": 377.0,
+    "totalLALsYield": 319.6
+  },
+  {
+    "_id": "64056dff53b163c3f80f46ae",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 961.0,
+    "totalLALsYield": 933.29
+  },
+  {
+    "_id": "64052c976b6801e93350b662",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "started",
+        "date": "2023-03-06T09:58:57.149485"
+      },
+      {
+        "content": "stripping run",
+        "date": "2023-03-06T09:59:03.692119"
+      },
+      {
+        "content": "43.52",
+        "date": "2023-03-06T13:58:24.245664"
+      }
+    ],
+    "totalLALsCharged": 110.2500000000001,
+    "totalLALsYield": 91.03
+  },
+  {
+    "_id": "64001246503da7f79f0477ba",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 102.37500000000009,
+    "totalLALsYield": 90.92999999999999
+  },
+  {
+    "_id": "63fd7232866f130856066545",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 95.20875000000008,
+    "totalLALsYield": 94.53
+  },
+  {
+    "_id": "63f402281b9778def37602ca",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 30.96,
+    "totalLALsYield": 0.0
+  },
+  {
+    "_id": "63e99bb81b75ca1c84166fd0",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "stripping run",
+        "date": "2023-02-13T12:09:16.880885"
+      }
+    ],
+    "totalLALsCharged": 102.37500000000009,
+    "totalLALsYield": 100.50999999999999
+  },
+  {
+    "_id": "63db5f6138faf3e90bf4c521",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "start distilling tomorrow ",
+        "date": "2023-02-02T17:00:29.769265"
+      }
+    ],
+    "totalLALsCharged": 45.0,
+    "totalLALsYield": 48.16
+  },
+  {
+    "_id": "63ca25f8fa0a3916c67c815f",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 256.94,
+    "totalLALsYield": 226.22
+  },
+  {
+    "_id": "63c5e9007992a12aec155b8d",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 0.0,
+    "totalLALsYield": 55.489999999999995
+  },
+  {
+    "_id": "63c5de7e7992a12aec155b88",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 15.0,
+    "totalLALsYield": 29.38
+  },
+  {
+    "_id": "63be27378d6fb47392e98354",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 0.0,
+    "totalLALsYield": 60.93000000000001
+  },
+  {
+    "_id": "63b64bc4706ee041a38d3fe2",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 0.0,
+    "totalLALsYield": 39.739999999999995
+  },
+  {
+    "_id": "63ad0276594943ef195b3afb",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 0.0,
+    "totalLALsYield": 20.12
+  },
+  {
+    "_id": "63acf30e594943ef195b3af3",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 68.16,
+    "totalLALsYield": 29.26
+  },
+  {
+    "_id": "6397dfb2508277e382f23e5a",
+    "stillUsed": "Stilly McStillface",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [
+      {
+        "content": "Ryan for about an hour in full reflux at 47a but 2/3 dial until plates loaded.\n\nturned down reflux",
+        "date": "2022-12-13T12:32:48.467863"
+      }
+    ],
+    "totalLALsCharged": 0.0,
+    "totalLALsYield": 62.94
+  },
+  {
+    "_id": "639274d29db84f8ac979bdde",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 38.55,
+    "totalLALsYield": 30.66
+  },
+  {
+    "_id": "63895859556f6caf7de38ae0",
+    "stillUsed": "2",
+    "feintsAdded": 0.0,
+    "lalsCharged": 0.0,
+    "notes": [],
+    "totalLALsCharged": 40.0,
+    "totalLALsYield": 36.36
+  }
+]

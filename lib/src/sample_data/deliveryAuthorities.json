@@ -1,0 +1,62 @@
+[
+  {
+    "_id": "63a00552e19c3cafe66e4b72",
+    "deliveryAuthorityNumber": "190633",
+    "lals": 29.36
+  },
+  {
+    "_id": "6396cd5eba31689fd94f5dfa",
+    "deliveryAuthorityNumber": "190479",
+    "lals": 58.24
+  },
+  {
+    "_id": "637eb634f270ed696afef599",
+    "deliveryAuthorityNumber": "190283",
+    "lals": 34.16
+  },
+  {
+    "_id": "637ac504ea0dc7d5fe466cfe",
+    "deliveryAuthorityNumber": "190255",
+    "lals": 85.11
+  },
+  {
+    "_id": "63772eb890622d4f46c5a498",
+    "deliveryAuthorityNumber": "190170",
+    "lals": 33.87
+  },
+  {
+    "_id": "63745bfeb5ec4ca68a9e644c",
+    "deliveryAuthorityNumber": "190140",
+    "lals": 17.87
+  },
+  {
+    "_id": "63745be9b5ec4ca68a9e644b",
+    "deliveryAuthorityNumber": "190061",
+    "lals": 17.87
+  },
+  {
+    "_id": "6364560cae2cca1b0b5c6fe3",
+    "deliveryAuthorityNumber": "189986",
+    "lals": 17.87
+  },
+  {
+    "_id": "63636574d43da515cc4adcd4",
+    "deliveryAuthorityNumber": "1899942",
+    "lals": 17.87
+  },
+  {
+    "_id": "63635b396e5ba83e7979f41c",
+    "deliveryAuthorityNumber": "189919",
+    "lals": 70.0
+  },
+  {
+    "_id": "63635b296e5ba83e7979f41b",
+    "deliveryAuthorityNumber": "189891",
+    "lals": 33.88
+  },
+  {
+    "_id": "63635b0b6e5ba83e7979f41a",
+    "deliveryAuthorityNumber": "189941",
+    "lals": 33.88
+  }
+]
