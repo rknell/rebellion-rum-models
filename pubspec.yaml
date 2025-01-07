@@ -1,0 +1,18 @@
+name: rebellion_rum_models
+description: Central location to store data models for reuse in other projects
+version: 1.0.0
+repository: https://github.com/username/rebellion_rum_models
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  json_annotation: ^4.8.1
+  mongo_dart: ^0.10.0
+  args: ^2.4.2
+
+dev_dependencies:
+  lints: ^3.0.0
+  test: ^1.24.0
+  build_runner: ^2.4.8
+  json_serializable: ^6.7.1 

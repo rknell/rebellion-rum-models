@@ -1,0 +1,25 @@
+# Rebellion Rum Models - Build Rules
+
+# Build Runner Commands
+build:
+  - dart run build_runner build --delete-conflicting-outputs
+
+# Watch Mode for Development
+watch:
+  - dart run build_runner watch --delete-conflicting-outputs
+
+# Test Commands
+test:
+  - dart test
+
+# Database Export Utility
+export_models:
+  - dart run bin/export_models.dart --connection-string=<connection-string>
+
+# Documentation Generation
+docs:
+  - dart doc .
+
+# Formatting
+format:
+  - dart format . 
