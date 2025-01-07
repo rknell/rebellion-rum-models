@@ -1,0 +1,410 @@
+[
+  {
+    "_id": "66dfd1b3c6135f9e5f62b81b",
+    "batchNumber": 33,
+    "type": "sugar",
+    "washVolume": 900.0,
+    "vesselBarcode": "31026641018256454028",
+    "sgStart": 1.0,
+    "sgEnd": 1.12,
+    "fermentationProgress": [
+      {
+        "sg": 1.12,
+        "ph": 6.36,
+        "temp": null,
+        "timestamp": "2024-09-10T14:59:31.695305",
+        "notes": ""
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "_id": "664198fcd160d7ee4aecac49",
+    "batchNumber": 32,
+    "type": "sugar",
+    "washVolume": 900.0,
+    "vesselBarcode": "1",
+    "sgStart": 1.09,
+    "sgEnd": 1.0144,
+    "fermentationProgress": [],
+    "notes": ""
+  },
+  {
+    "_id": "65f7945f17ca3c08a7c1ea5b",
+    "batchNumber": 31,
+    "type": "sugar",
+    "washVolume": 900.0,
+    "vesselBarcode": "1",
+    "sgStart": 1.1,
+    "sgEnd": 1.032,
+    "fermentationProgress": [],
+    "notes": ""
+  },
+  {
+    "_id": "65cae845f150fea6484c4f73",
+    "batchNumber": 30,
+    "type": "sugar",
+    "washVolume": 900.0,
+    "vesselBarcode": "2",
+    "sgStart": 1.0,
+    "sgEnd": 1.0,
+    "fermentationProgress": [],
+    "notes": ""
+  },
+  {
+    "_id": "65416bb319e018a1b9a2038e",
+    "batchNumber": 29,
+    "type": "sugar",
+    "washVolume": 1000.0,
+    "vesselBarcode": "2",
+    "sgStart": 1.073,
+    "sgEnd": 1.01,
+    "fermentationProgress": [
+      {
+        "sg": 1.062,
+        "ph": null,
+        "temp": null,
+        "timestamp": "2023-11-01T07:04:19.982235",
+        "notes": ""
+      },
+      {
+        "sg": 1.011,
+        "ph": null,
+        "temp": null,
+        "timestamp": "2023-11-02T19:51:28.166348",
+        "notes": ""
+      },
+      {
+        "sg": 1.01,
+        "ph": null,
+        "temp": 32.0,
+        "timestamp": "2023-11-03T15:33:45.047005",
+        "notes": ""
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "_id": "65289242e9d7c5684a50b407",
+    "batchNumber": 28,
+    "type": "sugar",
+    "washVolume": 900.0,
+    "vesselBarcode": "2",
+    "sgStart": 1.1,
+    "sgEnd": 1.03,
+    "fermentationProgress": [],
+    "notes": ""
+  },
+  {
+    "_id": "652751560caea7c7938678ef",
+    "batchNumber": 27,
+    "type": "sugar",
+    "washVolume": 900.0,
+    "vesselBarcode": "2",
+    "sgStart": 1.09,
+    "sgEnd": 1.016,
+    "fermentationProgress": [],
+    "notes": ""
+  },
+  {
+    "_id": "651149a1b7c476f9803498d7",
+    "batchNumber": 26,
+    "type": "sugar",
+    "washVolume": 800.0,
+    "vesselBarcode": "2",
+    "sgStart": 1.074,
+    "sgEnd": 1.038,
+    "fermentationProgress": [
+      {
+        "sg": 1.074,
+        "ph": 4.26,
+        "temp": 26.9,
+        "timestamp": "2023-09-25T18:50:12.784058",
+        "notes": ""
+      },
+      {
+        "sg": 1.038,
+        "ph": 3.76,
+        "temp": 27.8,
+        "timestamp": "2023-09-28T17:12:42.414365",
+        "notes": ""
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "_id": "64fa5f637f9c6b28b395e0ad",
+    "batchNumber": 25,
+    "type": "sugar",
+    "washVolume": 900.0,
+    "vesselBarcode": "FMV00001",
+    "sgStart": 1.081,
+    "sgEnd": 1.024,
+    "fermentationProgress": [
+      {
+        "sg": 1.081,
+        "ph": 5.56,
+        "temp": 26.9,
+        "timestamp": "2023-09-08T18:05:40.674778",
+        "notes": ""
+      },
+      {
+        "sg": 1.024,
+        "ph": 4.71,
+        "temp": 32.8,
+        "timestamp": "2023-09-11T09:55:49.940456",
+        "notes": ""
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "_id": "64e859dfa6436fa1f34a23a8",
+    "batchNumber": 24,
+    "type": "sugar",
+    "washVolume": 900.0,
+    "vesselBarcode": "2",
+    "sgStart": 1.09,
+    "sgEnd": 1.022,
+    "fermentationProgress": [
+      {
+        "sg": 1.09,
+        "ph": 5.36,
+        "temp": 36.8,
+        "timestamp": "2023-08-25T17:36:47.258365",
+        "notes": ""
+      },
+      {
+        "sg": 1.082,
+        "ph": 4.2,
+        "temp": 34.0,
+        "timestamp": "2023-08-26T09:02:04.155693",
+        "notes": ""
+      },
+      {
+        "sg": 1.04,
+        "ph": 4.27,
+        "temp": 33.2,
+        "timestamp": "2023-08-28T14:17:18.706764",
+        "notes": ""
+      },
+      {
+        "sg": 1.022,
+        "ph": 4.12,
+        "temp": 31.6,
+        "timestamp": "2023-08-29T12:17:29.943896",
+        "notes": ""
+      },
+      {
+        "sg": 1.022,
+        "ph": 3.76,
+        "temp": 24.3,
+        "timestamp": "2023-09-04T09:09:44.080528",
+        "notes": ""
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "_id": "64e2f033d0fedfd73504a21b",
+    "batchNumber": 23,
+    "type": "sugar",
+    "washVolume": 890.0,
+    "vesselBarcode": "FMV00001",
+    "sgStart": 1.092,
+    "sgEnd": 1.03,
+    "fermentationProgress": [
+      {
+        "sg": 1.092,
+        "ph": 5.6,
+        "temp": 26.6,
+        "timestamp": "2023-08-22T11:11:50.174591",
+        "notes": ""
+      },
+      {
+        "sg": 1.052,
+        "ph": 4.25,
+        "temp": 39.0,
+        "timestamp": "2023-08-23T15:08:19.129061",
+        "notes": ""
+      },
+      {
+        "sg": 1.03,
+        "ph": 4.14,
+        "temp": 28.2,
+        "timestamp": "2023-08-25T09:28:24.998855",
+        "notes": ""
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "_id": "64d07e31f665fe16b30d520f",
+    "batchNumber": 22,
+    "type": "sugar",
+    "washVolume": 10.0,
+    "vesselBarcode": "e1",
+    "sgStart": 1.08,
+    "sgEnd": 1.08,
+    "fermentationProgress": [
+      {
+        "sg": 1.08,
+        "ph": 6.2,
+        "temp": 32.3,
+        "timestamp": "2023-08-07T15:17:14.638364",
+        "notes": ""
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "_id": "64c9a8b3e15a95fd045ca9fb",
+    "batchNumber": 21,
+    "type": "sugar",
+    "washVolume": 900.0,
+    "vesselBarcode": "FMV00001",
+    "sgStart": 1.096,
+    "sgEnd": 1.058,
+    "fermentationProgress": [
+      {
+        "sg": 1.096,
+        "ph": 5.46,
+        "temp": 22.5,
+        "timestamp": "2023-08-02T10:56:14.965114",
+        "notes": ""
+      },
+      {
+        "sg": 1.06,
+        "ph": 3.88,
+        "temp": 34.0,
+        "timestamp": "2023-08-04T10:46:19.133463",
+        "notes": ""
+      },
+      {
+        "sg": 1.058,
+        "ph": 3.85,
+        "temp": 33.8,
+        "timestamp": "2023-08-04T13:48:23.683514",
+        "notes": ""
+      },
+      {
+        "sg": 1.058,
+        "ph": 3.9,
+        "temp": 33.6,
+        "timestamp": "2023-08-04T15:22:55.091021",
+        "notes": ""
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "_id": "64bde7412e28af208cded2e6",
+    "batchNumber": 20,
+    "type": "sugar",
+    "washVolume": 900.0,
+    "vesselBarcode": "FMV00001",
+    "sgStart": 1.1,
+    "sgEnd": 1.024,
+    "fermentationProgress": [
+      {
+        "sg": 1.09,
+        "ph": 4.8,
+        "temp": 32.0,
+        "timestamp": "2023-07-26T10:58:27.968594",
+        "notes": ""
+      },
+      {
+        "sg": 1.038,
+        "ph": 4.61,
+        "temp": 33.4,
+        "timestamp": "2023-07-27T11:13:05.708448",
+        "notes": ""
+      },
+      {
+        "sg": 1.026,
+        "ph": 4.67,
+        "temp": 31.3,
+        "timestamp": "2023-07-28T09:30:08.503476",
+        "notes": ""
+      },
+      {
+        "sg": 1.024,
+        "ph": 4.67,
+        "temp": 31.8,
+        "timestamp": "2023-07-28T15:18:31.189175",
+        "notes": ""
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "_id": "648fda6c009f406ff8162df5",
+    "batchNumber": 19,
+    "type": "sugar",
+    "washVolume": 1000.0,
+    "vesselBarcode": "http://www.schuetz.net",
+    "sgStart": 1.12,
+    "sgEnd": 1.04,
+    "notes": ""
+  },
+  {
+    "_id": "63ed969a2ec977c8eb25c0db",
+    "batchNumber": 18,
+    "type": "sugar",
+    "washVolume": 930.0,
+    "vesselBarcode": "",
+    "sgStart": 1.094,
+    "sgEnd": 1.016,
+    "notes": ""
+  },
+  {
+    "_id": "63ed8defb1df132fe5becc30",
+    "batchNumber": 17,
+    "type": "sugar",
+    "washVolume": 1050.0,
+    "vesselBarcode": "",
+    "sgStart": 1.086,
+    "sgEnd": 1.0,
+    "notes": ""
+  },
+  {
+    "_id": "63ed8705cccf5b2ba8d101f2",
+    "batchNumber": 16,
+    "type": "sugar",
+    "washVolume": 1000.0,
+    "vesselBarcode": "",
+    "sgStart": 1.098,
+    "sgEnd": 1.02,
+    "notes": ""
+  },
+  {
+    "_id": "63ed86dfcccf5b2ba8d101ef",
+    "batchNumber": 15,
+    "type": "sugar",
+    "washVolume": 1000.0,
+    "vesselBarcode": "",
+    "sgStart": 1.094,
+    "sgEnd": 1.01,
+    "notes": ""
+  },
+  {
+    "_id": "63e99ba21b75ca1c84166fcd",
+    "batchNumber": 14,
+    "type": "sugar",
+    "washVolume": 1000.0,
+    "vesselBarcode": "",
+    "sgStart": 1.078,
+    "sgEnd": 1.0,
+    "notes": ""
+  },
+  {
+    "_id": "636855757d76455385bcd44b",
+    "batchNumber": 13,
+    "type": "sugar",
+    "washVolume": 900.0,
+    "vesselBarcode": "FMV00002",
+    "sgStart": 1.08,
+    "sgEnd": 1.03,
+    "notes": ""
+  }
+]

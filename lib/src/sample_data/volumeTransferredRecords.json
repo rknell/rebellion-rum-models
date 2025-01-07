@@ -1,0 +1,142 @@
+[
+  {
+    "_id": "66c55e0a1ceff71a658f7c55",
+    "chargeId": "66c55c731ceff71a658f7c4c",
+    "washId": "664198fcd160d7ee4aecac49",
+    "volume": 900.0,
+    "lals": 89.30250000000015
+  },
+  {
+    "_id": "6631c98d12765e08e1de81bf",
+    "chargeId": "6631c98612765e08e1de81bd",
+    "washId": "65cae845f150fea6484c4f73",
+    "volume": 900.0,
+    "lals": 0.0
+  },
+  {
+    "_id": "655c2389b94a80e3f6ef44b2",
+    "chargeId": "655c2387b94a80e3f6ef44b0",
+    "washId": "65416bb319e018a1b9a2038e",
+    "volume": 1000.0,
+    "lals": 82.68749999999994
+  },
+  {
+    "_id": "6535ff6cc3b58a80ed23518c",
+    "chargeId": "6535ff41c3b58a80ed235187",
+    "washId": "65289242e9d7c5684a50b407",
+    "volume": 900.0,
+    "lals": 82.68750000000009
+  },
+  {
+    "_id": "652751fd0caea7c7938678f7",
+    "chargeId": "652751fb0caea7c7938678f5",
+    "washId": "652751560caea7c7938678ef",
+    "volume": 900.0,
+    "lals": 87.41250000000008
+  },
+  {
+    "_id": "651f937e5d117b67a645c386",
+    "chargeId": "651f937b5d117b67a645c384",
+    "washId": "651149a1b7c476f9803498d7",
+    "volume": 800.0,
+    "lals": 37.80000000000003
+  },
+  {
+    "_id": "6514e7ad34e4703c8df9abc1",
+    "chargeId": "6514e7aa34e4703c8df9abbf",
+    "washId": "64fa5f637f9c6b28b395e0ad",
+    "volume": 900.0,
+    "lals": 67.33124999999993
+  },
+  {
+    "_id": "64f545a8055d3f297fb4c5bb",
+    "chargeId": "64f545a4055d3f297fb4c5b9",
+    "washId": "64e859dfa6436fa1f34a23a8",
+    "volume": 900.0,
+    "lals": 80.32500000000007
+  },
+  {
+    "_id": "64e857a4a6436fa1f34a23a5",
+    "chargeId": "64e857a0a6436fa1f34a23a3",
+    "washId": "64e2f033d0fedfd73504a21b",
+    "volume": 890.0,
+    "lals": 72.42375000000006
+  },
+  {
+    "_id": "64d06df91febd6c63630ee6a",
+    "chargeId": "64d06df51febd6c63630ee68",
+    "washId": "64c9a8b3e15a95fd045ca9fb",
+    "volume": 900.0,
+    "lals": 44.88750000000004
+  },
+  {
+    "_id": "64c9a89ce15a95fd045ca9fa",
+    "chargeId": "64c87cad8695d4d9113d705c",
+    "washId": "64bde7412e28af208cded2e6",
+    "volume": 900.0,
+    "lals": 89.77500000000008
+  },
+  {
+    "_id": "648fdabf009f406ff8162dfa",
+    "chargeId": "648fdabc009f406ff8162df8",
+    "washId": "648fda6c009f406ff8162df5",
+    "volume": 1000.0,
+    "lals": 105.0000000000001
+  },
+  {
+    "_id": "645892f4ef9ad2eeacde7b73",
+    "chargeId": "645892edef9ad2eeacde7b71",
+    "washId": "63ed8defb1df132fe5becc30",
+    "volume": 1050.0,
+    "lals": 118.51875000000011
+  },
+  {
+    "_id": "64052ca86b6801e93350b665",
+    "chargeId": "64052c976b6801e93350b662",
+    "washId": "63ed86dfcccf5b2ba8d101ef",
+    "volume": 1000.0,
+    "lals": 110.2500000000001
+  },
+  {
+    "_id": "6400124a503da7f79f0477bc",
+    "chargeId": "64001246503da7f79f0477ba",
+    "washId": "63ed8705cccf5b2ba8d101f2",
+    "volume": 1000.0,
+    "lals": 102.37500000000009
+  },
+  {
+    "_id": "63fd7235866f130856066547",
+    "chargeId": "63fd7232866f130856066545",
+    "washId": "63ed969a2ec977c8eb25c0db",
+    "volume": 930.0,
+    "lals": 95.20875000000008
+  },
+  {
+    "_id": "63e99bbb1b75ca1c84166fd2",
+    "chargeId": "63e99bb81b75ca1c84166fd0",
+    "washId": "63e99ba21b75ca1c84166fcd",
+    "volume": 1000.0,
+    "lals": 102.37500000000009
+  },
+  {
+    "_id": "637ac3c26e04e191fc644289",
+    "chargeId": "637ac3bf6e04e191fc644287",
+    "washId": "636855757d76455385bcd44b",
+    "volume": 900.0,
+    "lals": 59.06250000000005
+  },
+  {
+    "_id": "636db40c9669fedbd335afb6",
+    "chargeId": "636db4059669fedbd335afb4",
+    "washId": "636855757d76455385bcd44b",
+    "volume": 900.0,
+    "lals": 59.06250000000005
+  },
+  {
+    "_id": "636855f37d76455385bcd455",
+    "chargeId": "636855f07d76455385bcd453",
+    "washId": "636855757d76455385bcd44b",
+    "volume": 900.0,
+    "lals": 59.06250000000005
+  }
+]

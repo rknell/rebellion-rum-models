@@ -14,11 +14,17 @@ A Dart library to maintain consistent data models across multiple projects using
 ### Database Utility
 - Command-line utility to download collection samples
 - Accept MongoDB connection string as CLI parameter
-- Download latest 50 records from each collection
+- Download latest 50 records from each collection, sorted by _id descending to ensure newest documents
 - Export collections to separate JSON files
 - Collection names will be used as filenames
 - Files stored in `lib/src/sample_data/`
 - Utility will be used as the basis for model generation
+- Connection string handling:
+  - Must be enclosed in single quotes to handle special characters
+  - Special characters like `!`, `@`, `$`, etc. must be properly escaped
+  - Example: `dart bin/export_models.dart --connection-string='mongodb+srv://user:pass\!123@cluster.mongodb.net'`
+  - For passwords with special characters, consider using environment variables or URL encoding
+- Utility should handle all MongoDB data types, including ObjectId and Int64
 
 ### Model Generation
 - Analyze downloaded JSON files to create model structure
@@ -60,6 +66,10 @@ A Dart library to maintain consistent data models across multiple projects using
 - Test all custom field serializers
 - Test password field exclusion/inclusion for User model
 - Loop over each record in downloaded reference data for testing
+- All test files must follow consistent structure:
+  - Load sample data from JSON files
+  - Test serialization/deserialization
+  - Include invalid JSON handling tests
 
 ### Documentation
 - DartDoc compatible documentation
@@ -68,6 +78,8 @@ A Dart library to maintain consistent data models across multiple projects using
 - No API documentation required
 - Each model class must have example usage in comments
 - Document any field constraints or validation rules
+- SPEC.md must be kept up to date with all requirements
+- Any new requirements discussed in conversations must be added to SPEC.md
 
 ### Build System
 - Use build_runner for code generation
@@ -106,4 +118,6 @@ rebellion_rum_models/
 - Documentation updates with model changes
 - Test updates with new model features
 - Backward compatibility considerations
-- Immediate reflection of database schema changes 
+- Immediate reflection of database schema changes
+- SPEC.md must be updated whenever new requirements are discussed or implemented
+- All team members must be notified of significant specification changes 

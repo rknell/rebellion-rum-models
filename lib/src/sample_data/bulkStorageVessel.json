@@ -1,0 +1,204 @@
+[
+  {
+    "_id": "6743da7933a0314d832b9753",
+    "barcode": "sloeberry container ",
+    "name": "sloeberry container",
+    "capacity": 5.0,
+    "remainingLALs": 0.0
+  },
+  {
+    "_id": "672c2fd3c87dd20cc3382036",
+    "barcode": "CFW53548715",
+    "name": "Vodka IBC",
+    "capacity": 1000.0,
+    "remainingLALs": 720.54
+  },
+  {
+    "_id": "66bdb68cbad3dbb791578a5e",
+    "barcode": "cinnamon Jar 2",
+    "name": "cinnamon Jar 2",
+    "capacity": 5.0,
+    "remainingLALs": 0.0
+  },
+  {
+    "_id": "667e42a83a9123d15bfe3fae",
+    "barcode": "Cinnamon Jar",
+    "name": "",
+    "capacity": 5.0,
+    "remainingLALs": 4.76
+  },
+  {
+    "_id": "65fa5079218330509244a3d7",
+    "barcode": "CFW51362824",
+    "name": "",
+    "capacity": 962.0,
+    "remainingLALs": 27.739999999999974
+  },
+  {
+    "_id": "6556dd29669a590d8c8b4ee4",
+    "barcode": "CFW49457088",
+    "name": "",
+    "capacity": 1000.0,
+    "remainingLALs": 87.71999999999998
+  },
+  {
+    "_id": "65443c29257d5dce5d62ccfb",
+    "barcode": "BSV20",
+    "name": "",
+    "capacity": 190.0,
+    "remainingLALs": 30.91999999999999
+  },
+  {
+    "_id": "6544364e257d5dce5d62ccf9",
+    "barcode": "BSV21",
+    "name": "",
+    "capacity": 190.0,
+    "remainingLALs": 0.6399999999999757
+  },
+  {
+    "_id": "653f8c79ea561e94ee5697a3",
+    "barcode": "BSV15",
+    "name": "Rum Barrel",
+    "capacity": 0.0,
+    "remainingLALs": 0.0
+  },
+  {
+    "_id": "6503deb77beb1733bb49585b",
+    "barcode": "CFW48761520",
+    "name": "discontinued. now sugar",
+    "capacity": 1000.0,
+    "remainingLALs": 0.0
+  },
+  {
+    "_id": "64e69278a9e01d356ba2d5fa",
+    "barcode": "still2",
+    "name": "GINNY",
+    "capacity": 200.0,
+    "remainingLALs": -10.250000000000007
+  },
+  {
+    "_id": "647d4031486b924b25598180",
+    "barcode": "BSC00006",
+    "name": "",
+    "capacity": 100.0,
+    "remainingLALs": 4.050000000000004
+  },
+  {
+    "_id": "647d3f99486b924b25598179",
+    "barcode": "CFW47378041",
+    "name": "",
+    "capacity": 1000.0,
+    "remainingLALs": 15.550000000000011
+  },
+  {
+    "_id": "64056cec53b163c3f80f46ac",
+    "barcode": "CFW45948265",
+    "name": "",
+    "capacity": 1000.0,
+    "remainingLALs": 1.2789769243681803e-13
+  },
+  {
+    "_id": "63cf46efd1472ac66f76f0a1",
+    "barcode": "BSV17",
+    "name": "",
+    "capacity": 190.0,
+    "remainingLALs": 53.39
+  },
+  {
+    "_id": "63ca2aecfa0a3916c67c8162",
+    "barcode": "BSV18",
+    "name": "",
+    "capacity": 190.0,
+    "remainingLALs": -20.799999999999983
+  },
+  {
+    "_id": "63bcdba9892dcf648a084d9e",
+    "barcode": "BSV14",
+    "name": "Rum",
+    "capacity": 190.0,
+    "remainingLALs": 0.0
+  },
+  {
+    "_id": "638d49d19a971f2a386bed00",
+    "barcode": "BSV16",
+    "name": "",
+    "capacity": 100.0,
+    "remainingLALs": 140.0
+  },
+  {
+    "_id": "6385753ea46956e719cfaf7b",
+    "barcode": "BSV13",
+    "name": "",
+    "capacity": 190.0,
+    "remainingLALs": 0.0
+  },
+  {
+    "_id": "636ca1678e2fb73bc32ecb2a",
+    "barcode": "BSV12",
+    "name": "",
+    "capacity": 190.0,
+    "remainingLALs": -74.19
+  },
+  {
+    "_id": "635f0c81ad17dd7f16446d6b",
+    "barcode": "BSC00004",
+    "name": "",
+    "capacity": 100.0,
+    "remainingLALs": -1.0658141036401503e-14
+  },
+  {
+    "_id": "635b12ea3e0cf2d24724288e",
+    "barcode": "Rum Yield",
+    "name": "placeholder for rum before barrel distribution ",
+    "capacity": 1000.0,
+    "remainingLALs": 59.67
+  },
+  {
+    "_id": "635b1199ccf1814acb7a184b",
+    "barcode": "CFW42845832",
+    "name": "Feints tub",
+    "capacity": 1000.0,
+    "remainingLALs": 116.42000000000002
+  },
+  {
+    "_id": "6359da96dc03cc10f53c7e9d",
+    "barcode": "BSC00007",
+    "name": "",
+    "capacity": 100.0,
+    "remainingLALs": -5.190000000000001
+  },
+  {
+    "_id": "6359da71dc03cc10f53c7e9c",
+    "barcode": "BSC00002",
+    "name": "",
+    "capacity": 100.0,
+    "remainingLALs": -64.96
+  },
+  {
+    "_id": "6359da54dc03cc10f53c7e9b",
+    "barcode": "BSC00008",
+    "capacity": 100.0,
+    "remainingLALs": 68.69
+  },
+  {
+    "_id": "6359da35dc03cc10f53c7e9a",
+    "barcode": "BSC00011",
+    "name": "",
+    "capacity": 100.0,
+    "remainingLALs": -5.14
+  },
+  {
+    "_id": "6359da26dc03cc10f53c7e99",
+    "barcode": "BSC00010",
+    "name": "",
+    "capacity": 100.0,
+    "remainingLALs": 26.62
+  },
+  {
+    "_id": "6359d8411a9334cf95a930e4",
+    "barcode": "BSC00005",
+    "name": "",
+    "capacity": 50.0,
+    "remainingLALs": 44.34
+  }
+]

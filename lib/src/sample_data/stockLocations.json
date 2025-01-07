@@ -1,0 +1,46 @@
+[
+  {
+    "_id": "637ac6cec8c54cc9a88bd7ec",
+    "name": "Warehouse",
+    "barcode": "WAREHOUSE",
+    "isBondStore": false,
+    "isRetail": false,
+    "isAvailableOnline": false,
+    "isWarehouse": true
+  },
+  {
+    "_id": "637ac6cec8c54cc9a88bd7ea",
+    "name": "Retail",
+    "barcode": "RETAIL",
+    "isBondStore": false,
+    "isRetail": true,
+    "isAvailableOnline": true,
+    "isWarehouse": false,
+    "stockLevels": {
+      "3543121585799": 119.16,
+      "3545116261664": 140.0,
+      "3538497880326": 308.0,
+      "3544071619862": 66.0,
+      "3545540725800": 39.0,
+      "3541867132413": 173.0
+    }
+  },
+  {
+    "_id": "6369bf98507c84007ffcb3fd",
+    "name": "Bond Store",
+    "barcode": "BONDSTORE",
+    "isBondStore": true,
+    "isRetail": false,
+    "isAvailableOnline": false,
+    "isWarehouse": false,
+    "stockLevels": {
+      "3538497880326": 63.0,
+      "3545116261664": 0.0,
+      "3543121585799": 0.0,
+      "3544071619862": 65.0,
+      "3541867132413": 68.0,
+      "3545540725800": 80.0,
+      "3531954279220": 122.0
+    }
+  }
+]

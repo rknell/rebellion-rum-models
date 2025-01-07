@@ -1,0 +1,302 @@
+[
+  {
+    "_id": "67340f577a4ed87c95165827",
+    "invoiceNumber": "stocktake",
+    "materialType": "molasses",
+    "qtyIn": 720,
+    "qtyOut": 0
+  },
+  {
+    "_id": "66dfd22ac6135f9e5f62b81d",
+    "fermentationRecordId": "66dfd1b3c6135f9e5f62b81b",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "66dfd1b3c6135f9e5f62b81c",
+    "fermentationRecordId": "66dfd1b3c6135f9e5f62b81b",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 150
+  },
+  {
+    "_id": "6641992ad160d7ee4aecac4b",
+    "fermentationRecordId": "664198fcd160d7ee4aecac49",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "664198fdd160d7ee4aecac4a",
+    "fermentationRecordId": "664198fcd160d7ee4aecac49",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "65f7948217ca3c08a7c1ea5d",
+    "fermentationRecordId": "65f7945f17ca3c08a7c1ea5b",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 125
+  },
+  {
+    "_id": "65f7945f17ca3c08a7c1ea5c",
+    "fermentationRecordId": "65f7945f17ca3c08a7c1ea5b",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "65cae87bf150fea6484c4f76",
+    "fermentationRecordId": "65cae845f150fea6484c4f73",
+    "materialType": "golden_syrup",
+    "qtyIn": 0,
+    "qtyOut": 50
+  },
+  {
+    "_id": "65cae876f150fea6484c4f75",
+    "fermentationRecordId": "65cae845f150fea6484c4f73",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 50
+  },
+  {
+    "_id": "65cae846f150fea6484c4f74",
+    "fermentationRecordId": "65cae845f150fea6484c4f73",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "65cae82bf150fea6484c4f72",
+    "materialType": "golden_syrup",
+    "qtyIn": 0,
+    "qtyOut": 0
+  },
+  {
+    "_id": "65416bc919e018a1b9a20391",
+    "fermentationRecordId": "65416bb319e018a1b9a2038e",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "65416bbe19e018a1b9a20390",
+    "fermentationRecordId": "65416bb319e018a1b9a2038e",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "65289255e9d7c5684a50b40a",
+    "fermentationRecordId": "65289242e9d7c5684a50b407",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "65289246e9d7c5684a50b409",
+    "fermentationRecordId": "65289242e9d7c5684a50b407",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "652751620caea7c7938678f2",
+    "fermentationRecordId": "652751560caea7c7938678ef",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "6527515a0caea7c7938678f1",
+    "fermentationRecordId": "652751560caea7c7938678ef",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "651fb5df5d117b67a645c390",
+    "fermentationRecordId": "651fb5c85d117b67a645c38d",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "651fb5ce5d117b67a645c38f",
+    "fermentationRecordId": "651fb5c85d117b67a645c38d",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "651149bdb7c476f9803498da",
+    "fermentationRecordId": "651149a1b7c476f9803498d7",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "651149b3b7c476f9803498d9",
+    "fermentationRecordId": "651149a1b7c476f9803498d7",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "64fa5f887f9c6b28b395e0af",
+    "fermentationRecordId": "64fa5f637f9c6b28b395e0ad",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "64fa5f637f9c6b28b395e0ae",
+    "fermentationRecordId": "64fa5f637f9c6b28b395e0ad",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "64e85a04a6436fa1f34a23ac",
+    "fermentationRecordId": "64e859dfa6436fa1f34a23a8",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 125
+  },
+  {
+    "_id": "64e859efa6436fa1f34a23ab",
+    "fermentationRecordId": "64e859dfa6436fa1f34a23a8",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 90
+  },
+  {
+    "_id": "64e2f057d0fedfd73504a21d",
+    "fermentationRecordId": "64e2f033d0fedfd73504a21b",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 125
+  },
+  {
+    "_id": "64e2f033d0fedfd73504a21c",
+    "fermentationRecordId": "64e2f033d0fedfd73504a21b",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 90
+  },
+  {
+    "_id": "64e2f00fd0fedfd73504a219",
+    "materialType": "molasses",
+    "qtyIn": 1000,
+    "qtyOut": 0
+  },
+  {
+    "_id": "64d07e44f665fe16b30d5211",
+    "fermentationRecordId": "64d07e31f665fe16b30d520f",
+    "materialType": "white_sugar",
+    "qtyIn": 0,
+    "qtyOut": 2
+  },
+  {
+    "_id": "64cafeafe23b6f2eb410447e",
+    "invoiceNumber": "stocktake",
+    "materialType": "raw_sugar",
+    "qtyIn": 370,
+    "qtyOut": 0
+  },
+  {
+    "_id": "64cafe5ae23b6f2eb410447d",
+    "invoiceNumber": "77123",
+    "materialType": "raw_sugar",
+    "qtyIn": 550,
+    "qtyOut": 0
+  },
+  {
+    "_id": "64c9a8cce15a95fd045ca9fd",
+    "fermentationRecordId": "64c9a8b3e15a95fd045ca9fb",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 120
+  },
+  {
+    "_id": "64c9a8b3e15a95fd045ca9fc",
+    "fermentationRecordId": "64c9a8b3e15a95fd045ca9fb",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 100
+  },
+  {
+    "_id": "64c060106d907a18cc538acb",
+    "fermentationRecordId": "64bde7412e28af208cded2e6",
+    "materialType": "molasses",
+    "qtyIn": 0,
+    "qtyOut": 90
+  },
+  {
+    "_id": "64c05fcd6d907a18cc538aca",
+    "fermentationRecordId": "64bde7412e28af208cded2e6",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 120
+  },
+  {
+    "_id": "63ed96af2ec977c8eb25c0df",
+    "materialType": "raw_sugar",
+    "qtyIn": 100,
+    "qtyOut": 0,
+    "invoiceNumber": "stock take"
+  },
+  {
+    "_id": "63ed969e2ec977c8eb25c0dd",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 150,
+    "fermentationRecordId": "63ed969a2ec977c8eb25c0db"
+  },
+  {
+    "_id": "63ed8df6b1df132fe5becc32",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 150,
+    "fermentationRecordId": "63ed8defb1df132fe5becc30"
+  },
+  {
+    "_id": "63ed8705cccf5b2ba8d101f3",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 150,
+    "fermentationRecordId": "63ed8705cccf5b2ba8d101f2"
+  },
+  {
+    "_id": "63ed86dfcccf5b2ba8d101f0",
+    "materialType": "raw_sugar",
+    "qtyIn": 0,
+    "qtyOut": 150,
+    "fermentationRecordId": "63ed86dfcccf5b2ba8d101ef"
+  },
+  {
+    "_id": "63ed868fcccf5b2ba8d101ee",
+    "materialType": "raw_sugar",
+    "qtyIn": 500,
+    "qtyOut": 0,
+    "invoiceNumber": "1482l95"
+  },
+  {
+    "_id": "63648ad097055c2f663e0fd6",
+    "materialType": "molasses",
+    "qtyIn": -100,
+    "qtyOut": 260,
+    "fermentationRecordId": "63648ad097055c2f663e0fd5",
+    "invoiceNumber": "stocktake"
+  },
+  {
+    "_id": "63648ab697055c2f663e0fd4",
+    "materialType": "molasses",
+    "qtyIn": 570,
+    "qtyOut": 0,
+    "invoiceNumber": "initial"
+  }
+]

@@ -1,43 +1,37 @@
 # Rebellion Rum Models
 
-A Dart library containing shared data models for Rebellion Rum projects. This library serves as the single source of truth for data structures across multiple projects.
+A Dart library to maintain consistent data models across multiple projects using MongoDB as the source of truth.
+
+## Overview
+
+This library serves as a central location to store data models for reuse in other projects, ensuring database schema consistency across all dependent projects.
 
 ## Features
 
-- Centralized data models with JSON serialization
-- MongoDB ObjectId support
-- Automated model generation from database samples
-- Comprehensive serialization testing
+- Centralized data models for MongoDB collections
+- JSON serialization/deserialization using json_serializable
+- Sample data management for testing and development
+- Comprehensive test coverage for all models
+- Built-in export utility for MongoDB collections
 
 ## Getting Started
 
 ### Prerequisites
 
 - Dart SDK ≥3.6.0
-- MongoDB instance (for model generation)
+- MongoDB instance (for sample data export)
 
 ### Installation
 
-Add this package to your `pubspec.yaml`:
+Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  rebellion_rum_models: ^1.0.0
+  rebellion_rum_models:
+    git: https://github.com/your-username/rebellion-rum-models.git
 ```
 
-### Generating Models from Database
-
-1. Run the export utility:
-```bash
-dart run bin/export_models.dart --connection-string="your_mongodb_connection_string"
-```
-
-2. Generate model classes:
-```bash
-./tools/build_runner.sh
-```
-
-## Usage
+### Usage
 
 Import the models you need:
 
@@ -45,35 +39,84 @@ Import the models you need:
 import 'package:rebellion_rum_models/rebellion_rum_models.dart';
 ```
 
-### Working with Models
+## Development Commands
 
-Models are automatically serializable to/from JSON:
+### Build
 
-```dart
-// Example with a User model
-final user = User.fromJson(jsonMap);
-final json = user.toJson();
+Generate JSON serialization code:
+
+```bash
+dart run build_runner build --delete-conflicting-outputs
 ```
 
-### Security Notes
+### Watch Mode
 
-- The User model's password field is excluded by default
-- Use `User.withPassword()` to include the password field when needed
+Auto-generate code on file changes:
 
-## Development
+```bash
+dart run build_runner watch --delete-conflicting-outputs
+```
 
-### Running Tests
+### Tests
+
+Run all tests:
 
 ```bash
 dart test
 ```
 
-### Updating Models
+### Documentation
 
-1. Update the database
-2. Re-run the export utility
-3. Run the build runner
-4. Run tests to ensure compatibility
+Generate documentation:
+
+```bash
+dart doc .
+```
+
+### Format Code
+
+Format all Dart files:
+
+```bash
+dart format .
+```
+
+### Export MongoDB Sample Data
+
+The project includes a utility to export sample data from MongoDB collections. This is typically only needed when:
+- Setting up the project for the first time
+- Updating models to match significant database schema changes
+- Refreshing test data with newer examples
+
+To export sample data:
+
+```bash
+dart run bin/export_models.dart --connection-string='mongodb://your-connection-string'
+```
+
+This will:
+- Connect to your MongoDB database
+- Export the 50 most recent documents from each collection
+- Save them as JSON files in `lib/src/sample_data/`
+- Use these files for model generation and testing
+
+Note: Use single quotes around the connection string if it contains special characters.
+
+## Project Structure
+
+```
+rebellion_rum_models/
+├── bin/
+│   └── export_models.dart     # MongoDB export utility
+├── lib/
+│   ├── src/
+│   │   ├── models/           # Generated model classes
+│   │   ├── sample_data/      # Exported MongoDB samples
+│   │   └── json_helpers.dart # JSON serialization helpers
+│   └── rebellion_rum_models.dart
+├── test/                     # Model tests
+└── README.md
+```
 
 ## Contributing
 
@@ -85,4 +128,4 @@ dart test
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details 
+This project is licensed under the MIT License - see the LICENSE file for details. 

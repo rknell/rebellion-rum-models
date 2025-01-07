@@ -1,978 +1,1099 @@
 [
   {
-    "_id": "622ecee507f110fbbb7db678",
-    "timestamp": "2022-03-14T15:13:09.752799",
-    "items": [
-      {
-        "description": "Bottle Return",
-        "price": -3.0,
-        "itemId": "010001",
-        "qty": 4
-      },
-      {
-        "description": "Ginnie in a Bottle - Traditional Fine Gin",
-        "price": 30.0,
-        "itemId": "003001",
-        "qty": 2
-      }
-    ],
-    "customerId": null,
+    "_id": "677c60e530bc5f6e498db36b",
     "coupons": {},
-    "total": 48.0
-  },
-  {
-    "_id": "622fcda75cdceddb133addf9",
-    "timestamp": "2022-03-15T09:20:07.947606",
+    "customerId": null,
     "items": [
       {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
+        "description": "Caninha",
+        "price": 35.0,
+        "itemId": "3543398584679",
         "qty": 2
       },
       {
-        "description": "Bottle Return",
-        "price": -3.0,
-        "itemId": "010001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 57.0
-  },
-  {
-    "_id": "622fcdc55cdceddb133addfa",
-    "timestamp": "2022-03-15T09:20:37.574113",
-    "items": [
-      {
-        "description": "Ginnie in a Bottle - The Leprechaun",
-        "price": 30.0,
-        "itemId": "003005",
+        "description": "Zesty Hound Gin",
+        "price": 43.0,
+        "itemId": "3544071619862",
         "qty": 2
       },
       {
-        "description": "10 Pack Soft Drink",
-        "price": 10.0,
-        "itemId": "010003",
-        "qty": 1
-      },
-      {
-        "description": "Bottle Return",
-        "price": -3.0,
-        "itemId": "010001",
-        "qty": 3
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 61.0
-  },
-  {
-    "_id": "622fe499f6d27d2b656eb6bc",
-    "timestamp": "2022-03-15T10:58:01.395319",
-    "items": [
-      {
-        "description": "Ginnie in a Bottle - The Leprechaun",
-        "price": 30.0,
-        "itemId": "003005",
-        "qty": 2
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "622fef05d3de2cdcc0f842dc",
-    "timestamp": "2022-03-15T11:42:29.276155",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
         "qty": 1
       }
     ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "623000a7562adb8aed8b908c",
-    "timestamp": "2022-03-15T12:57:43.169298",
-    "items": [
+    "payments": [
       {
-        "description": "Ginnie in a Bottle - Lemon, Blood Orange, & Lime",
-        "price": 30.0,
-        "itemId": "003004",
-        "qty": 1
-      },
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
+        "type": "online",
+        "amount": 191.0
       }
     ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
+    "total": 191.0
   },
   {
-    "_id": "623006707d3d5fde5a9fe172",
-    "timestamp": "2022-03-15T13:22:24.721834",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 1
-      },
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      }
-    ],
+    "_id": "677b3aa7dc131d9594000000",
+    "coupons": [],
     "customerId": null,
-    "coupons": {},
-    "total": 90.0
-  },
-  {
-    "_id": "62300f642c8397072b9ee379",
-    "timestamp": "2022-03-15T14:00:36.699017",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 3
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 90.0
-  },
-  {
-    "_id": "62302154d75c39d9645438bb",
-    "timestamp": "2022-03-15T15:17:08.537063",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 3
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 90.0
-  },
-  {
-    "_id": "62302941bfb2eeedb5a1451d",
-    "timestamp": "2022-03-15T15:50:57.251168",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "62312b84bfb2eeedb5a14520",
-    "timestamp": "2022-03-16T10:12:52.554017",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 1
-      },
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "623158b4bfb2eeedb5a14521",
-    "timestamp": "2022-03-16T13:25:40.544681",
-    "items": [
-      {
-        "description": "Ginnie in a Bottle - The Leprechaun",
-        "price": 30.0,
-        "itemId": "003005",
-        "qty": 2
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "623158b7bfb2eeedb5a14522",
-    "timestamp": "2022-03-16T13:25:43.131007",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "62315a1cbfb2eeedb5a14523",
-    "timestamp": "2022-03-16T13:31:40.769877",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "62315b8fbfb2eeedb5a14524",
-    "timestamp": "2022-03-16T13:37:51.100377",
-    "items": [
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "623284debfb2eeedb5a14525",
-    "timestamp": "2022-03-17T10:46:22.567842",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Surrender",
-        "price": 30.0,
-        "itemId": "001002",
-        "qty": 2
-      },
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 1
-      },
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - The Flamingo",
-        "price": 30.0,
-        "itemId": "003003",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 180.0
-  },
-  {
-    "_id": "62328561bfb2eeedb5a14526",
-    "timestamp": "2022-03-17T10:48:33.257253",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "623296e4bfb2eeedb5a14527",
-    "timestamp": "2022-03-17T12:03:16.410432",
-    "items": [
-      {
-        "description": "Ginnie in a Bottle - Lemon, Blood Orange, & Lime",
-        "price": 30.0,
-        "itemId": "003004",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - The Flamingo",
-        "price": 30.0,
-        "itemId": "003003",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "623298a2bfb2eeedb5a14528",
-    "timestamp": "2022-03-17T12:10:42.262466",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      },
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "6232a751bfb2eeedb5a14529",
-    "timestamp": "2022-03-17T13:13:21.434293",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 2
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "6233ce7bbfb2eeedb5a1452a",
-    "timestamp": "2022-03-18T10:12:43.989109",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 1
-      },
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 90.0
-  },
-  {
-    "_id": "6233cf31bfb2eeedb5a1452b",
-    "timestamp": "2022-03-18T10:15:45.296721",
-    "items": [
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - The Flamingo",
-        "price": 30.0,
-        "itemId": "003003",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "6233d428bfb2eeedb5a1452c",
-    "timestamp": "2022-03-18T10:36:56.486594",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 2
-      },
-      {
-        "description": "Ginnie in a Bottle - The Flamingo",
-        "price": 30.0,
-        "itemId": "003003",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 90.0
-  },
-  {
-    "_id": "6233d42bbfb2eeedb5a1452d",
-    "timestamp": "2022-03-18T10:36:59.826752",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "6233dafabfb2eeedb5a1452e",
-    "timestamp": "2022-03-18T11:06:02.957169",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "6233dd91bfb2eeedb5a1452f",
-    "timestamp": "2022-03-18T11:17:05.684626",
-    "items": [
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "6233e314bfb2eeedb5a14530",
-    "timestamp": "2022-03-18T11:40:36.336498",
-    "items": [
-      {
-        "description": "Bottle Return",
-        "price": -3.0,
-        "itemId": "010001",
-        "qty": 1
-      },
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 27.0
-  },
-  {
-    "_id": "6233ea39bfb2eeedb5a14531",
-    "timestamp": "2022-03-18T12:11:05.725867",
-    "items": [
-      {
-        "description": "Ginnie in a Bottle - Lemon, Blood Orange, & Lime",
-        "price": 30.0,
-        "itemId": "003004",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "6233ec4cbfb2eeedb5a14532",
-    "timestamp": "2022-03-18T12:19:56.318938",
-    "items": [
-      {
-        "description": "Ginnie in a Bottle - Traditional Fine Gin",
-        "price": 30.0,
-        "itemId": "003001",
-        "qty": 1
-      },
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "6233f305bfb2eeedb5a14533",
-    "timestamp": "2022-03-18T12:48:37.036786",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "6233f30dbfb2eeedb5a14534",
-    "timestamp": "2022-03-18T12:48:45.061562",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 3
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 90.0
-  },
-  {
-    "_id": "6234050bbfb2eeedb5a14535",
-    "timestamp": "2022-03-18T14:05:31.343954",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "623411d8bfb2eeedb5a14536",
-    "timestamp": "2022-03-18T15:00:08.842306",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 1
-      },
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - The Flamingo",
-        "price": 30.0,
-        "itemId": "003003",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 90.0
-  },
-  {
-    "_id": "62341649bfb2eeedb5a14537",
-    "timestamp": "2022-03-18T15:19:05.634325",
-    "items": [
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "623912c7bfb2eeedb5a14538",
-    "timestamp": "2022-03-22T10:05:27.483291",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      },
-      {
-        "description": "Bottle Return",
-        "price": -3.0,
-        "itemId": "010001",
-        "qty": 2
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 24.0
-  },
-  {
-    "_id": "623920b3bfb2eeedb5a14539",
-    "timestamp": "2022-03-22T11:04:51.961611",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "62392ef6bfb2eeedb5a1453a",
-    "timestamp": "2022-03-22T12:05:42.188207",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 2
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "623a8d92bfb2eeedb5a1453b",
-    "timestamp": "2022-03-23T13:01:38.124171",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 2
-      },
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - Traditional Fine Gin",
-        "price": 30.0,
-        "itemId": "003001",
-        "qty": 1
-      },
-      {
-        "description": "Bottle Return",
-        "price": -3.0,
-        "itemId": "010001",
-        "qty": 2
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 114.0
-  },
-  {
-    "_id": "623bbba2bfb2eeedb5a1453c",
-    "timestamp": "2022-03-24T10:30:26.873226",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 2
-      },
-      {
-        "description": "Ginnie in a Bottle - The Flamingo",
-        "price": 30.0,
-        "itemId": "003003",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 1
-      },
-      {
-        "description": "Bottle Return",
-        "price": -3.0,
-        "itemId": "010001",
-        "qty": 2
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 114.0
-  },
-  {
-    "_id": "623bbda4bfb2eeedb5a1453d",
-    "timestamp": "2022-03-24T10:39:00.156154",
-    "items": [
-      {
-        "description": "Bottle Return",
-        "price": -3.0,
-        "itemId": "010001",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - Lemon, Blood Orange, & Lime",
-        "price": 30.0,
-        "itemId": "003004",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - The Flamingo",
-        "price": 30.0,
-        "itemId": "003003",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 57.0
-  },
-  {
-    "_id": "623bc4b8bfb2eeedb5a1453e",
-    "timestamp": "2022-03-24T11:09:12.882813",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 30.0
-  },
-  {
-    "_id": "623bdf4fbfb2eeedb5a1453f",
-    "timestamp": "2022-03-24T13:02:39.180141",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 2
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "623beb60bfb2eeedb5a14540",
-    "timestamp": "2022-03-24T13:54:08.854913",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      },
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 2
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 90.0
-  },
-  {
-    "_id": "623bfaecbfb2eeedb5a14541",
-    "timestamp": "2022-03-24T15:00:28.791505",
-    "items": [
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 60.0
-  },
-  {
-    "_id": "623c1b91bfb2eeedb5a14542",
-    "timestamp": "2022-03-24T17:19:45.288518",
-    "items": [
-      {
-        "description": "Rebellion Rum Co - Cloak & Dagger",
-        "price": 30.0,
-        "itemId": "001001",
-        "qty": 4
-      },
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 2
-      },
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 210.0
-  },
-  {
-    "_id": "6243a4e9bfb2eeedb5a14543",
-    "timestamp": "2022-03-30T10:31:37.905603",
-    "items": [
-      {
-        "description": "Ginnie in a Bottle - Butterfly Pea",
-        "price": 30.0,
-        "itemId": "003002",
-        "qty": 3
-      },
-      {
-        "description": "Ginnie in a Bottle - Lemon, Blood Orange, & Lime",
-        "price": 30.0,
-        "itemId": "003004",
-        "qty": 1
-      },
-      {
-        "description": "Rebellion Rum Co - Surrender",
-        "price": 30.0,
-        "itemId": "001002",
-        "qty": 1
-      },
-      {
-        "description": "White Stag Vodka",
-        "price": 30.0,
-        "itemId": "002001",
-        "qty": 1
-      },
-      {
-        "description": "Ginnie in a Bottle - The Flamingo",
-        "price": 30.0,
-        "itemId": "003003",
-        "qty": 1
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 210.0
-  },
-  {
-    "_id": "62453808ea1e2ae7092572b1",
-    "timestamp": "2022-03-31T15:11:36.893913",
-    "items": [
-      {
-        "description": "White Stag Vodka 1050ml",
-        "price": 40.0,
-        "itemId": "002002",
-        "qty": 2
-      }
-    ],
-    "customerId": null,
-    "coupons": {},
-    "total": 80.0
-  },
-  {
-    "_id": "6411a56b5c6a4ce9446765f5",
-    "timestamp": "2023-03-15T21:00:59.419736",
+    "discountTotal": null,
+    "eftposSessionId": null,
     "items": [
       {
         "description": "Cloak & Dagger",
-        "price": 30.0,
+        "price": 35.0,
+        "itemId": "3531954279220",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "amount": 70.0,
+        "type": "eftpos",
+        "reference": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"868330556579\",\"dateSettlement\":\"2025-01-06T00:00:00\",\"amtCash\":0,\"amtPurchase\":7000,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"677B3AA7DC131D95\",\"pan\":\"4239530000003245    \",\"dateExpiry\":\"0528\",\"track2\":\"4239530000003245=2805???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-06T12:07:22\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7216,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000007000\"}}}"
+      }
+    ],
+    "timestamp": "2025-01-06T12:07:26.043839"
+  },
+  {
+    "_id": "6777c78d80a3f761955f7573",
+    "coupons": {},
+    "customerId": null,
+    "items": [
+      {
+        "description": "Cloak & Dagger",
+        "price": 35.0,
+        "itemId": "3531954279220",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "type": "online",
+        "amount": 35.0
+      }
+    ],
+    "total": 35.0
+  },
+  {
+    "_id": "677792d01906f3ed66000000",
+    "coupons": [],
+    "customerId": null,
+    "discountTotal": null,
+    "eftposSessionId": "b80dbf8c16e3941b7cec3fb36e10021a",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "amount": 32.0,
+        "type": "eftpos",
+        "reference": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Mastercard          \",\"cardName\":\"03\",\"rrn\":\"107427081442\",\"dateSettlement\":\"2025-01-03T00:00:00\",\"amtCash\":0,\"amtPurchase\":3200,\"amtTip\":0,\"authCode\":878087,\"txnRef\":\"677792D01906F3ED\",\"pan\":\"5240140000001996    \",\"dateExpiry\":\"0528\",\"track2\":\"5240140000001996=2805???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-03T17:33:43\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7214,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000003200\"}}}"
+      }
+    ],
+    "timestamp": "2025-01-03T17:33:47.411116"
+  },
+  {
+    "_id": "677787592d73f19af7000000",
+    "timestamp": "2025-01-03T16:44:41.867561",
+    "items": [],
+    "customerId": null,
+    "eftposSessionId": null,
+    "payments": [],
+    "discountTotal": null,
+    "coupons": []
+  },
+  {
+    "_id": "677783c62d73f09af7000000",
+    "coupons": [],
+    "customerId": null,
+    "discountTotal": null,
+    "eftposSessionId": null,
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 3
+      },
+      {
+        "description": "Fine Dry Gin",
+        "price": 35.0,
+        "itemId": "3545116261664",
+        "qty": 3
+      }
+    ],
+    "payments": [
+      {
+        "amount": 100.0,
+        "type": "cash",
+        "reference": "Cash payment"
+      }
+    ],
+    "timestamp": "2025-01-03T16:44:40.212415"
+  },
+  {
+    "_id": "67777f3aa0e27aa3ff000000",
+    "coupons": [],
+    "customerId": null,
+    "discountTotal": null,
+    "eftposSessionId": "66c9ecfcbaf6bac9b55616eb4d9d8a33",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 3
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 2
+      }
+    ],
+    "payments": [
+      {
+        "amount": 61.0,
+        "type": "eftpos",
+        "reference": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Mastercard          \",\"cardName\":\"03\",\"rrn\":\"594485018214\",\"dateSettlement\":\"2025-01-03T00:00:00\",\"amtCash\":0,\"amtPurchase\":6100,\"amtTip\":0,\"authCode\":15122,\"txnRef\":\"67777F3AA0E27AA3\",\"pan\":\"5449380000007404    \",\"dateExpiry\":\"0627\",\"track2\":\"5449380000007404=2706???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-03T16:10:26\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7212,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000006100\"}}}"
+      }
+    ],
+    "timestamp": "2025-01-03T16:10:30.401388"
+  },
+  {
+    "_id": "6777765d164a1657fc000000",
+    "coupons": [],
+    "customerId": null,
+    "discountTotal": null,
+    "eftposSessionId": null,
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 2
+      },
+      {
+        "description": "Butterfly Pea Gin",
+        "price": 35.0,
+        "itemId": "3547297877207",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "amount": 105.0,
+        "type": "cash",
+        "reference": "Cash payment"
+      }
+    ],
+    "timestamp": "2025-01-03T15:33:00.007504"
+  },
+  {
+    "_id": "67776b06ce44744492000000",
+    "coupons": {},
+    "customerId": null,
+    "eftposSessionId": "669002c6020eb4fe29fb02ccd9ffde0b",
+    "items": [
+      {
+        "description": "Vodka Inferno",
+        "price": 45.0,
+        "itemId": "3549606338546",
+        "qty": 1
+      },
+      {
+        "description": "Limoncello",
+        "price": 55.0,
+        "itemId": "3545899450941",
+        "qty": 1
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      },
+      {
+        "description": "+ Glitter",
+        "price": 1.0,
+        "itemId": "glitter",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "amount": 171.0,
+        "type": "eftpos",
+        "reference": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Mastercard          \",\"cardName\":\"01\",\"rrn\":\"529689158064\",\"dateSettlement\":\"2025-01-03T00:00:00\",\"amtCash\":0,\"amtPurchase\":17100,\"amtTip\":0,\"authCode\":164411,\"txnRef\":\"67776B06CE447444\",\"pan\":\"5332710000003487    \",\"dateExpiry\":\"0826\",\"track2\":\"5332710000003487=2608???????????????????\",\"accountType\":\"3\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-03T14:44:17\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7210,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000017100\"}}}"
+      }
+    ],
+    "timestamp": "2025-01-03T14:44:21.471103"
+  },
+  {
+    "_id": "677767d7ce44734492000000",
+    "coupons": {},
+    "customerId": null,
+    "eftposSessionId": null,
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 6
+      },
+      {
+        "description": "Cloak & Dagger",
+        "price": 35.0,
         "itemId": "3531954279220",
         "qty": 2
       },
       {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 2
+      }
+    ],
+    "payments": [
+      {
+        "amount": 122.0,
+        "type": "cash",
+        "reference": "Cash payment"
+      }
+    ],
+    "timestamp": "2025-01-03T14:32:18.173762"
+  },
+  {
+    "_id": "67775d0387a374125b000000",
+    "timestamp": "2025-01-03T13:44:03.395232",
+    "items": [],
+    "customerId": null,
+    "coupons": {},
+    "eftposSessionId": null,
+    "payments": [
+      {
+        "amount": 1.0,
+        "type": "cash",
+        "reference": "Cash payment"
+      }
+    ]
+  },
+  {
+    "_id": "67775cfb87a373125b000000",
+    "timestamp": "2025-01-03T13:43:55.383263",
+    "items": [],
+    "customerId": null,
+    "coupons": {},
+    "eftposSessionId": null,
+    "payments": []
+  },
+  {
+    "_id": "67775c7e87a372125b000000",
+    "coupons": {},
+    "customerId": null,
+    "eftposSessionId": "aa0b677d0753f2f5caadbd32ba60c402",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 2
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "amount": 29.0,
+        "type": "eftpos",
+        "reference": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"597160329464\",\"dateSettlement\":\"2025-01-03T00:00:00\",\"amtCash\":0,\"amtPurchase\":2900,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"67775C7E87A37212\",\"pan\":\"4349680000006791    \",\"dateExpiry\":\"0227\",\"track2\":\"4349680000006791=2702???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-03T13:42:13\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7208,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000002900\"}}}"
+      }
+    ],
+    "timestamp": "2025-01-03T13:42:18.105136"
+  },
+  {
+    "_id": "67775a1a87a371125b000000",
+    "coupons": {},
+    "customerId": null,
+    "eftposSessionId": null,
+    "items": [],
+    "payments": [],
+    "timestamp": "2025-01-03T13:31:45.552061"
+  },
+  {
+    "_id": "677759d1240c05dc9f000000",
+    "timestamp": "2025-01-03T13:30:25.204172",
+    "items": [],
+    "customerId": null,
+    "coupons": {},
+    "eftposSessionId": null,
+    "payments": []
+  },
+  {
+    "_id": "677756e1240c04dc9f000000",
+    "coupons": {},
+    "customerId": null,
+    "eftposSessionId": null,
+    "items": [
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "amount": 35.0,
+        "type": "cash",
+        "reference": "Cash payment"
+      }
+    ],
+    "timestamp": "2025-01-03T13:30:23.976762"
+  },
+  {
+    "_id": "677755537d0649af6e000000",
+    "coupons": {},
+    "customerId": null,
+    "eftposSessionId": "1db4a67e14acebd79f8598f810983e5a",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 5
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 3
+      }
+    ],
+    "payments": [
+      {
+        "amount": 90.0,
+        "type": "eftpos",
+        "reference": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Visa                \",\"cardName\":\"01\",\"rrn\":\"228972001433\",\"dateSettlement\":\"2025-01-03T00:00:00\",\"amtCash\":0,\"amtPurchase\":9000,\"amtTip\":0,\"authCode\":974828,\"txnRef\":\"677755537D0649AF\",\"pan\":\"4517070000004454    \",\"dateExpiry\":\"1129\",\"track2\":\"4517070000004454=2911???????????????????\",\"accountType\":\"3\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-03T13:11:22\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7197,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000009000\"}}}"
+      }
+    ],
+    "timestamp": "2025-01-03T13:11:26.921989"
+  },
+  {
+    "_id": "67774cfb84992a5bbc000000",
+    "coupons": {},
+    "customerId": null,
+    "eftposSessionId": null,
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 1
+      },
+      {
+        "description": "1.25L Mixer",
+        "price": 3.5,
+        "itemId": "9300601292950",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "amount": 70.5,
+        "type": "cash",
+        "reference": "Cash payment"
+      }
+    ],
+    "timestamp": "2025-01-03T12:35:52.056995"
+  },
+  {
+    "_id": "67774b438499295bbc000000",
+    "coupons": {},
+    "customerId": null,
+    "eftposSessionId": "6c6c8e06cfe2d2ff649f73b3012dde87",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      },
+      {
+        "description": "+ Glitter",
+        "price": 1.0,
+        "itemId": "glitter",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "amount": 36.0,
+        "type": "eftpos",
+        "reference": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Visa                \",\"cardName\":\"04\",\"rrn\":\"388526894078\",\"dateSettlement\":\"2025-01-03T00:00:00\",\"amtCash\":0,\"amtPurchase\":3600,\"amtTip\":0,\"authCode\":869034,\"txnRef\":\"67774B438499295B\",\"pan\":\"4642000000003904    \",\"dateExpiry\":\"1029\",\"track2\":\"4642000000003904=2910???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-03T12:28:34\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7187,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000003600\"}}}"
+      }
+    ],
+    "timestamp": "2025-01-03T12:28:39.095140"
+  },
+  {
+    "_id": "67774b058499285bbc000000",
+    "timestamp": "2025-01-03T12:27:17.276854",
+    "items": [],
+    "customerId": null,
+    "coupons": {},
+    "eftposSessionId": null,
+    "payments": [
+      {
+        "amount": 1.0,
+        "type": "cash",
+        "reference": "Cash payment"
+      }
+    ]
+  },
+  {
+    "_id": "67774a328499275bbc000000",
+    "coupons": {},
+    "customerId": null,
+    "eftposSessionId": "2aefb96ae54f13ccfc0137f3c946ba6e",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 5
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 5
+      }
+    ],
+    "payments": [
+      {
+        "amount": 160.0,
+        "type": "eftpos",
+        "reference": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"535935588212\",\"dateSettlement\":\"2025-01-03T00:00:00\",\"amtCash\":0,\"amtPurchase\":16000,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"67774A328499275B\",\"pan\":\"4017950000005024    \",\"dateExpiry\":\"0827\",\"track2\":\"4017950000005024=2708???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-03T12:25:40\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7186,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000016000\"}}}"
+      }
+    ],
+    "timestamp": "2025-01-03T12:25:45.032810"
+  },
+  {
+    "_id": "677736eb28c7e72167000000",
+    "timestamp": "2025-01-03T11:01:31.979096",
+    "items": [
+      {
         "description": "Bottle Return",
         "price": -3.0,
         "itemId": "010001",
         "qty": 3
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 1
+      },
+      {
+        "description": "Fine Dry Gin",
+        "price": 35.0,
+        "itemId": "3545116261664",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
       }
     ],
     "customerId": null,
     "coupons": {},
-    "total": 51.0
+    "eftposSessionId": null,
+    "payments": [
+      {
+        "amount": 96.0,
+        "type": "cash",
+        "reference": "Cash payment"
+      }
+    ]
   },
   {
-    "_id": "64125ddc61309c87c75e4899",
-    "timestamp": "2023-03-16T10:07:56.571465",
+    "_id": "677736eb28c7e62167000000",
+    "timestamp": "2025-01-03T11:01:31.961990",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 3
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 1
+      },
+      {
+        "description": "Fine Dry Gin",
+        "price": 35.0,
+        "itemId": "3545116261664",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "eftposSessionId": null,
+    "payments": [
+      {
+        "amount": 96.0,
+        "type": "cash",
+        "reference": "Cash payment"
+      }
+    ]
+  },
+  {
+    "_id": "6777344ac414aacffd000000",
+    "timestamp": "2025-01-03T10:50:18.280632",
+    "items": [
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 2
+      },
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 2
+      }
+    ],
+    "customerId": null,
+    "coupons": {},
+    "eftposSessionId": null,
+    "payments": [
+      {
+        "amount": 64.0,
+        "type": "cash",
+        "reference": "Cash payment"
+      }
+    ]
+  },
+  {
+    "_id": "677642cede30d5fefeae9af8",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Mastercard          \",\"cardName\":\"03\",\"rrn\":\"047095321075\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":12800,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"677642CEDE30D5FE\",\"pan\":\"5456270000008726    \",\"dateExpiry\":\"0327\",\"track2\":\"5456270000008726=2703???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T17:40:37\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7164,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000012800\"}}}",
+    "eftposSessionId": "ec725a5c0d7659f0220df075c34bcc1e",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 4
+      },
+      {
+        "description": "Cloak & Dagger",
+        "price": 35.0,
+        "itemId": "3531954279220",
+        "qty": 4
+      }
+    ],
+    "timestamp": "2025-01-02T17:40:41.127968",
+    "total": 128.0
+  },
+  {
+    "_id": "6776420fde30d5fefeae9af7",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Mastercard          \",\"cardName\":\"03\",\"rrn\":\"168288441275\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":12700,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"6776420FDE30D5FE\",\"pan\":\"5456300000005116    \",\"dateExpiry\":\"1227\",\"track2\":\"5456300000005116=2712???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T17:36:59\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7163,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000012700\"}}}",
+    "eftposSessionId": "106e9bad392d3dd6d4d9ea28bf7a9909",
     "items": [
       {
         "description": "American Oak",
-        "price": 30.0,
+        "price": 35.0,
         "itemId": "3545540725800",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      },
+      {
+        "description": "Pepito's Hard Lemonade",
+        "price": 19.0,
+        "itemId": "3546098780013",
+        "qty": 3
+      }
+    ],
+    "timestamp": "2025-01-02T17:37:03.694848",
+    "total": 127.0
+  },
+  {
+    "_id": "67763e41b6932e3f77000000",
+    "timestamp": "2025-01-02T17:20:33.793149",
+    "items": [],
+    "customerId": null,
+    "coupons": {},
+    "eftposSessionId": null,
+    "payments": []
+  },
+  {
+    "_id": "67763a23de30d5fefeae9af6",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Mastercard          \",\"cardName\":\"01\",\"rrn\":\"653063148782\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":7000,\"amtTip\":0,\"authCode\":150310,\"txnRef\":\"67763A23DE30D5FE\",\"pan\":\"5308420000000456    \",\"dateExpiry\":\"0727\",\"track2\":\"5308420000000456=2707???????????????????\",\"accountType\":\"3\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T17:03:11\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7153,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000007000\"}}}",
+    "eftposSessionId": "18eb9c67eec86412450a2f1469a674ac",
+    "items": [
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 2
+      }
+    ],
+    "timestamp": "2025-01-02T17:03:15.920619",
+    "total": 70.0
+  },
+  {
+    "_id": "677639d9de30d5fefeae9af5",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Mastercard          \",\"cardName\":\"03\",\"rrn\":\"118808336949\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":10500,\"amtTip\":0,\"authCode\":43427,\"txnRef\":\"677639D9DE30D5FE\",\"pan\":\"5353160000000233    \",\"dateExpiry\":\"0128\",\"track2\":\"5353160000000233=2801???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T17:02:30\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7152,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000010500\"}}}",
+    "eftposSessionId": "d59bff2952280cebdfca0a513f456893",
+    "items": [
+      {
+        "description": "Fine Dry Gin",
+        "price": 35.0,
+        "itemId": "3545116261664",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2025-01-02T17:02:34.334317",
+    "total": 105.0
+  },
+  {
+    "_id": "67763439cb9333b18e000000",
+    "timestamp": "2025-01-02T16:37:45.905091",
+    "items": [],
+    "customerId": null,
+    "coupons": {},
+    "eftposSessionId": null,
+    "payments": []
+  },
+  {
+    "_id": "67762c78de30d5fefeae9af4",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Mastercard          \",\"cardName\":\"03\",\"rrn\":\"525384222379\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":21900,\"amtTip\":0,\"authCode\":729394,\"txnRef\":\"67762C78DE30D5FE\",\"pan\":\"5185040000007054    \",\"dateExpiry\":\"1027\",\"track2\":\"5185040000007054=2710???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T16:04:51\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7133,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000021900\"}}}",
+    "eftposSessionId": "b6874fbffa3a7f67df43ab5a79b49530",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 5
+      },
+      {
+        "description": "Zesty Hound Gin",
+        "price": 43.0,
+        "itemId": "3544071619862",
+        "qty": 3
+      },
+      {
+        "description": "Caninha",
+        "price": 35.0,
+        "itemId": "3543398584679",
+        "qty": 1
+      },
+      {
+        "description": "Fine Dry Gin",
+        "price": 35.0,
+        "itemId": "3545116261664",
+        "qty": 2
+      }
+    ],
+    "timestamp": "2025-01-02T16:04:55.782597",
+    "total": 219.0
+  },
+  {
+    "_id": "67762831de30d5fefeae9af3",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"380697938898\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":2900,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"67762831DE30D5FE\",\"pan\":\"4622390000004028    \",\"dateExpiry\":\"1128\",\"track2\":\"4622390000004028=2811???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T15:46:49\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7132,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000002900\"}}}",
+    "eftposSessionId": "fa8e3cb794cc75d214d9d600dc07b6fa",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 2
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2025-01-02T15:46:53.802423",
+    "total": 29.0
+  },
+  {
+    "_id": "67761c52de30d5fefeae9af2",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"154272931316\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":6400,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"67761C52DE30D5FE\",\"pan\":\"4622390000007040    \",\"dateExpiry\":\"0525\",\"track2\":\"4622390000007040=2505???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"E\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T14:56:29\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7131,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000006400\"}}}",
+    "eftposSessionId": "d0dc09d8c51f844c8fdccc4e0588f913",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 2
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 1
+      },
+      {
+        "description": "Fine Dry Gin",
+        "price": 35.0,
+        "itemId": "3545116261664",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2025-01-02T14:56:33.656320",
+    "total": 64.0
+  },
+  {
+    "_id": "6776156cde30d5fefeae9af1",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"0                   \",\"cardName\":\"00\",\"rrn\":\"0           \",\"dateSettlement\":\"0001-01-01T00:00:00\",\"amtCash\":0,\"amtPurchase\":6400,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"6776156CDE30D5FE\",\"pan\":\"                    \",\"dateExpiry\":\"    \",\"track2\":\"                                        \",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\" \",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":false,\"responseCode\":\"TI\",\"responseText\":\"OPERATOR TIMEOUT    \",\"date\":\"0001-01-01T00:00:00\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7128,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000006400\"}}}",
+    "eftposSessionId": "e15ad370e5cede6314afb2afe6fe774d",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 2
+      },
+      {
+        "description": "Cloak & Dagger",
+        "price": 35.0,
+        "itemId": "3531954279220",
+        "qty": 1
+      },
+      {
+        "description": "Fine Dry Gin",
+        "price": 35.0,
+        "itemId": "3545116261664",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2025-01-02T14:29:57.741398",
+    "total": 64.0
+  },
+  {
+    "_id": "67760726de30d5fefeae9af0",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"469453577851\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":8700,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"67760726DE30D5FE\",\"pan\":\"4017950000009820    \",\"dateExpiry\":\"0528\",\"track2\":\"4017950000009820=2805???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T13:25:32\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7126,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000008700\"}}}",
+    "eftposSessionId": "2371dda8ec4fc25c47ddbfa0a5d50c81",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 6
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 2
+      },
+      {
+        "description": "Cloak & Dagger",
+        "price": 35.0,
+        "itemId": "3531954279220",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2025-01-02T13:25:36.261797",
+    "total": 87.0
+  },
+  {
+    "_id": "67760416de30d5fefeae9aef",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"673604718033\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":6500,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"67760416DE30D5FE\",\"pan\":\"4349680000005781    \",\"dateExpiry\":\"0326\",\"track2\":\"4349680000005781=2603???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T13:12:30\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7125,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000006500\"}}}",
+    "eftposSessionId": "dd91d6542b627f84e7fba98c9739ff90",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 2
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      },
+      {
+        "description": "+ Glitter",
+        "price": 1.0,
+        "itemId": "glitter",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2025-01-02T13:12:34.550810",
+    "total": 65.0
+  },
+  {
+    "_id": "6775ffc2de30d5fefeae9aee",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"0                   \",\"cardName\":\"00\",\"rrn\":\"0           \",\"dateSettlement\":\"0001-01-01T00:00:00\",\"amtCash\":0,\"amtPurchase\":3500,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"6775FFC2DE30D5FE\",\"pan\":\"                    \",\"dateExpiry\":\"    \",\"track2\":\"                                        \",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\" \",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":false,\"responseCode\":\"TI\",\"responseText\":\"OPERATOR TIMEOUT    \",\"date\":\"0001-01-01T00:00:00\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7124,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000003500\"}}}",
+    "eftposSessionId": "40fedbd6a68e9b6c554ecdedd08c8da2",
+    "items": [
+      {
+        "description": "Cloak & Dagger",
+        "price": 35.0,
+        "itemId": "3531954279220",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2025-01-02T13:12:17.606489",
+    "total": 35.0
+  },
+  {
+    "_id": "6775f9e6de30d5fefeae9aed",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"298413962436\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":19200,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"6775F9E6DE30D5FE\",\"pan\":\"4434380000007832    \",\"dateExpiry\":\"0828\",\"track2\":\"4434380000007832=2808???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T12:29:31\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7123,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000019200\"}}}",
+    "eftposSessionId": "1e320510304e4bfc0684d69b0020964f",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 6
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 5
+      }
+    ],
+    "timestamp": "2025-01-02T12:29:35.354935",
+    "total": 192.0
+  },
+  {
+    "_id": "6775f538de30d5fefeae9aec",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"0                   \",\"cardName\":\"00\",\"rrn\":\"0           \",\"dateSettlement\":\"0001-01-01T00:00:00\",\"amtCash\":0,\"amtPurchase\":14200,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"6775F538DE30D5FE\",\"pan\":\"                    \",\"dateExpiry\":\"    \",\"track2\":\"                                        \",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\" \",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":false,\"responseCode\":\"TI\",\"responseText\":\"OPERATOR TIMEOUT    \",\"date\":\"0001-01-01T00:00:00\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7121,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000014200\"}}}",
+    "eftposSessionId": "fe431998d1a06d19173db20cbeb965cd",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 11
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 4
+      },
+      {
+        "description": "Fine Dry Gin",
+        "price": 35.0,
+        "itemId": "3545116261664",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2025-01-02T12:19:49.474184",
+    "total": 142.0
+  },
+  {
+    "_id": "6775f45ade30d5fefeae9aeb",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"312299982895\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":16800,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"6775F45ADE30D5FE\",\"pan\":\"4564320000002771    \",\"dateExpiry\":\"0428\",\"track2\":\"4564320000002771=2804???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T12:05:30\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7120,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000016800\"}}}",
+    "eftposSessionId": "f524a551e302c2588178e94986f1cba8",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 14
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 6
+      }
+    ],
+    "timestamp": "2025-01-02T12:05:34.157623",
+    "total": 168.0
+  },
+  {
+    "_id": "6775ef09de30d5fefeae9aea",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"452747767194\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":11700,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"6775EF09DE30D5FE\",\"pan\":\"4564300000002500    \",\"dateExpiry\":\"1227\",\"track2\":\"4564300000002500=2712???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T11:42:49\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7119,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000011700\"}}}",
+    "eftposSessionId": "c258b06dc36ce9b41fba418c54e216c2",
+    "items": [
+      {
+        "description": "Butterfly Pea Gin",
+        "price": 35.0,
+        "itemId": "3547297877207",
+        "qty": 2
+      },
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 13
+      },
+      {
+        "description": "Zesty Hound Gin",
+        "price": 43.0,
+        "itemId": "3544071619862",
+        "qty": 2
+      }
+    ],
+    "timestamp": "2025-01-02T11:42:53.267303",
+    "total": 117.0
+  },
+  {
+    "_id": "6775ee7ede30d5fefeae9ae9",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"873976752662\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":3100,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"6775EE7EDE30D5FE\",\"pan\":\"4934140000006756    \",\"dateExpiry\":\"1025\",\"track2\":\"4934140000006756=2510???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T11:40:37\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7118,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000003100\"}}}",
+    "eftposSessionId": "b20819bb6fc2e3cd8b387ad51eee3f32",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 16
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      },
+      {
+        "description": "+ Glitter",
+        "price": 1.0,
+        "itemId": "glitter",
+        "qty": 1
+      },
+      {
+        "description": "Zesty Hound Gin",
+        "price": 43.0,
+        "itemId": "3544071619862",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2025-01-02T11:40:41.415616",
+    "total": 31.0
+  },
+  {
+    "_id": "6775ee3fde30d5fefeae9ae8",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"089257168735\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":4000,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"6775EE3FDE30D5FE\",\"pan\":\"4564300000001823    \",\"dateExpiry\":\"0526\",\"track2\":\"4564300000001823=2605???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T11:39:27\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7117,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000004000\"}}}",
+    "eftposSessionId": "265ad3dabb504eeda5caf36e255a37d3",
+    "items": [
+      {
+        "description": "Zesty Hound Gin",
+        "price": 43.0,
+        "itemId": "3544071619862",
         "qty": 1
       },
       {
@@ -982,23 +1103,165 @@
         "qty": 1
       }
     ],
-    "customerId": null,
-    "coupons": {},
-    "total": 27.0
+    "timestamp": "2025-01-02T11:39:31.418352",
+    "total": 40.0
   },
   {
-    "_id": "64125e2f61309c87c75e489a",
-    "timestamp": "2023-03-16T10:09:19.880427",
+    "_id": "6775e485de30d5fefeae9ae7",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Mastercard          \",\"cardName\":\"01\",\"rrn\":\"931979951786\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":2000,\"amtTip\":0,\"authCode\":147396,\"txnRef\":\"6775E485DE30D5FE\",\"pan\":\"5332710000009301    \",\"dateExpiry\":\"0226\",\"track2\":\"5332710000009301=2602???????????????????\",\"accountType\":\"3\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T10:58:05\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7116,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000002000\"}}}",
+    "eftposSessionId": "673cd425e697191bf6540fb6d85ab72a",
     "items": [
       {
-        "description": "American Oak",
-        "price": 30.0,
-        "itemId": "3545540725800",
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 5
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
         "qty": 1
       }
     ],
-    "customerId": null,
+    "timestamp": "2025-01-02T10:58:08.928986",
+    "total": 20.0
+  },
+  {
+    "_id": "6775df5dde30d5fefeae9ae6",
     "coupons": {},
-    "total": 30.0
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"0                   \",\"cardName\":\"00\",\"rrn\":\"0           \",\"dateSettlement\":\"0001-01-01T00:00:00\",\"amtCash\":0,\"amtPurchase\":9300,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"6775DF5DDE30D5FE\",\"pan\":\"                    \",\"dateExpiry\":\"    \",\"track2\":\"                                        \",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\" \",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":false,\"responseCode\":\"TI\",\"responseText\":\"OPERATOR TIMEOUT    \",\"date\":\"0001-01-01T00:00:00\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7115,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000009300\"}}}",
+    "eftposSessionId": "a3aa48d6b7d38932bb246d7ff4296bb3",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 3
+      },
+      {
+        "description": "Cloak & Dagger",
+        "price": 35.0,
+        "itemId": "3531954279220",
+        "qty": 2
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2025-01-02T10:37:20.384861",
+    "total": 96.0
+  },
+  {
+    "_id": "6775defade30d5fefeae9ae5",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\" \",\"merchant\":\"  \",\"cardType\":\"                    \",\"cardName\":\"00\",\"rrn\":\"            \",\"dateSettlement\":\"0001-01-01T00:00:00\",\"amtCash\":0,\"amtPurchase\":0,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"                \",\"pan\":\"                    \",\"dateExpiry\":\"    \",\"accountType\":\" \",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"0\",\"cardEntry\":\" \",\"commsMethod\":\" \",\"currency\":\" \",\"payPass\":\" \",\"undefinedFlag6\":\" \",\"undefinedFlag7\":\" \"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":false,\"responseCode\":\"PF\",\"responseText\":\"PINpad Offline      \",\"date\":\"0001-01-01T00:00:00\",\"catid\":\"        \",\"caid\":\"               \",\"stan\":0,\"purchaseAnalysisData\":{}}}",
+    "eftposSessionId": "e9fd99cb1266be6c87405faabbbfa7aa",
+    "items": [
+      {
+        "description": "Cloak & Dagger",
+        "price": 35.0,
+        "itemId": "3531954279220",
+        "qty": 1
+      },
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2025-01-02T10:34:54.278481",
+    "total": 32.0
+  },
+  {
+    "_id": "6775de82074249dc4fb35397",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\" \",\"merchant\":\"  \",\"cardType\":\"                    \",\"cardName\":\"00\",\"rrn\":\"            \",\"dateSettlement\":\"0001-01-01T00:00:00\",\"amtCash\":0,\"amtPurchase\":0,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"                \",\"pan\":\"                    \",\"dateExpiry\":\"    \",\"accountType\":\" \",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"0\",\"cardEntry\":\" \",\"commsMethod\":\" \",\"currency\":\" \",\"payPass\":\" \",\"undefinedFlag6\":\" \",\"undefinedFlag7\":\" \"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":false,\"responseCode\":\"PF\",\"responseText\":\"PINpad Offline      \",\"date\":\"0001-01-01T00:00:00\",\"catid\":\"        \",\"caid\":\"               \",\"stan\":0,\"purchaseAnalysisData\":{}}}",
+    "eftposSessionId": "5e6452dab1d95bc8d2c91ceadee8d514",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 6
+      },
+      {
+        "description": "Zesty Hound Gin",
+        "price": 43.0,
+        "itemId": "3544071619862",
+        "qty": 4
+      }
+    ],
+    "timestamp": "2025-01-02T15:16:08.132601",
+    "total": 154.0
+  },
+  {
+    "_id": "6775db3c074249dc4fb35396",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Visa                \",\"cardName\":\"01\",\"rrn\":\"030196282573\",\"dateSettlement\":\"2025-01-02T00:00:00\",\"amtCash\":0,\"amtPurchase\":12800,\"amtTip\":0,\"authCode\":848154,\"txnRef\":\"6775DB3C074249DC\",\"pan\":\"4818020000006465    \",\"dateExpiry\":\"0429\",\"track2\":\"4818020000006465=2904???????????????????\",\"accountType\":\"3\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-02T10:18:49\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7113,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000012800\"}}}",
+    "eftposSessionId": "ef9a268556881e569acf4b8feeb40215",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 4
+      },
+      {
+        "description": "Cloak & Dagger",
+        "price": 35.0,
+        "itemId": "3531954279220",
+        "qty": 4
+      }
+    ],
+    "timestamp": "2025-01-02T10:18:53.146549",
+    "total": 128.0
+  },
+  {
+    "_id": "67745ff3e719f93790cbe91e",
+    "coupons": {},
+    "customerId": null,
+    "items": [
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 6
+      }
+    ],
+    "payments": [
+      {
+        "type": "online",
+        "amount": 220.57
+      }
+    ],
+    "total": 210.0
+  },
+  {
+    "_id": "67734337c5debb0823d29091",
+    "coupons": {},
+    "customerId": null,
+    "eftposResponse": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Mastercard          \",\"cardName\":\"01\",\"rrn\":\"613976906450\",\"dateSettlement\":\"2024-12-31T00:00:00\",\"amtCash\":0,\"amtPurchase\":350,\"amtTip\":0,\"authCode\":652471,\"txnRef\":\"67734337C5DEBB08\",\"pan\":\"5332710000009301    \",\"dateExpiry\":\"0226\",\"track2\":\"5332710000009301=2602???????????????????\",\"accountType\":\"3\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2024-12-31T11:05:03\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7111,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000000350\"}}}",
+    "eftposSessionId": "cad7538a41510bdc7b6414a3c3327994",
+    "items": [
+      {
+        "description": "1.25L Mixer",
+        "price": 3.5,
+        "itemId": "9300601292950",
+        "qty": 1
+      }
+    ],
+    "timestamp": "2024-12-31T11:05:07.423282",
+    "total": 3.5
   }
 ]
