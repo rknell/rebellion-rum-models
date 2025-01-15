@@ -1,0 +1,112 @@
+[
+  {
+    "_id": "677c60e530bc5f6e498db36b",
+    "coupons": {},
+    "customerId": null,
+    "items": [
+      {
+        "description": "Caninha",
+        "price": 35.0,
+        "itemId": "3543398584679",
+        "qty": 2
+      },
+      {
+        "description": "Zesty Hound Gin",
+        "price": 43.0,
+        "itemId": "3544071619862",
+        "qty": 2
+      },
+      {
+        "description": "American Oak",
+        "price": 35.0,
+        "itemId": "3545540725800",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "type": "online",
+        "amount": 191.0
+      }
+    ],
+    "total": 191.0
+  },
+  {
+    "_id": "677b3aa7dc131d9594000000",
+    "coupons": [],
+    "customerId": null,
+    "discountTotal": null,
+    "eftposSessionId": null,
+    "items": [
+      {
+        "description": "Cloak & Dagger",
+        "price": 35.0,
+        "itemId": "3531954279220",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "amount": 70.0,
+        "type": "eftpos",
+        "reference": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"eftpos              \",\"cardName\":\"01\",\"rrn\":\"868330556579\",\"dateSettlement\":\"2025-01-06T00:00:00\",\"amtCash\":0,\"amtPurchase\":7000,\"amtTip\":0,\"authCode\":0,\"txnRef\":\"677B3AA7DC131D95\",\"pan\":\"4239530000003245    \",\"dateExpiry\":\"0528\",\"track2\":\"4239530000003245=2805???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-06T12:07:22\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7216,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000007000\"}}"
+      }
+    ],
+    "timestamp": "2025-01-06T12:07:26.043839"
+  },
+  {
+    "_id": "6777c78d80a3f761955f7573",
+    "coupons": {},
+    "customerId": null,
+    "items": [
+      {
+        "description": "Cloak & Dagger",
+        "price": 35.0,
+        "itemId": "3531954279220",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "type": "online",
+        "amount": 35.0
+      }
+    ],
+    "total": 35.0
+  },
+  {
+    "_id": "677792d01906f3ed66000000",
+    "coupons": [],
+    "customerId": null,
+    "discountTotal": null,
+    "eftposSessionId": "b80dbf8c16e3941b7cec3fb36e10021a",
+    "items": [
+      {
+        "description": "Bottle Return",
+        "price": -3.0,
+        "itemId": "010001",
+        "qty": 1
+      },
+      {
+        "description": "White Stag Vodka",
+        "price": 35.0,
+        "itemId": "3538497880326",
+        "qty": 1
+      }
+    ],
+    "payments": [
+      {
+        "amount": 32.0,
+        "type": "eftpos",
+        "reference": "{\"responseType\":\"transaction\",\"response\":{\"txnType\":\"P\",\"merchant\":\"00\",\"cardType\":\"Mastercard          \",\"cardName\":\"03\",\"rrn\":\"107427081442\",\"dateSettlement\":\"2025-01-03T00:00:00\",\"amtCash\":0,\"amtPurchase\":3200,\"amtTip\":0,\"authCode\":878087,\"txnRef\":\"677792D01906F3ED\",\"pan\":\"5240140000001996    \",\"dateExpiry\":\"0528\",\"track2\":\"5240140000001996=2805???????????????????\",\"accountType\":\"2\",\"txnFlags\":{\"offline\":\"0\",\"receiptPrinted\":\"1\",\"cardEntry\":\"C\",\"commsMethod\":\"0\",\"currency\":\"0\",\"payPass\":\"0\",\"undefinedFlag6\":\"0\",\"undefinedFlag7\":\"0\"},\"balanceReceived\":false,\"availableBalance\":0,\"clearedFundsBalance\":0,\"success\":true,\"responseCode\":\"00\",\"responseText\":\"APPROVED            \",\"date\":\"2025-01-03T17:33:43\",\"catid\":\"00005640\",\"caid\":\"000000000010271\",\"stan\":7214,\"purchaseAnalysisData\":{\"SUR\":\"000000000\",\"AMT\":\"000003200\"}}"
+      }
+    ],
+    "timestamp": "2025-01-03T17:33:47.411116"
+  }
+] 
