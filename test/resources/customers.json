@@ -1,0 +1,38 @@
+[
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phone": "0412345678",
+    "addressLine1": "123 Main Street",
+    "addressLine2": "Apt 4B",
+    "city": "Brisbane",
+    "state": "QLD",
+    "postcode": "4000",
+    "country": "Australia"
+  },
+  {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "email": "jane.smith@example.com",
+    "phone": "0487654321",
+    "addressLine1": "456 Queen Street",
+    "addressLine2": "",
+    "city": "Sydney",
+    "state": "NSW",
+    "postcode": "2000",
+    "country": "Australia"
+  },
+  {
+    "firstName": "Bob",
+    "lastName": "Wilson",
+    "email": "bob.wilson@example.com",
+    "phone": "0423456789",
+    "addressLine1": "789 King Street",
+    "addressLine2": "Level 3",
+    "city": "Melbourne",
+    "state": "VIC",
+    "postcode": "3000",
+    "country": "Australia"
+  }
+] 
