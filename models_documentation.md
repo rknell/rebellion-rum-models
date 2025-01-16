@@ -1014,51 +1014,51 @@ class ProductModel {
   final String barcode;
 
   /// Primary description of the product
-  final String description;
+  String description;
 
   /// Current retail price in local currency
-  final double price;
+  double price;
 
   /// The discount we can give to friends of the distillery.
-  final double matesRatesPrice;
+  double matesRatesPrice;
 
   /// Current stock level
-  final int stock;
+  int stock;
 
   /// Product category (e.g., 'spirits', 'merchandise')
-  final ProductCategory category;
+  ProductCategory category;
 
   /// Whether the product can be purchased online
-  final bool isAvailableOnline;
+  bool isAvailableOnline;
 
   /// Optional display name, if different from description
-  final String? name;
+  String? name;
 
   /// List of image URLs associated with the product
-  final List<String> images;
+  List<String> images;
 
   /// Detailed product description for online store
-  final String? longDescription;
+  String? longDescription;
 
   /// Brief product description for listings
-  final String? shortDescription;
+  String? shortDescription;
 
   /// Product volume in milliliters (ml)
-  final int? volume;
+  int? volume;
 
   /// Product weight in kilograms (kg)
-  final double? weight;
+  double? weight;
 
   /// Alcohol by volume percentage
-  final double? abv;
+  double? abv;
 
   /// URL-friendly shortcut name
-  final String? shortcut;
+  String? shortcut;
 
   /// Whether the product is currently enabled for sale
-  final bool? enabled;
+  bool? enabled;
 
-  const ProductModel({
+  ProductModel({
     required this.id,
     required this.barcode,
     required this.description,
