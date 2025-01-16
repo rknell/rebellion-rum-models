@@ -7,7 +7,7 @@ part of 'product.dart';
 // **************************************************************************
 
 ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       barcode: json['barcode'] as String,
       description: json['description'] as String,
       price: (json['price'] as num).toDouble(),
@@ -31,7 +31,8 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
 
 Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value)
+        '_id': value,
       'barcode': instance.barcode,
       'description': instance.description,
       'price': instance.price,

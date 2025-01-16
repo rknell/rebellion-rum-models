@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_location.g.dart';
 
@@ -11,6 +12,7 @@ part 'stock_location.g.dart';
 class StockLocationModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Human-readable name for the location

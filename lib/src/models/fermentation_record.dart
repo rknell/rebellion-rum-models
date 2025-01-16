@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'fermentation_record.g.dart';
 
@@ -24,6 +25,7 @@ part 'fermentation_record.g.dart';
 class FermentationRecordModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Batch number for this fermentation

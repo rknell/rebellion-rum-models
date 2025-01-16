@@ -1,10 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'coupon.g.dart';
 
 @JsonSerializable()
 class CouponModel {
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
   final String code;
   final String description;

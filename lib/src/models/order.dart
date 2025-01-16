@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'customer.dart';
 
 part 'order.g.dart';
@@ -25,6 +26,7 @@ part 'order.g.dart';
 class OrderModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Customer who placed the order

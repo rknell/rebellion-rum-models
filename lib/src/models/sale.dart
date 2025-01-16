@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'sale_item.dart';
 import 'payment.dart';
 
@@ -24,6 +25,7 @@ part 'sale.g.dart';
 class SaleModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// When the sale was completed
