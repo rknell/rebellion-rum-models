@@ -422,7 +422,7 @@ class CouponModel {
   String code;
   String description;
   double amount;
-  String email;
+  String? email;
   String? phone;
   bool? redeemed;
   double? remainingValue;
