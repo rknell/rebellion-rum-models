@@ -36,6 +36,7 @@ class ProductModel {
   final String barcode;
 
   /// Product name/title
+
   String name;
 
   /// Current retail price in local currency
@@ -88,7 +89,6 @@ class ProductModel {
     ObjectId? id,
     required this.barcode,
     String? name,
-    String? description,
     required this.price,
     int? stock = 0,
     ProductCategory? category,
@@ -106,16 +106,23 @@ class ProductModel {
     double? matesRatesPrice,
   })  : id = id ?? ObjectId(),
         volume = volume ?? 700.0,
-        this.name = name ?? description ?? 'unnamed',
         abv = abv ?? 0.37,
+        name = name ?? '',
         percentAustralian = percentAustralian ?? 1.0,
         matesRatesPrice = matesRatesPrice ?? price * .8,
         stock = stock ?? 0,
         category = category ?? ProductCategory.other;
 
   // coverage:ignore-line
-  factory ProductModel.fromJson(Map<String, dynamic> json) =>
-      _$ProductModelFromJson(json);
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    // Handle the name/description merge during deserialization
+    final name = json['name'] as String?;
+    final description = json['description'] as String?;
+    json = Map<String, dynamic>.from(json);
+    json['name'] = name ?? description ?? '';
+
+    return _$ProductModelFromJson(json);
+  }
   // coverage:ignore-line
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }

@@ -28,7 +28,7 @@ class SaleModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final ObjectId id;
+  ObjectId id;
 
   /// When the sale was completed
   DateTime timestamp;
@@ -61,8 +61,8 @@ class SaleModel {
   /// Whether this sale was processed with mates rates pricing
   bool isMatesRates;
 
-  static dynamic _couponsFromJson(dynamic json) {
-    if (json == null) return [];
+  static List<CouponModel> _couponsFromJson(dynamic json) {
+    if (json == null) return <CouponModel>[];
     if (json is List) {
       return json
           .map((e) => CouponModel.fromJson(e as Map<String, dynamic>))
@@ -73,7 +73,7 @@ class SaleModel {
           .map((e) => CouponModel.fromJson(e as Map<String, dynamic>))
           .toList();
     }
-    return [];
+    return <CouponModel>[];
   }
 
   SaleModel({

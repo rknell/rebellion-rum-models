@@ -418,7 +418,7 @@ part 'coupon.g.dart';
 class CouponModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final ObjectId id;
+  ObjectId id;
   String code;
   String description;
   double amount;
@@ -440,10 +440,8 @@ class CouponModel {
     this.originalAmount,
   }) : id = id ?? ObjectId();
 
-  // coverage:ignore-line
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
       _$CouponModelFromJson(json);
-  // coverage:ignore-line
   Map<String, dynamic> toJson() => _$CouponModelToJson(this);
 }
 
@@ -967,15 +965,15 @@ enum PaymentType { cash, eftpos, coupon, online, unknown }
 class PaymentModel {
   /// Payment method used
   @JsonKey(unknownEnumValue: PaymentType.unknown)
-  final PaymentType type;
+  PaymentType type;
 
   /// Amount paid in this payment
-  final double amount;
+  double amount;
 
   /// Optional reference number (e.g., transaction ID, receipt number)
-  final String? reference;
+  String? reference;
 
-  const PaymentModel({
+  PaymentModel({
     required this.type,
     required this.amount,
     this.reference,
@@ -1092,6 +1090,7 @@ class ProductModel {
   final String barcode;
 
   /// Product name/title
+
   String name;
 
   /// Current retail price in local currency
@@ -1144,7 +1143,6 @@ class ProductModel {
     ObjectId? id,
     required this.barcode,
     String? name,
-    String? description,
     required this.price,
     int? stock = 0,
     ProductCategory? category,
@@ -1162,16 +1160,23 @@ class ProductModel {
     double? matesRatesPrice,
   })  : id = id ?? ObjectId(),
         volume = volume ?? 700.0,
-        this.name = name ?? description ?? 'unnamed',
         abv = abv ?? 0.37,
+        name = name ?? '',
         percentAustralian = percentAustralian ?? 1.0,
         matesRatesPrice = matesRatesPrice ?? price * .8,
         stock = stock ?? 0,
         category = category ?? ProductCategory.other;
 
   // coverage:ignore-line
-  factory ProductModel.fromJson(Map<String, dynamic> json) =>
-      _$ProductModelFromJson(json);
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    // Handle the name/description merge during deserialization
+    final name = json['name'] as String?;
+    final description = json['description'] as String?;
+    json = Map<String, dynamic>.from(json);
+    json['name'] = name ?? description ?? '';
+
+    return _$ProductModelFromJson(json);
+  }
   // coverage:ignore-line
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }
@@ -1251,7 +1256,7 @@ class SaleModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final ObjectId id;
+  ObjectId id;
 
   /// When the sale was completed
   DateTime timestamp;
@@ -1284,8 +1289,8 @@ class SaleModel {
   /// Whether this sale was processed with mates rates pricing
   bool isMatesRates;
 
-  static dynamic _couponsFromJson(dynamic json) {
-    if (json == null) return [];
+  static List<CouponModel> _couponsFromJson(dynamic json) {
+    if (json == null) return <CouponModel>[];
     if (json is List) {
       return json
           .map((e) => CouponModel.fromJson(e as Map<String, dynamic>))
@@ -1296,7 +1301,7 @@ class SaleModel {
           .map((e) => CouponModel.fromJson(e as Map<String, dynamic>))
           .toList();
     }
-    return [];
+    return <CouponModel>[];
   }
 
   SaleModel({
@@ -1350,18 +1355,18 @@ part 'sale_item.g.dart';
 @JsonSerializable()
 class SaleItemModel {
   /// Product description as shown on receipt
-  final String description;
+  String description;
 
   /// Unit price at time of sale
-  final double price;
+  double price;
 
   /// Reference to the product ID
-  final String itemId;
+  String itemId;
 
   /// Quantity sold
-  final int qty;
+  int qty;
 
-  const SaleItemModel({
+  SaleItemModel({
     required this.description,
     required this.price,
     required this.itemId,

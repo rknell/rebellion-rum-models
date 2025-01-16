@@ -22,15 +22,15 @@ enum PaymentType { cash, eftpos, coupon, online, unknown }
 class PaymentModel {
   /// Payment method used
   @JsonKey(unknownEnumValue: PaymentType.unknown)
-  final PaymentType type;
+  PaymentType type;
 
   /// Amount paid in this payment
-  final double amount;
+  double amount;
 
   /// Optional reference number (e.g., transaction ID, receipt number)
-  final String? reference;
+  String? reference;
 
-  const PaymentModel({
+  PaymentModel({
     required this.type,
     required this.amount,
     this.reference,

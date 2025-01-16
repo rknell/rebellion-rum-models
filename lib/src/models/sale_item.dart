@@ -19,18 +19,18 @@ part 'sale_item.g.dart';
 @JsonSerializable()
 class SaleItemModel {
   /// Product description as shown on receipt
-  final String description;
+  String description;
 
   /// Unit price at time of sale
-  final double price;
+  double price;
 
   /// Reference to the product ID
-  final String itemId;
+  String itemId;
 
   /// Quantity sold
-  final int qty;
+  int qty;
 
-  const SaleItemModel({
+  SaleItemModel({
     required this.description,
     required this.price,
     required this.itemId,

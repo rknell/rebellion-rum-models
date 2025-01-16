@@ -8,7 +8,7 @@ part 'coupon.g.dart';
 class CouponModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final ObjectId id;
+  ObjectId id;
   String code;
   String description;
   double amount;
@@ -30,9 +30,7 @@ class CouponModel {
     this.originalAmount,
   }) : id = id ?? ObjectId();
 
-  // coverage:ignore-line
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
       _$CouponModelFromJson(json);
-  // coverage:ignore-line
   Map<String, dynamic> toJson() => _$CouponModelToJson(this);
 }
