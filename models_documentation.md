@@ -454,6 +454,8 @@ class CouponModel {
 *File: lib/src/models/customer.dart*
 
 ```dart
+import 'dart:core';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
@@ -477,6 +479,25 @@ part 'customer.g.dart';
 ///   isWholesale: false,
 /// );
 /// ```
+///
+///
+
+enum CustomerPreferences {
+  darkRum,
+  spicedRum,
+  whiteRum,
+  coconutRum,
+  rum,
+  gin,
+  blueGin,
+  pinkGin,
+  traditionalGin,
+  citrusGin,
+  vodka,
+  beer,
+  other
+}
+
 @JsonSerializable()
 class CustomerModel {
   /// MongoDB document ID
@@ -514,19 +535,26 @@ class CustomerModel {
   /// Country
   String country;
 
-  CustomerModel({
-    ObjectId? id,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.phone,
-    required this.addressLine1,
-    required this.addressLine2,
-    required this.city,
-    required this.state,
-    required this.postcode,
-    required this.country,
-  }) : id = id ?? ObjectId();
+  bool isWholesale;
+
+  Set<CustomerPreferences> preferences;
+
+  CustomerModel(
+      {ObjectId? id,
+      required this.firstName,
+      required this.lastName,
+      required this.email,
+      required this.phone,
+      required this.addressLine1,
+      required this.addressLine2,
+      required this.city,
+      required this.state,
+      required this.postcode,
+      required this.country,
+      Set<CustomerPreferences>? preferences,
+      this.isWholesale = false})
+      : id = id ?? ObjectId(),
+        preferences = preferences ?? <CustomerPreferences>{};
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
