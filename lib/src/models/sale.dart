@@ -31,7 +31,7 @@ class SaleModel {
   final ObjectId id;
 
   /// When the sale was completed
-  DateTime? timestamp;
+  DateTime timestamp;
 
   /// List of items included in the sale
   @JsonKey(defaultValue: <SaleItemModel>[])
