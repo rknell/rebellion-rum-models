@@ -19,6 +19,10 @@ CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) =>
       state: json['state'] as String,
       postcode: json['postcode'] as String,
       country: json['country'] as String,
+      preferences: (json['preferences'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$CustomerPreferencesEnumMap, e))
+          .toSet(),
+      isWholesale: json['isWholesale'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
@@ -35,4 +39,24 @@ Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
       'state': instance.state,
       'postcode': instance.postcode,
       'country': instance.country,
+      'isWholesale': instance.isWholesale,
+      'preferences': instance.preferences
+          .map((e) => _$CustomerPreferencesEnumMap[e]!)
+          .toList(),
     };
+
+const _$CustomerPreferencesEnumMap = {
+  CustomerPreferences.darkRum: 'darkRum',
+  CustomerPreferences.spicedRum: 'spicedRum',
+  CustomerPreferences.whiteRum: 'whiteRum',
+  CustomerPreferences.coconutRum: 'coconutRum',
+  CustomerPreferences.rum: 'rum',
+  CustomerPreferences.gin: 'gin',
+  CustomerPreferences.blueGin: 'blueGin',
+  CustomerPreferences.pinkGin: 'pinkGin',
+  CustomerPreferences.traditionalGin: 'traditionalGin',
+  CustomerPreferences.citrusGin: 'citrusGin',
+  CustomerPreferences.vodka: 'vodka',
+  CustomerPreferences.beer: 'beer',
+  CustomerPreferences.other: 'other',
+};
