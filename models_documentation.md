@@ -635,11 +635,11 @@ class DistillationRecordModel {
 
   DistillationRecordModel({
     ObjectId? id,
-    required this.stillUsed,
-    required this.feintsAdded,
-    required this.lalsCharged,
-    required this.totalLALsCharged,
-    required this.totalLALsYield,
+    this.stillUsed = '',
+    this.feintsAdded = 0,
+    this.lalsCharged = 0,
+    this.totalLALsCharged = 0,
+    this.totalLALsYield = 0,
     List<NoteModel>? notes,
   })  : id = id ?? ObjectId(),
         notes = notes ?? [];

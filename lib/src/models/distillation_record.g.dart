@@ -10,11 +10,11 @@ DistillationRecordModel _$DistillationRecordModelFromJson(
         Map<String, dynamic> json) =>
     DistillationRecordModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
-      stillUsed: json['stillUsed'] as String,
-      feintsAdded: (json['feintsAdded'] as num).toDouble(),
-      lalsCharged: (json['lalsCharged'] as num).toDouble(),
-      totalLALsCharged: (json['totalLALsCharged'] as num).toDouble(),
-      totalLALsYield: (json['totalLALsYield'] as num).toDouble(),
+      stillUsed: json['stillUsed'] as String? ?? '',
+      feintsAdded: (json['feintsAdded'] as num?)?.toDouble() ?? 0,
+      lalsCharged: (json['lalsCharged'] as num?)?.toDouble() ?? 0,
+      totalLALsCharged: (json['totalLALsCharged'] as num?)?.toDouble() ?? 0,
+      totalLALsYield: (json['totalLALsYield'] as num?)?.toDouble() ?? 0,
       notes: (json['notes'] as List<dynamic>?)
           ?.map((e) => NoteModel.fromJson(e as Map<String, dynamic>))
           .toList(),
