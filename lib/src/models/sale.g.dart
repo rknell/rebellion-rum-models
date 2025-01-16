@@ -30,8 +30,7 @@ SaleModel _$SaleModelFromJson(Map<String, dynamic> json) => SaleModel(
 Map<String, dynamic> _$SaleModelToJson(SaleModel instance) => <String, dynamic>{
       if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
-      if (instance.timestamp?.toIso8601String() case final value?)
-        'timestamp': value,
+      'timestamp': instance.timestamp.toIso8601String(),
       'items': instance.items.map((e) => e.toJson()).toList(),
       if (instance.customerId case final value?) 'customerId': value,
       'coupons': instance.coupons.map((e) => e.toJson()).toList(),
