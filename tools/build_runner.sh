@@ -14,3 +14,5 @@ else
     echo "Build failed!"
     exit 1
 fi 
+
+dart tools/concat_models.dart

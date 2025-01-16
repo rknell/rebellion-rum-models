@@ -38,6 +38,9 @@ class ProductModel {
   /// Current retail price in local currency
   final double price;
 
+  /// The discount we can give to friends of the distillery.
+  final double matesRatesPrice;
+
   /// Current stock level
   final int stock;
 
@@ -91,7 +94,8 @@ class ProductModel {
     this.abv,
     this.shortcut,
     this.enabled,
-  });
+    double? matesRatesPrice,
+  }) : matesRatesPrice = matesRatesPrice ?? price * .8;
 
   // coverage:ignore-line
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
