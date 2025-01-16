@@ -7,7 +7,7 @@ part of 'cart.dart';
 // **************************************************************************
 
 CartModel _$CartModelFromJson(Map<String, dynamic> json) => CartModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       cartId: json['cartId'] as String,
       deliveryMethod: json['deliveryMethod'] == null
           ? null
@@ -25,7 +25,8 @@ CartModel _$CartModelFromJson(Map<String, dynamic> json) => CartModel(
     );
 
 Map<String, dynamic> _$CartModelToJson(CartModel instance) => <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'cartId': instance.cartId,
       if (instance.deliveryMethod?.toJson() case final value?)
         'deliveryMethod': value,

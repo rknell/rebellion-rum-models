@@ -8,7 +8,7 @@ part of 'stock_journal.dart';
 
 StockJournalModel _$StockJournalModelFromJson(Map<String, dynamic> json) =>
     StockJournalModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       barcode: json['barcode'] as String,
       type: json['type'] as String,
       from: json['from'] as String,
@@ -18,7 +18,8 @@ StockJournalModel _$StockJournalModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$StockJournalModelToJson(StockJournalModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'barcode': instance.barcode,
       'type': instance.type,
       'from': instance.from,

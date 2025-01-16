@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'packaging_run_item.g.dart';
@@ -7,19 +8,19 @@ part 'packaging_run_item.g.dart';
 class PackagingRunItemModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
-  final String productBarcode;
-  final double unitSize;
-  final double strength;
-  final double unitsPackaged;
-  final double packagingLosses;
-  final double remaining;
-  final double volumeAvailable;
-  final double volumeRemaining;
-  final String exciseReturn;
+  final ObjectId id;
+  String productBarcode;
+  double unitSize;
+  double strength;
+  double unitsPackaged;
+  double packagingLosses;
+  double remaining;
+  double volumeAvailable;
+  double volumeRemaining;
+  String exciseReturn;
 
-  const PackagingRunItemModel({
-    required this.id,
+  PackagingRunItemModel({
+    ObjectId? id,
     required this.productBarcode,
     required this.unitSize,
     required this.strength,
@@ -29,7 +30,7 @@ class PackagingRunItemModel {
     required this.volumeAvailable,
     required this.volumeRemaining,
     required this.exciseReturn,
-  });
+  }) : id = id ?? ObjectId();
 
   factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
       _$PackagingRunItemModelFromJson(json);

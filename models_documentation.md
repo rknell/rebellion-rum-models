@@ -8,6 +8,7 @@ This documentation is automatically generated from the model files.
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'bulk_storage_register_item.g.dart';
@@ -16,20 +17,20 @@ part 'bulk_storage_register_item.g.dart';
 class BulkStorageRegisterItemModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
-  final double lals;
-  final bool feintsDestroyed;
-  final bool wastage;
-  final String notes;
-  final String? fromChargeId;
-  final String? fromVesselId;
-  final String? toVesselId;
-  final String? toChargeId;
-  final String? toPackagingId;
-  final String? fromPackagingId;
+  final ObjectId id;
+  double lals;
+  bool feintsDestroyed;
+  bool wastage;
+  String notes;
+  String? fromChargeId;
+  String? fromVesselId;
+  String? toVesselId;
+  String? toChargeId;
+  String? toPackagingId;
+  String? fromPackagingId;
 
-  const BulkStorageRegisterItemModel({
-    required this.id,
+  BulkStorageRegisterItemModel({
+    ObjectId? id,
     required this.lals,
     required this.feintsDestroyed,
     required this.wastage,
@@ -40,7 +41,7 @@ class BulkStorageRegisterItemModel {
     this.toChargeId,
     this.toPackagingId,
     this.fromPackagingId,
-  });
+  }) : id = id ?? ObjectId();
 
   factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageRegisterItemModelFromJson(json);
@@ -55,6 +56,7 @@ class BulkStorageRegisterItemModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'bulk_storage_vessel.g.dart';
@@ -65,27 +67,27 @@ class BulkStorageVesselModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Unique identifier for the vessel
-  final String barcode;
+  String barcode;
 
   /// Name of the vessel
-  final String? name;
+  String? name;
 
   /// Total capacity of the vessel in liters
-  final double capacity;
+  double capacity;
 
   /// Remaining LALs in the vessel
-  final double remainingLALs;
+  double remainingLALs;
 
-  const BulkStorageVesselModel({
-    required this.id,
+  BulkStorageVesselModel({
+    ObjectId? id,
     required this.barcode,
     required this.name,
     required this.capacity,
     required this.remainingLALs,
-  });
+  }) : id = id ?? ObjectId();
 
   factory BulkStorageVesselModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageVesselModelFromJson(json);
@@ -100,6 +102,7 @@ class BulkStorageVesselModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'cart.g.dart';
@@ -123,31 +126,31 @@ class CartModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Unique identifier for the cart session
   final String cartId;
 
   /// Selected delivery method and pricing
-  final DeliveryMethodModel? deliveryMethod;
+  DeliveryMethodModel? deliveryMethod;
 
   /// List of products in the cart
-  final List<CartProductModel> products;
+  List<CartProductModel> products;
 
   /// Customer information for delivery
-  final UserInfoModel userInfo;
+  UserInfoModel userInfo;
 
   /// Payment processing information
-  final PaymentIntentModel? paymentIntent;
+  PaymentIntentModel? paymentIntent;
 
-  const CartModel({
-    required this.id,
+  CartModel({
+    ObjectId? id,
     required this.cartId,
     this.deliveryMethod,
     required this.products,
     required this.userInfo,
     this.paymentIntent,
-  });
+  }) : id = id ?? ObjectId();
 
   factory CartModel.fromJson(Map<String, dynamic> json) =>
       _$CartModelFromJson(json);
@@ -406,6 +409,7 @@ class PaymentIntentModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'coupon.g.dart';
@@ -414,18 +418,18 @@ part 'coupon.g.dart';
 class CouponModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
-  final String code;
-  final String description;
-  final double amount;
-  final String email;
-  final String? phone;
-  final bool? redeemed;
-  final double? remainingValue;
-  final double? originalAmount;
+  final ObjectId id;
+  String code;
+  String description;
+  double amount;
+  String email;
+  String? phone;
+  bool? redeemed;
+  double? remainingValue;
+  double? originalAmount;
 
-  const CouponModel({
-    required this.id,
+  CouponModel({
+    ObjectId? id,
     required this.code,
     required this.description,
     required this.amount,
@@ -434,7 +438,7 @@ class CouponModel {
     this.redeemed,
     this.remainingValue,
     this.originalAmount,
-  });
+  }) : id = id ?? ObjectId();
 
   // coverage:ignore-line
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
@@ -451,6 +455,8 @@ class CouponModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'customer.g.dart';
 
@@ -473,37 +479,43 @@ part 'customer.g.dart';
 /// ```
 @JsonSerializable()
 class CustomerModel {
+  /// MongoDB document ID
+  @JsonKey(name: '_id')
+  @ObjectIdConverter()
+  final ObjectId id;
+
   /// Customer's first name
-  final String firstName;
+  String firstName;
 
   /// Customer's last name
-  final String lastName;
+  String lastName;
 
   /// Customer's email address
-  final String email;
+  String email;
 
   /// Contact phone number
-  final String phone;
+  String phone;
 
   /// First line of address
-  final String addressLine1;
+  String addressLine1;
 
   /// Second line of address (optional)
-  final String addressLine2;
+  String addressLine2;
 
   /// City/suburb
-  final String city;
+  String city;
 
   /// State/province/region
-  final String state;
+  String state;
 
   /// Postal code
-  final String postcode;
+  String postcode;
 
   /// Country
-  final String country;
+  String country;
 
-  const CustomerModel({
+  CustomerModel({
+    ObjectId? id,
     required this.firstName,
     required this.lastName,
     required this.email,
@@ -514,7 +526,7 @@ class CustomerModel {
     required this.state,
     required this.postcode,
     required this.country,
-  });
+  }) : id = id ?? ObjectId();
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
@@ -529,6 +541,7 @@ class CustomerModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'delivery_authority.g.dart';
@@ -537,15 +550,15 @@ part 'delivery_authority.g.dart';
 class DeliveryAuthorityModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
   final String deliveryAuthorityNumber;
   final double lals;
 
-  const DeliveryAuthorityModel({
-    required this.id,
+  DeliveryAuthorityModel({
+    ObjectId? id,
     required this.deliveryAuthorityNumber,
     required this.lals,
-  });
+  }) : id = id ?? ObjectId();
 
   factory DeliveryAuthorityModel.fromJson(Map<String, dynamic> json) =>
       _$DeliveryAuthorityModelFromJson(json);
@@ -560,6 +573,7 @@ class DeliveryAuthorityModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'distillation_record.g.dart';
@@ -573,35 +587,36 @@ class DistillationRecordModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// The still used for this distillation run
-  final String stillUsed;
+  String stillUsed;
 
   /// Amount of feints added during the run
-  final double feintsAdded;
+  double feintsAdded;
 
   /// Amount of LALs charged during the run
-  final double lalsCharged;
+  double lalsCharged;
 
   /// Total LALs charged for this run
-  final double totalLALsCharged;
+  double totalLALsCharged;
 
   /// Total LALs yield from this run
-  final double totalLALsYield;
+  double totalLALsYield;
 
   /// Notes taken during the distillation process
   final List<NoteModel> notes;
 
-  const DistillationRecordModel({
-    required this.id,
+  DistillationRecordModel({
+    ObjectId? id,
     required this.stillUsed,
     required this.feintsAdded,
     required this.lalsCharged,
     required this.totalLALsCharged,
     required this.totalLALsYield,
-    required this.notes,
-  });
+    List<NoteModel>? notes,
+  })  : id = id ?? ObjectId(),
+        notes = notes ?? [];
 
   factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$DistillationRecordModelFromJson(json);
@@ -610,10 +625,10 @@ class DistillationRecordModel {
 
 @JsonSerializable()
 class NoteModel {
-  final String content;
+  String content;
   final DateTime date;
 
-  const NoteModel({
+  NoteModel({
     required this.content,
     required this.date,
   });
@@ -631,6 +646,7 @@ class NoteModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'excise_return.g.dart';
@@ -641,7 +657,7 @@ class ExciseReturnModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Total volume of spirits in LALs (Liters of Absolute Alcohol)
   final double totalLals;
@@ -649,11 +665,11 @@ class ExciseReturnModel {
   /// Whether remission has been applied to this return
   final bool remissionApplied;
 
-  const ExciseReturnModel({
-    required this.id,
+  ExciseReturnModel({
+    ObjectId? id,
     required this.totalLals,
     required this.remissionApplied,
-  });
+  }) : id = id ?? ObjectId();
 
   factory ExciseReturnModel.fromJson(Map<String, dynamic> json) =>
       _$ExciseReturnModelFromJson(json);
@@ -668,6 +684,7 @@ class ExciseReturnModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'fermentation_record.g.dart';
@@ -695,43 +712,44 @@ class FermentationRecordModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Batch number for this fermentation
-  final int batchNumber;
+  int batchNumber;
 
   /// Type of fermentation (e.g., "sugar")
-  final String type;
+  String type;
 
   /// Volume of wash in liters
-  final double washVolume;
+  double washVolume;
 
   /// Barcode identifier of the fermentation vessel
-  final String vesselBarcode;
+  String vesselBarcode;
 
   /// Starting specific gravity
-  final double sgStart;
+  double sgStart;
 
   /// Final specific gravity
-  final double sgEnd;
+  double sgEnd;
 
   /// Progress measurements during fermentation
-  final List<FermentationProgressModel> fermentationProgress;
+  List<FermentationProgressModel> fermentationProgress;
 
   /// Notes and observations
-  final String notes;
+  String notes;
 
-  const FermentationRecordModel({
-    required this.id,
+  FermentationRecordModel({
+    ObjectId? id,
     required this.batchNumber,
     required this.type,
     required this.washVolume,
     required this.vesselBarcode,
     required this.sgStart,
     required this.sgEnd,
-    this.fermentationProgress = const [],
+    List<FermentationProgressModel>? fermentationProgress,
     this.notes = '',
-  });
+  })  : id = id ?? ObjectId(),
+        fermentationProgress = fermentationProgress ?? [];
 
   factory FermentationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$FermentationRecordModelFromJson(json);
@@ -767,6 +785,7 @@ class FermentationProgressModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'customer.dart';
 
@@ -795,38 +814,38 @@ class OrderModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Customer who placed the order
-  final CustomerModel customer;
+  CustomerModel customer;
 
   /// When the order was placed
-  final DateTime date;
+  DateTime date;
 
   /// Map of product IDs to quantities ordered
   /// Key: Product ID, Value: Quantity
-  final Map<String, int> items;
+  Map<String, int> items;
 
   /// Human-readable order reference number
-  final String orderNumber;
+  String orderNumber;
 
   /// Method used for payment (e.g., 'card')
-  final String paymentMethod;
+  String paymentMethod;
 
   /// Payment receipt details
-  final Map<String, dynamic>? paymentReceipt;
+  Map<String, dynamic>? paymentReceipt;
 
   /// Shipping method (e.g., 'FREEDELIVERY')
-  final String? shippingMethod;
+  String? shippingMethod;
 
   /// Shipping receipt details
-  final Map<String, dynamic>? shippingReceipt;
+  Map<String, dynamic>? shippingReceipt;
 
   /// Total quoted price for the order
-  final double totalQuote;
+  double totalQuote;
 
-  const OrderModel({
-    required this.id,
+  OrderModel({
+    ObjectId? id,
     required this.customer,
     required this.date,
     required this.items,
@@ -836,7 +855,7 @@ class OrderModel {
     this.paymentReceipt,
     this.shippingMethod,
     this.shippingReceipt,
-  });
+  }) : id = id ?? ObjectId();
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
@@ -851,6 +870,7 @@ class OrderModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'packaging_run_item.g.dart';
@@ -859,19 +879,19 @@ part 'packaging_run_item.g.dart';
 class PackagingRunItemModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
-  final String productBarcode;
-  final double unitSize;
-  final double strength;
-  final double unitsPackaged;
-  final double packagingLosses;
-  final double remaining;
-  final double volumeAvailable;
-  final double volumeRemaining;
-  final String exciseReturn;
+  final ObjectId id;
+  String productBarcode;
+  double unitSize;
+  double strength;
+  double unitsPackaged;
+  double packagingLosses;
+  double remaining;
+  double volumeAvailable;
+  double volumeRemaining;
+  String exciseReturn;
 
-  const PackagingRunItemModel({
-    required this.id,
+  PackagingRunItemModel({
+    ObjectId? id,
     required this.productBarcode,
     required this.unitSize,
     required this.strength,
@@ -881,7 +901,7 @@ class PackagingRunItemModel {
     required this.volumeAvailable,
     required this.volumeRemaining,
     required this.exciseReturn,
-  });
+  }) : id = id ?? ObjectId();
 
   factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
       _$PackagingRunItemModelFromJson(json);
@@ -942,6 +962,7 @@ class PaymentModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'postcode.g.dart';
@@ -967,7 +988,7 @@ class PostcodeModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Four-digit Australian postcode
   final String postcode;
@@ -1038,8 +1059,8 @@ class ProductModel {
   /// Unique barcode identifier for the product
   final String barcode;
 
-  /// Primary description of the product
-  String description;
+  /// Product name/title
+  String name;
 
   /// Current retail price in local currency
   double price;
@@ -1050,14 +1071,15 @@ class ProductModel {
   /// Current stock level
   int stock;
 
-  /// Product category (e.g., 'spirits', 'merchandise')
-  ProductCategory category;
+  /// Product category
+  @JsonKey(unknownEnumValue: ProductCategory.other)
+  ProductCategory? category;
+
+  /// Legacy product type string (for compatibility)
+  String? productType;
 
   /// Whether the product can be purchased online
   bool isAvailableOnline;
-
-  /// Optional display name, if different from description
-  String? name;
 
   /// List of image URLs associated with the product
   List<String> images;
@@ -1069,13 +1091,16 @@ class ProductModel {
   String? shortDescription;
 
   /// Product volume in milliliters (ml)
-  int? volume;
+  double volume;
 
   /// Product weight in kilograms (kg)
   double? weight;
 
   /// Alcohol by volume percentage
-  double? abv;
+  double abv;
+
+  /// Percentage of Australian content
+  double percentAustralian;
 
   /// URL-friendly shortcut name
   String? shortcut;
@@ -1084,24 +1109,33 @@ class ProductModel {
   bool? enabled;
 
   ProductModel({
-    required this.id,
+    ObjectId? id,
     required this.barcode,
-    required this.description,
+    String? name,
+    String? description,
     required this.price,
-    required this.stock,
-    required this.category,
+    int? stock = 0,
+    ProductCategory? category,
+    double? volume,
+    double? abv,
+    double? percentAustralian,
+    this.productType,
     this.isAvailableOnline = false,
-    this.name,
     this.images = const [],
     this.longDescription,
     this.shortDescription,
-    this.volume,
     this.weight,
-    this.abv,
     this.shortcut,
     this.enabled,
     double? matesRatesPrice,
-  }) : matesRatesPrice = matesRatesPrice ?? price * .8;
+  })  : id = id ?? ObjectId(),
+        volume = volume ?? 700.0,
+        this.name = name ?? description ?? 'unnamed',
+        abv = abv ?? 0.37,
+        percentAustralian = percentAustralian ?? 1.0,
+        matesRatesPrice = matesRatesPrice ?? price * .8,
+        stock = stock ?? 0,
+        category = category ?? ProductCategory.other;
 
   // coverage:ignore-line
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
@@ -1112,59 +1146,13 @@ class ProductModel {
 
 ```
 
-## product_item
-
-*File: lib/src/models/product_item.dart*
-
-```dart
-import 'package:json_annotation/json_annotation.dart';
-import 'package:rebellion_rum_models/src/json_helpers.dart';
-
-part 'product_item.g.dart';
-
-@JsonSerializable()
-class ProductItemModel {
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final String id;
-  final String name;
-  final String barcode;
-  final double price;
-  final String productType;
-  final double volume;
-  final double abv;
-  final double percentAustralian;
-  final String? description;
-  final String? longDescription;
-  final List<String>? images;
-
-  const ProductItemModel({
-    required this.id,
-    required this.name,
-    required this.barcode,
-    required this.price,
-    required this.productType,
-    required this.volume,
-    required this.abv,
-    required this.percentAustralian,
-    this.description,
-    this.longDescription,
-    this.images,
-  });
-
-  factory ProductItemModel.fromJson(Map<String, dynamic> json) =>
-      _$ProductItemModelFromJson(json);
-  Map<String, dynamic> toJson() => _$ProductItemModelToJson(this);
-}
-
-```
-
 ## raw_materials_register
 
 *File: lib/src/models/raw_materials_register.dart*
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'raw_materials_register.g.dart';
@@ -1173,21 +1161,21 @@ part 'raw_materials_register.g.dart';
 class RawMaterialsRegisterModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
-  final String? invoiceNumber;
-  final String? fermentationRecordId;
-  final String materialType;
-  final int qtyIn;
-  final int qtyOut;
+  final ObjectId id;
+  String? invoiceNumber;
+  String? fermentationRecordId;
+  String materialType;
+  int qtyIn;
+  int qtyOut;
 
-  const RawMaterialsRegisterModel({
-    required this.id,
+  RawMaterialsRegisterModel({
+    ObjectId? id,
     this.invoiceNumber,
     this.fermentationRecordId,
     required this.materialType,
     required this.qtyIn,
     required this.qtyOut,
-  });
+  }) : id = id ?? ObjectId();
 
   factory RawMaterialsRegisterModel.fromJson(Map<String, dynamic> json) =>
       _$RawMaterialsRegisterModelFromJson(json);
@@ -1202,6 +1190,7 @@ class RawMaterialsRegisterModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'sale_item.dart';
 import 'payment.dart';
@@ -1229,37 +1218,37 @@ class SaleModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// When the sale was completed
-  final DateTime? timestamp;
+  DateTime? timestamp;
 
   /// List of items included in the sale
   @JsonKey(defaultValue: <SaleItemModel>[])
-  final List<SaleItemModel> items;
+  List<SaleItemModel> items;
 
   /// Optional reference to the customer who made the purchase
-  final String? customerId;
+  String? customerId;
 
   /// Applied coupon codes or discount rules
   /// Can be either an empty object {} or an array []
-  final dynamic coupons;
+  dynamic coupons;
 
   /// Total sale amount before discounts
-  final double? total;
+  double? total;
 
   /// Total amount of discounts applied
-  final double? discountTotal;
+  double? discountTotal;
 
   /// Reference to EFTPOS payment session if applicable
-  final String? eftposSessionId;
+  String? eftposSessionId;
 
   /// List of payments made against this sale
   @JsonKey(defaultValue: <PaymentModel>[])
-  final List<PaymentModel> payments;
+  List<PaymentModel> payments;
 
-  const SaleModel({
-    required this.id,
+  SaleModel({
+    ObjectId? id,
     this.timestamp,
     required this.items,
     this.customerId,
@@ -1268,7 +1257,7 @@ class SaleModel {
     this.discountTotal,
     this.eftposSessionId,
     required this.payments,
-  });
+  }) : id = id ?? ObjectId();
 
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);
@@ -1334,6 +1323,7 @@ class SaleItemModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_journal.g.dart';
@@ -1347,31 +1337,31 @@ class StockJournalModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Barcode identifier for the product or vessel
-  final String barcode;
+  String barcode;
 
   /// Type of stock movement (e.g., 'packaging')
-  final String type;
+  String type;
 
   /// Source location or vessel ID
-  final String from;
+  String from;
 
   /// Destination location or vessel ID
-  final String to;
+  String to;
 
   /// Quantity moved
-  final double qty;
+  double qty;
 
-  const StockJournalModel({
-    required this.id,
+  StockJournalModel({
+    ObjectId? id,
     required this.barcode,
     required this.type,
     required this.from,
     required this.to,
     required this.qty,
-  });
+  }) : id = id ?? ObjectId();
 
   factory StockJournalModel.fromJson(Map<String, dynamic> json) =>
       _$StockJournalModelFromJson(json);
@@ -1386,6 +1376,7 @@ class StockJournalModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_location.g.dart';
@@ -1400,31 +1391,31 @@ class StockLocationModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Human-readable name for the location
-  final String name;
+  String name;
 
   /// Unique barcode identifier for the location
-  final String barcode;
+  String barcode;
 
   /// Indicates if this is a bond store location
-  final bool isBondStore;
+  bool isBondStore;
 
   /// Indicates if this is a retail location
-  final bool isRetail;
+  bool isRetail;
 
   /// Indicates if stock in this location is available for online sales
-  final bool isAvailableOnline;
+  bool isAvailableOnline;
 
   /// Indicates if this is a warehouse location
-  final bool isWarehouse;
+  bool isWarehouse;
 
   /// Optional map of product barcodes to their stock levels
-  final Map<String, double>? stockLevels;
+  Map<String, double>? stockLevels;
 
-  const StockLocationModel({
-    required this.id,
+  StockLocationModel({
+    ObjectId? id,
     required this.name,
     required this.barcode,
     required this.isBondStore,
@@ -1432,7 +1423,7 @@ class StockLocationModel {
     required this.isAvailableOnline,
     required this.isWarehouse,
     this.stockLevels,
-  });
+  }) : id = id ?? ObjectId();
 
   factory StockLocationModel.fromJson(Map<String, dynamic> json) =>
       _$StockLocationModelFromJson(json);
@@ -1447,6 +1438,7 @@ class StockLocationModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'volume_transferred_record.g.dart';
@@ -1455,19 +1447,19 @@ part 'volume_transferred_record.g.dart';
 class VolumeTransferredRecordModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
-  final String chargeId;
-  final String washId;
-  final double volume;
-  final double lals;
+  final ObjectId id;
+  String chargeId;
+  String washId;
+  double volume;
+  double lals;
 
-  const VolumeTransferredRecordModel({
-    required this.id,
+  VolumeTransferredRecordModel({
+    ObjectId? id,
     required this.chargeId,
     required this.washId,
     required this.volume,
     required this.lals,
-  });
+  }) : id = id ?? ObjectId();
 
   factory VolumeTransferredRecordModel.fromJson(Map<String, dynamic> json) =>
       _$VolumeTransferredRecordModelFromJson(json);

@@ -9,21 +9,22 @@ part of 'distillation_record.dart';
 DistillationRecordModel _$DistillationRecordModelFromJson(
         Map<String, dynamic> json) =>
     DistillationRecordModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       stillUsed: json['stillUsed'] as String,
       feintsAdded: (json['feintsAdded'] as num).toDouble(),
       lalsCharged: (json['lalsCharged'] as num).toDouble(),
       totalLALsCharged: (json['totalLALsCharged'] as num).toDouble(),
       totalLALsYield: (json['totalLALsYield'] as num).toDouble(),
-      notes: (json['notes'] as List<dynamic>)
-          .map((e) => NoteModel.fromJson(e as Map<String, dynamic>))
+      notes: (json['notes'] as List<dynamic>?)
+          ?.map((e) => NoteModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$DistillationRecordModelToJson(
         DistillationRecordModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'stillUsed': instance.stillUsed,
       'feintsAdded': instance.feintsAdded,
       'lalsCharged': instance.lalsCharged,

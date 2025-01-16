@@ -7,7 +7,7 @@ part of 'sale.dart';
 // **************************************************************************
 
 SaleModel _$SaleModelFromJson(Map<String, dynamic> json) => SaleModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       timestamp: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),
@@ -27,7 +27,8 @@ SaleModel _$SaleModelFromJson(Map<String, dynamic> json) => SaleModel(
     );
 
 Map<String, dynamic> _$SaleModelToJson(SaleModel instance) => <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       if (instance.timestamp?.toIso8601String() case final value?)
         'timestamp': value,
       'items': instance.items.map((e) => e.toJson()).toList(),

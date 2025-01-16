@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'customer.g.dart';
 
@@ -21,37 +23,43 @@ part 'customer.g.dart';
 /// ```
 @JsonSerializable()
 class CustomerModel {
+  /// MongoDB document ID
+  @JsonKey(name: '_id')
+  @ObjectIdConverter()
+  final ObjectId id;
+
   /// Customer's first name
-  final String firstName;
+  String firstName;
 
   /// Customer's last name
-  final String lastName;
+  String lastName;
 
   /// Customer's email address
-  final String email;
+  String email;
 
   /// Contact phone number
-  final String phone;
+  String phone;
 
   /// First line of address
-  final String addressLine1;
+  String addressLine1;
 
   /// Second line of address (optional)
-  final String addressLine2;
+  String addressLine2;
 
   /// City/suburb
-  final String city;
+  String city;
 
   /// State/province/region
-  final String state;
+  String state;
 
   /// Postal code
-  final String postcode;
+  String postcode;
 
   /// Country
-  final String country;
+  String country;
 
-  const CustomerModel({
+  CustomerModel({
+    ObjectId? id,
     required this.firstName,
     required this.lastName,
     required this.email,
@@ -62,7 +70,7 @@ class CustomerModel {
     required this.state,
     required this.postcode,
     required this.country,
-  });
+  }) : id = id ?? ObjectId();
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);

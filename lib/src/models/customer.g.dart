@@ -8,6 +8,7 @@ part of 'customer.dart';
 
 CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) =>
     CustomerModel(
+      id: const ObjectIdConverter().fromJson(json['_id']),
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       email: json['email'] as String,
@@ -22,6 +23,8 @@ CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
     <String, dynamic>{
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'email': instance.email,

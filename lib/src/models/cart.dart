@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'cart.g.dart';
@@ -22,31 +23,31 @@ class CartModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Unique identifier for the cart session
   final String cartId;
 
   /// Selected delivery method and pricing
-  final DeliveryMethodModel? deliveryMethod;
+  DeliveryMethodModel? deliveryMethod;
 
   /// List of products in the cart
-  final List<CartProductModel> products;
+  List<CartProductModel> products;
 
   /// Customer information for delivery
-  final UserInfoModel userInfo;
+  UserInfoModel userInfo;
 
   /// Payment processing information
-  final PaymentIntentModel? paymentIntent;
+  PaymentIntentModel? paymentIntent;
 
-  const CartModel({
-    required this.id,
+  CartModel({
+    ObjectId? id,
     required this.cartId,
     this.deliveryMethod,
     required this.products,
     required this.userInfo,
     this.paymentIntent,
-  });
+  }) : id = id ?? ObjectId();
 
   factory CartModel.fromJson(Map<String, dynamic> json) =>
       _$CartModelFromJson(json);

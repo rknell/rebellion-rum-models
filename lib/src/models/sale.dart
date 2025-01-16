@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'sale_item.dart';
 import 'payment.dart';
@@ -26,37 +27,37 @@ class SaleModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// When the sale was completed
-  final DateTime? timestamp;
+  DateTime? timestamp;
 
   /// List of items included in the sale
   @JsonKey(defaultValue: <SaleItemModel>[])
-  final List<SaleItemModel> items;
+  List<SaleItemModel> items;
 
   /// Optional reference to the customer who made the purchase
-  final String? customerId;
+  String? customerId;
 
   /// Applied coupon codes or discount rules
   /// Can be either an empty object {} or an array []
-  final dynamic coupons;
+  dynamic coupons;
 
   /// Total sale amount before discounts
-  final double? total;
+  double? total;
 
   /// Total amount of discounts applied
-  final double? discountTotal;
+  double? discountTotal;
 
   /// Reference to EFTPOS payment session if applicable
-  final String? eftposSessionId;
+  String? eftposSessionId;
 
   /// List of payments made against this sale
   @JsonKey(defaultValue: <PaymentModel>[])
-  final List<PaymentModel> payments;
+  List<PaymentModel> payments;
 
-  const SaleModel({
-    required this.id,
+  SaleModel({
+    ObjectId? id,
     this.timestamp,
     required this.items,
     this.customerId,
@@ -65,7 +66,7 @@ class SaleModel {
     this.discountTotal,
     this.eftposSessionId,
     required this.payments,
-  });
+  }) : id = id ?? ObjectId();
 
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);

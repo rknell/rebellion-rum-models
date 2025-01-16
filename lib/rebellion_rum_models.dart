@@ -17,7 +17,6 @@ export 'src/models/packaging_run_item.dart';
 export 'src/models/payment.dart';
 export 'src/models/postcode.dart';
 export 'src/models/product.dart';
-export 'src/models/product_item.dart';
 export 'src/models/raw_materials_register.dart';
 export 'src/models/sale.dart';
 export 'src/models/sale_item.dart';

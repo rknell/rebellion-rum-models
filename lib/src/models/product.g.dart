@@ -9,21 +9,23 @@ part of 'product.dart';
 ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
       barcode: json['barcode'] as String,
-      description: json['description'] as String,
-      price: (json['price'] as num).toDouble(),
-      stock: (json['stock'] as num).toInt(),
-      category: $enumDecode(_$ProductCategoryEnumMap, json['category']),
-      isAvailableOnline: json['isAvailableOnline'] as bool? ?? false,
       name: json['name'] as String?,
+      price: (json['price'] as num).toDouble(),
+      stock: (json['stock'] as num?)?.toInt() ?? 0,
+      category: $enumDecodeNullable(_$ProductCategoryEnumMap, json['category'],
+          unknownValue: ProductCategory.other),
+      volume: (json['volume'] as num?)?.toDouble(),
+      abv: (json['abv'] as num?)?.toDouble(),
+      percentAustralian: (json['percentAustralian'] as num?)?.toDouble(),
+      productType: json['productType'] as String?,
+      isAvailableOnline: json['isAvailableOnline'] as bool? ?? false,
       images: (json['images'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
       longDescription: json['longDescription'] as String?,
       shortDescription: json['shortDescription'] as String?,
-      volume: (json['volume'] as num?)?.toInt(),
       weight: (json['weight'] as num?)?.toDouble(),
-      abv: (json['abv'] as num?)?.toDouble(),
       shortcut: json['shortcut'] as String?,
       enabled: json['enabled'] as bool?,
       matesRatesPrice: (json['matesRatesPrice'] as num?)?.toDouble(),
@@ -31,23 +33,25 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
 
 Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
     <String, dynamic>{
-      if (const ObjectIdConverter().toJson(instance.id) case final value)
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
       'barcode': instance.barcode,
-      'description': instance.description,
+      'name': instance.name,
       'price': instance.price,
       'matesRatesPrice': instance.matesRatesPrice,
       'stock': instance.stock,
-      'category': _$ProductCategoryEnumMap[instance.category]!,
+      if (_$ProductCategoryEnumMap[instance.category] case final value?)
+        'category': value,
+      if (instance.productType case final value?) 'productType': value,
       'isAvailableOnline': instance.isAvailableOnline,
-      if (instance.name case final value?) 'name': value,
       'images': instance.images,
       if (instance.longDescription case final value?) 'longDescription': value,
       if (instance.shortDescription case final value?)
         'shortDescription': value,
-      if (instance.volume case final value?) 'volume': value,
+      'volume': instance.volume,
       if (instance.weight case final value?) 'weight': value,
-      if (instance.abv case final value?) 'abv': value,
+      'abv': instance.abv,
+      'percentAustralian': instance.percentAustralian,
       if (instance.shortcut case final value?) 'shortcut': value,
       if (instance.enabled case final value?) 'enabled': value,
     };

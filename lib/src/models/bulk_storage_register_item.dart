@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'bulk_storage_register_item.g.dart';
@@ -7,20 +8,20 @@ part 'bulk_storage_register_item.g.dart';
 class BulkStorageRegisterItemModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
-  final double lals;
-  final bool feintsDestroyed;
-  final bool wastage;
-  final String notes;
-  final String? fromChargeId;
-  final String? fromVesselId;
-  final String? toVesselId;
-  final String? toChargeId;
-  final String? toPackagingId;
-  final String? fromPackagingId;
+  final ObjectId id;
+  double lals;
+  bool feintsDestroyed;
+  bool wastage;
+  String notes;
+  String? fromChargeId;
+  String? fromVesselId;
+  String? toVesselId;
+  String? toChargeId;
+  String? toPackagingId;
+  String? fromPackagingId;
 
-  const BulkStorageRegisterItemModel({
-    required this.id,
+  BulkStorageRegisterItemModel({
+    ObjectId? id,
     required this.lals,
     required this.feintsDestroyed,
     required this.wastage,
@@ -31,7 +32,7 @@ class BulkStorageRegisterItemModel {
     this.toChargeId,
     this.toPackagingId,
     this.fromPackagingId,
-  });
+  }) : id = id ?? ObjectId();
 
   factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageRegisterItemModelFromJson(json);

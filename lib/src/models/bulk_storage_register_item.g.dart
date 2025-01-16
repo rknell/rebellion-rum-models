@@ -9,7 +9,7 @@ part of 'bulk_storage_register_item.dart';
 BulkStorageRegisterItemModel _$BulkStorageRegisterItemModelFromJson(
         Map<String, dynamic> json) =>
     BulkStorageRegisterItemModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       lals: (json['lals'] as num).toDouble(),
       feintsDestroyed: json['feintsDestroyed'] as bool,
       wastage: json['wastage'] as bool,
@@ -25,7 +25,8 @@ BulkStorageRegisterItemModel _$BulkStorageRegisterItemModelFromJson(
 Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
         BulkStorageRegisterItemModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'lals': instance.lals,
       'feintsDestroyed': instance.feintsDestroyed,
       'wastage': instance.wastage,

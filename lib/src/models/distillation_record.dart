@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'distillation_record.g.dart';
@@ -12,35 +13,36 @@ class DistillationRecordModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// The still used for this distillation run
-  final String stillUsed;
+  String stillUsed;
 
   /// Amount of feints added during the run
-  final double feintsAdded;
+  double feintsAdded;
 
   /// Amount of LALs charged during the run
-  final double lalsCharged;
+  double lalsCharged;
 
   /// Total LALs charged for this run
-  final double totalLALsCharged;
+  double totalLALsCharged;
 
   /// Total LALs yield from this run
-  final double totalLALsYield;
+  double totalLALsYield;
 
   /// Notes taken during the distillation process
   final List<NoteModel> notes;
 
-  const DistillationRecordModel({
-    required this.id,
+  DistillationRecordModel({
+    ObjectId? id,
     required this.stillUsed,
     required this.feintsAdded,
     required this.lalsCharged,
     required this.totalLALsCharged,
     required this.totalLALsYield,
-    required this.notes,
-  });
+    List<NoteModel>? notes,
+  })  : id = id ?? ObjectId(),
+        notes = notes ?? [];
 
   factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$DistillationRecordModelFromJson(json);
@@ -49,10 +51,10 @@ class DistillationRecordModel {
 
 @JsonSerializable()
 class NoteModel {
-  final String content;
+  String content;
   final DateTime date;
 
-  const NoteModel({
+  NoteModel({
     required this.content,
     required this.date,
   });

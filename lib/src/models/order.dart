@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'customer.dart';
 
@@ -27,38 +28,38 @@ class OrderModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Customer who placed the order
-  final CustomerModel customer;
+  CustomerModel customer;
 
   /// When the order was placed
-  final DateTime date;
+  DateTime date;
 
   /// Map of product IDs to quantities ordered
   /// Key: Product ID, Value: Quantity
-  final Map<String, int> items;
+  Map<String, int> items;
 
   /// Human-readable order reference number
-  final String orderNumber;
+  String orderNumber;
 
   /// Method used for payment (e.g., 'card')
-  final String paymentMethod;
+  String paymentMethod;
 
   /// Payment receipt details
-  final Map<String, dynamic>? paymentReceipt;
+  Map<String, dynamic>? paymentReceipt;
 
   /// Shipping method (e.g., 'FREEDELIVERY')
-  final String? shippingMethod;
+  String? shippingMethod;
 
   /// Shipping receipt details
-  final Map<String, dynamic>? shippingReceipt;
+  Map<String, dynamic>? shippingReceipt;
 
   /// Total quoted price for the order
-  final double totalQuote;
+  double totalQuote;
 
-  const OrderModel({
-    required this.id,
+  OrderModel({
+    ObjectId? id,
     required this.customer,
     required this.date,
     required this.items,
@@ -68,7 +69,7 @@ class OrderModel {
     this.paymentReceipt,
     this.shippingMethod,
     this.shippingReceipt,
-  });
+  }) : id = id ?? ObjectId();
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);

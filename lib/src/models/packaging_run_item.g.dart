@@ -9,7 +9,7 @@ part of 'packaging_run_item.dart';
 PackagingRunItemModel _$PackagingRunItemModelFromJson(
         Map<String, dynamic> json) =>
     PackagingRunItemModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       productBarcode: json['productBarcode'] as String,
       unitSize: (json['unitSize'] as num).toDouble(),
       strength: (json['strength'] as num).toDouble(),
@@ -24,7 +24,8 @@ PackagingRunItemModel _$PackagingRunItemModelFromJson(
 Map<String, dynamic> _$PackagingRunItemModelToJson(
         PackagingRunItemModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'productBarcode': instance.productBarcode,
       'unitSize': instance.unitSize,
       'strength': instance.strength,

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_journal.g.dart';
@@ -12,31 +13,31 @@ class StockJournalModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Barcode identifier for the product or vessel
-  final String barcode;
+  String barcode;
 
   /// Type of stock movement (e.g., 'packaging')
-  final String type;
+  String type;
 
   /// Source location or vessel ID
-  final String from;
+  String from;
 
   /// Destination location or vessel ID
-  final String to;
+  String to;
 
   /// Quantity moved
-  final double qty;
+  double qty;
 
-  const StockJournalModel({
-    required this.id,
+  StockJournalModel({
+    ObjectId? id,
     required this.barcode,
     required this.type,
     required this.from,
     required this.to,
     required this.qty,
-  });
+  }) : id = id ?? ObjectId();
 
   factory StockJournalModel.fromJson(Map<String, dynamic> json) =>
       _$StockJournalModelFromJson(json);
