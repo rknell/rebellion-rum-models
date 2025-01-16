@@ -7,7 +7,7 @@ part of 'coupon.dart';
 // **************************************************************************
 
 CouponModel _$CouponModelFromJson(Map<String, dynamic> json) => CouponModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       code: json['code'] as String,
       description: json['description'] as String,
       amount: (json['amount'] as num).toDouble(),
@@ -20,7 +20,8 @@ CouponModel _$CouponModelFromJson(Map<String, dynamic> json) => CouponModel(
 
 Map<String, dynamic> _$CouponModelToJson(CouponModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'code': instance.code,
       'description': instance.description,
       'amount': instance.amount,

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'bulk_storage_vessel.g.dart';
@@ -9,27 +10,27 @@ class BulkStorageVesselModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Unique identifier for the vessel
-  final String barcode;
+  String barcode;
 
   /// Name of the vessel
-  final String? name;
+  String? name;
 
   /// Total capacity of the vessel in liters
-  final double capacity;
+  double capacity;
 
   /// Remaining LALs in the vessel
-  final double remainingLALs;
+  double remainingLALs;
 
-  const BulkStorageVesselModel({
-    required this.id,
+  BulkStorageVesselModel({
+    ObjectId? id,
     required this.barcode,
     required this.name,
     required this.capacity,
     required this.remainingLALs,
-  });
+  }) : id = id ?? ObjectId();
 
   factory BulkStorageVesselModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageVesselModelFromJson(json);

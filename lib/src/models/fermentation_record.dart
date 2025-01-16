@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'fermentation_record.g.dart';
@@ -26,43 +27,44 @@ class FermentationRecordModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Batch number for this fermentation
-  final int batchNumber;
+  int batchNumber;
 
   /// Type of fermentation (e.g., "sugar")
-  final String type;
+  String type;
 
   /// Volume of wash in liters
-  final double washVolume;
+  double washVolume;
 
   /// Barcode identifier of the fermentation vessel
-  final String vesselBarcode;
+  String vesselBarcode;
 
   /// Starting specific gravity
-  final double sgStart;
+  double sgStart;
 
   /// Final specific gravity
-  final double sgEnd;
+  double sgEnd;
 
   /// Progress measurements during fermentation
-  final List<FermentationProgressModel> fermentationProgress;
+  List<FermentationProgressModel> fermentationProgress;
 
   /// Notes and observations
-  final String notes;
+  String notes;
 
-  const FermentationRecordModel({
-    required this.id,
+  FermentationRecordModel({
+    ObjectId? id,
     required this.batchNumber,
     required this.type,
     required this.washVolume,
     required this.vesselBarcode,
     required this.sgStart,
     required this.sgEnd,
-    this.fermentationProgress = const [],
+    List<FermentationProgressModel>? fermentationProgress,
     this.notes = '',
-  });
+  })  : id = id ?? ObjectId(),
+        fermentationProgress = fermentationProgress ?? [];
 
   factory FermentationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$FermentationRecordModelFromJson(json);

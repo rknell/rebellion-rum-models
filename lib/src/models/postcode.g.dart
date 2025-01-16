@@ -8,7 +8,7 @@ part of 'postcode.dart';
 
 PostcodeModel _$PostcodeModelFromJson(Map<String, dynamic> json) =>
     PostcodeModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       postcode: json['postcode'] as String,
       locality: json['locality'] as String,
       state: json['state'] as String,
@@ -17,7 +17,8 @@ PostcodeModel _$PostcodeModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$PostcodeModelToJson(PostcodeModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'postcode': instance.postcode,
       'locality': instance.locality,
       'state': instance.state,

@@ -35,8 +35,8 @@ class ProductModel {
   /// Unique barcode identifier for the product
   final String barcode;
 
-  /// Primary description of the product
-  String description;
+  /// Product name/title
+  String name;
 
   /// Current retail price in local currency
   double price;
@@ -47,14 +47,15 @@ class ProductModel {
   /// Current stock level
   int stock;
 
-  /// Product category (e.g., 'spirits', 'merchandise')
-  ProductCategory category;
+  /// Product category
+  @JsonKey(unknownEnumValue: ProductCategory.other)
+  ProductCategory? category;
+
+  /// Legacy product type string (for compatibility)
+  String? productType;
 
   /// Whether the product can be purchased online
   bool isAvailableOnline;
-
-  /// Optional display name, if different from description
-  String? name;
 
   /// List of image URLs associated with the product
   List<String> images;
@@ -66,13 +67,16 @@ class ProductModel {
   String? shortDescription;
 
   /// Product volume in milliliters (ml)
-  int? volume;
+  double volume;
 
   /// Product weight in kilograms (kg)
   double? weight;
 
   /// Alcohol by volume percentage
-  double? abv;
+  double abv;
+
+  /// Percentage of Australian content
+  double percentAustralian;
 
   /// URL-friendly shortcut name
   String? shortcut;
@@ -81,24 +85,33 @@ class ProductModel {
   bool? enabled;
 
   ProductModel({
-    required this.id,
+    ObjectId? id,
     required this.barcode,
-    required this.description,
+    String? name,
+    String? description,
     required this.price,
-    required this.stock,
-    required this.category,
+    int? stock = 0,
+    ProductCategory? category,
+    double? volume,
+    double? abv,
+    double? percentAustralian,
+    this.productType,
     this.isAvailableOnline = false,
-    this.name,
     this.images = const [],
     this.longDescription,
     this.shortDescription,
-    this.volume,
     this.weight,
-    this.abv,
     this.shortcut,
     this.enabled,
     double? matesRatesPrice,
-  }) : matesRatesPrice = matesRatesPrice ?? price * .8;
+  })  : id = id ?? ObjectId(),
+        volume = volume ?? 700.0,
+        this.name = name ?? description ?? 'unnamed',
+        abv = abv ?? 0.37,
+        percentAustralian = percentAustralian ?? 1.0,
+        matesRatesPrice = matesRatesPrice ?? price * .8,
+        stock = stock ?? 0,
+        category = category ?? ProductCategory.other;
 
   // coverage:ignore-line
   factory ProductModel.fromJson(Map<String, dynamic> json) =>

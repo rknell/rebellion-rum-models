@@ -9,7 +9,7 @@ part of 'volume_transferred_record.dart';
 VolumeTransferredRecordModel _$VolumeTransferredRecordModelFromJson(
         Map<String, dynamic> json) =>
     VolumeTransferredRecordModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       chargeId: json['chargeId'] as String,
       washId: json['washId'] as String,
       volume: (json['volume'] as num).toDouble(),
@@ -19,7 +19,8 @@ VolumeTransferredRecordModel _$VolumeTransferredRecordModelFromJson(
 Map<String, dynamic> _$VolumeTransferredRecordModelToJson(
         VolumeTransferredRecordModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value)
+        '_id': value,
       'chargeId': instance.chargeId,
       'washId': instance.washId,
       'volume': instance.volume,

@@ -2,6 +2,24 @@
 
 echo "Running pre-commit preparation checks..."
 
+# Run build_runner
+echo "Running build_runner..."
+dart run build_runner build --delete-conflicting-outputs
+if [ $? -ne 0 ]; then
+    echo "❌ Build runner failed."
+    exit 1
+fi
+
+
+# Run model concatenation
+echo "Concatenating models..."
+dart run tools/concat_models.dart
+if [ $? -ne 0 ]; then
+    echo "❌ Model concatenation failed."
+    exit 1
+fi
+
+
 # Run dart format and check if there are any changes
 echo "Checking formatting..."
 dart format .

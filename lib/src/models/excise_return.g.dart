@@ -8,14 +8,15 @@ part of 'excise_return.dart';
 
 ExciseReturnModel _$ExciseReturnModelFromJson(Map<String, dynamic> json) =>
     ExciseReturnModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       totalLals: (json['totalLals'] as num).toDouble(),
       remissionApplied: json['remissionApplied'] as bool,
     );
 
 Map<String, dynamic> _$ExciseReturnModelToJson(ExciseReturnModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'totalLals': instance.totalLals,
       'remissionApplied': instance.remissionApplied,
     };

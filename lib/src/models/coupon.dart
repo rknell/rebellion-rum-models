@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'coupon.g.dart';
@@ -7,18 +8,18 @@ part 'coupon.g.dart';
 class CouponModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
-  final String code;
-  final String description;
-  final double amount;
-  final String email;
-  final String? phone;
-  final bool? redeemed;
-  final double? remainingValue;
-  final double? originalAmount;
+  final ObjectId id;
+  String code;
+  String description;
+  double amount;
+  String email;
+  String? phone;
+  bool? redeemed;
+  double? remainingValue;
+  double? originalAmount;
 
-  const CouponModel({
-    required this.id,
+  CouponModel({
+    ObjectId? id,
     required this.code,
     required this.description,
     required this.amount,
@@ -27,7 +28,7 @@ class CouponModel {
     this.redeemed,
     this.remainingValue,
     this.originalAmount,
-  });
+  }) : id = id ?? ObjectId();
 
   // coverage:ignore-line
   factory CouponModel.fromJson(Map<String, dynamic> json) =>

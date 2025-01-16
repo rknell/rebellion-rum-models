@@ -8,7 +8,7 @@ part of 'stock_location.dart';
 
 StockLocationModel _$StockLocationModelFromJson(Map<String, dynamic> json) =>
     StockLocationModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       name: json['name'] as String,
       barcode: json['barcode'] as String,
       isBondStore: json['isBondStore'] as bool,
@@ -22,7 +22,8 @@ StockLocationModel _$StockLocationModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$StockLocationModelToJson(StockLocationModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'name': instance.name,
       'barcode': instance.barcode,
       'isBondStore': instance.isBondStore,

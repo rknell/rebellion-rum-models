@@ -9,7 +9,7 @@ part of 'fermentation_record.dart';
 FermentationRecordModel _$FermentationRecordModelFromJson(
         Map<String, dynamic> json) =>
     FermentationRecordModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       batchNumber: (json['batchNumber'] as num).toInt(),
       type: json['type'] as String,
       washVolume: (json['washVolume'] as num).toDouble(),
@@ -17,17 +17,17 @@ FermentationRecordModel _$FermentationRecordModelFromJson(
       sgStart: (json['sgStart'] as num).toDouble(),
       sgEnd: (json['sgEnd'] as num).toDouble(),
       fermentationProgress: (json['fermentationProgress'] as List<dynamic>?)
-              ?.map((e) =>
-                  FermentationProgressModel.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+          ?.map((e) =>
+              FermentationProgressModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       notes: json['notes'] as String? ?? '',
     );
 
 Map<String, dynamic> _$FermentationRecordModelToJson(
         FermentationRecordModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'batchNumber': instance.batchNumber,
       'type': instance.type,
       'washVolume': instance.washVolume,

@@ -7,7 +7,7 @@ part of 'order.dart';
 // **************************************************************************
 
 OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       customer:
           CustomerModel.fromJson(json['customer'] as Map<String, dynamic>),
       date: DateTime.parse(json['date'] as String),
@@ -22,7 +22,8 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
 
 Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'customer': instance.customer.toJson(),
       'date': instance.date.toIso8601String(),
       'items': instance.items,

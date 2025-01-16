@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_location.g.dart';
@@ -13,31 +14,31 @@ class StockLocationModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
-  final String id;
+  final ObjectId id;
 
   /// Human-readable name for the location
-  final String name;
+  String name;
 
   /// Unique barcode identifier for the location
-  final String barcode;
+  String barcode;
 
   /// Indicates if this is a bond store location
-  final bool isBondStore;
+  bool isBondStore;
 
   /// Indicates if this is a retail location
-  final bool isRetail;
+  bool isRetail;
 
   /// Indicates if stock in this location is available for online sales
-  final bool isAvailableOnline;
+  bool isAvailableOnline;
 
   /// Indicates if this is a warehouse location
-  final bool isWarehouse;
+  bool isWarehouse;
 
   /// Optional map of product barcodes to their stock levels
-  final Map<String, double>? stockLevels;
+  Map<String, double>? stockLevels;
 
-  const StockLocationModel({
-    required this.id,
+  StockLocationModel({
+    ObjectId? id,
     required this.name,
     required this.barcode,
     required this.isBondStore,
@@ -45,7 +46,7 @@ class StockLocationModel {
     required this.isAvailableOnline,
     required this.isWarehouse,
     this.stockLevels,
-  });
+  }) : id = id ?? ObjectId();
 
   factory StockLocationModel.fromJson(Map<String, dynamic> json) =>
       _$StockLocationModelFromJson(json);

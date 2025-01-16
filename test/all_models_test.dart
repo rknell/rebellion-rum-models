@@ -32,9 +32,9 @@ void main() {
   createJsonSerializationTests<PostcodeModel>(
       resourcePath: 'resources/postcodes.json',
       fromJson: PostcodeModel.fromJson);
-  createJsonSerializationTests<ProductItemModel>(
+  createJsonSerializationTests(
       resourcePath: 'resources/productItems.json',
-      fromJson: ProductItemModel.fromJson);
+      fromJson: ProductModel.fromJson);
   createJsonSerializationTests<ProductModel>(
       resourcePath: 'resources/products.json', fromJson: ProductModel.fromJson);
   createJsonSerializationTests<RawMaterialsRegisterModel>(

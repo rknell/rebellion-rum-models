@@ -9,7 +9,7 @@ part of 'delivery_authority.dart';
 DeliveryAuthorityModel _$DeliveryAuthorityModelFromJson(
         Map<String, dynamic> json) =>
     DeliveryAuthorityModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       deliveryAuthorityNumber: json['deliveryAuthorityNumber'] as String,
       lals: (json['lals'] as num).toDouble(),
     );
@@ -17,7 +17,8 @@ DeliveryAuthorityModel _$DeliveryAuthorityModelFromJson(
 Map<String, dynamic> _$DeliveryAuthorityModelToJson(
         DeliveryAuthorityModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       'deliveryAuthorityNumber': instance.deliveryAuthorityNumber,
       'lals': instance.lals,
     };

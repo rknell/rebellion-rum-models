@@ -9,7 +9,7 @@ part of 'raw_materials_register.dart';
 RawMaterialsRegisterModel _$RawMaterialsRegisterModelFromJson(
         Map<String, dynamic> json) =>
     RawMaterialsRegisterModel(
-      id: json['_id'] as String,
+      id: const ObjectIdConverter().fromJson(json['_id']),
       invoiceNumber: json['invoiceNumber'] as String?,
       fermentationRecordId: json['fermentationRecordId'] as String?,
       materialType: json['materialType'] as String,
@@ -20,7 +20,8 @@ RawMaterialsRegisterModel _$RawMaterialsRegisterModelFromJson(
 Map<String, dynamic> _$RawMaterialsRegisterModelToJson(
         RawMaterialsRegisterModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
+        '_id': value,
       if (instance.invoiceNumber case final value?) 'invoiceNumber': value,
       if (instance.fermentationRecordId case final value?)
         'fermentationRecordId': value,
