@@ -20,6 +20,9 @@ part 'product.g.dart';
 ///   isAvailableOnline: true,
 /// );
 /// ```
+
+enum ProductCategory { vodka, gin, rum, softdrink, merch, other }
+
 @JsonSerializable()
 class ProductModel {
   /// MongoDB document ID
@@ -39,7 +42,7 @@ class ProductModel {
   final int stock;
 
   /// Product category (e.g., 'spirits', 'merchandise')
-  final String category;
+  final ProductCategory category;
 
   /// Whether the product can be purchased online
   final bool isAvailableOnline;

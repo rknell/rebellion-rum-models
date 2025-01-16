@@ -12,7 +12,7 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       description: json['description'] as String,
       price: (json['price'] as num).toDouble(),
       stock: (json['stock'] as num).toInt(),
-      category: json['category'] as String,
+      category: $enumDecode(_$ProductCategoryEnumMap, json['category']),
       isAvailableOnline: json['isAvailableOnline'] as bool? ?? false,
       name: json['name'] as String?,
       images: (json['images'] as List<dynamic>?)
@@ -35,7 +35,7 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       'description': instance.description,
       'price': instance.price,
       'stock': instance.stock,
-      'category': instance.category,
+      'category': _$ProductCategoryEnumMap[instance.category]!,
       'isAvailableOnline': instance.isAvailableOnline,
       if (instance.name case final value?) 'name': value,
       'images': instance.images,
@@ -48,3 +48,12 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       if (instance.shortcut case final value?) 'shortcut': value,
       if (instance.enabled case final value?) 'enabled': value,
     };
+
+const _$ProductCategoryEnumMap = {
+  ProductCategory.vodka: 'vodka',
+  ProductCategory.gin: 'gin',
+  ProductCategory.rum: 'rum',
+  ProductCategory.softdrink: 'softdrink',
+  ProductCategory.merch: 'merch',
+  ProductCategory.other: 'other',
+};
