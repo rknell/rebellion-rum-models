@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'excise_return.g.dart';
 
@@ -7,6 +8,7 @@ part 'excise_return.g.dart';
 class ExciseReturnModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Total volume of spirits in LALs (Liters of Absolute Alcohol)

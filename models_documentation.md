@@ -8,12 +8,14 @@ This documentation is automatically generated from the model files.
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'bulk_storage_register_item.g.dart';
 
 @JsonSerializable()
 class BulkStorageRegisterItemModel {
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
   final double lals;
   final bool feintsDestroyed;
@@ -53,6 +55,7 @@ class BulkStorageRegisterItemModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'bulk_storage_vessel.g.dart';
 
@@ -61,6 +64,7 @@ part 'bulk_storage_vessel.g.dart';
 class BulkStorageVesselModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Unique identifier for the vessel
@@ -96,6 +100,7 @@ class BulkStorageVesselModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'cart.g.dart';
 
@@ -117,6 +122,7 @@ part 'cart.g.dart';
 class CartModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Unique identifier for the cart session
@@ -400,12 +406,14 @@ class PaymentIntentModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'coupon.g.dart';
 
 @JsonSerializable()
 class CouponModel {
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
   final String code;
   final String description;
@@ -521,12 +529,14 @@ class CustomerModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'delivery_authority.g.dart';
 
 @JsonSerializable()
 class DeliveryAuthorityModel {
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
   final String deliveryAuthorityNumber;
   final double lals;
@@ -550,6 +560,7 @@ class DeliveryAuthorityModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'distillation_record.g.dart';
 
@@ -561,6 +572,7 @@ part 'distillation_record.g.dart';
 class DistillationRecordModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// The still used for this distillation run
@@ -619,6 +631,7 @@ class NoteModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'excise_return.g.dart';
 
@@ -627,6 +640,7 @@ part 'excise_return.g.dart';
 class ExciseReturnModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Total volume of spirits in LALs (Liters of Absolute Alcohol)
@@ -654,6 +668,7 @@ class ExciseReturnModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'fermentation_record.g.dart';
 
@@ -679,6 +694,7 @@ part 'fermentation_record.g.dart';
 class FermentationRecordModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Batch number for this fermentation
@@ -751,6 +767,7 @@ class FermentationProgressModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'customer.dart';
 
 part 'order.g.dart';
@@ -777,6 +794,7 @@ part 'order.g.dart';
 class OrderModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Customer who placed the order
@@ -833,12 +851,14 @@ class OrderModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'packaging_run_item.g.dart';
 
 @JsonSerializable()
 class PackagingRunItemModel {
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
   final String productBarcode;
   final double unitSize;
@@ -922,6 +942,7 @@ class PaymentModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'postcode.g.dart';
 
@@ -945,6 +966,7 @@ part 'postcode.g.dart';
 class PostcodeModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Four-digit Australian postcode
@@ -980,6 +1002,8 @@ class PostcodeModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'product.g.dart';
 
@@ -1008,7 +1032,8 @@ enum ProductCategory { vodka, gin, rum, softdrink, merch, other }
 class ProductModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
-  final String id;
+  @ObjectIdConverter()
+  final ObjectId id;
 
   /// Unique barcode identifier for the product
   final String barcode;
@@ -1093,12 +1118,14 @@ class ProductModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'product_item.g.dart';
 
 @JsonSerializable()
 class ProductItemModel {
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
   final String name;
   final String barcode;
@@ -1138,12 +1165,14 @@ class ProductItemModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'raw_materials_register.g.dart';
 
 @JsonSerializable()
 class RawMaterialsRegisterModel {
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
   final String? invoiceNumber;
   final String? fermentationRecordId;
@@ -1173,6 +1202,7 @@ class RawMaterialsRegisterModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'sale_item.dart';
 import 'payment.dart';
 
@@ -1198,6 +1228,7 @@ part 'sale.g.dart';
 class SaleModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// When the sale was completed
@@ -1303,6 +1334,7 @@ class SaleItemModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_journal.g.dart';
 
@@ -1314,6 +1346,7 @@ part 'stock_journal.g.dart';
 class StockJournalModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Barcode identifier for the product or vessel
@@ -1353,6 +1386,7 @@ class StockJournalModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_location.g.dart';
 
@@ -1365,6 +1399,7 @@ part 'stock_location.g.dart';
 class StockLocationModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Human-readable name for the location
@@ -1412,12 +1447,14 @@ class StockLocationModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'volume_transferred_record.g.dart';
 
 @JsonSerializable()
 class VolumeTransferredRecordModel {
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
   final String chargeId;
   final String washId;

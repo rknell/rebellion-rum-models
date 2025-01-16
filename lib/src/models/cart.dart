@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'cart.g.dart';
 
@@ -20,6 +21,7 @@ part 'cart.g.dart';
 class CartModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Unique identifier for the cart session

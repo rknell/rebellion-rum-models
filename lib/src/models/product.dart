@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'product.g.dart';
 
@@ -27,7 +29,8 @@ enum ProductCategory { vodka, gin, rum, softdrink, merch, other }
 class ProductModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
-  final String id;
+  @ObjectIdConverter()
+  final ObjectId id;
 
   /// Unique barcode identifier for the product
   final String barcode;

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_journal.g.dart';
 
@@ -10,6 +11,7 @@ part 'stock_journal.g.dart';
 class StockJournalModel {
   /// MongoDB document ID
   @JsonKey(name: '_id')
+  @ObjectIdConverter()
   final String id;
 
   /// Barcode identifier for the product or vessel
