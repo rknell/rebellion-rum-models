@@ -1,7 +1,9 @@
 name: rebellion_rum_models
 description: Central location to store data models for reuse in other projects
 version: 1.0.0
-repository: https://github.com/username/rebellion_rum_models
+repository: https://github.com/rknell/rebellion-rum-models
+homepage: https://github.com/rknell/rebellion-rum-models
+issue_tracker: https://github.com/rknell/rebellion-rum-models/issues
 
 environment:
   sdk: ^3.6.0
