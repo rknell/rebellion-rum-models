@@ -715,6 +715,8 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'fermentation_record.g.dart';
 
+enum FermentationType { molasses, caneSugar, grape, grain, mixed, other }
+
 /// Represents a record of a fermentation batch in the production process.
 ///
 /// Each fermentation record tracks the details of a single fermentation batch,
@@ -726,7 +728,7 @@ part 'fermentation_record.g.dart';
 /// final record = FermentationRecordModel(
 ///   id: '123',
 ///   batchNumber: 1,
-///   type: 'sugar',
+///   type: FermentationType.molasses,
 ///   washVolume: 10.0,
 ///   vesselBarcode: 'FV-01',
 ///   sgStart: 1.080,
@@ -743,8 +745,8 @@ class FermentationRecordModel {
   /// Batch number for this fermentation
   int batchNumber;
 
-  /// Type of fermentation (e.g., "sugar")
-  String type;
+  /// Type of fermentation (e.g., molasses, cane juice, mixed)
+  FermentationType type;
 
   /// Volume of wash in liters
   double washVolume;

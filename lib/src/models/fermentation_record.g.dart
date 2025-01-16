@@ -11,7 +11,7 @@ FermentationRecordModel _$FermentationRecordModelFromJson(
     FermentationRecordModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
       batchNumber: (json['batchNumber'] as num).toInt(),
-      type: json['type'] as String,
+      type: $enumDecode(_$FermentationTypeEnumMap, json['type']),
       washVolume: (json['washVolume'] as num).toDouble(),
       vesselBarcode: json['vesselBarcode'] as String,
       sgStart: (json['sgStart'] as num).toDouble(),
@@ -29,7 +29,7 @@ Map<String, dynamic> _$FermentationRecordModelToJson(
       if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
       'batchNumber': instance.batchNumber,
-      'type': instance.type,
+      'type': _$FermentationTypeEnumMap[instance.type]!,
       'washVolume': instance.washVolume,
       'vesselBarcode': instance.vesselBarcode,
       'sgStart': instance.sgStart,
@@ -38,6 +38,15 @@ Map<String, dynamic> _$FermentationRecordModelToJson(
           instance.fermentationProgress.map((e) => e.toJson()).toList(),
       'notes': instance.notes,
     };
+
+const _$FermentationTypeEnumMap = {
+  FermentationType.molasses: 'molasses',
+  FermentationType.caneSugar: 'caneSugar',
+  FermentationType.grape: 'grape',
+  FermentationType.grain: 'grain',
+  FermentationType.mixed: 'mixed',
+  FermentationType.other: 'other',
+};
 
 FermentationProgressModel _$FermentationProgressModelFromJson(
         Map<String, dynamic> json) =>
