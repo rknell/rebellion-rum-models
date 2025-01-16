@@ -19,7 +19,7 @@ VolumeTransferredRecordModel _$VolumeTransferredRecordModelFromJson(
 Map<String, dynamic> _$VolumeTransferredRecordModelToJson(
         VolumeTransferredRecordModel instance) =>
     <String, dynamic>{
-      if (const ObjectIdConverter().toJson(instance.id) case final value)
+      if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
       'chargeId': instance.chargeId,
       'washId': instance.washId,

@@ -23,3 +23,4 @@ export 'src/models/sale_item.dart';
 export 'src/models/stock_journal.dart';
 export 'src/models/stock_location.dart';
 export 'src/models/volume_transferred_record.dart';
+export 'src/models/fermentation_type.dart';
