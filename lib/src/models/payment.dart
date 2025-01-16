@@ -2,6 +2,9 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'payment.g.dart';
 
+/// Represents the type of payment used in a transaction
+enum PaymentType { cash, eftpos, coupon, online, unknown }
+
 /// Represents a payment made against a sale.
 ///
 /// Each payment records the payment method used, amount paid,
@@ -10,15 +13,16 @@ part 'payment.g.dart';
 /// Example:
 /// ```dart
 /// final payment = PaymentModel(
-///   type: 'credit_card',
+///   type: PaymentType.creditCard,
 ///   amount: 99.99,
 ///   reference: 'TXN-123456',
 /// );
 /// ```
 @JsonSerializable()
 class PaymentModel {
-  /// Payment method used (e.g., 'cash', 'credit_card', 'eftpos')
-  final String type;
+  /// Payment method used
+  @JsonKey(unknownEnumValue: PaymentType.unknown)
+  final PaymentType type;
 
   /// Amount paid in this payment
   final double amount;

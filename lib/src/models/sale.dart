@@ -3,6 +3,7 @@ import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'sale_item.dart';
 import 'payment.dart';
+import 'coupon.dart';
 
 part 'sale.g.dart';
 
@@ -41,7 +42,8 @@ class SaleModel {
 
   /// Applied coupon codes or discount rules
   /// Can be either an empty object {} or an array []
-  dynamic coupons;
+  @JsonKey(fromJson: _couponsFromJson)
+  List<CouponModel> coupons;
 
   /// Total sale amount before discounts
   double? total;
@@ -56,17 +58,41 @@ class SaleModel {
   @JsonKey(defaultValue: <PaymentModel>[])
   List<PaymentModel> payments;
 
+  /// Whether this sale was processed with mates rates pricing
+  bool isMatesRates;
+
+  static dynamic _couponsFromJson(dynamic json) {
+    if (json == null) return [];
+    if (json is List) {
+      return json
+          .map((e) => CouponModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    if (json is Map) {
+      return json.values
+          .map((e) => CouponModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    return [];
+  }
+
   SaleModel({
     ObjectId? id,
-    this.timestamp,
-    required this.items,
+    DateTime? timestamp,
+    List<SaleItemModel>? items,
     this.customerId,
-    required this.coupons,
+    dynamic coupons,
     this.total,
     this.discountTotal,
     this.eftposSessionId,
-    required this.payments,
-  }) : id = id ?? ObjectId();
+    List<PaymentModel>? payments,
+    bool? isMatesRates,
+  })  : id = id ?? ObjectId(),
+        timestamp = timestamp ?? DateTime.now(),
+        coupons = _couponsFromJson(coupons),
+        items = items ?? [],
+        payments = payments ?? [],
+        isMatesRates = isMatesRates ?? false;
 
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);

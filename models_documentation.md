@@ -947,6 +947,9 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'payment.g.dart';
 
+/// Represents the type of payment used in a transaction
+enum PaymentType { cash, eftpos, coupon, online, unknown }
+
 /// Represents a payment made against a sale.
 ///
 /// Each payment records the payment method used, amount paid,
@@ -955,15 +958,16 @@ part 'payment.g.dart';
 /// Example:
 /// ```dart
 /// final payment = PaymentModel(
-///   type: 'credit_card',
+///   type: PaymentType.creditCard,
 ///   amount: 99.99,
 ///   reference: 'TXN-123456',
 /// );
 /// ```
 @JsonSerializable()
 class PaymentModel {
-  /// Payment method used (e.g., 'cash', 'credit_card', 'eftpos')
-  final String type;
+  /// Payment method used
+  @JsonKey(unknownEnumValue: PaymentType.unknown)
+  final PaymentType type;
 
   /// Amount paid in this payment
   final double amount;
@@ -1222,6 +1226,7 @@ import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'sale_item.dart';
 import 'payment.dart';
+import 'coupon.dart';
 
 part 'sale.g.dart';
 
@@ -1260,7 +1265,8 @@ class SaleModel {
 
   /// Applied coupon codes or discount rules
   /// Can be either an empty object {} or an array []
-  dynamic coupons;
+  @JsonKey(fromJson: _couponsFromJson)
+  List<CouponModel> coupons;
 
   /// Total sale amount before discounts
   double? total;
@@ -1275,17 +1281,41 @@ class SaleModel {
   @JsonKey(defaultValue: <PaymentModel>[])
   List<PaymentModel> payments;
 
+  /// Whether this sale was processed with mates rates pricing
+  bool isMatesRates;
+
+  static dynamic _couponsFromJson(dynamic json) {
+    if (json == null) return [];
+    if (json is List) {
+      return json
+          .map((e) => CouponModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    if (json is Map) {
+      return json.values
+          .map((e) => CouponModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    return [];
+  }
+
   SaleModel({
     ObjectId? id,
-    this.timestamp,
-    required this.items,
+    DateTime? timestamp,
+    List<SaleItemModel>? items,
     this.customerId,
-    required this.coupons,
+    dynamic coupons,
     this.total,
     this.discountTotal,
     this.eftposSessionId,
-    required this.payments,
-  }) : id = id ?? ObjectId();
+    List<PaymentModel>? payments,
+    bool? isMatesRates,
+  })  : id = id ?? ObjectId(),
+        timestamp = timestamp ?? DateTime.now(),
+        coupons = _couponsFromJson(coupons),
+        items = items ?? [],
+        payments = payments ?? [],
+        isMatesRates = isMatesRates ?? false;
 
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);
