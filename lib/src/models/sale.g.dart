@@ -16,7 +16,7 @@ SaleModel _$SaleModelFromJson(Map<String, dynamic> json) => SaleModel(
               .toList() ??
           [],
       customerId: json['customerId'] as String?,
-      coupons: json['coupons'],
+      coupons: SaleModel._couponsFromJson(json['coupons']),
       total: (json['total'] as num?)?.toDouble(),
       discountTotal: (json['discountTotal'] as num?)?.toDouble(),
       eftposSessionId: json['eftposSessionId'] as String?,
@@ -24,6 +24,7 @@ SaleModel _$SaleModelFromJson(Map<String, dynamic> json) => SaleModel(
               ?.map((e) => PaymentModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      isMatesRates: json['isMatesRates'] as bool?,
     );
 
 Map<String, dynamic> _$SaleModelToJson(SaleModel instance) => <String, dynamic>{
@@ -33,9 +34,10 @@ Map<String, dynamic> _$SaleModelToJson(SaleModel instance) => <String, dynamic>{
         'timestamp': value,
       'items': instance.items.map((e) => e.toJson()).toList(),
       if (instance.customerId case final value?) 'customerId': value,
-      if (instance.coupons case final value?) 'coupons': value,
+      'coupons': instance.coupons.map((e) => e.toJson()).toList(),
       if (instance.total case final value?) 'total': value,
       if (instance.discountTotal case final value?) 'discountTotal': value,
       if (instance.eftposSessionId case final value?) 'eftposSessionId': value,
       'payments': instance.payments.map((e) => e.toJson()).toList(),
+      'isMatesRates': instance.isMatesRates,
     };
