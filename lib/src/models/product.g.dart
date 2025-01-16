@@ -26,6 +26,7 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       abv: (json['abv'] as num?)?.toDouble(),
       shortcut: json['shortcut'] as String?,
       enabled: json['enabled'] as bool?,
+      matesRatesPrice: (json['matesRatesPrice'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
@@ -34,6 +35,7 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       'barcode': instance.barcode,
       'description': instance.description,
       'price': instance.price,
+      'matesRatesPrice': instance.matesRatesPrice,
       'stock': instance.stock,
       'category': _$ProductCategoryEnumMap[instance.category]!,
       'isAvailableOnline': instance.isAvailableOnline,
