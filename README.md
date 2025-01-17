@@ -128,4 +128,22 @@ rebellion_rum_models/
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Development Setup
+
+### Git Hooks
+
+This repository includes pre-commit hooks that:
+- Run the build_runner
+- Format code
+- Run the analyzer
+- Run tests
+
+To set up the hooks, run:
+
+```bash
+./scripts/setup_hooks.sh
+```
+
+This will configure git to use the hooks in the `.githooks` directory. 

@@ -1,0 +1,52 @@
+#!/bin/bash
+
+echo "Running pre-commit hooks..."
+
+# Run build_runner first
+echo "Running build_runner..."
+dart run build_runner build --delete-conflicting-outputs
+BUILD_EXIT_CODE=$?
+
+if [ $BUILD_EXIT_CODE -ne 0 ]; then
+  echo "❌ Build runner failed. Please fix the issues and try committing again."
+  exit 1
+fi
+
+# Stage any newly generated files
+git add "**/*.g.dart"
+
+# Run dart format and stage changes
+echo "Running dart format..."
+dart format .
+FORMAT_EXIT_CODE=$?
+
+if [ $FORMAT_EXIT_CODE -ne 0 ]; then
+  echo "❌ Dart format failed. Please check for syntax errors."
+  exit 1
+fi
+
+# Stage formatted files
+git add .
+
+# Run dart analyze
+echo "Running dart analyze..."
+dart analyze
+ANALYZE_EXIT_CODE=$?
+
+if [ $ANALYZE_EXIT_CODE -ne 0 ]; then
+  echo "❌ Dart analyze failed. Please fix the issues and try committing again."
+  exit 1
+fi
+
+# Run tests
+echo "Running tests..."
+dart test
+TEST_EXIT_CODE=$?
+
+if [ $TEST_EXIT_CODE -ne 0 ]; then
+  echo "❌ Tests failed. Please fix the failing tests and try committing again."
+  exit 1
+fi
+
+echo "✅ All pre-commit checks passed!"
+exit 0 
