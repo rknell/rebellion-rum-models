@@ -11,7 +11,8 @@ FermentationRecordModel _$FermentationRecordModelFromJson(
     FermentationRecordModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
       batchNumber: (json['batchNumber'] as num).toInt(),
-      type: $enumDecode(_$FermentationTypeEnumMap, json['type']),
+      type: $enumDecode(_$FermentationTypeEnumMap, json['type'],
+          unknownValue: FermentationType.other),
       washVolume: (json['washVolume'] as num).toDouble(),
       vesselBarcode: json['vesselBarcode'] as String,
       sgStart: (json['sgStart'] as num).toDouble(),
