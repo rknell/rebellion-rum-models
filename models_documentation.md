@@ -746,6 +746,7 @@ class FermentationRecordModel {
   int batchNumber;
 
   /// Type of fermentation (e.g., molasses, cane juice, mixed)
+  @JsonKey(unknownEnumValue: FermentationType.other)
   FermentationType type;
 
   /// Volume of wash in liters
