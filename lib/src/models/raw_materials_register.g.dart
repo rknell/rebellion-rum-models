@@ -36,6 +36,5 @@ Map<String, dynamic> _$RawMaterialsRegisterModelToJson(
       'materialType': instance.materialType,
       'qtyIn': instance.qtyIn,
       'qtyOut': instance.qtyOut,
-      if (instance.timestamp?.toIso8601String() case final value?)
-        'timestamp': value,
+      'timestamp': instance.timestamp.toIso8601String(),
     };

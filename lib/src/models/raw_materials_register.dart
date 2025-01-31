@@ -17,18 +17,26 @@ class RawMaterialsRegisterModel {
   String materialType;
   int qtyIn;
   int qtyOut;
-  DateTime? timestamp;
 
-  RawMaterialsRegisterModel({
-    ObjectId? id,
-    this.invoiceNumber,
-    this.batchNumber,
-    this.fermentationRecordId,
-    required this.materialType,
-    required this.qtyIn,
-    required this.qtyOut,
-    this.timestamp,
-  }) : id = id ?? ObjectId();
+  @JsonKey(name: 'timestamp', includeIfNull: false)
+  DateTime? _timestamp;
+
+  DateTime get timestamp => _timestamp ?? id.dateTime;
+  set timestamp(DateTime value) {
+    _timestamp = value;
+  }
+
+  RawMaterialsRegisterModel(
+      {ObjectId? id,
+      this.invoiceNumber,
+      this.batchNumber,
+      this.fermentationRecordId,
+      required this.materialType,
+      required this.qtyIn,
+      required this.qtyOut,
+      DateTime? timestamp})
+      : id = id ?? ObjectId(),
+        _timestamp = timestamp;
 
   factory RawMaterialsRegisterModel.fromJson(Map<String, dynamic> json) =>
       _$RawMaterialsRegisterModelFromJson(json);
