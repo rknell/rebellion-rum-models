@@ -17,6 +17,7 @@ class RawMaterialsRegisterModel {
   String materialType;
   int qtyIn;
   int qtyOut;
+  DateTime? timestamp;
 
   RawMaterialsRegisterModel({
     ObjectId? id,
@@ -26,6 +27,7 @@ class RawMaterialsRegisterModel {
     required this.materialType,
     required this.qtyIn,
     required this.qtyOut,
+    this.timestamp,
   }) : id = id ?? ObjectId();
 
   factory RawMaterialsRegisterModel.fromJson(Map<String, dynamic> json) =>
