@@ -666,6 +666,54 @@ class NoteModel {
 
 ```
 
+## eftpos_terminal
+
+*File: lib/src/models/eftpos_terminal.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+
+part 'eftpos_terminal.g.dart';
+
+class ObjectIdConverter implements JsonConverter<ObjectId, String> {
+  const ObjectIdConverter();
+
+  @override
+  ObjectId fromJson(String json) => ObjectId.fromHexString(json);
+
+  @override
+  String toJson(ObjectId object) => object.toHexString();
+}
+
+@JsonSerializable(explicitToJson: true)
+class EftposTerminalModel {
+  @ObjectIdConverter()
+  @JsonKey(name: '_id')
+  final ObjectId id;
+  final String name;
+  final String secret;
+  final DateTime createdAt;
+  final DateTime lastUsed;
+
+  EftposTerminalModel({
+    ObjectId? id,
+    required this.name,
+    required this.secret,
+    DateTime? createdAt,
+    DateTime? lastUsed,
+  })  : id = id ?? ObjectId(),
+        createdAt = createdAt ?? DateTime.now(),
+        lastUsed = lastUsed ?? DateTime.now();
+
+  factory EftposTerminalModel.fromJson(Map<String, dynamic> json) =>
+      _$EftposTerminalModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EftposTerminalModelToJson(this);
+}
+
+```
+
 ## excise_return
 
 *File: lib/src/models/excise_return.dart*
