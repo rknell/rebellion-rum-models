@@ -12,50 +12,50 @@ import 'package:json_annotation/json_annotation.dart';
 /// - Always outputs a hex string (e.g. "507f1f77bcf86cd799439011")
 /// - This ensures consistency regardless of input format
 /// - IMPORTANT: Do not change this behavior as it's required for database operations
+
+/// Private helper method to convert JSON to ObjectId
+ObjectId? _jsonToObjectId(dynamic json, {bool nullable = false}) {
+  // Handle null/empty cases
+  if (json == null) return nullable ? null : ObjectId();
+  if (json is String && json.isEmpty) return ObjectId();
+
+  // Case 1: Already an ObjectId
+  if (json is ObjectId) return json;
+
+  // Case 2: Hex string
+  if (json is String) return ObjectId.fromHexString(json);
+
+  // Case 3: MongoDB format with $oid
+  if (json is Map) {
+    if (json['\$oid'] != null) {
+      return ObjectId.fromHexString(json['\$oid'] as String);
+    }
+    if (json['oid'] != null) {
+      return ObjectId.fromHexString(json['oid'] as String);
+    }
+    // Return new ObjectId if map is empty or doesn't contain oid
+    return ObjectId();
+  }
+
+  throw FormatException('Invalid ObjectId format: $json');
+}
+
 class ObjectIdConverter implements JsonConverter<ObjectId, dynamic> {
   const ObjectIdConverter();
 
   @override
-  ObjectId fromJson(dynamic json) {
-    // Return new ObjectId if input is null or empty
-    if (json == null) return ObjectId();
-    if (json is String && json.isEmpty) return ObjectId();
-
-    // Case 1: Already an ObjectId
-    if (json is ObjectId) return json;
-
-    // Case 2: Hex string
-    if (json is String) return ObjectId.fromHexString(json);
-
-    // Case 3: MongoDB format with $oid
-    if (json is Map) {
-      if (json['\$oid'] != null) {
-        return ObjectId.fromHexString(json['\$oid'] as String);
-      }
-      if (json['oid'] != null) {
-        return ObjectId.fromHexString(json['oid'] as String);
-      }
-      // Return new ObjectId if map is empty or doesn't contain oid
-      return ObjectId();
-    }
-
-    throw FormatException('Invalid ObjectId format: $json');
-  }
+  ObjectId fromJson(dynamic json) => _jsonToObjectId(json)!;
 
   @override
   String toJson(ObjectId object) => object.oid;
 }
 
-/// Legacy converter that maintains MongoDB's extended JSON format.
-/// Only use this if you specifically need {"$oid": "hex"} format.
-class MongoObjectIdConverter
-    implements JsonConverter<ObjectId, Map<String, dynamic>> {
-  const MongoObjectIdConverter();
+class NullableObjectIdConverter implements JsonConverter<ObjectId?, dynamic> {
+  const NullableObjectIdConverter();
 
   @override
-  ObjectId fromJson(Map<String, dynamic> json) =>
-      ObjectId.fromHexString(json['\$oid'] as String);
+  ObjectId? fromJson(dynamic json) => _jsonToObjectId(json, nullable: true);
 
   @override
-  Map<String, dynamic> toJson(ObjectId object) => {'\$oid': object.oid};
+  String? toJson(ObjectId? object) => object?.oid;
 }

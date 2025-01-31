@@ -9,8 +9,12 @@ class VolumeTransferredRecordModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
-  String chargeId;
-  String washId;
+
+  @ObjectIdConverter()
+  ObjectId chargeId;
+
+  @ObjectIdConverter()
+  ObjectId washId;
   double volume;
   double lals;
 

@@ -10,7 +10,9 @@ class RawMaterialsRegisterModel {
   @ObjectIdConverter()
   final ObjectId id;
   String? invoiceNumber;
-  String? fermentationRecordId;
+
+  @NullableObjectIdConverter()
+  ObjectId? fermentationRecordId;
   String materialType;
   int qtyIn;
   int qtyOut;
