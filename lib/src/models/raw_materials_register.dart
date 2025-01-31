@@ -10,6 +10,7 @@ class RawMaterialsRegisterModel {
   @ObjectIdConverter()
   final ObjectId id;
   String? invoiceNumber;
+  String? batchNumber;
 
   @NullableObjectIdConverter()
   ObjectId? fermentationRecordId;
@@ -20,6 +21,7 @@ class RawMaterialsRegisterModel {
   RawMaterialsRegisterModel({
     ObjectId? id,
     this.invoiceNumber,
+    this.batchNumber,
     this.fermentationRecordId,
     required this.materialType,
     required this.qtyIn,
