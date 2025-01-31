@@ -673,20 +673,11 @@ class NoteModel {
 ```dart
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
+import '../json_helpers.dart';
 
 part 'eftpos_terminal.g.dart';
 
-class ObjectIdConverter implements JsonConverter<ObjectId, String> {
-  const ObjectIdConverter();
-
-  @override
-  ObjectId fromJson(String json) => ObjectId.fromHexString(json);
-
-  @override
-  String toJson(ObjectId object) => object.toHexString();
-}
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class EftposTerminalModel {
   @ObjectIdConverter()
   @JsonKey(name: '_id')
