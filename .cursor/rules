@@ -1,4 +1,10 @@
 # Rebellion Rum Models - Build Rules
+We don't need explictToJson as its a setting in build.yaml
+
+# JSON Serialization Rules
+- Always use the ObjectIdConverter from json_helpers.dart for MongoDB ObjectId fields
+- Never use toHexString() for ObjectId conversion, use oid property instead
+- Do not add explicitToJson to individual models as it's set globally in build.yaml
 
 # Build Runner Commands
 build:

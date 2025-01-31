@@ -10,6 +10,7 @@ export 'src/models/coupon.dart';
 export 'src/models/customer.dart';
 export 'src/models/delivery_authority.dart';
 export 'src/models/distillation_record.dart';
+export 'src/models/eftpos_terminal.dart';
 export 'src/models/excise_return.dart';
 export 'src/models/fermentation_record.dart';
 export 'src/models/order.dart';
