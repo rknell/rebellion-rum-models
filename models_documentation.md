@@ -425,8 +425,19 @@ class CouponModel {
   String? email;
   String? phone;
   bool? redeemed;
-  double? remainingValue;
-  double? originalAmount;
+
+  @JsonKey(name: 'remainingValue')
+  double? _remainingValue;
+
+  double get remainingValue => _remainingValue ?? amount;
+  set remainingValue(double value) => _remainingValue = value;
+
+  double get currentValue => remainingValue;
+
+  redeem() {
+    redeemed = true;
+    remainingValue = 0;
+  }
 
   CouponModel({
     ObjectId? id,
@@ -436,9 +447,9 @@ class CouponModel {
     required this.email,
     this.phone,
     this.redeemed,
-    this.remainingValue,
-    this.originalAmount,
-  }) : id = id ?? ObjectId();
+    double? remainingValue,
+  })  : id = id ?? ObjectId(),
+        _remainingValue = remainingValue;
 
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
       _$CouponModelFromJson(json);
@@ -1349,12 +1360,16 @@ class SaleModel {
     if (json == null) return <CouponModel>[];
     if (json is List) {
       return json
-          .map((e) => CouponModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => e is CouponModel
+              ? e
+              : CouponModel.fromJson(e as Map<String, dynamic>))
           .toList();
     }
     if (json is Map) {
       return json.values
-          .map((e) => CouponModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => e is CouponModel
+              ? e
+              : CouponModel.fromJson(e as Map<String, dynamic>))
           .toList();
     }
     return <CouponModel>[];
