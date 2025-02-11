@@ -429,7 +429,14 @@ class CouponModel {
   @JsonKey(name: 'remainingValue')
   double? _remainingValue;
 
-  double get remainingValue => _remainingValue ?? amount;
+  double get remainingValue {
+    if (redeemed == true) {
+      return 0;
+    } else {
+      return _remainingValue ?? amount;
+    }
+  }
+
   set remainingValue(double value) => _remainingValue = value;
 
   double get currentValue => remainingValue;
