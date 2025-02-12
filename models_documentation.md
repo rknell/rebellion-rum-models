@@ -521,6 +521,9 @@ class CustomerModel {
   @ObjectIdConverter()
   final ObjectId id;
 
+  /// Company name (optional)
+  String? companyName;
+
   /// Customer's first name
   String firstName;
 
@@ -537,7 +540,7 @@ class CustomerModel {
   String addressLine1;
 
   /// Second line of address (optional)
-  String addressLine2;
+  String? addressLine2;
 
   /// City/suburb
   String city;
@@ -557,16 +560,17 @@ class CustomerModel {
 
   CustomerModel(
       {ObjectId? id,
+      this.companyName,
       required this.firstName,
       required this.lastName,
       required this.email,
       required this.phone,
       required this.addressLine1,
-      required this.addressLine2,
+      this.addressLine2,
       required this.city,
       required this.state,
       required this.postcode,
-      required this.country,
+      this.country = "Australia",
       Set<CustomerPreferences>? preferences,
       this.isWholesale = false})
       : id = id ?? ObjectId(),
@@ -1006,7 +1010,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'payment.g.dart';
 
 /// Represents the type of payment used in a transaction
-enum PaymentType { cash, eftpos, coupon, online, unknown }
+enum PaymentType { cash, eftpos, coupon, online, bank, unknown }
 
 /// Represents a payment made against a sale.
 ///
@@ -1016,7 +1020,7 @@ enum PaymentType { cash, eftpos, coupon, online, unknown }
 /// Example:
 /// ```dart
 /// final payment = PaymentModel(
-///   type: PaymentType.creditCard,
+///   type: PaymentType.bank,
 ///   amount: 99.99,
 ///   reference: 'TXN-123456',
 /// );
@@ -1335,6 +1339,13 @@ class SaleModel {
   /// When the sale was completed
   DateTime timestamp;
 
+  /// Due date for credit sales
+  DateTime? dueDate;
+
+  /// Status of the sale (paid or unpaid)
+  @JsonKey(defaultValue: SaleStatus.unpaid)
+  SaleStatus status;
+
   /// List of items included in the sale
   @JsonKey(defaultValue: <SaleItemModel>[])
   List<SaleItemModel> items;
@@ -1393,16 +1404,28 @@ class SaleModel {
     this.eftposSessionId,
     List<PaymentModel>? payments,
     bool? isMatesRates,
+    this.dueDate,
+    SaleStatus? status,
   })  : id = id ?? ObjectId(),
         timestamp = timestamp ?? DateTime.now(),
         coupons = _couponsFromJson(coupons),
         items = items ?? [],
         payments = payments ?? [],
-        isMatesRates = isMatesRates ?? false;
+        isMatesRates = isMatesRates ?? false,
+        status = status ?? SaleStatus.unpaid;
 
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);
   Map<String, dynamic> toJson() => _$SaleModelToJson(this);
+}
+
+/// Status of a sale
+enum SaleStatus {
+  /// Sale is unpaid (has outstanding balance)
+  unpaid,
+
+  /// Sale is completed and fully paid
+  paid
 }
 
 ```

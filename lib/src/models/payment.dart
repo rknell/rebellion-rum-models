@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'payment.g.dart';
 
 /// Represents the type of payment used in a transaction
-enum PaymentType { cash, eftpos, coupon, online, unknown }
+enum PaymentType { cash, eftpos, coupon, online, bank, unknown }
 
 /// Represents a payment made against a sale.
 ///
@@ -13,7 +13,7 @@ enum PaymentType { cash, eftpos, coupon, online, unknown }
 /// Example:
 /// ```dart
 /// final payment = PaymentModel(
-///   type: PaymentType.creditCard,
+///   type: PaymentType.bank,
 ///   amount: 99.99,
 ///   reference: 'TXN-123456',
 /// );
