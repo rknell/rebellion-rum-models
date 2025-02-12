@@ -25,12 +25,20 @@ SaleModel _$SaleModelFromJson(Map<String, dynamic> json) => SaleModel(
               .toList() ??
           [],
       isMatesRates: json['isMatesRates'] as bool?,
+      dueDate: json['dueDate'] == null
+          ? null
+          : DateTime.parse(json['dueDate'] as String),
+      status: $enumDecodeNullable(_$SaleStatusEnumMap, json['status']) ??
+          SaleStatus.unpaid,
     );
 
 Map<String, dynamic> _$SaleModelToJson(SaleModel instance) => <String, dynamic>{
       if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
       'timestamp': instance.timestamp.toIso8601String(),
+      if (instance.dueDate?.toIso8601String() case final value?)
+        'dueDate': value,
+      'status': _$SaleStatusEnumMap[instance.status]!,
       'items': instance.items.map((e) => e.toJson()).toList(),
       if (instance.customerId case final value?) 'customerId': value,
       'coupons': instance.coupons.map((e) => e.toJson()).toList(),
@@ -40,3 +48,8 @@ Map<String, dynamic> _$SaleModelToJson(SaleModel instance) => <String, dynamic>{
       'payments': instance.payments.map((e) => e.toJson()).toList(),
       'isMatesRates': instance.isMatesRates,
     };
+
+const _$SaleStatusEnumMap = {
+  SaleStatus.unpaid: 'unpaid',
+  SaleStatus.paid: 'paid',
+};

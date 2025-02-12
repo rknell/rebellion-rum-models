@@ -49,6 +49,9 @@ class CustomerModel {
   @ObjectIdConverter()
   final ObjectId id;
 
+  /// Company name (optional)
+  String? companyName;
+
   /// Customer's first name
   String firstName;
 
@@ -65,7 +68,7 @@ class CustomerModel {
   String addressLine1;
 
   /// Second line of address (optional)
-  String addressLine2;
+  String? addressLine2;
 
   /// City/suburb
   String city;
@@ -85,16 +88,17 @@ class CustomerModel {
 
   CustomerModel(
       {ObjectId? id,
+      this.companyName,
       required this.firstName,
       required this.lastName,
       required this.email,
       required this.phone,
       required this.addressLine1,
-      required this.addressLine2,
+      this.addressLine2,
       required this.city,
       required this.state,
       required this.postcode,
-      required this.country,
+      this.country = "Australia",
       Set<CustomerPreferences>? preferences,
       this.isWholesale = false})
       : id = id ?? ObjectId(),

@@ -33,6 +33,13 @@ class SaleModel {
   /// When the sale was completed
   DateTime timestamp;
 
+  /// Due date for credit sales
+  DateTime? dueDate;
+
+  /// Status of the sale (paid or unpaid)
+  @JsonKey(defaultValue: SaleStatus.unpaid)
+  SaleStatus status;
+
   /// List of items included in the sale
   @JsonKey(defaultValue: <SaleItemModel>[])
   List<SaleItemModel> items;
@@ -91,14 +98,26 @@ class SaleModel {
     this.eftposSessionId,
     List<PaymentModel>? payments,
     bool? isMatesRates,
+    this.dueDate,
+    SaleStatus? status,
   })  : id = id ?? ObjectId(),
         timestamp = timestamp ?? DateTime.now(),
         coupons = _couponsFromJson(coupons),
         items = items ?? [],
         payments = payments ?? [],
-        isMatesRates = isMatesRates ?? false;
+        isMatesRates = isMatesRates ?? false,
+        status = status ?? SaleStatus.unpaid;
 
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);
   Map<String, dynamic> toJson() => _$SaleModelToJson(this);
+}
+
+/// Status of a sale
+enum SaleStatus {
+  /// Sale is unpaid (has outstanding balance)
+  unpaid,
+
+  /// Sale is completed and fully paid
+  paid
 }
