@@ -28,7 +28,8 @@ SaleModel _$SaleModelFromJson(Map<String, dynamic> json) => SaleModel(
       dueDate: json['dueDate'] == null
           ? null
           : DateTime.parse(json['dueDate'] as String),
-      status: $enumDecodeNullable(_$SaleStatusEnumMap, json['status']) ??
+      status: $enumDecodeNullable(_$SaleStatusEnumMap, json['status'],
+              unknownValue: SaleStatus.unpaid) ??
           SaleStatus.unpaid,
     );
 

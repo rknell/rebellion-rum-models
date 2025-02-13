@@ -37,7 +37,7 @@ class SaleModel {
   DateTime? dueDate;
 
   /// Status of the sale (paid or unpaid)
-  @JsonKey(defaultValue: SaleStatus.unpaid)
+  @JsonKey(defaultValue: SaleStatus.unpaid, unknownEnumValue: SaleStatus.unpaid)
   SaleStatus status;
 
   /// List of items included in the sale

@@ -1,0 +1,104 @@
+# JSON Serialization Rules
+
+## Overview
+These rules define the standard practices for JSON serialization in the Rebellion Rum Models package.
+Following these guidelines ensures consistent, robust serialization behavior across all models.
+
+## Enum Serialization
+
+### Required Annotations
+- All enum fields MUST include both `defaultValue` and `unknownEnumValue` in their `@JsonKey` annotation
+- The `unknownEnumValue` should typically match the `defaultValue`
+- Choose a sensible default that won't cause issues if encountered unexpectedly
+
+### Example Implementation
+```dart
+enum Status { active, inactive, pending }
+
+@JsonSerializable()
+class MyModel {
+  @JsonKey(
+    defaultValue: Status.inactive,
+    unknownEnumValue: Status.inactive
+  )
+  Status status;
+}
+```
+
+### Enum Best Practices
+- Always provide a safe fallback value for unknown enum values
+- Document why a particular default was chosen
+- Consider the implications of the default value on business logic
+- Test serialization with invalid/unknown enum values
+
+## Version Migration
+
+### Handling Deprecated Values
+- When removing enum values, update `unknownEnumValue` to handle old data
+- Document the migration path in the model class
+- Add tests to verify proper handling of deprecated values
+
+### Example Migration
+```dart
+/// Status of an order
+/// Note: 'pending' status was deprecated in v2.0.0
+/// All 'pending' values will be mapped to 'inactive'
+enum OrderStatus {
+  active,
+  inactive
+}
+
+@JsonSerializable()
+class Order {
+  @JsonKey(
+    defaultValue: OrderStatus.inactive,
+    unknownEnumValue: OrderStatus.inactive  // Handles old 'pending' values
+  )
+  OrderStatus status;
+}
+```
+
+## Testing Requirements
+
+### Required Test Cases
+- Test serialization with all valid enum values
+- Test deserialization with unknown/invalid values
+- Verify default value behavior
+- Test migration paths for deprecated values
+
+### Example Test
+```dart
+test('should handle unknown enum values', () {
+  final json = {'status': 'invalid_value'};
+  final model = MyModel.fromJson(json);
+  expect(model.status, equals(Status.inactive));
+});
+```
+
+## Code Review Checklist
+
+### Enum Serialization Review
+- [ ] `@JsonKey` includes both `defaultValue` and `unknownEnumValue`
+- [ ] Default value is appropriate for the business context
+- [ ] Migration strategy is documented for enum changes
+- [ ] Tests cover invalid value handling
+- [ ] Documentation explains default value choice
+
+## Documentation
+
+### Required Documentation
+- Document the purpose of each enum
+- Explain the choice of default values
+- Document any migration considerations
+- Include examples of serialization behavior
+
+### Example Documentation
+```dart
+/// Status of a sale in the system
+/// Default is 'unpaid' to ensure conservative handling of payment state
+/// Unknown values are treated as 'unpaid' for safety
+enum SaleStatus {
+  paid,
+  unpaid
+}
+``` 
