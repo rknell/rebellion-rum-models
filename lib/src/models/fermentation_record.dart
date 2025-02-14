@@ -72,6 +72,9 @@ class FermentationRecordModel with DatabaseSerializable {
   /// Notes and observations
   String notes;
 
+  /// Recipe details and instructions
+  String recipe;
+
   FermentationRecordModel({
     ObjectId? id,
     required this.batchNumber,
@@ -82,6 +85,7 @@ class FermentationRecordModel with DatabaseSerializable {
     required this.sgEnd,
     List<FermentationProgressModel>? fermentationProgress,
     this.notes = '',
+    this.recipe = '',
   })  : id = id ?? ObjectId(),
         fermentationProgress = fermentationProgress ?? [];
 
