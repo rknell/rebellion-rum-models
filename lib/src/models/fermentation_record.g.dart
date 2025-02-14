@@ -22,6 +22,7 @@ FermentationRecordModel _$FermentationRecordModelFromJson(
               FermentationProgressModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       notes: json['notes'] as String? ?? '',
+      recipe: json['recipe'] as String? ?? '',
     );
 
 Map<String, dynamic> _$FermentationRecordModelToJson(
@@ -38,6 +39,7 @@ Map<String, dynamic> _$FermentationRecordModelToJson(
       'fermentationProgress':
           instance.fermentationProgress.map((e) => e.toJson()).toList(),
       'notes': instance.notes,
+      'recipe': instance.recipe,
     };
 
 const _$FermentationTypeEnumMap = {
