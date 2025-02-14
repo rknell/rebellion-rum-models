@@ -5,7 +5,7 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 part 'delivery_authority.g.dart';
 
 @JsonSerializable()
-class DeliveryAuthorityModel {
+class DeliveryAuthorityModel with DatabaseSerializable {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
@@ -21,4 +21,7 @@ class DeliveryAuthorityModel {
   factory DeliveryAuthorityModel.fromJson(Map<String, dynamic> json) =>
       _$DeliveryAuthorityModelFromJson(json);
   Map<String, dynamic> toJson() => _$DeliveryAuthorityModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }

@@ -24,7 +24,7 @@ part 'order.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class OrderModel {
+class OrderModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -74,4 +74,17 @@ class OrderModel {
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
   Map<String, dynamic> toJson() => _$OrderModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {
+        'customer': false,
+      };
+
+  @override
+  Map<String, Function> get nestedTypes => {
+        'customer': CustomerModel.fromJson,
+      };
 }

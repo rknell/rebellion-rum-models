@@ -21,7 +21,7 @@ part 'postcode.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class PostcodeModel {
+class PostcodeModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -50,4 +50,7 @@ class PostcodeModel {
   factory PostcodeModel.fromJson(Map<String, dynamic> json) =>
       _$PostcodeModelFromJson(json);
   Map<String, dynamic> toJson() => _$PostcodeModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }

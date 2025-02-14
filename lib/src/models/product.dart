@@ -26,7 +26,7 @@ part 'product.g.dart';
 enum ProductCategory { vodka, gin, rum, softdrink, merch, other }
 
 @JsonSerializable()
-class ProductModel {
+class ProductModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -36,7 +36,6 @@ class ProductModel {
   final String barcode;
 
   /// Product name/title
-
   String name;
 
   /// Current retail price in local currency
@@ -113,7 +112,6 @@ class ProductModel {
         stock = stock ?? 0,
         category = category ?? ProductCategory.other;
 
-  // coverage:ignore-line
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     // Handle the name/description merge during deserialization
     final name = json['name'] as String?;
@@ -123,6 +121,8 @@ class ProductModel {
 
     return _$ProductModelFromJson(json);
   }
-  // coverage:ignore-line
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }

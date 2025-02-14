@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'sale_item.g.dart';
 
@@ -17,7 +18,7 @@ part 'sale_item.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class SaleItemModel {
+class SaleItemModel with DatabaseSerializable {
   /// Product description as shown on receipt
   String description;
 
@@ -40,4 +41,6 @@ class SaleItemModel {
   factory SaleItemModel.fromJson(Map<String, dynamic> json) =>
       _$SaleItemModelFromJson(json);
   Map<String, dynamic> toJson() => _$SaleItemModelToJson(this);
+
+  // No need to override objectIdFields since this model has no ObjectId fields
 }

@@ -5,7 +5,7 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 part 'packaging_run_item.g.dart';
 
 @JsonSerializable()
-class PackagingRunItemModel {
+class PackagingRunItemModel with DatabaseSerializable {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
@@ -35,4 +35,7 @@ class PackagingRunItemModel {
   factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
       _$PackagingRunItemModelFromJson(json);
   Map<String, dynamic> toJson() => _$PackagingRunItemModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }

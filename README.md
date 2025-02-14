@@ -1,43 +1,128 @@
 # Rebellion Rum Models
 
-A Dart library to maintain consistent data models across multiple projects using MongoDB as the source of truth.
-
-## Overview
-
-This library serves as a central location to store data models for reuse in other projects, ensuring database schema consistency across all dependent projects.
+This package contains the data models used across the Rebellion Rum applications.
 
 ## Features
 
-- Centralized data models for MongoDB collections
-- JSON serialization/deserialization using json_serializable
-- Sample data management for testing and development
-- Comprehensive test coverage for all models
-- Built-in export utility for MongoDB collections
+- JSON serialization for all models using `json_serializable`
+- MongoDB/Database serialization with proper ObjectId handling
+- Type-safe model definitions with documentation
+- Comprehensive test coverage
 
 ## Getting Started
 
-### Prerequisites
-
-- Dart SDK ≥3.6.0
-- MongoDB instance (for sample data export)
-
-### Installation
-
-Add this to your package's pubspec.yaml file:
+Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
   rebellion_rum_models:
-    git: https://github.com/your-username/rebellion-rum-models.git
+    git:
+      url: https://github.com/your-org/rebellion-rum-models.git
+      ref: main  # or specific tag/commit
 ```
 
-### Usage
+## Usage
 
-Import the models you need:
+### Basic Model Usage
 
 ```dart
 import 'package:rebellion_rum_models/rebellion_rum_models.dart';
+
+// Create a new product
+final product = ProductModel(
+  barcode: '123456789',
+  name: 'Premium Dark Rum',
+  price: 49.99,
+  volume: 700,
+  abv: 0.40,
+);
+
+// Convert to JSON
+final json = product.toJson();
+
+// Create from JSON
+final fromJson = ProductModel.fromJson(json);
 ```
+
+### Database Serialization
+
+All models implement the `DatabaseSerializable` mixin, which provides proper MongoDB serialization with ObjectId handling. This ensures that ObjectId fields are preserved when saving to MongoDB:
+
+```dart
+// Create a model
+final sale = SaleModel(
+  items: [SaleItemModel(...)],
+  payments: [PaymentModel(...)],
+);
+
+// For JSON serialization (converts ObjectIds to strings)
+final json = sale.toJson();
+
+// For MongoDB operations (preserves ObjectIds)
+final dbDoc = sale.toDatabase();
+await collection.insert(dbDoc);
+```
+
+#### How It Works
+
+The `DatabaseSerializable` mixin provides:
+
+1. Automatic ObjectId preservation for database operations
+2. Support for nested objects and lists
+3. Type-safe serialization
+
+Each model specifies its ObjectId fields and nested objects:
+
+```dart
+class YourModel with DatabaseSerializable {
+  @JsonKey(name: '_id')
+  @ObjectIdConverter()
+  final ObjectId id;
+  
+  // ... other fields ...
+
+  @override
+  Set<String> get objectIdFields => {'_id', 'otherObjectIdField'};
+
+  // If you have nested objects that also need database serialization:
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {
+    'nestedField': false,  // single object
+    'nestedList': true,    // list of objects
+  };
+
+  @override
+  Map<String, Function> get nestedTypes => {
+    'nestedField': NestedModel.fromJson,
+    'nestedList': NestedModel.fromJson,
+  };
+}
+```
+
+## Testing
+
+Run the tests:
+
+```bash
+dart test
+```
+
+The test suite includes:
+- JSON serialization tests
+- Database serialization tests
+- Model validation tests
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Add tests for any new functionality
+4. Ensure all tests pass
+5. Create a pull request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Development Commands
 
@@ -55,14 +140,6 @@ Auto-generate code on file changes:
 
 ```bash
 dart run build_runner watch --delete-conflicting-outputs
-```
-
-### Tests
-
-Run all tests:
-
-```bash
-dart test
 ```
 
 ### Documentation
@@ -117,18 +194,6 @@ rebellion_rum_models/
 ├── test/                     # Model tests
 └── README.md
 ```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Development Setup
 

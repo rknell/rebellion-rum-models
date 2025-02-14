@@ -24,7 +24,7 @@ part 'sale.g.dart';
 /// );
 /// ```
 @JsonSerializable(explicitToJson: true)
-class SaleModel {
+class SaleModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -111,6 +111,23 @@ class SaleModel {
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);
   Map<String, dynamic> toJson() => _$SaleModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {
+        'items': true, // List of SaleItemModel
+        'payments': true, // List of PaymentModel
+        'coupons': true, // List of CouponModel
+      };
+
+  @override
+  Map<String, Function> get nestedTypes => {
+        'items': SaleItemModel.fromJson,
+        'payments': PaymentModel.fromJson,
+        'coupons': CouponModel.fromJson,
+      };
 }
 
 /// Status of a sale

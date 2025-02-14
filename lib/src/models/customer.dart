@@ -8,19 +8,20 @@ part 'customer.g.dart';
 
 /// Represents a customer in the system.
 ///
-/// Customers can be either retail or wholesale buyers. This model stores
-/// their contact information and preferences. Note that sensitive information
-/// like passwords are handled separately for security.
+/// Customers can be either retail or wholesale, and may have various
+/// preferences and contact information stored.
 ///
 /// Example:
 /// ```dart
 /// final customer = CustomerModel(
-///   id: '123',
-///   email: 'john.doe@example.com',
 ///   firstName: 'John',
 ///   lastName: 'Doe',
-///   phone: '0412345678',
-///   isWholesale: false,
+///   email: 'john@example.com',
+///   phone: '1234567890',
+///   addressLine1: '123 Main St',
+///   city: 'Melbourne',
+///   state: 'VIC',
+///   postcode: '3000',
 /// );
 /// ```
 ///
@@ -39,11 +40,11 @@ enum CustomerPreferences {
   citrusGin,
   vodka,
   beer,
-  other
+  other,
 }
 
 @JsonSerializable()
-class CustomerModel {
+class CustomerModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -107,4 +108,7 @@ class CustomerModel {
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
   Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
