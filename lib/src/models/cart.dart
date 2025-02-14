@@ -19,7 +19,7 @@ part 'cart.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class CartModel {
+class CartModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -52,6 +52,25 @@ class CartModel {
   factory CartModel.fromJson(Map<String, dynamic> json) =>
       _$CartModelFromJson(json);
   Map<String, dynamic> toJson() => _$CartModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {
+        'deliveryMethod': false,
+        'products': true,
+        'userInfo': false,
+        'paymentIntent': false,
+      };
+
+  @override
+  Map<String, Function> get nestedTypes => {
+        'deliveryMethod': DeliveryMethodModel.fromJson,
+        'products': CartProductModel.fromJson,
+        'userInfo': UserInfoModel.fromJson,
+        'paymentIntent': PaymentIntentModel.fromJson,
+      };
 }
 
 /// Represents a delivery method with associated service details and pricing.
@@ -65,14 +84,14 @@ class CartModel {
 /// );
 /// ```
 @JsonSerializable()
-class DeliveryMethodModel {
-  /// Unique code identifying the delivery service
+class DeliveryMethodModel with DatabaseSerializable {
+  /// Service code identifier
   final String service_code;
 
   /// Total delivery cost
   final double total_price;
 
-  /// Display name of the delivery service
+  /// Display name for the service
   final String service_name;
 
   const DeliveryMethodModel({
@@ -86,28 +105,25 @@ class DeliveryMethodModel {
   Map<String, dynamic> toJson() => _$DeliveryMethodModelToJson(this);
 }
 
-/// Represents a product in the shopping cart with quantity and display information.
-///
-/// This is a simplified version of the full Product model, containing only
-/// the information needed for cart display and checkout.
+/// Represents a product in the shopping cart.
 ///
 /// Example:
 /// ```dart
-/// final cartProduct = CartProductModel(
-///   id: '123',
-///   name: 'Premium Rum',
-///   href: '/products/premium-rum',
+/// final product = CartProductModel(
+///   id: 'PROD-001',
+///   name: 'Premium Dark Rum',
+///   href: '/products/premium-dark-rum',
 ///   volume: 750,
 ///   price: 49.99,
 ///   quantity: 2,
-///   imageSrc: 'https://...',
-///   imageAlt: 'Premium Rum Bottle',
+///   imageSrc: '/images/rum.jpg',
+///   imageAlt: 'Bottle of Premium Dark Rum',
 ///   barcode: '9876543210',
 ///   stock: 100,
 /// );
 /// ```
 @JsonSerializable()
-class CartProductModel {
+class CartProductModel with DatabaseSerializable {
   /// Product identifier
   final String id;
 
@@ -174,7 +190,7 @@ class CartProductModel {
 /// );
 /// ```
 @JsonSerializable()
-class UserInfoModel {
+class UserInfoModel with DatabaseSerializable {
   /// Customer email address
   final String email;
 
@@ -245,38 +261,17 @@ class UserInfoModel {
 /// );
 /// ```
 @JsonSerializable()
-class PaymentIntentModel {
-  /// Object type (always 'payment_intent')
+class PaymentIntentModel with DatabaseSerializable {
   final String object;
-
-  /// Stripe payment intent ID
   final String id;
-
-  /// Payment amount in cents
   final int amount;
-
-  /// Amount actually received in cents
   final int amount_received;
-
-  /// Configuration for automatic payment methods
   final Map<String, dynamic> automatic_payment_methods;
-
-  /// Secret used for client-side confirmation
   final String client_secret;
-
-  /// Three-letter currency code (e.g., 'aud')
   final String currency;
-
-  /// Current payment status
   final String status;
-
-  /// Unix timestamp of creation
   final int created;
-
-  /// Additional metadata attached to the payment
   final Map<String, dynamic> metadata;
-
-  /// List of allowed payment method types
   final List<String> payment_method_types;
 
   const PaymentIntentModel({

@@ -4,28 +4,44 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'fermentation_record.g.dart';
 
-enum FermentationType { molasses, caneSugar, grape, grain, mixed, other }
-
-/// Represents a record of a fermentation batch in the production process.
+/// Represents a fermentation batch record in the production process.
 ///
 /// Each fermentation record tracks the details of a single fermentation batch,
-/// including ingredients, measurements, and timing information. This data is
-/// crucial for quality control and regulatory compliance.
+/// including measurements, vessel information, and progress readings.
 ///
 /// Example:
 /// ```dart
 /// final record = FermentationRecordModel(
-///   id: '123',
-///   batchNumber: 1,
+///   batchNumber: 123,
 ///   type: FermentationType.molasses,
-///   washVolume: 10.0,
-///   vesselBarcode: 'FV-01',
+///   washVolume: 1000,
+///   vesselBarcode: 'FV001',
 ///   sgStart: 1.080,
 ///   sgEnd: 1.010,
 /// );
 /// ```
+enum FermentationType {
+  /// Fermentation using molasses as primary fermentable
+  molasses,
+
+  /// Fermentation using cane sugar as primary fermentable
+  caneSugar,
+
+  /// Fermentation using grape as primary fermentable
+  grape,
+
+  /// Fermentation using grain as primary fermentable
+  grain,
+
+  /// Mixed fermentation using multiple fermentable sources
+  mixed,
+
+  /// Other fermentation types
+  other
+}
+
 @JsonSerializable()
-class FermentationRecordModel {
+class FermentationRecordModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -72,10 +88,23 @@ class FermentationRecordModel {
   factory FermentationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$FermentationRecordModelFromJson(json);
   Map<String, dynamic> toJson() => _$FermentationRecordModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {
+        'fermentationProgress': true,
+      };
+
+  @override
+  Map<String, Function> get nestedTypes => {
+        'fermentationProgress': FermentationProgressModel.fromJson,
+      };
 }
 
 @JsonSerializable()
-class FermentationProgressModel {
+class FermentationProgressModel with DatabaseSerializable {
   final double sg;
   final double? ph;
   final double? temp;

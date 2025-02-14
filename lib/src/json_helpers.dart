@@ -59,3 +59,82 @@ class NullableObjectIdConverter implements JsonConverter<ObjectId?, dynamic> {
   @override
   String? toJson(ObjectId? object) => object?.oid;
 }
+
+/// A mixin that provides database serialization functionality for models
+/// that use json_serializable and have ObjectId fields.
+///
+/// This mixin adds a [toDatabase] method that converts the model to a format
+/// suitable for database storage, preserving ObjectId instances instead of
+/// converting them to strings.
+mixin DatabaseSerializable {
+  /// Override this method to specify which fields contain ObjectIds
+  /// Returns a set of field names that should be treated as ObjectIds
+  Set<String> get objectIdFields => {'_id'};
+
+  /// Override this to specify nested objects that implement DatabaseSerializable
+  /// Key is the field name, value is whether it's a list of objects
+  Map<String, bool> get nestedDatabaseSerializables => {};
+
+  /// Converts the model to a database-friendly format, preserving ObjectId instances.
+  ///
+  /// This method:
+  /// 1. First converts the model to JSON using the standard toJson method
+  /// 2. Then converts any ObjectId string representations back to ObjectId instances
+  /// 3. Recursively handles nested objects that implement DatabaseSerializable
+  /// 4. Returns a Map that can be directly used with MongoDB operations
+  Map<String, dynamic> toDatabase() {
+    // Get the JSON representation first
+    final json = (this as dynamic).toJson() as Map<String, dynamic>;
+
+    // Convert all ObjectId fields
+    for (final field in objectIdFields) {
+      if (json.containsKey(field) && json[field] is String) {
+        json[field] = ObjectId.fromHexString(json[field] as String);
+      }
+    }
+
+    // Handle nested DatabaseSerializable objects
+    for (final entry in nestedDatabaseSerializables.entries) {
+      final field = entry.key;
+      final isList = entry.value;
+
+      if (!json.containsKey(field)) continue;
+
+      if (isList) {
+        // Handle list of nested objects
+        if (json[field] is List) {
+          final list = json[field] as List;
+          json[field] = list.map((item) {
+            if (item is DatabaseSerializable) {
+              return item.toDatabase();
+            } else if (item is Map<String, dynamic>) {
+              // If it's already a map (from toJson), we need to convert it back to
+              // an object first to access the toDatabase method
+              final originalType = nestedTypes[field];
+              if (originalType != null) {
+                final instance = originalType(item);
+                return (instance as DatabaseSerializable).toDatabase();
+              }
+            }
+            return item;
+          }).toList();
+        }
+      } else {
+        // Handle single nested object
+        if (json[field] is Map<String, dynamic>) {
+          final originalType = nestedTypes[field];
+          if (originalType != null) {
+            final instance = originalType(json[field] as Map<String, dynamic>);
+            json[field] = (instance as DatabaseSerializable).toDatabase();
+          }
+        }
+      }
+    }
+
+    return json;
+  }
+
+  /// Override this to provide factory constructors for nested types
+  /// Key is the field name, value is a function that creates an instance from JSON
+  Map<String, Function> get nestedTypes => {};
+}

@@ -9,7 +9,7 @@ part 'stock_journal.g.dart';
 /// Stock journals track all changes to stock levels, including transfers
 /// between locations and packaging operations.
 @JsonSerializable()
-class StockJournalModel {
+class StockJournalModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -42,4 +42,7 @@ class StockJournalModel {
   factory StockJournalModel.fromJson(Map<String, dynamic> json) =>
       _$StockJournalModelFromJson(json);
   Map<String, dynamic> toJson() => _$StockJournalModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }

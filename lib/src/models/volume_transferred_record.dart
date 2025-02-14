@@ -5,7 +5,7 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 part 'volume_transferred_record.g.dart';
 
 @JsonSerializable()
-class VolumeTransferredRecordModel {
+class VolumeTransferredRecordModel with DatabaseSerializable {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
@@ -29,4 +29,7 @@ class VolumeTransferredRecordModel {
   factory VolumeTransferredRecordModel.fromJson(Map<String, dynamic> json) =>
       _$VolumeTransferredRecordModelFromJson(json);
   Map<String, dynamic> toJson() => _$VolumeTransferredRecordModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id', 'chargeId', 'washId'};
 }

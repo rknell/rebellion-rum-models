@@ -9,7 +9,7 @@ part 'distillation_record.g.dart';
 /// Each distillation record tracks the details of a single distillation run,
 /// including the still used, LALs measurements, and any notes taken during the process.
 @JsonSerializable()
-class DistillationRecordModel {
+class DistillationRecordModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -47,10 +47,23 @@ class DistillationRecordModel {
   factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$DistillationRecordModelFromJson(json);
   Map<String, dynamic> toJson() => _$DistillationRecordModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {
+        'notes': true,
+      };
+
+  @override
+  Map<String, Function> get nestedTypes => {
+        'notes': NoteModel.fromJson,
+      };
 }
 
 @JsonSerializable()
-class NoteModel {
+class NoteModel with DatabaseSerializable {
   String content;
   final DateTime date;
 

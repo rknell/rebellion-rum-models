@@ -10,7 +10,7 @@ part 'stock_location.g.dart';
 /// within the facility. Each location has a unique identifier and specific flags
 /// indicating its type and purpose.
 @JsonSerializable()
-class StockLocationModel {
+class StockLocationModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -51,4 +51,7 @@ class StockLocationModel {
   factory StockLocationModel.fromJson(Map<String, dynamic> json) =>
       _$StockLocationModelFromJson(json);
   Map<String, dynamic> toJson() => _$StockLocationModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }

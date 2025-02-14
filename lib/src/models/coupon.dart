@@ -5,7 +5,7 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 part 'coupon.g.dart';
 
 @JsonSerializable()
-class CouponModel {
+class CouponModel with DatabaseSerializable {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   ObjectId id;
@@ -51,4 +51,7 @@ class CouponModel {
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
       _$CouponModelFromJson(json);
   Map<String, dynamic> toJson() => _$CouponModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }

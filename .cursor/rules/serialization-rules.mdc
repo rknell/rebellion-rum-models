@@ -1,3 +1,7 @@
+---
+description: 
+globs: 
+---
 # JSON Serialization Rules
 
 ## Overview
@@ -102,3 +106,6 @@ enum SaleStatus {
   unpaid
 }
 ``` 
+
+Besides json serialization, you also need to accomodate database serialisation as per [toDatabase.md](mdc:.cursorrules/toDatabase.md)
+

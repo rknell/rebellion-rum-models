@@ -5,7 +5,7 @@ import '../json_helpers.dart';
 part 'eftpos_terminal.g.dart';
 
 @JsonSerializable()
-class EftposTerminalModel {
+class EftposTerminalModel with DatabaseSerializable {
   @ObjectIdConverter()
   @JsonKey(name: '_id')
   final ObjectId id;
@@ -28,4 +28,7 @@ class EftposTerminalModel {
       _$EftposTerminalModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$EftposTerminalModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
