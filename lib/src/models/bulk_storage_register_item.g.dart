@@ -21,7 +21,8 @@ BulkStorageRegisterItemModel _$BulkStorageRegisterItemModelFromJson(
       feintsDestroyed: json['feintsDestroyed'] as bool? ?? false,
       wastage: json['wastage'] as bool? ?? false,
       notes: json['notes'] as String?,
-      fromChargeId: json['fromChargeId'] as String?,
+      fromChargeId:
+          const NullableObjectIdConverter().fromJson(json['fromChargeId']),
       fromVesselId:
           const NullableObjectIdConverter().fromJson(json['fromVesselId']),
       toVesselId:
@@ -50,7 +51,9 @@ Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
       'feintsDestroyed': instance.feintsDestroyed,
       'wastage': instance.wastage,
       if (instance.notes case final value?) 'notes': value,
-      if (instance.fromChargeId case final value?) 'fromChargeId': value,
+      if (const NullableObjectIdConverter().toJson(instance.fromChargeId)
+          case final value?)
+        'fromChargeId': value,
       if (const NullableObjectIdConverter().toJson(instance.fromVesselId)
           case final value?)
         'fromVesselId': value,
@@ -95,6 +98,7 @@ extension BulkStorageRegisterItemModelObjectIdFields
   @override
   Set<String> get objectIdFields => {
         '_id',
+        'fromChargeId',
         'fromPackagingId',
         'fromVesselId',
         'productId',

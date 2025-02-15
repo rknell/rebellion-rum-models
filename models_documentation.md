@@ -310,7 +310,12 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   final ObjectId id;
 
   /// LALs calculation for this movement
-  final AlcocalcLalsCalculation lalsCalculation;
+  @JsonKey(includeIfNull: false)
+  final AlcocalcLalsCalculation? lalsCalculation;
+
+  /// Legacy LALs value (used for backward compatibility)
+  @JsonKey(name: 'lals')
+  final double? legacyLals;
 
   /// Type of movement
   @JsonKey(defaultValue: BulkStorageMovementType.vesselTransfer)
@@ -328,30 +333,37 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   String? notes;
 
   /// Reference to the source charge (if applicable)
-  String? fromChargeId;
+  @NullableObjectIdConverter()
+  ObjectId? fromChargeId;
 
   /// Reference to the source vessel (if applicable)
   @JsonKey(name: 'fromVesselId')
-  @ObjectIdConverter()
+  @NullableObjectIdConverter()
   ObjectId? fromVesselId;
 
   /// Reference to the destination vessel (if applicable)
   @JsonKey(name: 'toVesselId')
-  @ObjectIdConverter()
+  @NullableObjectIdConverter()
   ObjectId? toVesselId;
 
   /// Reference to the destination charge (if applicable)
-  String? toChargeId;
+  @JsonKey(name: 'toChargeId')
+  @NullableObjectIdConverter()
+  ObjectId? toChargeId;
 
   /// Reference to the destination packaging (if applicable)
-  String? toPackagingId;
+  @JsonKey(name: 'toPackagingId')
+  @NullableObjectIdConverter()
+  ObjectId? toPackagingId;
 
   /// Reference to the source packaging (if applicable)
-  String? fromPackagingId;
+  @JsonKey(name: 'fromPackagingId')
+  @NullableObjectIdConverter()
+  ObjectId? fromPackagingId;
 
   /// Reference to the product being moved
   @JsonKey(name: 'productId')
-  @ObjectIdConverter()
+  @NullableObjectIdConverter()
   ObjectId? productId;
 
   /// Timestamp of when this movement occurred
@@ -360,7 +372,8 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
 
   BulkStorageRegisterItemModel({
     ObjectId? id,
-    required this.lalsCalculation,
+    this.lalsCalculation,
+    this.legacyLals,
     this.movementType = BulkStorageMovementType.vesselTransfer,
     this.feintsDestroyed = false,
     this.wastage = false,
@@ -373,19 +386,17 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
     this.fromPackagingId,
     this.productId,
     DateTime? timestamp,
-  })  : id = id ?? ObjectId(),
+  })  : assert(lalsCalculation != null || legacyLals != null,
+            'Either lalsCalculation or legacyLals must be provided'),
+        id = id ?? ObjectId(),
         timestamp = timestamp ?? DateTime.now();
 
-  /// Get the LALs value from the calculation
-  double get lals => lalsCalculation.lals;
+  /// Get the LALs value from either the calculation or legacy field
+  double get lals => lalsCalculation?.lals ?? legacyLals!;
 
   factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageRegisterItemModelFromJson(json);
   Map<String, dynamic> toJson() => _$BulkStorageRegisterItemModelToJson(this);
-
-  @override
-  Set<String> get objectIdFields =>
-      {'_id', 'fromVesselId', 'toVesselId', 'productId'};
 }
 
 ```
@@ -404,7 +415,7 @@ import 'package:rebellion_rum_models/src/models/bulk_storage_vessel_status.dart'
 part 'bulk_storage_vessel.g.dart';
 
 /// Represents a bulk storage vessel used for storing spirits.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class BulkStorageVesselModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
@@ -429,7 +440,7 @@ class BulkStorageVesselModel with DatabaseSerializable {
 
   /// Reference to the product currently in the vessel
   @JsonKey(name: 'productId')
-  @ObjectIdConverter()
+  @NullableObjectIdConverter()
   ObjectId? productId;
 
   /// Whether the vessel needs a stocktake before operations

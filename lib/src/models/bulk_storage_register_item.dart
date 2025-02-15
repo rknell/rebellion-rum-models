@@ -40,7 +40,8 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   String? notes;
 
   /// Reference to the source charge (if applicable)
-  String? fromChargeId;
+  @NullableObjectIdConverter()
+  ObjectId? fromChargeId;
 
   /// Reference to the source vessel (if applicable)
   @JsonKey(name: 'fromVesselId')
