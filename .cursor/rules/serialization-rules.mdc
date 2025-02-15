@@ -1,6 +1,6 @@
 ---
-description: 
-globs: 
+description: rules to follow when doing json serialization
+globs: *.dart
 ---
 # JSON Serialization Rules
 

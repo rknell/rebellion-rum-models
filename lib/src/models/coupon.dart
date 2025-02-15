@@ -31,7 +31,7 @@ class CouponModel with DatabaseSerializable {
 
   double get currentValue => remainingValue;
 
-  redeem() {
+  void redeem() {
     redeemed = true;
     remainingValue = 0;
   }

@@ -38,17 +38,17 @@ Map<String, dynamic> _$CartModelToJson(CartModel instance) => <String, dynamic>{
 
 DeliveryMethodModel _$DeliveryMethodModelFromJson(Map<String, dynamic> json) =>
     DeliveryMethodModel(
-      service_code: json['service_code'] as String,
-      total_price: (json['total_price'] as num).toDouble(),
-      service_name: json['service_name'] as String,
+      serviceCode: json['service_code'] as String,
+      totalPrice: (json['total_price'] as num).toDouble(),
+      serviceName: json['service_name'] as String,
     );
 
 Map<String, dynamic> _$DeliveryMethodModelToJson(
         DeliveryMethodModel instance) =>
     <String, dynamic>{
-      'service_code': instance.service_code,
-      'total_price': instance.total_price,
-      'service_name': instance.service_name,
+      'service_code': instance.serviceCode,
+      'total_price': instance.totalPrice,
+      'service_name': instance.serviceName,
     };
 
 CartProductModel _$CartProductModelFromJson(Map<String, dynamic> json) =>
@@ -112,15 +112,15 @@ PaymentIntentModel _$PaymentIntentModelFromJson(Map<String, dynamic> json) =>
       object: json['object'] as String,
       id: json['id'] as String,
       amount: (json['amount'] as num).toInt(),
-      amount_received: (json['amount_received'] as num).toInt(),
-      automatic_payment_methods:
+      amountReceived: (json['amount_received'] as num).toInt(),
+      automaticPaymentMethods:
           json['automatic_payment_methods'] as Map<String, dynamic>,
-      client_secret: json['client_secret'] as String,
+      clientSecret: json['client_secret'] as String,
       currency: json['currency'] as String,
       status: json['status'] as String,
       created: (json['created'] as num).toInt(),
       metadata: json['metadata'] as Map<String, dynamic>,
-      payment_method_types: (json['payment_method_types'] as List<dynamic>)
+      paymentMethodTypes: (json['payment_method_types'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
     );
@@ -130,12 +130,12 @@ Map<String, dynamic> _$PaymentIntentModelToJson(PaymentIntentModel instance) =>
       'object': instance.object,
       'id': instance.id,
       'amount': instance.amount,
-      'amount_received': instance.amount_received,
-      'automatic_payment_methods': instance.automatic_payment_methods,
-      'client_secret': instance.client_secret,
+      'amount_received': instance.amountReceived,
+      'automatic_payment_methods': instance.automaticPaymentMethods,
+      'client_secret': instance.clientSecret,
       'currency': instance.currency,
       'status': instance.status,
       'created': instance.created,
       'metadata': instance.metadata,
-      'payment_method_types': instance.payment_method_types,
+      'payment_method_types': instance.paymentMethodTypes,
     };

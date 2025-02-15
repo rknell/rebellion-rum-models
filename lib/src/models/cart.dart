@@ -83,21 +83,21 @@ class CartModel with DatabaseSerializable {
 ///   service_name: 'Express Delivery',
 /// );
 /// ```
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class DeliveryMethodModel with DatabaseSerializable {
   /// Service code identifier
-  final String service_code;
+  final String serviceCode;
 
   /// Total delivery cost
-  final double total_price;
+  final double totalPrice;
 
   /// Display name for the service
-  final String service_name;
+  final String serviceName;
 
   const DeliveryMethodModel({
-    required this.service_code,
-    required this.total_price,
-    required this.service_name,
+    required this.serviceCode,
+    required this.totalPrice,
+    required this.serviceName,
   });
 
   factory DeliveryMethodModel.fromJson(Map<String, dynamic> json) =>
@@ -260,32 +260,32 @@ class UserInfoModel with DatabaseSerializable {
 ///   payment_method_types: ['card'],
 /// );
 /// ```
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class PaymentIntentModel with DatabaseSerializable {
   final String object;
   final String id;
   final int amount;
-  final int amount_received;
-  final Map<String, dynamic> automatic_payment_methods;
-  final String client_secret;
+  final int amountReceived;
+  final Map<String, dynamic> automaticPaymentMethods;
+  final String clientSecret;
   final String currency;
   final String status;
   final int created;
   final Map<String, dynamic> metadata;
-  final List<String> payment_method_types;
+  final List<String> paymentMethodTypes;
 
   const PaymentIntentModel({
     required this.object,
     required this.id,
     required this.amount,
-    required this.amount_received,
-    required this.automatic_payment_methods,
-    required this.client_secret,
+    required this.amountReceived,
+    required this.automaticPaymentMethods,
+    required this.clientSecret,
     required this.currency,
     required this.status,
     required this.created,
     required this.metadata,
-    required this.payment_method_types,
+    required this.paymentMethodTypes,
   });
 
   factory PaymentIntentModel.fromJson(Map<String, dynamic> json) =>
