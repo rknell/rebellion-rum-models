@@ -139,3 +139,15 @@ Map<String, dynamic> _$PaymentIntentModelToJson(PaymentIntentModel instance) =>
       'metadata': instance.metadata,
       'payment_method_types': instance.paymentMethodTypes,
     };
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for CartModel
+extension CartModelObjectIdFields on CartModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+      };
+}

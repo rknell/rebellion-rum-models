@@ -5,3 +5,16 @@ targets:
         options:
           include_if_null: false
           explicit_to_json: true
+      rebellion_rum_models|object_id_fields:
+        enabled: true
+        generate_for:
+          - lib/src/models/**.dart
+
+builders:
+  object_id_fields:
+    import: "package:rebellion_rum_models/src/builder/object_id_fields_generator.dart"
+    builder_factories: ["objectIdFieldsBuilder"]
+    build_extensions: {".dart": [".object_id_fields.g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]

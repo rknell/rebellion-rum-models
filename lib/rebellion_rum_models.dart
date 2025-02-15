@@ -3,8 +3,11 @@
 library rebellion_rum_models;
 
 // Models
+export 'src/models/alcocalc_lals_calculation.dart';
+export 'src/models/bulk_storage_movement_type.dart';
 export 'src/models/bulk_storage_register_item.dart';
 export 'src/models/bulk_storage_vessel.dart';
+export 'src/models/bulk_storage_vessel_status.dart';
 export 'src/models/cart.dart';
 export 'src/models/coupon.dart';
 export 'src/models/customer.dart';

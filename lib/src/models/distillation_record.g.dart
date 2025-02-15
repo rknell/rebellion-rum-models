@@ -42,3 +42,15 @@ Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
       'content': instance.content,
       'date': instance.date.toIso8601String(),
     };
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for DistillationRecordModel
+extension DistillationRecordModelObjectIdFields on DistillationRecordModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+      };
+}

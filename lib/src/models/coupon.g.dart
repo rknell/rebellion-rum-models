@@ -29,3 +29,15 @@ Map<String, dynamic> _$CouponModelToJson(CouponModel instance) =>
       if (instance.redeemed case final value?) 'redeemed': value,
       'remainingValue': instance.remainingValue,
     };
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for CouponModel
+extension CouponModelObjectIdFields on CouponModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+      };
+}

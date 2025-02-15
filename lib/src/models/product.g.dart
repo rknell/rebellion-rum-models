@@ -64,3 +64,15 @@ const _$ProductCategoryEnumMap = {
   ProductCategory.merch: 'merch',
   ProductCategory.other: 'other',
 };
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for ProductModel
+extension ProductModelObjectIdFields on ProductModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+      };
+}
