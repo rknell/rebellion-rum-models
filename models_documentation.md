@@ -2,6 +2,290 @@
 
 This documentation is automatically generated from the model files.
 
+## alcocalc_dilution_calculation
+
+*File: lib/src/models/alcocalc_dilution_calculation.dart*
+
+```dart
+import 'package:alcocalc/alcocalc.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'alcocalc_dilution_calculation.g.dart';
+
+/// A model for recording dilution calculations using the alcocalc package.
+/// This model stores the input parameters and calculated results for audit purposes.
+@JsonSerializable(explicitToJson: true)
+class AlcocalcDilutionCalculation {
+  /// Creates a new instance of [AlcocalcDilutionCalculation].
+  factory AlcocalcDilutionCalculation({
+    required double startingWeight,
+    required double startingAbv,
+    required double targetAbv,
+    List<SugarAddition> sugars = const [],
+    double temperature = 20.0,
+  }) {
+    // Validate inputs
+    if (startingAbv <= targetAbv) {
+      throw ArgumentError('Starting ABV must be greater than target ABV');
+    }
+    if (startingAbv <= 0 || startingAbv > 100) {
+      throw ArgumentError('Starting ABV must be between 0 and 100');
+    }
+    if (targetAbv <= 0 || targetAbv > 100) {
+      throw ArgumentError('Target ABV must be between 0 and 100');
+    }
+    if (temperature < -20 || temperature > 40) {
+      throw ArgumentError('Temperature must be between -20°C and 40°C');
+    }
+
+    // Calculate dilution once
+    final result = dilution(
+      startingWeight: startingWeight,
+      startingABV: startingAbv,
+      startingTemperature: temperature,
+      sugars: sugars.map((s) => s.toSugars()).toList(),
+      targetABV: targetAbv,
+    );
+
+    // Create instance with all values
+    return AlcocalcDilutionCalculation._(
+      startingWeight: startingWeight,
+      startingAbv: startingAbv,
+      targetAbv: targetAbv,
+      temperature: temperature,
+      sugars: sugars,
+      date: DateTime.now(),
+      waterToAdd: result.additionalWaterLitres,
+      weightAfterWater: result.targetWeightAfterWater,
+      finalVolume: result.targetVolume,
+      lals: result.lals,
+      expectedBottles: result.expectedBottles,
+      calculatedAbv: result.calculatedABV,
+      acceptableAbvLow: result.acceptableABVLow,
+      acceptableAbvHigh: result.acceptableABVHigh,
+      sugarResults: result.sugarResults
+          .map((sugar) => SugarResult(
+                name: sugar.name,
+                weight: sugar.weight,
+              ))
+          .toList(),
+    );
+  }
+
+  /// Private constructor for creating an instance with pre-calculated values
+  const AlcocalcDilutionCalculation._({
+    required this.startingWeight,
+    required this.startingAbv,
+    required this.targetAbv,
+    required this.temperature,
+    required this.sugars,
+    required this.date,
+    required this.waterToAdd,
+    required this.weightAfterWater,
+    required this.finalVolume,
+    required this.lals,
+    required this.expectedBottles,
+    required this.calculatedAbv,
+    required this.acceptableAbvLow,
+    required this.acceptableAbvHigh,
+    required this.sugarResults,
+  });
+
+  /// Starting weight in kilograms
+  final double startingWeight;
+
+  /// Starting alcohol by volume percentage
+  final double startingAbv;
+
+  /// Target alcohol by volume percentage
+  final double targetAbv;
+
+  /// Temperature in celsius
+  final double temperature;
+
+  /// Optional list of sugars to add (for liqueurs)
+  final List<SugarAddition> sugars;
+
+  /// Date and time of calculation
+  final DateTime date;
+
+  /// Amount of water to add in litres to reach target ABV
+  final double waterToAdd;
+
+  /// Target weight after adding water (before sugar additions)
+  final double weightAfterWater;
+
+  /// Final volume after dilution in litres
+  final double finalVolume;
+
+  /// Total litres of absolute alcohol (LALs)
+  final double lals;
+
+  /// Expected number of 700ml bottles
+  final double expectedBottles;
+
+  /// Calculated ABV after all additions
+  final double calculatedAbv;
+
+  /// Minimum acceptable ABV for quality control
+  final double acceptableAbvLow;
+
+  /// Maximum acceptable ABV for quality control
+  final double acceptableAbvHigh;
+
+  /// List of sugar additions with calculated weights
+  final List<SugarResult> sugarResults;
+
+  /// Creates an instance from a JSON object
+  factory AlcocalcDilutionCalculation.fromJson(Map<String, dynamic> json) =>
+      _$AlcocalcDilutionCalculationFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$AlcocalcDilutionCalculationToJson(this);
+}
+
+/// Represents a sugar addition in the dilution calculation
+@JsonSerializable(explicitToJson: true)
+class SugarAddition {
+  /// Name of the sugar (e.g., "White Sugar", "Honey", etc.)
+  final String name;
+
+  /// Specific gravity of the sugar
+  final double specificGravity;
+
+  /// Percentage of sugar to add (as a decimal, e.g., 0.1 for 10%)
+  final double percentage;
+
+  /// Creates a new instance of [SugarAddition]
+  SugarAddition({
+    required this.name,
+    required this.specificGravity,
+    required this.percentage,
+  }) : assert(percentage < 1, "Percentage must be a decimal");
+
+  /// Converts this instance to a Sugars object for calculation
+  Sugars toSugars() => Sugars(
+        name: name,
+        specificGravity: specificGravity,
+        percentage: percentage,
+      );
+
+  /// Creates an instance from a JSON object
+  factory SugarAddition.fromJson(Map<String, dynamic> json) =>
+      _$SugarAdditionFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$SugarAdditionToJson(this);
+}
+
+/// Represents the result of a sugar addition calculation
+@JsonSerializable(explicitToJson: true)
+class SugarResult {
+  /// Name of the sugar
+  final String name;
+
+  /// Weight of sugar to add in kilograms
+  final double weight;
+
+  /// Creates a new instance of [SugarResult]
+  SugarResult({
+    required this.name,
+    required this.weight,
+  });
+
+  /// Creates an instance from a JSON object
+  factory SugarResult.fromJson(Map<String, dynamic> json) =>
+      _$SugarResultFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$SugarResultToJson(this);
+}
+
+```
+
+## alcocalc_lals_calculation
+
+*File: lib/src/models/alcocalc_lals_calculation.dart*
+
+```dart
+import "package:alcocalc/alcocalc.dart";
+import 'package:json_annotation/json_annotation.dart';
+
+part 'alcocalc_lals_calculation.g.dart';
+
+/// A model for calculating litres of alcohol (LALs) using the alcocalc package.
+@JsonSerializable(explicitToJson: true)
+class AlcocalcLalsCalculation {
+  /// Creates a new instance of [AlcocalcLalsCalculation].
+  AlcocalcLalsCalculation({
+    required this.weight,
+    required this.abv,
+    required this.temperature,
+  }) : lals = Alcocalc.litresOfAlcoholCalculation(
+          weight: weight,
+          abv: abv,
+          temperature: temperature,
+        );
+
+  /// Weight in kilograms
+  final double weight;
+
+  /// Alcohol by volume percentage
+  final double abv;
+
+  /// Temperature in celsius
+  final double temperature;
+
+  /// Litres of alcohol calculated from the given parameters
+  final double lals;
+
+  /// Creates an instance from a JSON object
+  factory AlcocalcLalsCalculation.fromJson(Map<String, dynamic> json) =>
+      _$AlcocalcLalsCalculationFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$AlcocalcLalsCalculationToJson(this);
+}
+
+```
+
+## bulk_storage_movement_type
+
+*File: lib/src/models/bulk_storage_movement_type.dart*
+
+```dart
+/// Represents different types of movements in the bulk storage system.
+enum BulkStorageMovementType {
+  /// Movement from still to vessel
+  fromStill,
+
+  /// Movement between vessels
+  vesselTransfer,
+
+  /// Movement to still for re-distillation
+  toStill,
+
+  /// Movement to packaging
+  toPackaging,
+
+  /// Underbond movement
+  underbond,
+
+  /// Feints destroyed
+  feintsDestroyed,
+
+  /// Manufacture operations (mixing, dilution)
+  manufacture,
+
+  /// Stocktake adjustment
+  stocktake,
+
+  /// Wastage
+  wastage,
+}
+
+```
+
 ## bulk_storage_register_item
 
 *File: lib/src/models/bulk_storage_register_item.dart*
@@ -10,42 +294,98 @@ This documentation is automatically generated from the model files.
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
+import 'package:rebellion_rum_models/src/models/alcocalc_lals_calculation.dart';
+import 'package:rebellion_rum_models/src/models/bulk_storage_movement_type.dart';
 
 part 'bulk_storage_register_item.g.dart';
 
-@JsonSerializable()
-class BulkStorageRegisterItemModel {
+/// Represents an entry in the bulk storage register.
+/// Each entry tracks a movement or adjustment of spirits between vessels,
+/// to/from packaging, or other operations like stocktake adjustments.
+@JsonSerializable(explicitToJson: true)
+class BulkStorageRegisterItemModel with DatabaseSerializable {
+  /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
-  double lals;
+
+  /// LALs calculation for this movement
+  final AlcocalcLalsCalculation lalsCalculation;
+
+  /// Type of movement
+  @JsonKey(defaultValue: BulkStorageMovementType.vesselTransfer)
+  final BulkStorageMovementType movementType;
+
+  /// Whether this movement represents destroyed feints
+  @JsonKey(defaultValue: false)
   bool feintsDestroyed;
+
+  /// Whether this movement represents wastage
+  @JsonKey(defaultValue: false)
   bool wastage;
-  String notes;
+
+  /// Optional notes about the movement
+  String? notes;
+
+  /// Reference to the source charge (if applicable)
   String? fromChargeId;
-  String? fromVesselId;
-  String? toVesselId;
+
+  /// Reference to the source vessel (if applicable)
+  @JsonKey(name: 'fromVesselId')
+  @ObjectIdConverter()
+  ObjectId? fromVesselId;
+
+  /// Reference to the destination vessel (if applicable)
+  @JsonKey(name: 'toVesselId')
+  @ObjectIdConverter()
+  ObjectId? toVesselId;
+
+  /// Reference to the destination charge (if applicable)
   String? toChargeId;
+
+  /// Reference to the destination packaging (if applicable)
   String? toPackagingId;
+
+  /// Reference to the source packaging (if applicable)
   String? fromPackagingId;
+
+  /// Reference to the product being moved
+  @JsonKey(name: 'productId')
+  @ObjectIdConverter()
+  ObjectId? productId;
+
+  /// Timestamp of when this movement occurred
+  @JsonKey(defaultValue: null)
+  DateTime? timestamp;
 
   BulkStorageRegisterItemModel({
     ObjectId? id,
-    required this.lals,
-    required this.feintsDestroyed,
-    required this.wastage,
-    required this.notes,
+    required this.lalsCalculation,
+    this.movementType = BulkStorageMovementType.vesselTransfer,
+    this.feintsDestroyed = false,
+    this.wastage = false,
+    this.notes,
     this.fromChargeId,
     this.fromVesselId,
     this.toVesselId,
     this.toChargeId,
     this.toPackagingId,
     this.fromPackagingId,
-  }) : id = id ?? ObjectId();
+    this.productId,
+    DateTime? timestamp,
+  })  : id = id ?? ObjectId(),
+        timestamp = timestamp ?? DateTime.now();
+
+  /// Get the LALs value from the calculation
+  double get lals => lalsCalculation.lals;
 
   factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageRegisterItemModelFromJson(json);
   Map<String, dynamic> toJson() => _$BulkStorageRegisterItemModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields =>
+      {'_id', 'fromVesselId', 'toVesselId', 'productId'};
 }
 
 ```
@@ -58,12 +398,14 @@ class BulkStorageRegisterItemModel {
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
+import 'package:rebellion_rum_models/src/models/alcocalc_lals_calculation.dart';
+import 'package:rebellion_rum_models/src/models/bulk_storage_vessel_status.dart';
 
 part 'bulk_storage_vessel.g.dart';
 
 /// Represents a bulk storage vessel used for storing spirits.
-@JsonSerializable()
-class BulkStorageVesselModel {
+@JsonSerializable(explicitToJson: true)
+class BulkStorageVesselModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -78,20 +420,61 @@ class BulkStorageVesselModel {
   /// Total capacity of the vessel in liters
   double capacity;
 
-  /// Remaining LALs in the vessel
-  double remainingLALs;
+  /// Current contents LALs calculation
+  AlcocalcLalsCalculation? currentContents;
+
+  /// Status of the vessel
+  @JsonKey(defaultValue: BulkStorageVesselStatus.active)
+  BulkStorageVesselStatus status;
+
+  /// Reference to the product currently in the vessel
+  @JsonKey(name: 'productId')
+  @ObjectIdConverter()
+  ObjectId? productId;
+
+  /// Whether the vessel needs a stocktake before operations
+  @JsonKey(defaultValue: false)
+  bool needsStocktake;
 
   BulkStorageVesselModel({
     ObjectId? id,
     required this.barcode,
     required this.name,
     required this.capacity,
-    required this.remainingLALs,
+    this.currentContents,
+    this.status = BulkStorageVesselStatus.active,
+    this.productId,
+    this.needsStocktake = false,
   }) : id = id ?? ObjectId();
+
+  /// Get the remaining LALs in the vessel
+  double get remainingLALs => currentContents?.lals ?? 0;
 
   factory BulkStorageVesselModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageVesselModelFromJson(json);
   Map<String, dynamic> toJson() => _$BulkStorageVesselModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id', 'productId'};
+}
+
+```
+
+## bulk_storage_vessel_status
+
+*File: lib/src/models/bulk_storage_vessel_status.dart*
+
+```dart
+/// Represents the status of a bulk storage vessel.
+enum BulkStorageVesselStatus {
+  /// Vessel is active and can be used
+  active,
+
+  /// Vessel has been decommissioned and cannot be used
+  decommissioned,
+
+  /// Vessel is temporarily out of service
+  maintenance,
 }
 
 ```
@@ -122,7 +505,7 @@ part 'cart.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class CartModel {
+class CartModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -155,6 +538,25 @@ class CartModel {
   factory CartModel.fromJson(Map<String, dynamic> json) =>
       _$CartModelFromJson(json);
   Map<String, dynamic> toJson() => _$CartModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {
+        'deliveryMethod': false,
+        'products': true,
+        'userInfo': false,
+        'paymentIntent': false,
+      };
+
+  @override
+  Map<String, Function> get nestedTypes => {
+        'deliveryMethod': DeliveryMethodModel.fromJson,
+        'products': CartProductModel.fromJson,
+        'userInfo': UserInfoModel.fromJson,
+        'paymentIntent': PaymentIntentModel.fromJson,
+      };
 }
 
 /// Represents a delivery method with associated service details and pricing.
@@ -167,21 +569,21 @@ class CartModel {
 ///   service_name: 'Express Delivery',
 /// );
 /// ```
-@JsonSerializable()
-class DeliveryMethodModel {
-  /// Unique code identifying the delivery service
-  final String service_code;
+@JsonSerializable(fieldRename: FieldRename.snake)
+class DeliveryMethodModel with DatabaseSerializable {
+  /// Service code identifier
+  final String serviceCode;
 
   /// Total delivery cost
-  final double total_price;
+  final double totalPrice;
 
-  /// Display name of the delivery service
-  final String service_name;
+  /// Display name for the service
+  final String serviceName;
 
   const DeliveryMethodModel({
-    required this.service_code,
-    required this.total_price,
-    required this.service_name,
+    required this.serviceCode,
+    required this.totalPrice,
+    required this.serviceName,
   });
 
   factory DeliveryMethodModel.fromJson(Map<String, dynamic> json) =>
@@ -189,28 +591,25 @@ class DeliveryMethodModel {
   Map<String, dynamic> toJson() => _$DeliveryMethodModelToJson(this);
 }
 
-/// Represents a product in the shopping cart with quantity and display information.
-///
-/// This is a simplified version of the full Product model, containing only
-/// the information needed for cart display and checkout.
+/// Represents a product in the shopping cart.
 ///
 /// Example:
 /// ```dart
-/// final cartProduct = CartProductModel(
-///   id: '123',
-///   name: 'Premium Rum',
-///   href: '/products/premium-rum',
+/// final product = CartProductModel(
+///   id: 'PROD-001',
+///   name: 'Premium Dark Rum',
+///   href: '/products/premium-dark-rum',
 ///   volume: 750,
 ///   price: 49.99,
 ///   quantity: 2,
-///   imageSrc: 'https://...',
-///   imageAlt: 'Premium Rum Bottle',
+///   imageSrc: '/images/rum.jpg',
+///   imageAlt: 'Bottle of Premium Dark Rum',
 ///   barcode: '9876543210',
 ///   stock: 100,
 /// );
 /// ```
 @JsonSerializable()
-class CartProductModel {
+class CartProductModel with DatabaseSerializable {
   /// Product identifier
   final String id;
 
@@ -277,7 +676,7 @@ class CartProductModel {
 /// );
 /// ```
 @JsonSerializable()
-class UserInfoModel {
+class UserInfoModel with DatabaseSerializable {
   /// Customer email address
   final String email;
 
@@ -347,53 +746,32 @@ class UserInfoModel {
 ///   payment_method_types: ['card'],
 /// );
 /// ```
-@JsonSerializable()
-class PaymentIntentModel {
-  /// Object type (always 'payment_intent')
+@JsonSerializable(fieldRename: FieldRename.snake)
+class PaymentIntentModel with DatabaseSerializable {
   final String object;
-
-  /// Stripe payment intent ID
   final String id;
-
-  /// Payment amount in cents
   final int amount;
-
-  /// Amount actually received in cents
-  final int amount_received;
-
-  /// Configuration for automatic payment methods
-  final Map<String, dynamic> automatic_payment_methods;
-
-  /// Secret used for client-side confirmation
-  final String client_secret;
-
-  /// Three-letter currency code (e.g., 'aud')
+  final int amountReceived;
+  final Map<String, dynamic> automaticPaymentMethods;
+  final String clientSecret;
   final String currency;
-
-  /// Current payment status
   final String status;
-
-  /// Unix timestamp of creation
   final int created;
-
-  /// Additional metadata attached to the payment
   final Map<String, dynamic> metadata;
-
-  /// List of allowed payment method types
-  final List<String> payment_method_types;
+  final List<String> paymentMethodTypes;
 
   const PaymentIntentModel({
     required this.object,
     required this.id,
     required this.amount,
-    required this.amount_received,
-    required this.automatic_payment_methods,
-    required this.client_secret,
+    required this.amountReceived,
+    required this.automaticPaymentMethods,
+    required this.clientSecret,
     required this.currency,
     required this.status,
     required this.created,
     required this.metadata,
-    required this.payment_method_types,
+    required this.paymentMethodTypes,
   });
 
   factory PaymentIntentModel.fromJson(Map<String, dynamic> json) =>
@@ -415,7 +793,7 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 part 'coupon.g.dart';
 
 @JsonSerializable()
-class CouponModel {
+class CouponModel with DatabaseSerializable {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   ObjectId id;
@@ -441,7 +819,7 @@ class CouponModel {
 
   double get currentValue => remainingValue;
 
-  redeem() {
+  void redeem() {
     redeemed = true;
     remainingValue = 0;
   }
@@ -461,6 +839,9 @@ class CouponModel {
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
       _$CouponModelFromJson(json);
   Map<String, dynamic> toJson() => _$CouponModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -480,19 +861,20 @@ part 'customer.g.dart';
 
 /// Represents a customer in the system.
 ///
-/// Customers can be either retail or wholesale buyers. This model stores
-/// their contact information and preferences. Note that sensitive information
-/// like passwords are handled separately for security.
+/// Customers can be either retail or wholesale, and may have various
+/// preferences and contact information stored.
 ///
 /// Example:
 /// ```dart
 /// final customer = CustomerModel(
-///   id: '123',
-///   email: 'john.doe@example.com',
 ///   firstName: 'John',
 ///   lastName: 'Doe',
-///   phone: '0412345678',
-///   isWholesale: false,
+///   email: 'john@example.com',
+///   phone: '1234567890',
+///   addressLine1: '123 Main St',
+///   city: 'Melbourne',
+///   state: 'VIC',
+///   postcode: '3000',
 /// );
 /// ```
 ///
@@ -511,11 +893,11 @@ enum CustomerPreferences {
   citrusGin,
   vodka,
   beer,
-  other
+  other,
 }
 
 @JsonSerializable()
-class CustomerModel {
+class CustomerModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -579,6 +961,9 @@ class CustomerModel {
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
   Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -595,7 +980,7 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 part 'delivery_authority.g.dart';
 
 @JsonSerializable()
-class DeliveryAuthorityModel {
+class DeliveryAuthorityModel with DatabaseSerializable {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
@@ -611,6 +996,9 @@ class DeliveryAuthorityModel {
   factory DeliveryAuthorityModel.fromJson(Map<String, dynamic> json) =>
       _$DeliveryAuthorityModelFromJson(json);
   Map<String, dynamic> toJson() => _$DeliveryAuthorityModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -631,7 +1019,7 @@ part 'distillation_record.g.dart';
 /// Each distillation record tracks the details of a single distillation run,
 /// including the still used, LALs measurements, and any notes taken during the process.
 @JsonSerializable()
-class DistillationRecordModel {
+class DistillationRecordModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -669,10 +1057,23 @@ class DistillationRecordModel {
   factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$DistillationRecordModelFromJson(json);
   Map<String, dynamic> toJson() => _$DistillationRecordModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {
+        'notes': true,
+      };
+
+  @override
+  Map<String, Function> get nestedTypes => {
+        'notes': NoteModel.fromJson,
+      };
 }
 
 @JsonSerializable()
-class NoteModel {
+class NoteModel with DatabaseSerializable {
   String content;
   final DateTime date;
 
@@ -700,7 +1101,7 @@ import '../json_helpers.dart';
 part 'eftpos_terminal.g.dart';
 
 @JsonSerializable()
-class EftposTerminalModel {
+class EftposTerminalModel with DatabaseSerializable {
   @ObjectIdConverter()
   @JsonKey(name: '_id')
   final ObjectId id;
@@ -723,6 +1124,9 @@ class EftposTerminalModel {
       _$EftposTerminalModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$EftposTerminalModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -740,7 +1144,7 @@ part 'excise_return.g.dart';
 
 /// Represents an excise duty return for regulatory compliance.
 @JsonSerializable()
-class ExciseReturnModel {
+class ExciseReturnModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -761,6 +1165,9 @@ class ExciseReturnModel {
   factory ExciseReturnModel.fromJson(Map<String, dynamic> json) =>
       _$ExciseReturnModelFromJson(json);
   Map<String, dynamic> toJson() => _$ExciseReturnModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -776,28 +1183,44 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'fermentation_record.g.dart';
 
-enum FermentationType { molasses, caneSugar, grape, grain, mixed, other }
-
-/// Represents a record of a fermentation batch in the production process.
+/// Represents a fermentation batch record in the production process.
 ///
 /// Each fermentation record tracks the details of a single fermentation batch,
-/// including ingredients, measurements, and timing information. This data is
-/// crucial for quality control and regulatory compliance.
+/// including measurements, vessel information, and progress readings.
 ///
 /// Example:
 /// ```dart
 /// final record = FermentationRecordModel(
-///   id: '123',
-///   batchNumber: 1,
+///   batchNumber: 123,
 ///   type: FermentationType.molasses,
-///   washVolume: 10.0,
-///   vesselBarcode: 'FV-01',
+///   washVolume: 1000,
+///   vesselBarcode: 'FV001',
 ///   sgStart: 1.080,
 ///   sgEnd: 1.010,
 /// );
 /// ```
+enum FermentationType {
+  /// Fermentation using molasses as primary fermentable
+  molasses,
+
+  /// Fermentation using cane sugar as primary fermentable
+  caneSugar,
+
+  /// Fermentation using grape as primary fermentable
+  grape,
+
+  /// Fermentation using grain as primary fermentable
+  grain,
+
+  /// Mixed fermentation using multiple fermentable sources
+  mixed,
+
+  /// Other fermentation types
+  other
+}
+
 @JsonSerializable()
-class FermentationRecordModel {
+class FermentationRecordModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -828,6 +1251,9 @@ class FermentationRecordModel {
   /// Notes and observations
   String notes;
 
+  /// Recipe details and instructions
+  String recipe;
+
   FermentationRecordModel({
     ObjectId? id,
     required this.batchNumber,
@@ -838,16 +1264,30 @@ class FermentationRecordModel {
     required this.sgEnd,
     List<FermentationProgressModel>? fermentationProgress,
     this.notes = '',
+    this.recipe = '',
   })  : id = id ?? ObjectId(),
         fermentationProgress = fermentationProgress ?? [];
 
   factory FermentationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$FermentationRecordModelFromJson(json);
   Map<String, dynamic> toJson() => _$FermentationRecordModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {
+        'fermentationProgress': true,
+      };
+
+  @override
+  Map<String, Function> get nestedTypes => {
+        'fermentationProgress': FermentationProgressModel.fromJson,
+      };
 }
 
 @JsonSerializable()
-class FermentationProgressModel {
+class FermentationProgressModel with DatabaseSerializable {
   final double sg;
   final double? ph;
   final double? temp;
@@ -900,7 +1340,7 @@ part 'order.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class OrderModel {
+class OrderModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -950,6 +1390,19 @@ class OrderModel {
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
   Map<String, dynamic> toJson() => _$OrderModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {
+        'customer': false,
+      };
+
+  @override
+  Map<String, Function> get nestedTypes => {
+        'customer': CustomerModel.fromJson,
+      };
 }
 
 ```
@@ -966,7 +1419,7 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 part 'packaging_run_item.g.dart';
 
 @JsonSerializable()
-class PackagingRunItemModel {
+class PackagingRunItemModel with DatabaseSerializable {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
@@ -996,6 +1449,9 @@ class PackagingRunItemModel {
   factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
       _$PackagingRunItemModelFromJson(json);
   Map<String, dynamic> toJson() => _$PackagingRunItemModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -1006,6 +1462,8 @@ class PackagingRunItemModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'payment.g.dart';
 
@@ -1014,38 +1472,46 @@ enum PaymentType { cash, eftpos, coupon, online, bank, unknown }
 
 /// Represents a payment made against a sale.
 ///
-/// Each payment records the payment method used, amount paid,
-/// and an optional reference number for tracking purposes.
+/// Each payment record tracks the amount, method, and any associated
+/// transaction details or receipts.
 ///
 /// Example:
 /// ```dart
 /// final payment = PaymentModel(
-///   type: PaymentType.bank,
 ///   amount: 99.99,
-///   reference: 'TXN-123456',
+///   type: PaymentType.eftpos,
+///   reference: 'TXN-123',
 /// );
 /// ```
 @JsonSerializable()
-class PaymentModel {
-  /// Payment method used
-  @JsonKey(unknownEnumValue: PaymentType.unknown)
-  PaymentType type;
+class PaymentModel with DatabaseSerializable {
+  @JsonKey(name: '_id')
+  @ObjectIdConverter()
+  final ObjectId id;
 
   /// Amount paid in this payment
-  double amount;
+  final double amount;
+
+  /// Type of payment used
+  @JsonKey(unknownEnumValue: PaymentType.unknown)
+  final PaymentType type;
 
   /// Optional reference number (e.g., transaction ID, receipt number)
-  String? reference;
+  final String? reference;
 
   PaymentModel({
-    required this.type,
+    ObjectId? id,
     required this.amount,
+    required this.type,
     this.reference,
-  });
+  }) : id = id ?? ObjectId();
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) =>
       _$PaymentModelFromJson(json);
   Map<String, dynamic> toJson() => _$PaymentModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -1078,7 +1544,7 @@ part 'postcode.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class PostcodeModel {
+class PostcodeModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -1107,6 +1573,9 @@ class PostcodeModel {
   factory PostcodeModel.fromJson(Map<String, dynamic> json) =>
       _$PostcodeModelFromJson(json);
   Map<String, dynamic> toJson() => _$PostcodeModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -1144,7 +1613,7 @@ part 'product.g.dart';
 enum ProductCategory { vodka, gin, rum, softdrink, merch, other }
 
 @JsonSerializable()
-class ProductModel {
+class ProductModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -1154,7 +1623,6 @@ class ProductModel {
   final String barcode;
 
   /// Product name/title
-
   String name;
 
   /// Current retail price in local currency
@@ -1231,7 +1699,6 @@ class ProductModel {
         stock = stock ?? 0,
         category = category ?? ProductCategory.other;
 
-  // coverage:ignore-line
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     // Handle the name/description merge during deserialization
     final name = json['name'] as String?;
@@ -1241,8 +1708,10 @@ class ProductModel {
 
     return _$ProductModelFromJson(json);
   }
-  // coverage:ignore-line
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -1259,7 +1728,7 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 part 'raw_materials_register.g.dart';
 
 @JsonSerializable()
-class RawMaterialsRegisterModel {
+class RawMaterialsRegisterModel with DatabaseSerializable {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
@@ -1295,6 +1764,9 @@ class RawMaterialsRegisterModel {
   factory RawMaterialsRegisterModel.fromJson(Map<String, dynamic> json) =>
       _$RawMaterialsRegisterModelFromJson(json);
   Map<String, dynamic> toJson() => _$RawMaterialsRegisterModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id', 'fermentationRecordId'};
 }
 
 ```
@@ -1330,7 +1802,7 @@ part 'sale.g.dart';
 /// );
 /// ```
 @JsonSerializable(explicitToJson: true)
-class SaleModel {
+class SaleModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -1417,6 +1889,23 @@ class SaleModel {
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);
   Map<String, dynamic> toJson() => _$SaleModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {
+        'items': true, // List of SaleItemModel
+        'payments': true, // List of PaymentModel
+        'coupons': true, // List of CouponModel
+      };
+
+  @override
+  Map<String, Function> get nestedTypes => {
+        'items': SaleItemModel.fromJson,
+        'payments': PaymentModel.fromJson,
+        'coupons': CouponModel.fromJson,
+      };
 }
 
 /// Status of a sale
@@ -1436,6 +1925,7 @@ enum SaleStatus {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'sale_item.g.dart';
 
@@ -1454,7 +1944,7 @@ part 'sale_item.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class SaleItemModel {
+class SaleItemModel with DatabaseSerializable {
   /// Product description as shown on receipt
   String description;
 
@@ -1477,6 +1967,65 @@ class SaleItemModel {
   factory SaleItemModel.fromJson(Map<String, dynamic> json) =>
       _$SaleItemModelFromJson(json);
   Map<String, dynamic> toJson() => _$SaleItemModelToJson(this);
+
+  // No need to override objectIdFields since this model has no ObjectId fields
+}
+
+```
+
+## still
+
+*File: lib/src/models/still.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import '../json_helpers.dart';
+
+part 'still.g.dart';
+
+/// Represents a still in the distillery
+@JsonSerializable()
+class StillModel with DatabaseSerializable {
+  /// MongoDB document ID
+  @JsonKey(name: '_id')
+  @ObjectIdConverter()
+  final ObjectId id;
+
+  /// The name of the still
+  String name;
+
+  /// The capacity of the still in liters
+  double capacityLiters;
+
+  /// A description of the still (type, manufacturer, etc)
+  String description;
+
+  /// Whether the still is currently active
+  bool isActive;
+
+  /// Date when the still was commissioned
+  DateTime commissionedDate;
+
+  /// Date when the still was decommissioned (if applicable)
+  DateTime? decommissionedDate;
+
+  StillModel({
+    ObjectId? id,
+    required this.name,
+    required this.capacityLiters,
+    this.description = '',
+    this.isActive = true,
+    required this.commissionedDate,
+    this.decommissionedDate,
+  }) : id = id ?? ObjectId();
+
+  factory StillModel.fromJson(Map<String, dynamic> json) =>
+      _$StillModelFromJson(json);
+  Map<String, dynamic> toJson() => _$StillModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -1497,7 +2046,7 @@ part 'stock_journal.g.dart';
 /// Stock journals track all changes to stock levels, including transfers
 /// between locations and packaging operations.
 @JsonSerializable()
-class StockJournalModel {
+class StockJournalModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -1530,6 +2079,9 @@ class StockJournalModel {
   factory StockJournalModel.fromJson(Map<String, dynamic> json) =>
       _$StockJournalModelFromJson(json);
   Map<String, dynamic> toJson() => _$StockJournalModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -1551,7 +2103,7 @@ part 'stock_location.g.dart';
 /// within the facility. Each location has a unique identifier and specific flags
 /// indicating its type and purpose.
 @JsonSerializable()
-class StockLocationModel {
+class StockLocationModel with DatabaseSerializable {
   /// MongoDB document ID
   @JsonKey(name: '_id')
   @ObjectIdConverter()
@@ -1592,6 +2144,60 @@ class StockLocationModel {
   factory StockLocationModel.fromJson(Map<String, dynamic> json) =>
       _$StockLocationModelFromJson(json);
   Map<String, dynamic> toJson() => _$StockLocationModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+}
+
+```
+
+## stocktake
+
+*File: lib/src/models/stocktake.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import '../json_helpers.dart';
+
+part 'stocktake.g.dart';
+
+@JsonSerializable()
+class StocktakeModel with DatabaseSerializable {
+  @JsonKey(name: '_id')
+  @ObjectIdConverter()
+  final ObjectId id;
+
+  final String materialType;
+  int currentStock;
+  int newCount;
+  final DateTime timestamp;
+
+  StocktakeModel({
+    ObjectId? id,
+    required this.materialType,
+    required this.currentStock,
+    required this.newCount,
+    DateTime? timestamp,
+  })  : id = id ?? ObjectId(),
+        timestamp = timestamp ?? DateTime.now();
+
+  String get displayName {
+    final names = {
+      'raw_sugar': 'Raw Sugar',
+      'white_sugar': 'White Sugar',
+      'molasses': 'Molasses',
+      'golden_syrup': 'Golden Syrup',
+      'brown_sugar': 'Brown Sugar',
+    };
+    return names[materialType] ?? materialType;
+  }
+
+  int get difference => newCount - currentStock;
+
+  factory StocktakeModel.fromJson(Map<String, dynamic> json) =>
+      _$StocktakeModelFromJson(json);
+  Map<String, dynamic> toJson() => _$StocktakeModelToJson(this);
 }
 
 ```
@@ -1608,7 +2214,7 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 part 'volume_transferred_record.g.dart';
 
 @JsonSerializable()
-class VolumeTransferredRecordModel {
+class VolumeTransferredRecordModel with DatabaseSerializable {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
@@ -1632,6 +2238,9 @@ class VolumeTransferredRecordModel {
   factory VolumeTransferredRecordModel.fromJson(Map<String, dynamic> json) =>
       _$VolumeTransferredRecordModelFromJson(json);
   Map<String, dynamic> toJson() => _$VolumeTransferredRecordModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id', 'chargeId', 'washId'};
 }
 
 ```

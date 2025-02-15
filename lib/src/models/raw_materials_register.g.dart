@@ -38,3 +38,16 @@ Map<String, dynamic> _$RawMaterialsRegisterModelToJson(
       'qtyOut': instance.qtyOut,
       'timestamp': instance.timestamp.toIso8601String(),
     };
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for RawMaterialsRegisterModel
+extension RawMaterialsRegisterModelObjectIdFields on RawMaterialsRegisterModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+        'fermentationRecordId',
+      };
+}

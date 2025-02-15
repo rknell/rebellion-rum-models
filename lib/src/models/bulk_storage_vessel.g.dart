@@ -13,7 +13,15 @@ BulkStorageVesselModel _$BulkStorageVesselModelFromJson(
       barcode: json['barcode'] as String,
       name: json['name'] as String?,
       capacity: (json['capacity'] as num).toDouble(),
-      remainingLALs: (json['remainingLALs'] as num).toDouble(),
+      currentContents: json['currentContents'] == null
+          ? null
+          : AlcocalcLalsCalculation.fromJson(
+              json['currentContents'] as Map<String, dynamic>),
+      status: $enumDecodeNullable(
+              _$BulkStorageVesselStatusEnumMap, json['status']) ??
+          BulkStorageVesselStatus.active,
+      productId: const NullableObjectIdConverter().fromJson(json['productId']),
+      needsStocktake: json['needsStocktake'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$BulkStorageVesselModelToJson(
@@ -24,5 +32,30 @@ Map<String, dynamic> _$BulkStorageVesselModelToJson(
       'barcode': instance.barcode,
       if (instance.name case final value?) 'name': value,
       'capacity': instance.capacity,
-      'remainingLALs': instance.remainingLALs,
+      if (instance.currentContents?.toJson() case final value?)
+        'currentContents': value,
+      'status': _$BulkStorageVesselStatusEnumMap[instance.status]!,
+      if (const NullableObjectIdConverter().toJson(instance.productId)
+          case final value?)
+        'productId': value,
+      'needsStocktake': instance.needsStocktake,
     };
+
+const _$BulkStorageVesselStatusEnumMap = {
+  BulkStorageVesselStatus.active: 'active',
+  BulkStorageVesselStatus.decommissioned: 'decommissioned',
+  BulkStorageVesselStatus.maintenance: 'maintenance',
+};
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for BulkStorageVesselModel
+extension BulkStorageVesselModelObjectIdFields on BulkStorageVesselModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+        'productId',
+      };
+}

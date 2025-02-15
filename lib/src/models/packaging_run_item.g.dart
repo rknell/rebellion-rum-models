@@ -36,3 +36,15 @@ Map<String, dynamic> _$PackagingRunItemModelToJson(
       'volumeRemaining': instance.volumeRemaining,
       'exciseReturn': instance.exciseReturn,
     };
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for PackagingRunItemModel
+extension PackagingRunItemModelObjectIdFields on PackagingRunItemModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+      };
+}

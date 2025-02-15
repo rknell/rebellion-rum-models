@@ -28,3 +28,18 @@ Map<String, dynamic> _$VolumeTransferredRecordModelToJson(
       'volume': instance.volume,
       'lals': instance.lals,
     };
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for VolumeTransferredRecordModel
+extension VolumeTransferredRecordModelObjectIdFields
+    on VolumeTransferredRecordModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+        'chargeId',
+        'washId',
+      };
+}

@@ -24,3 +24,15 @@ Map<String, dynamic> _$PostcodeModelToJson(PostcodeModel instance) =>
       'state': instance.state,
       'combined': instance.combined,
     };
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for PostcodeModel
+extension PostcodeModelObjectIdFields on PostcodeModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+      };
+}

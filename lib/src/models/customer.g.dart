@@ -62,3 +62,15 @@ const _$CustomerPreferencesEnumMap = {
   CustomerPreferences.beer: 'beer',
   CustomerPreferences.other: 'other',
 };
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for CustomerModel
+extension CustomerModelObjectIdFields on CustomerModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+      };
+}

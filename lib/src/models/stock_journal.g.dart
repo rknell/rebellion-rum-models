@@ -26,3 +26,15 @@ Map<String, dynamic> _$StockJournalModelToJson(StockJournalModel instance) =>
       'to': instance.to,
       'qty': instance.qty,
     };
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for StockJournalModel
+extension StockJournalModelObjectIdFields on StockJournalModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+      };
+}

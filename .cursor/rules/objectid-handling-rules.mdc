@@ -1,0 +1,208 @@
+---
+description: Rules for handling MongoDB ObjectId fields in models, including proper serialization, conversion, and implementation of the DatabaseSerializable mixin. Reference when working with MongoDB models or implementing ObjectId fields.
+globs: ["lib/models/**/*.dart", "lib/entities/**/*.dart", "lib/data/**/*.dart"]
+---
+# ObjectId Handling Rules
+
+## Overview
+These rules define the standard practices for handling MongoDB ObjectId fields in models, both for nullable and non-nullable cases.
+
+## Required Imports
+```dart
+import 'package:mongo_dart/mongo_dart.dart';
+import 'package:json_annotation/json_annotation.dart';
+```
+
+## Model Requirements
+
+### DatabaseSerializable Mixin
+- Any model containing ObjectId fields MUST implement the `DatabaseSerializable` mixin
+- The mixin requires implementing `objectIdFields` to specify which fields contain ObjectIds
+- Include ALL fields that are ObjectIds, whether nullable or not
+- Use the MongoDB field name (the name specified in @JsonKey) when listing fields
+- For nullable fields, still include them in the set
+
+Example:
+```dart
+class MyModel with DatabaseSerializable {
+  @JsonKey(name: '_id')
+  @ObjectIdConverter()
+  final ObjectId id;
+
+  @JsonKey(name: 'parentId')
+  @NullableObjectIdConverter()
+  ObjectId? parentId;
+
+  @override
+  Set<String> get objectIdFields => {
+        '_id', // Primary ID
+        'parentId', // Nullable reference
+      };
+}
+```
+
+Real-world Example (from BulkStorageRegisterItemModel):
+```dart
+class BulkStorageRegisterItemModel with DatabaseSerializable {
+  @JsonKey(name: '_id')
+  @ObjectIdConverter()
+  final ObjectId id;
+
+  @JsonKey(name: 'fromVesselId')
+  @NullableObjectIdConverter()
+  ObjectId? fromVesselId;
+
+  @JsonKey(name: 'toVesselId')
+  @NullableObjectIdConverter()
+  ObjectId? toVesselId;
+
+  @JsonKey(name: 'toChargeId')
+  @NullableObjectIdConverter()
+  ObjectId? toChargeId;
+
+  @JsonKey(name: 'toPackagingId')
+  @NullableObjectIdConverter()
+  ObjectId? toPackagingId;
+
+  @JsonKey(name: 'fromPackagingId')
+  @NullableObjectIdConverter()
+  ObjectId? fromPackagingId;
+
+  @JsonKey(name: 'productId')
+  @NullableObjectIdConverter()
+  ObjectId? productId;
+
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+        'fromVesselId',
+        'toVesselId',
+        'toChargeId',
+        'toPackagingId',
+        'fromPackagingId',
+        'productId',
+      };
+}
+```
+
+Key Points:
+- Use the MongoDB field name (from @JsonKey) in objectIdFields
+- Include ALL ObjectId fields, both nullable and non-nullable
+- The set should be comprehensive and match all ObjectId fields in the model
+- Keep the set alphabetically ordered for readability (except _id which comes first)
+
+## ObjectId Field Types
+
+### Primary ID Field
+- Models with a primary MongoDB ID should follow this pattern:
+```dart
+@JsonKey(name: '_id')
+@ObjectIdConverter()
+final ObjectId id;
+```
+- Primary IDs should typically be non-nullable
+- Initialize in constructor using `id = id ?? ObjectId()`
+
+### Nullable Reference Fields
+- Use the `@NullableObjectIdConverter()` annotation
+- Declare the field as nullable using `ObjectId?`
+Example:
+```dart
+@JsonKey(name: 'relatedId')
+@NullableObjectIdConverter()
+ObjectId? relatedId;
+```
+
+### Non-Nullable Reference Fields
+- Use the `@ObjectIdConverter()` annotation
+- Declare the field as non-nullable
+Example:
+```dart
+@JsonKey(name: 'requiredId')
+@ObjectIdConverter()
+ObjectId requiredId;
+```
+
+## Constructor Patterns
+
+### Primary ID Handling
+```dart
+MyModel({ObjectId? id}) : id = id ?? ObjectId();
+```
+
+### Reference Fields
+- Nullable fields should be optional in constructor
+- Non-nullable fields should be required
+```dart
+MyModel({
+  ObjectId? id,
+  this.nullableRefId,
+  required this.requiredRefId,
+}) : id = id ?? ObjectId();
+```
+
+## JSON Serialization
+
+### Required Annotations
+- Always use `@JsonSerializable(explicitToJson: true)`
+- Specify the MongoDB field name if different from Dart field name using `@JsonKey(name: '...')`
+
+### Example Implementation
+```dart
+@JsonSerializable(explicitToJson: true)
+class MyModel with DatabaseSerializable {
+  @JsonKey(name: '_id')
+  @ObjectIdConverter()
+  final ObjectId id;
+
+  @JsonKey(name: 'parentId')
+  @NullableObjectIdConverter()
+  ObjectId? parentId;
+
+  @JsonKey(name: 'categoryId')
+  @ObjectIdConverter()
+  ObjectId categoryId;
+
+  MyModel({
+    ObjectId? id,
+    this.parentId,
+    required this.categoryId,
+  }) : id = id ?? ObjectId();
+
+  @override
+  Set<String> get objectIdFields => {'_id', 'parentId', 'categoryId'};
+}
+```
+
+## Testing Requirements
+
+### Required Test Cases
+- Test serialization/deserialization of both nullable and non-nullable ObjectIds
+- Test default ID generation when not provided
+- Test null handling for nullable reference fields
+
+Example Test:
+```dart
+test('should handle ObjectId serialization', () {
+  final model = MyModel(
+    categoryId: ObjectId(),
+    parentId: null,
+  );
+  final json = model.toJson();
+  final deserialized = MyModel.fromJson(json);
+  
+  expect(deserialized.id, isA<ObjectId>());
+  expect(deserialized.parentId, isNull);
+  expect(deserialized.categoryId, isA<ObjectId>());
+});
+```
+
+## Code Review Checklist
+
+### ObjectId Implementation Review
+- [ ] Model implements DatabaseSerializable mixin
+- [ ] objectIdFields includes ALL ObjectId fields
+- [ ] Appropriate converter annotations used (@ObjectIdConverter or @NullableObjectIdConverter)
+- [ ] Constructor handles nullable/non-nullable fields appropriately
+- [ ] JSON serialization annotations are complete
+- [ ] Tests cover all ObjectId scenarios

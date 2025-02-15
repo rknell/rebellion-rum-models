@@ -22,3 +22,15 @@ Map<String, dynamic> _$DeliveryAuthorityModelToJson(
       'deliveryAuthorityNumber': instance.deliveryAuthorityNumber,
       'lals': instance.lals,
     };
+
+// **************************************************************************
+// ObjectIdFieldsGenerator
+// **************************************************************************
+
+// Generated objectIdFields getter for DeliveryAuthorityModel
+extension DeliveryAuthorityModelObjectIdFields on DeliveryAuthorityModel {
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+      };
+}
