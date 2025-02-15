@@ -1,7 +1,6 @@
 import 'package:bson/bson.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/rebellion_rum_models.dart';
-import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'package:test/test.dart';
 import 'utils/json_serialization_utils.dart';
 
@@ -37,7 +36,7 @@ void createDatabaseSerializationTests<T extends DatabaseSerializable>({
           // Verify the ObjectId value matches the original string
           if (json[field] != null && json[field] is String) {
             expect(
-              (dbDoc[field] as ObjectId).toHexString(),
+              (dbDoc[field] as ObjectId).oid,
               json[field],
               reason: '$field ObjectId value should match original',
             );

@@ -39,6 +39,8 @@
 /// - Do not commit connection strings to version control
 /// - Consider using environment variables for sensitive data
 
+// ignore_for_file: avoid_print, dangling_library_doc_comments, avoid_slow_async_io
+
 import 'dart:io';
 import 'dart:convert';
 import 'package:mongo_dart/mongo_dart.dart';

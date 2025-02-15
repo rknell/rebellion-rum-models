@@ -14,6 +14,13 @@ packages:
     description: dart
     source: sdk
     version: "0.3.3"
+  alcocalc:
+    dependency: "direct main"
+    description:
+      path: "../alcocalc"
+      relative: true
+    source: path
+    version: "1.0.0"
   analyzer:
     dependency: transitive
     description:
@@ -55,7 +62,7 @@ packages:
     source: hosted
     version: "2.1.2"
   bson:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: bson
       sha256: "9071b154b5cd96482c2e116b015e87acfdc8412630cc8f3aba60c539a8ef5442"

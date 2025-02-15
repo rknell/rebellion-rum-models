@@ -1,0 +1,72 @@
+---
+description: code quality instructions
+globs: *.*
+---
+# No Late Keyword Rule
+
+The `late` keyword in Dart should not be used as it can lead to runtime errors and makes code harder to reason about.
+
+## Why?
+
+1. Runtime Errors: `late` variables can throw runtime errors if accessed before initialization
+2. Hidden Dependencies: Makes it unclear when initialization happens
+3. Harder Testing: Makes unit testing more complex as you need to ensure proper initialization
+4. Reduced Code Quality: Often masks design issues that should be solved differently
+
+## Instead
+
+Use one of these patterns:
+
+1. Factory Constructors:
+   ```dart
+   class MyClass {
+     factory MyClass(params) {
+       // Do calculations
+       return MyClass._(calculatedValues);
+     }
+     
+     const MyClass._(...); // Private constructor
+   }
+   ```
+
+2. Nullable with Required Initialization:
+   ```dart
+   class MyClass {
+     final String? value;
+     MyClass({required this.value});
+   }
+   ```
+
+3. Computed Properties:
+   ```dart
+   class MyClass {
+     final int base;
+     MyClass(this.base);
+     
+     int get computed => base * 2; // Calculated on demand
+   }
+   ```
+
+4. Builder Pattern:
+   ```dart
+   class MyClass {
+     final String value;
+     const MyClass._(this.value);
+     
+     static MyClassBuilder builder() => MyClassBuilder();
+   }
+   ```
+
+## Exceptions
+
+There are very few valid use cases for `late`, and they should be explicitly documented and approved:
+
+1. When required by specific framework constraints
+2. For dependency injection in test environments (and even then, prefer other solutions)
+
+## Enforcement
+
+- Use static analysis to detect `late` keyword usage
+- Code review should flag any use of `late`
+- CI should fail if `late` is detected in new code
+- Existing uses should be gradually migrated away 

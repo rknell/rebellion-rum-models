@@ -1,3 +1,5 @@
+// ignore_for_file: strict_raw_type, comment_references
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:test/test.dart';

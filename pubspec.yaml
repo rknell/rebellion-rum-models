@@ -1,7 +1,8 @@
 name: rebellion_rum_models
 description: Central location to store data models for reuse in other projects
 version: 1.0.0
-repository: https://github.com/username/rebellion_rum_models
+publish_to: none
+repository: https://github.com/rknell/rebellion_rum_models
 
 environment:
   sdk: ^3.6.0
@@ -12,6 +13,9 @@ dependencies:
   args: ^2.4.2
   fixnum: ^1.1.0
   path: ^1.8.0
+  alcocalc:
+    path: ../alcocalc
+    
 
 dev_dependencies:
   lints: ^3.0.0
@@ -20,6 +24,7 @@ dev_dependencies:
   json_serializable: ^6.7.1
   coverage: ^1.7.1
   test_process: ^2.1.0
+  bson: ^5.0.5
 
 targets:
   $default:
