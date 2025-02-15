@@ -1,0 +1,93 @@
+---
+description: Standards for handling MongoDB ObjectId serialization in models
+globs: lib/src/models/*.dart
+---
+
+# MongoDB ObjectId Serialization Standards
+
+Standards for consistent handling of MongoDB ObjectId fields in models.
+
+<rule>
+name: objectid_serialization_standards
+description: Standards for handling MongoDB ObjectId serialization in models
+filters:
+  - type: file_extension
+    pattern: "\\.dart$"
+  - type: event
+    pattern: "file_create|file_modify"
+
+actions:
+  - type: suggest
+    message: |
+      ObjectId Serialization Requirements:
+
+      1. Model Field Annotations:
+         - All ObjectId fields MUST use @ObjectIdConverter() or @NullableObjectIdConverter()
+         - Primary ID fields MUST use @JsonKey(name: '_id')
+         - Foreign key fields MUST use @JsonKey(name: 'fieldId')
+         - All ObjectId fields MUST be final unless mutable by design
+
+      2. Serialization Format:
+         - When serializing to MongoDB:
+           * Use hex string format for queries (objectId.toHexString())
+           * Use ObjectId instances for model fields
+           * Never use raw Map<String, dynamic> with ObjectId
+         - When deserializing from MongoDB:
+           * Handle both string and ObjectId input formats
+           * Convert hex strings to ObjectId instances
+           * Provide clear error messages for invalid formats
+
+      3. Query Operations:
+         - Use SelectorBuilder for complex queries
+         - Convert ObjectId to hex string for direct queries
+         - Use proper type casting in query conditions
+         - Handle null cases explicitly
+
+      4. Error Prevention:
+         - Always validate ObjectId format before conversion
+         - Handle legacy data formats gracefully
+         - Provide clear error messages for invalid IDs
+         - Use type-safe query builders where possible
+
+examples:
+  - input: |
+      // Bad: No converter annotation
+      ObjectId id;
+
+      // Good: Proper annotations and typing
+      @JsonKey(name: '_id')
+      @ObjectIdConverter()
+      final ObjectId id;
+
+      // Bad: Direct ObjectId in query
+      {'fromVesselId': objectId}
+
+      // Good: Hex string in query
+      {'fromVesselId': objectId.toHexString()}
+
+      // Good: Complete model example
+      @JsonSerializable()
+      class MyModel with DatabaseSerializable {
+        @JsonKey(name: '_id')
+        @ObjectIdConverter()
+        final ObjectId id;
+
+        @JsonKey(name: 'parentId')
+        @NullableObjectIdConverter()
+        final ObjectId? parentId;
+
+        MyModel({
+          ObjectId? id,
+          this.parentId,
+        }) : id = id ?? ObjectId();
+
+        factory MyModel.fromJson(Map<String, dynamic> json) =>
+            _$MyModelFromJson(json);
+        
+        Map<String, dynamic> toJson() => _$MyModelToJson(this);
+      }
+
+metadata:
+  priority: high
+  version: 1.0
+</rule>
