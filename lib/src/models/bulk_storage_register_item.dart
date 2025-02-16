@@ -24,16 +24,38 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   @JsonKey(name: 'lals')
   final double? legacyLals;
 
+  /// Whether this movement represents a stocktake adjustment
+  bool isStocktake;
+
   /// Type of movement
-  @JsonKey(defaultValue: BulkStorageMovementType.vesselTransfer)
-  final BulkStorageMovementType movementType;
+
+  /// Calculates the movement type based on the source and destination fields
+  BulkStorageMovementType get movementType {
+    // Handle explicit cases first
+    if (isStocktake) return BulkStorageMovementType.stocktake;
+    if (feintsDestroyed) return BulkStorageMovementType.feintsDestroyed;
+    if (wastage) return BulkStorageMovementType.wastage;
+
+    // Handle vessel/charge/packaging transfers
+    if (fromChargeId != null) {
+      if (toVesselId != null) return BulkStorageMovementType.fromStill;
+      // If no destination and feints destroyed, it's still feints destroyed
+      if (feintsDestroyed) return BulkStorageMovementType.feintsDestroyed;
+    }
+
+    if (fromVesselId != null) {
+      if (toChargeId != null) return BulkStorageMovementType.toStill;
+      if (toPackagingId != null) return BulkStorageMovementType.toPackaging;
+      if (toVesselId != null) return BulkStorageMovementType.vesselTransfer;
+    }
+
+    return BulkStorageMovementType.unknown;
+  }
 
   /// Whether this movement represents destroyed feints
-  @JsonKey(defaultValue: false)
   bool feintsDestroyed;
 
   /// Whether this movement represents wastage
-  @JsonKey(defaultValue: false)
   bool wastage;
 
   /// Optional notes about the movement
@@ -81,9 +103,11 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
     ObjectId? id,
     this.lalsCalculation,
     this.legacyLals,
-    this.movementType = BulkStorageMovementType.vesselTransfer,
+    BulkStorageMovementType movementType =
+        BulkStorageMovementType.vesselTransfer,
     this.feintsDestroyed = false,
     this.wastage = false,
+    this.isStocktake = false,
     this.notes,
     this.fromChargeId,
     this.fromVesselId,
