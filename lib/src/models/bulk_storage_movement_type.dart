@@ -26,4 +26,7 @@ enum BulkStorageMovementType {
 
   /// Wastage
   wastage,
+
+  /// The default return type if the others ca
+  unknown,
 }

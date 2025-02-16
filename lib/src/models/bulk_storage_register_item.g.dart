@@ -20,6 +20,7 @@ BulkStorageRegisterItemModel _$BulkStorageRegisterItemModelFromJson(
           BulkStorageMovementType.vesselTransfer,
       feintsDestroyed: json['feintsDestroyed'] as bool? ?? false,
       wastage: json['wastage'] as bool? ?? false,
+      isStocktake: json['isStocktake'] as bool? ?? false,
       notes: json['notes'] as String?,
       fromChargeId:
           const NullableObjectIdConverter().fromJson(json['fromChargeId']),
@@ -47,6 +48,7 @@ Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
       if (instance.lalsCalculation?.toJson() case final value?)
         'lalsCalculation': value,
       if (instance.legacyLals case final value?) 'lals': value,
+      'isStocktake': instance.isStocktake,
       'movementType': _$BulkStorageMovementTypeEnumMap[instance.movementType]!,
       'feintsDestroyed': instance.feintsDestroyed,
       'wastage': instance.wastage,
@@ -86,6 +88,7 @@ const _$BulkStorageMovementTypeEnumMap = {
   BulkStorageMovementType.manufacture: 'manufacture',
   BulkStorageMovementType.stocktake: 'stocktake',
   BulkStorageMovementType.wastage: 'wastage',
+  BulkStorageMovementType.unknown: 'unknown',
 };
 
 // **************************************************************************
