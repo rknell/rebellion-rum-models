@@ -30,7 +30,7 @@ Map<String, dynamic> _$BulkStorageVesselModelToJson(
       if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
       'barcode': instance.barcode,
-      if (instance.name case final value?) 'name': value,
+      'name': instance.name,
       'capacity': instance.capacity,
       if (instance.currentContents?.toJson() case final value?)
         'currentContents': value,
