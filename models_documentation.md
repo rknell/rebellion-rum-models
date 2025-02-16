@@ -391,9 +391,8 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   @NullableObjectIdConverter()
   ObjectId? productId;
 
-  /// Timestamp of when this movement occurred
-  @JsonKey(defaultValue: null)
-  DateTime? timestamp;
+  /// Timestamp extracted from the document's ObjectId
+  DateTime get timestamp => id.dateTime;
 
   BulkStorageRegisterItemModel({
     ObjectId? id,
@@ -412,11 +411,9 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
     this.toPackagingId,
     this.fromPackagingId,
     this.productId,
-    DateTime? timestamp,
   })  : assert(lalsCalculation != null || legacyLals != null,
             'Either lalsCalculation or legacyLals must be provided'),
-        id = id ?? ObjectId(),
-        timestamp = timestamp ?? DateTime.now();
+        id = id ?? ObjectId();
 
   /// Get the LALs value from either the calculation or legacy field
   double get lals => lalsCalculation?.lals ?? legacyLals!;

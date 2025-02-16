@@ -35,9 +35,6 @@ BulkStorageRegisterItemModel _$BulkStorageRegisterItemModelFromJson(
       fromPackagingId:
           const NullableObjectIdConverter().fromJson(json['fromPackagingId']),
       productId: const NullableObjectIdConverter().fromJson(json['productId']),
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
     );
 
 Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
@@ -74,8 +71,6 @@ Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
       if (const NullableObjectIdConverter().toJson(instance.productId)
           case final value?)
         'productId': value,
-      if (instance.timestamp?.toIso8601String() case final value?)
-        'timestamp': value,
     };
 
 const _$BulkStorageMovementTypeEnumMap = {
