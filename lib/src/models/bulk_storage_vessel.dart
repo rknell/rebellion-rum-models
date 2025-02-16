@@ -22,7 +22,14 @@ class BulkStorageVesselModel with DatabaseSerializable {
   String? _name;
 
   /// Gets the name of the vessel, falling back to barcode if no name is set
-  String get name => _name ?? barcode;
+  String get name {
+    var setName = _name;
+    if (setName != null && setName.isNotEmpty) {
+      return setName;
+    } else {
+      return barcode;
+    }
+  }
 
   /// Sets the name of the vessel
   set name(String? value) => _name = value;
