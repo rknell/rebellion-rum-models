@@ -18,7 +18,14 @@ class BulkStorageVesselModel with DatabaseSerializable {
   String barcode;
 
   /// Name of the vessel
-  String? name;
+  @JsonKey(name: 'name')
+  String? _name;
+
+  /// Gets the name of the vessel, falling back to barcode if no name is set
+  String get name => _name ?? barcode;
+
+  /// Sets the name of the vessel
+  set name(String? value) => _name = value;
 
   /// Total capacity of the vessel in liters
   double capacity;
@@ -42,13 +49,14 @@ class BulkStorageVesselModel with DatabaseSerializable {
   BulkStorageVesselModel({
     ObjectId? id,
     required this.barcode,
-    required this.name,
+    String? name,
     required this.capacity,
     this.currentContents,
     this.status = BulkStorageVesselStatus.active,
     this.productId,
     this.needsStocktake = false,
-  }) : id = id ?? ObjectId();
+  })  : id = id ?? ObjectId(),
+        _name = name;
 
   /// Get the remaining LALs in the vessel
   double get remainingLALs => currentContents?.lals ?? 0;

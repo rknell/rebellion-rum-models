@@ -1,6 +1,6 @@
 /// Rebellion Rum Models
 /// A library containing shared data models for Rebellion Rum projects.
-library rebellion_rum_models;
+library;
 
 // Models
 export 'src/models/alcocalc_lals_calculation.dart';
