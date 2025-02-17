@@ -102,8 +102,6 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
     ObjectId? id,
     this.lalsCalculation,
     this.legacyLals,
-    BulkStorageMovementType movementType =
-        BulkStorageMovementType.vesselTransfer,
     this.feintsDestroyed = false,
     this.wastage = false,
     this.isStocktake = false,
@@ -119,12 +117,19 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
             'Either lalsCalculation or legacyLals must be provided'),
         id = id ?? ObjectId();
 
-  /// Get the LALs value from either the legacy field or calculation
-  /// If legacyLals is greater than 0, use that value
-  /// Otherwise fall back to the lalsCalculation
-  double get lals => legacyLals != null && legacyLals! > 0
-      ? legacyLals!
-      : lalsCalculation?.lals ?? 0;
+  /// Get the LALs value from either the calculation or legacy field
+  /// If lalsCalculation exists, use its value
+  /// Otherwise fall back to legacyLals if it exists and is greater than 0
+  /// If neither exists, return 0
+  double get lals {
+    if (lalsCalculation != null) {
+      return lalsCalculation!.lals;
+    }
+    if (legacyLals != null && legacyLals! > 0) {
+      return legacyLals!;
+    }
+    return 0;
+  }
 
   factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageRegisterItemModelFromJson(json);
