@@ -1,16 +1,29 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:rebellion_rum_models/src/json_helpers.dart';
+import '../json_helpers.dart';
 
 part 'distillation_record.g.dart';
+
+/// Status of a distillation record
+enum DistillationStatus {
+  /// Record is being created/edited
+  inProgress,
+
+  /// Distillation is complete
+  completed,
+
+  /// Record has been archived
+  archived
+}
 
 /// Represents a record of a distillation run in the production process.
 ///
 /// Each distillation record tracks the details of a single distillation run,
 /// including the still used, LALs measurements, and any notes taken during the process.
+/// The record's ObjectId serves as the charge number, using its timestamp for sequential tracking.
 @JsonSerializable()
 class DistillationRecordModel with DatabaseSerializable {
-  /// MongoDB document ID
+  /// MongoDB document ID (also serves as charge number via timestamp)
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
@@ -18,16 +31,23 @@ class DistillationRecordModel with DatabaseSerializable {
   /// The still used for this distillation run
   String stillUsed;
 
+  /// Start time of the distillation
+  final DateTime startTime;
+
+  /// Current status of the distillation record
+  @JsonKey(defaultValue: DistillationStatus.inProgress)
+  final DistillationStatus status;
+
   /// Amount of feints added during the run
   double feintsAdded;
 
   /// Amount of LALs charged during the run
   double lalsCharged;
 
-  /// Total LALs charged for this run
+  /// Total LALs charged for this run (including all inputs)
   double totalLALsCharged;
 
-  /// Total LALs yield from this run
+  /// Total LALs yield from this run (sum of all outputs)
   double totalLALsYield;
 
   /// Notes taken during the distillation process
@@ -36,12 +56,15 @@ class DistillationRecordModel with DatabaseSerializable {
   DistillationRecordModel({
     ObjectId? id,
     this.stillUsed = '',
+    DateTime? startTime,
+    this.status = DistillationStatus.inProgress,
     this.feintsAdded = 0,
     this.lalsCharged = 0,
     this.totalLALsCharged = 0,
     this.totalLALsYield = 0,
     List<NoteModel>? notes,
   })  : id = id ?? ObjectId(),
+        startTime = startTime ?? DateTime.now(),
         notes = notes ?? [];
 
   factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>
@@ -62,14 +85,17 @@ class DistillationRecordModel with DatabaseSerializable {
       };
 }
 
+/// Represents a note in the distillation process
 @JsonSerializable()
 class NoteModel with DatabaseSerializable {
   String content;
   final DateTime date;
+  final bool isSystem;
 
   NoteModel({
     required this.content,
     required this.date,
+    this.isSystem = false,
   });
 
   factory NoteModel.fromJson(Map<String, dynamic> json) =>
