@@ -13,10 +13,7 @@ BulkStorageVesselModel _$BulkStorageVesselModelFromJson(
       barcode: json['barcode'] as String,
       name: json['name'] as String?,
       capacity: (json['capacity'] as num).toDouble(),
-      currentContents: json['currentContents'] == null
-          ? null
-          : AlcocalcLalsCalculation.fromJson(
-              json['currentContents'] as Map<String, dynamic>),
+      currentLals: (json['currentLals'] as num?)?.toDouble() ?? 0,
       status: $enumDecodeNullable(
               _$BulkStorageVesselStatusEnumMap, json['status']) ??
           BulkStorageVesselStatus.active,
@@ -32,8 +29,7 @@ Map<String, dynamic> _$BulkStorageVesselModelToJson(
       'barcode': instance.barcode,
       'name': instance.name,
       'capacity': instance.capacity,
-      if (instance.currentContents?.toJson() case final value?)
-        'currentContents': value,
+      'currentLals': instance.currentLals,
       'status': _$BulkStorageVesselStatusEnumMap[instance.status]!,
       if (const NullableObjectIdConverter().toJson(instance.productId)
           case final value?)

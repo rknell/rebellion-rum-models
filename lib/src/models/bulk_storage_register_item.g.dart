@@ -15,9 +15,6 @@ BulkStorageRegisterItemModel _$BulkStorageRegisterItemModelFromJson(
           : AlcocalcLalsCalculation.fromJson(
               json['lalsCalculation'] as Map<String, dynamic>),
       legacyLals: (json['lals'] as num?)?.toDouble(),
-      movementType: $enumDecodeNullable(
-              _$BulkStorageMovementTypeEnumMap, json['movementType']) ??
-          BulkStorageMovementType.vesselTransfer,
       feintsDestroyed: json['feintsDestroyed'] as bool? ?? false,
       wastage: json['wastage'] as bool? ?? false,
       isStocktake: json['isStocktake'] as bool? ?? false,
@@ -46,7 +43,6 @@ Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
         'lalsCalculation': value,
       if (instance.legacyLals case final value?) 'lals': value,
       'isStocktake': instance.isStocktake,
-      'movementType': _$BulkStorageMovementTypeEnumMap[instance.movementType]!,
       'feintsDestroyed': instance.feintsDestroyed,
       'wastage': instance.wastage,
       if (instance.notes case final value?) 'notes': value,
@@ -72,19 +68,6 @@ Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
           case final value?)
         'productId': value,
     };
-
-const _$BulkStorageMovementTypeEnumMap = {
-  BulkStorageMovementType.fromStill: 'fromStill',
-  BulkStorageMovementType.vesselTransfer: 'vesselTransfer',
-  BulkStorageMovementType.toStill: 'toStill',
-  BulkStorageMovementType.toPackaging: 'toPackaging',
-  BulkStorageMovementType.underbond: 'underbond',
-  BulkStorageMovementType.feintsDestroyed: 'feintsDestroyed',
-  BulkStorageMovementType.manufacture: 'manufacture',
-  BulkStorageMovementType.stocktake: 'stocktake',
-  BulkStorageMovementType.wastage: 'wastage',
-  BulkStorageMovementType.unknown: 'unknown',
-};
 
 // **************************************************************************
 // ObjectIdFieldsGenerator

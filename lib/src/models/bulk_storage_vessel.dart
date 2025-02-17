@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
-import 'package:rebellion_rum_models/src/models/alcocalc_lals_calculation.dart';
 import 'package:rebellion_rum_models/src/models/bulk_storage_vessel_status.dart';
 
 part 'bulk_storage_vessel.g.dart';
@@ -37,8 +36,9 @@ class BulkStorageVesselModel with DatabaseSerializable {
   /// Total capacity of the vessel in liters
   double capacity;
 
-  /// Current contents LALs calculation
-  AlcocalcLalsCalculation? currentContents;
+  /// Current LALs in the vessel
+  @JsonKey(defaultValue: 0)
+  double currentLals;
 
   /// Status of the vessel
   @JsonKey(defaultValue: BulkStorageVesselStatus.active)
@@ -58,7 +58,7 @@ class BulkStorageVesselModel with DatabaseSerializable {
     required this.barcode,
     String? name,
     required this.capacity,
-    this.currentContents,
+    this.currentLals = 0,
     this.status = BulkStorageVesselStatus.active,
     this.productId,
     this.needsStocktake = false,
@@ -66,7 +66,7 @@ class BulkStorageVesselModel with DatabaseSerializable {
         _name = name;
 
   /// Get the remaining LALs in the vessel
-  double get remainingLALs => currentContents?.lals ?? 0;
+  double get remainingLALs => currentLals;
 
   factory BulkStorageVesselModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageVesselModelFromJson(json);
