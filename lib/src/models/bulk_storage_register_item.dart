@@ -92,6 +92,18 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   /// Timestamp extracted from the document's ObjectId
   DateTime get timestamp => id.dateTime;
 
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+        'fromChargeId',
+        'fromPackagingId',
+        'fromVesselId',
+        'productId',
+        'toChargeId',
+        'toPackagingId',
+        'toVesselId',
+      };
+
   BulkStorageRegisterItemModel({
     ObjectId? id,
     this.lalsCalculation,
