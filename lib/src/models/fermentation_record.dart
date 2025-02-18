@@ -75,6 +75,12 @@ class FermentationRecordModel with DatabaseSerializable {
   /// Recipe details and instructions
   String recipe;
 
+  /// Whether the fermentation is complete (all wash transferred)
+  bool completed;
+
+  /// Date when the fermentation was marked as complete
+  DateTime? completionDate;
+
   FermentationRecordModel({
     ObjectId? id,
     required this.batchNumber,
@@ -86,6 +92,8 @@ class FermentationRecordModel with DatabaseSerializable {
     List<FermentationProgressModel>? fermentationProgress,
     this.notes = '',
     this.recipe = '',
+    this.completed = false,
+    this.completionDate,
   })  : id = id ?? ObjectId(),
         fermentationProgress = fermentationProgress ?? [];
 

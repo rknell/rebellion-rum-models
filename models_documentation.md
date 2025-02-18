@@ -358,6 +358,7 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   String? notes;
 
   /// Reference to the source charge (if applicable)
+  @JsonKey(name: 'fromChargeId')
   @NullableObjectIdConverter()
   ObjectId? fromChargeId;
 
@@ -430,6 +431,33 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageRegisterItemModelFromJson(json);
   Map<String, dynamic> toJson() => _$BulkStorageRegisterItemModelToJson(this);
+
+  @override
+  Map<String, dynamic> toDatabase() {
+    final json = toJson();
+    // Convert all ObjectId fields to BSON ObjectIds
+    if (fromChargeId != null) json['fromChargeId'] = fromChargeId;
+    if (fromVesselId != null) json['fromVesselId'] = fromVesselId;
+    if (toVesselId != null) json['toVesselId'] = toVesselId;
+    if (toChargeId != null) json['toChargeId'] = toChargeId;
+    if (toPackagingId != null) json['toPackagingId'] = toPackagingId;
+    if (fromPackagingId != null) json['fromPackagingId'] = fromPackagingId;
+    if (productId != null) json['productId'] = productId;
+    json['_id'] = id;
+    return json;
+  }
+
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+        'fromChargeId',
+        'fromVesselId',
+        'toVesselId',
+        'toChargeId',
+        'toPackagingId',
+        'fromPackagingId',
+        'productId',
+      };
 }
 
 ```
@@ -477,12 +505,11 @@ class BulkStorageVesselModel with DatabaseSerializable {
   /// Total capacity of the vessel in liters
   double capacity;
 
-  /// Current LALs in the vessel
-  @JsonKey(defaultValue: 0)
+  /// Current LALs in the vessel, this is a cached calculation based on adding
+  /// up the records in BulkStorageRegisterItem
   double currentLals;
 
   /// Status of the vessel
-  @JsonKey(defaultValue: BulkStorageVesselStatus.active)
   BulkStorageVesselStatus status;
 
   /// Reference to the product currently in the vessel
@@ -491,7 +518,6 @@ class BulkStorageVesselModel with DatabaseSerializable {
   ObjectId? productId;
 
   /// Whether the vessel needs a stocktake before operations
-  @JsonKey(defaultValue: false)
   bool needsStocktake;
 
   BulkStorageVesselModel({
@@ -1069,17 +1095,30 @@ class DeliveryAuthorityModel with DatabaseSerializable {
 ```dart
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:rebellion_rum_models/src/json_helpers.dart';
+import '../json_helpers.dart';
 
 part 'distillation_record.g.dart';
+
+/// Status of a distillation record
+enum DistillationStatus {
+  /// Record is being created/edited
+  inProgress,
+
+  /// Distillation is complete
+  completed,
+
+  /// Record has been archived
+  archived
+}
 
 /// Represents a record of a distillation run in the production process.
 ///
 /// Each distillation record tracks the details of a single distillation run,
 /// including the still used, LALs measurements, and any notes taken during the process.
+/// The record's ObjectId serves as the charge number, using its timestamp for sequential tracking.
 @JsonSerializable()
 class DistillationRecordModel with DatabaseSerializable {
-  /// MongoDB document ID
+  /// MongoDB document ID (also serves as charge number via timestamp)
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
@@ -1087,16 +1126,23 @@ class DistillationRecordModel with DatabaseSerializable {
   /// The still used for this distillation run
   String stillUsed;
 
+  /// Start time of the distillation
+  final DateTime startTime;
+
+  /// Current status of the distillation record
+  @JsonKey(defaultValue: DistillationStatus.inProgress)
+  final DistillationStatus status;
+
   /// Amount of feints added during the run
   double feintsAdded;
 
   /// Amount of LALs charged during the run
   double lalsCharged;
 
-  /// Total LALs charged for this run
+  /// Total LALs charged for this run (including all inputs)
   double totalLALsCharged;
 
-  /// Total LALs yield from this run
+  /// Total LALs yield from this run (sum of all outputs)
   double totalLALsYield;
 
   /// Notes taken during the distillation process
@@ -1105,12 +1151,15 @@ class DistillationRecordModel with DatabaseSerializable {
   DistillationRecordModel({
     ObjectId? id,
     this.stillUsed = '',
+    DateTime? startTime,
+    this.status = DistillationStatus.inProgress,
     this.feintsAdded = 0,
     this.lalsCharged = 0,
     this.totalLALsCharged = 0,
     this.totalLALsYield = 0,
     List<NoteModel>? notes,
   })  : id = id ?? ObjectId(),
+        startTime = startTime ?? DateTime.now(),
         notes = notes ?? [];
 
   factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>
@@ -1131,14 +1180,17 @@ class DistillationRecordModel with DatabaseSerializable {
       };
 }
 
+/// Represents a note in the distillation process
 @JsonSerializable()
 class NoteModel with DatabaseSerializable {
   String content;
   final DateTime date;
+  final bool isSystem;
 
   NoteModel({
     required this.content,
     required this.date,
+    this.isSystem = false,
   });
 
   factory NoteModel.fromJson(Map<String, dynamic> json) =>
@@ -1313,6 +1365,12 @@ class FermentationRecordModel with DatabaseSerializable {
   /// Recipe details and instructions
   String recipe;
 
+  /// Whether the fermentation is complete (all wash transferred)
+  bool completed;
+
+  /// Date when the fermentation was marked as complete
+  DateTime? completionDate;
+
   FermentationRecordModel({
     ObjectId? id,
     required this.batchNumber,
@@ -1324,6 +1382,8 @@ class FermentationRecordModel with DatabaseSerializable {
     List<FermentationProgressModel>? fermentationProgress,
     this.notes = '',
     this.recipe = '',
+    this.completed = false,
+    this.completionDate,
   })  : id = id ?? ObjectId(),
         fermentationProgress = fermentationProgress ?? [];
 
