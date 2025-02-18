@@ -69,6 +69,7 @@ class NullableObjectIdConverter implements JsonConverter<ObjectId?, dynamic> {
 mixin DatabaseSerializable {
   /// Override this method to specify which fields contain ObjectIds
   /// Returns a set of field names that should be treated as ObjectIds
+  /// This is the default implementation, but it can be overridden by extensions
   Set<String> get objectIdFields => {'_id'};
 
   /// Override this to specify nested objects that implement DatabaseSerializable
@@ -83,13 +84,44 @@ mixin DatabaseSerializable {
   /// 3. Recursively handles nested objects that implement DatabaseSerializable
   /// 4. Returns a Map that can be directly used with MongoDB operations
   Map<String, dynamic> toDatabase() {
-    // Get the JSON representation first
-    final json = (this as dynamic).toJson() as Map<String, dynamic>;
+    // Get the raw data from the object
+    final data = Map<String, dynamic>.from((this as dynamic).toJson());
 
-    // Convert all ObjectId fields
-    for (final field in objectIdFields) {
-      if (json.containsKey(field) && json[field] is String) {
-        json[field] = ObjectId.fromHexString(json[field] as String);
+    // Get the actual objectIdFields from the extension if available
+    Set<String> fields;
+    try {
+      fields = (this as dynamic).objectIdFields as Set<String>;
+    } catch (e) {
+      fields = objectIdFields;
+    }
+
+    print('DEBUG: Converting to database format');
+    print('DEBUG: Object ID fields: $fields');
+    print('DEBUG: Initial data: $data');
+
+    // Convert all ObjectId fields, preserving existing ObjectId instances
+    for (final field in fields) {
+      if (!data.containsKey(field)) continue;
+
+      final value = data[field];
+      if (value == null) continue;
+
+      print(
+          'DEBUG: Processing field $field with value $value (${value.runtimeType})');
+
+      if (value is ObjectId) {
+        // Already an ObjectId, keep it as is
+        print('DEBUG: Field $field is already an ObjectId');
+        continue;
+      }
+
+      if (value is String && value.isNotEmpty) {
+        try {
+          data[field] = ObjectId.fromHexString(value);
+          print('DEBUG: Converted field $field from string to ObjectId');
+        } catch (e) {
+          print('WARNING: Failed to convert field $field to ObjectId: $e');
+        }
       }
     }
 
@@ -98,18 +130,16 @@ mixin DatabaseSerializable {
       final field = entry.key;
       final isList = entry.value;
 
-      if (!json.containsKey(field)) continue;
+      if (!data.containsKey(field)) continue;
 
       if (isList) {
         // Handle list of nested objects
-        if (json[field] is List) {
-          final list = json[field] as List;
-          json[field] = list.map((item) {
+        if (data[field] is List) {
+          final list = data[field] as List;
+          data[field] = list.map((item) {
             if (item is DatabaseSerializable) {
               return item.toDatabase();
             } else if (item is Map<String, dynamic>) {
-              // If it's already a map (from toJson), we need to convert it back to
-              // an object first to access the toDatabase method
               final originalType = nestedTypes[field];
               if (originalType != null) {
                 final instance = originalType(item);
@@ -121,17 +151,18 @@ mixin DatabaseSerializable {
         }
       } else {
         // Handle single nested object
-        if (json[field] is Map<String, dynamic>) {
+        if (data[field] is Map<String, dynamic>) {
           final originalType = nestedTypes[field];
           if (originalType != null) {
-            final instance = originalType(json[field] as Map<String, dynamic>);
-            json[field] = (instance as DatabaseSerializable).toDatabase();
+            final instance = originalType(data[field] as Map<String, dynamic>);
+            data[field] = (instance as DatabaseSerializable).toDatabase();
           }
         }
       }
     }
 
-    return json;
+    print('DEBUG: Final database data: $data');
+    return data;
   }
 
   /// Override this to provide factory constructors for nested types
