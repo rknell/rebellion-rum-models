@@ -66,32 +66,26 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   ObjectId? fromChargeId;
 
   /// Reference to the source vessel (if applicable)
-  @JsonKey(name: 'fromVesselId')
   @NullableObjectIdConverter()
   ObjectId? fromVesselId;
 
   /// Reference to the destination vessel (if applicable)
-  @JsonKey(name: 'toVesselId')
   @NullableObjectIdConverter()
   ObjectId? toVesselId;
 
   /// Reference to the destination charge (if applicable)
-  @JsonKey(name: 'toChargeId')
   @NullableObjectIdConverter()
   ObjectId? toChargeId;
 
   /// Reference to the destination packaging (if applicable)
-  @JsonKey(name: 'toPackagingId')
   @NullableObjectIdConverter()
   ObjectId? toPackagingId;
 
   /// Reference to the source packaging (if applicable)
-  @JsonKey(name: 'fromPackagingId')
   @NullableObjectIdConverter()
   ObjectId? fromPackagingId;
 
   /// Reference to the product being moved
-  @JsonKey(name: 'productId')
   @NullableObjectIdConverter()
   ObjectId? productId;
 

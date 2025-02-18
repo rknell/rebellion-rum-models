@@ -36,21 +36,18 @@ class BulkStorageVesselModel with DatabaseSerializable {
   /// Total capacity of the vessel in liters
   double capacity;
 
-  /// Current LALs in the vessel
-  @JsonKey(defaultValue: 0)
+  /// Current LALs in the vessel, this is a cached calculation based on adding
+  /// up the records in BulkStorageRegisterItem
   double currentLals;
 
   /// Status of the vessel
-  @JsonKey(defaultValue: BulkStorageVesselStatus.active)
   BulkStorageVesselStatus status;
 
   /// Reference to the product currently in the vessel
-  @JsonKey(name: 'productId')
   @NullableObjectIdConverter()
   ObjectId? productId;
 
   /// Whether the vessel needs a stocktake before operations
-  @JsonKey(defaultValue: false)
   bool needsStocktake;
 
   BulkStorageVesselModel({

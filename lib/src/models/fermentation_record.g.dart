@@ -23,6 +23,10 @@ FermentationRecordModel _$FermentationRecordModelFromJson(
           .toList(),
       notes: json['notes'] as String? ?? '',
       recipe: json['recipe'] as String? ?? '',
+      completed: json['completed'] as bool? ?? false,
+      completionDate: json['completionDate'] == null
+          ? null
+          : DateTime.parse(json['completionDate'] as String),
     );
 
 Map<String, dynamic> _$FermentationRecordModelToJson(
@@ -40,6 +44,9 @@ Map<String, dynamic> _$FermentationRecordModelToJson(
           instance.fermentationProgress.map((e) => e.toJson()).toList(),
       'notes': instance.notes,
       'recipe': instance.recipe,
+      'completed': instance.completed,
+      if (instance.completionDate?.toIso8601String() case final value?)
+        'completionDate': value,
     };
 
 const _$FermentationTypeEnumMap = {
