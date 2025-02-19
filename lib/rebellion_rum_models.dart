@@ -3,6 +3,7 @@
 library;
 
 // Models
+export 'src/models/alcocalc_dilution_calculation.dart';
 export 'src/models/alcocalc_lals_calculation.dart';
 export 'src/models/bulk_storage_movement_type.dart';
 export 'src/models/bulk_storage_register_item.dart';

@@ -18,7 +18,11 @@ PackagingRunItemModel _$PackagingRunItemModelFromJson(
       remaining: (json['remaining'] as num).toDouble(),
       volumeAvailable: (json['volumeAvailable'] as num).toDouble(),
       volumeRemaining: (json['volumeRemaining'] as num).toDouble(),
-      exciseReturn: json['exciseReturn'] as String,
+      status: $enumDecodeNullable(_$PackagingRunStatusEnumMap, json['status'],
+              unknownValue: PackagingRunStatus.inProgress) ??
+          PackagingRunStatus.inProgress,
+      exciseReturn:
+          const NullableObjectIdConverter().fromJson(json['exciseReturn']),
     );
 
 Map<String, dynamic> _$PackagingRunItemModelToJson(
@@ -34,8 +38,17 @@ Map<String, dynamic> _$PackagingRunItemModelToJson(
       'remaining': instance.remaining,
       'volumeAvailable': instance.volumeAvailable,
       'volumeRemaining': instance.volumeRemaining,
-      'exciseReturn': instance.exciseReturn,
+      'status': _$PackagingRunStatusEnumMap[instance.status]!,
+      if (const NullableObjectIdConverter().toJson(instance.exciseReturn)
+          case final value?)
+        'exciseReturn': value,
     };
+
+const _$PackagingRunStatusEnumMap = {
+  PackagingRunStatus.inProgress: 'inProgress',
+  PackagingRunStatus.awaitingExcise: 'awaitingExcise',
+  PackagingRunStatus.complete: 'complete',
+};
 
 // **************************************************************************
 // ObjectIdFieldsGenerator
@@ -46,5 +59,6 @@ extension PackagingRunItemModelObjectIdFields on PackagingRunItemModel {
   @override
   Set<String> get objectIdFields => {
         '_id',
+        'exciseReturn',
       };
 }

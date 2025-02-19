@@ -19,7 +19,6 @@ import 'package:json_annotation/json_annotation.dart';
 - Any model containing ObjectId fields MUST implement the `DatabaseSerializable` mixin
 - The mixin requires implementing `objectIdFields` to specify which fields contain ObjectIds
 - Include ALL fields that are ObjectIds, whether nullable or not
-- Use the MongoDB field name (the name specified in @JsonKey) when listing fields
 - For nullable fields, still include them in the set
 
 Example:
@@ -29,7 +28,6 @@ class MyModel with DatabaseSerializable {
   @ObjectIdConverter()
   final ObjectId id;
 
-  @JsonKey(name: 'parentId')
   @NullableObjectIdConverter()
   ObjectId? parentId;
 
@@ -48,27 +46,21 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   @ObjectIdConverter()
   final ObjectId id;
 
-  @JsonKey(name: 'fromVesselId')
   @NullableObjectIdConverter()
   ObjectId? fromVesselId;
 
-  @JsonKey(name: 'toVesselId')
   @NullableObjectIdConverter()
   ObjectId? toVesselId;
 
-  @JsonKey(name: 'toChargeId')
   @NullableObjectIdConverter()
   ObjectId? toChargeId;
 
-  @JsonKey(name: 'toPackagingId')
   @NullableObjectIdConverter()
   ObjectId? toPackagingId;
 
-  @JsonKey(name: 'fromPackagingId')
   @NullableObjectIdConverter()
   ObjectId? fromPackagingId;
 
-  @JsonKey(name: 'productId')
   @NullableObjectIdConverter()
   ObjectId? productId;
 
@@ -108,7 +100,6 @@ final ObjectId id;
 - Declare the field as nullable using `ObjectId?`
 Example:
 ```dart
-@JsonKey(name: 'relatedId')
 @NullableObjectIdConverter()
 ObjectId? relatedId;
 ```
@@ -118,7 +109,6 @@ ObjectId? relatedId;
 - Declare the field as non-nullable
 Example:
 ```dart
-@JsonKey(name: 'requiredId')
 @ObjectIdConverter()
 ObjectId requiredId;
 ```
@@ -155,11 +145,9 @@ class MyModel with DatabaseSerializable {
   @ObjectIdConverter()
   final ObjectId id;
 
-  @JsonKey(name: 'parentId')
   @NullableObjectIdConverter()
   ObjectId? parentId;
 
-  @JsonKey(name: 'categoryId')
   @ObjectIdConverter()
   ObjectId categoryId;
 
