@@ -358,42 +358,47 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   String? notes;
 
   /// Reference to the source charge (if applicable)
-  @JsonKey(name: 'fromChargeId')
   @NullableObjectIdConverter()
   ObjectId? fromChargeId;
 
   /// Reference to the source vessel (if applicable)
-  @JsonKey(name: 'fromVesselId')
   @NullableObjectIdConverter()
   ObjectId? fromVesselId;
 
   /// Reference to the destination vessel (if applicable)
-  @JsonKey(name: 'toVesselId')
   @NullableObjectIdConverter()
   ObjectId? toVesselId;
 
   /// Reference to the destination charge (if applicable)
-  @JsonKey(name: 'toChargeId')
   @NullableObjectIdConverter()
   ObjectId? toChargeId;
 
   /// Reference to the destination packaging (if applicable)
-  @JsonKey(name: 'toPackagingId')
   @NullableObjectIdConverter()
   ObjectId? toPackagingId;
 
   /// Reference to the source packaging (if applicable)
-  @JsonKey(name: 'fromPackagingId')
   @NullableObjectIdConverter()
   ObjectId? fromPackagingId;
 
   /// Reference to the product being moved
-  @JsonKey(name: 'productId')
   @NullableObjectIdConverter()
   ObjectId? productId;
 
   /// Timestamp extracted from the document's ObjectId
   DateTime get timestamp => id.dateTime;
+
+  @override
+  Set<String> get objectIdFields => {
+        '_id',
+        'fromChargeId',
+        'fromPackagingId',
+        'fromVesselId',
+        'productId',
+        'toChargeId',
+        'toPackagingId',
+        'toVesselId',
+      };
 
   BulkStorageRegisterItemModel({
     ObjectId? id,
@@ -431,33 +436,6 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
   factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageRegisterItemModelFromJson(json);
   Map<String, dynamic> toJson() => _$BulkStorageRegisterItemModelToJson(this);
-
-  @override
-  Map<String, dynamic> toDatabase() {
-    final json = toJson();
-    // Convert all ObjectId fields to BSON ObjectIds
-    if (fromChargeId != null) json['fromChargeId'] = fromChargeId;
-    if (fromVesselId != null) json['fromVesselId'] = fromVesselId;
-    if (toVesselId != null) json['toVesselId'] = toVesselId;
-    if (toChargeId != null) json['toChargeId'] = toChargeId;
-    if (toPackagingId != null) json['toPackagingId'] = toPackagingId;
-    if (fromPackagingId != null) json['fromPackagingId'] = fromPackagingId;
-    if (productId != null) json['productId'] = productId;
-    json['_id'] = id;
-    return json;
-  }
-
-  @override
-  Set<String> get objectIdFields => {
-        '_id',
-        'fromChargeId',
-        'fromVesselId',
-        'toVesselId',
-        'toChargeId',
-        'toPackagingId',
-        'fromPackagingId',
-        'productId',
-      };
 }
 
 ```
@@ -513,7 +491,6 @@ class BulkStorageVesselModel with DatabaseSerializable {
   BulkStorageVesselStatus status;
 
   /// Reference to the product currently in the vessel
-  @JsonKey(name: 'productId')
   @NullableObjectIdConverter()
   ObjectId? productId;
 
@@ -1537,6 +1514,18 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'packaging_run_item.g.dart';
 
+/// Status of a packaging run
+enum PackagingRunStatus {
+  /// Run is in progress
+  inProgress,
+
+  /// Run is complete but awaiting excise return
+  awaitingExcise,
+
+  /// Run is complete with excise return
+  complete
+}
+
 @JsonSerializable()
 class PackagingRunItemModel with DatabaseSerializable {
   @JsonKey(name: '_id')
@@ -1550,7 +1539,14 @@ class PackagingRunItemModel with DatabaseSerializable {
   double remaining;
   double volumeAvailable;
   double volumeRemaining;
-  String exciseReturn;
+
+  @JsonKey(
+      defaultValue: PackagingRunStatus.inProgress,
+      unknownEnumValue: PackagingRunStatus.complete)
+  PackagingRunStatus status;
+
+  @NullableObjectIdConverter()
+  ObjectId? exciseReturn;
 
   PackagingRunItemModel({
     ObjectId? id,
@@ -1562,6 +1558,7 @@ class PackagingRunItemModel with DatabaseSerializable {
     required this.remaining,
     required this.volumeAvailable,
     required this.volumeRemaining,
+    this.status = PackagingRunStatus.inProgress,
     required this.exciseReturn,
   }) : id = id ?? ObjectId();
 

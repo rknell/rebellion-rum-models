@@ -29,6 +29,9 @@ class MyModel {
 }
 ```
 
+## Never use explicit JsonKey(name: ) when the field name is the same
+Do not repeat the JsonKey(name: <fieldName>) when the field name is the same, this is double handling and will cause issues if someone changes something and forgets. if the field name is different to that in the database (for example _id and id) then this is required.
+
 ### Enum Best Practices
 - Always provide a safe fallback value for unknown enum values
 - Document why a particular default was chosen
@@ -107,5 +110,5 @@ enum SaleStatus {
 }
 ``` 
 
-Besides json serialization, you also need to accomodate database serialisation as per [toDatabase.md](mdc:.cursorrules/toDatabase.md)
+Besides json serialization, you also need to accomodate database serialisation as per [toDatabase.md](mdc:distillery_manager/.cursorrules/toDatabase.md)
 

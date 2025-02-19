@@ -6,3 +6,5 @@ build/
 pubspec.lock
 coverage/
 test/.test_coverage.dart 
+
+anthropic_key.txt

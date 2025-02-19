@@ -24,8 +24,7 @@ actions:
       1. Model Field Annotations:
          - All ObjectId fields MUST use @ObjectIdConverter() or @NullableObjectIdConverter()
          - Primary ID fields MUST use @JsonKey(name: '_id')
-         - Foreign key fields MUST use @JsonKey(name: 'fieldId')
-         - All ObjectId fields MUST be final unless mutable by design
+         - Foreign key fields MUST be ObjectId types
 
       2. Serialization Format:
          - When serializing to MongoDB:
@@ -72,7 +71,6 @@ examples:
         @ObjectIdConverter()
         final ObjectId id;
 
-        @JsonKey(name: 'parentId')
         @NullableObjectIdConverter()
         final ObjectId? parentId;
 
