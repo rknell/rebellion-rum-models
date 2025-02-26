@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
+import 'package:rebellion_rum_models/src/models/alcocalc_dilution_calculation.dart';
 
 part 'product.g.dart';
 
@@ -84,6 +85,12 @@ class ProductModel with DatabaseSerializable {
   /// Whether the product is currently enabled for sale
   bool? enabled;
 
+  /// Whether the product is archived (soft deleted)
+  bool isArchived;
+
+  /// Recipe information for producing this product
+  ProductRecipe? recipe;
+
   ProductModel({
     ObjectId? id,
     required this.barcode,
@@ -103,6 +110,8 @@ class ProductModel with DatabaseSerializable {
     this.shortcut,
     this.enabled,
     double? matesRatesPrice,
+    this.isArchived = false,
+    this.recipe,
   })  : id = id ?? ObjectId(),
         volume = volume ?? 700.0,
         abv = abv ?? 0.37,
@@ -125,4 +134,31 @@ class ProductModel with DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+}
+
+/// Represents a recipe for a product, including target ABV and sugar additions.
+///
+/// This class is used in production to standardize the dilution and flavor process
+/// for spirits and liqueurs. It contains the target ABV and any sugar additions
+/// required for the final product.
+@JsonSerializable(explicitToJson: true)
+class ProductRecipe {
+  /// Target alcohol by volume percentage for the final product
+  final double targetAbv;
+
+  /// List of sugar additions for the recipe (for liqueurs)
+  final List<SugarAddition> sugars;
+
+  /// Creates a new product recipe
+  ProductRecipe({
+    required this.targetAbv,
+    this.sugars = const [],
+  });
+
+  /// Creates an instance from a JSON object
+  factory ProductRecipe.fromJson(Map<String, dynamic> json) =>
+      _$ProductRecipeFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$ProductRecipeToJson(this);
 }

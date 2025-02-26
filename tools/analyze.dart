@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, avoid_slow_async_io
+
 import 'dart:io';
 
 import 'package:path/path.dart' as path;

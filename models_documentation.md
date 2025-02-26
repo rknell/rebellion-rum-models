@@ -9,8 +9,36 @@ This documentation is automatically generated from the model files.
 ```dart
 import 'package:alcocalc/alcocalc.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/models/product.dart';
 
 part 'alcocalc_dilution_calculation.g.dart';
+
+/// Represents a sugar to be added to a product recipe
+@JsonSerializable(explicitToJson: true)
+class AlcocalcSugar {
+  /// Name of the sugar (e.g., "White Sugar", "Honey", etc.)
+  final String name;
+
+  /// Weight of sugar in kilograms
+  final double weight;
+
+  /// Brix measurement of the sugar
+  final double brix;
+
+  /// Creates a new instance of [AlcocalcSugar]
+  AlcocalcSugar({
+    required this.name,
+    required this.weight,
+    required this.brix,
+  });
+
+  /// Creates an instance from a JSON object
+  factory AlcocalcSugar.fromJson(Map<String, dynamic> json) =>
+      _$AlcocalcSugarFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$AlcocalcSugarToJson(this);
+}
 
 /// A model for recording dilution calculations using the alcocalc package.
 /// This model stores the input parameters and calculated results for audit purposes.
@@ -72,8 +100,28 @@ class AlcocalcDilutionCalculation {
     );
   }
 
+  /// Creates a new instance of [AlcocalcDilutionCalculation] from a product recipe.
+  ///
+  /// Takes the starting weight, starting ABV, and a product recipe which provides
+  /// the target ABV and any sugar additions required for the recipe. This factory
+  /// simplifies creating dilution calculations that adhere to standardized recipes.
+  factory AlcocalcDilutionCalculation.fromRecipe({
+    required double startingWeight,
+    required double startingAbv,
+    required ProductRecipe recipe,
+    double temperature = 20.0,
+  }) {
+    return AlcocalcDilutionCalculation(
+      startingWeight: startingWeight,
+      startingAbv: startingAbv,
+      targetAbv: recipe.targetAbv,
+      sugars: recipe.sugars,
+      temperature: temperature,
+    );
+  }
+
   /// Private constructor for creating an instance with pre-calculated values
-  const AlcocalcDilutionCalculation._({
+  AlcocalcDilutionCalculation._({
     required this.startingWeight,
     required this.startingAbv,
     required this.targetAbv,
@@ -89,7 +137,18 @@ class AlcocalcDilutionCalculation {
     required this.acceptableAbvLow,
     required this.acceptableAbvHigh,
     required this.sugarResults,
-  });
+  }) {
+    // Calculate the final weight (after water and sugar)
+    _finalWeight = weightAfterWater +
+        sugarResults.fold(0.0, (sum, sugar) => sum + sugar.weight);
+  }
+
+  // Final weight after all additions (water + sugar)
+  double _finalWeight = 0.0;
+
+  /// The final weight after adding water and all sugars
+  /// This is the total weight including the starting liquid, added water, and any sugar additions
+  double get finalWeight => _finalWeight;
 
   /// Starting weight in kilograms
   final double startingWeight;
@@ -150,7 +209,7 @@ class SugarAddition {
   /// Name of the sugar (e.g., "White Sugar", "Honey", etc.)
   final String name;
 
-  /// Specific gravity of the sugar
+  /// Specific gravity of the sugar (single source of truth)
   final double specificGravity;
 
   /// Percentage of sugar to add (as a decimal, e.g., 0.1 for 10%)
@@ -162,6 +221,26 @@ class SugarAddition {
     required this.specificGravity,
     required this.percentage,
   }) : assert(percentage < 1, "Percentage must be a decimal");
+
+  /// Factory constructor that takes brix instead of specific gravity
+  factory SugarAddition.fromBrix({
+    required String name,
+    required double brix,
+    required double percentage,
+  }) {
+    return SugarAddition(
+      name: name,
+      specificGravity: Alcocalc.brixToDensity(brix),
+      percentage: percentage,
+    );
+  }
+
+  /// Get the Brix value calculated from specific gravity
+  double get brix => Alcocalc.densityToBrix(specificGravity);
+
+  /// Weight getter for backward compatibility
+  /// This should be populated from sugar result calculations
+  double get weight => 0.0;
 
   /// Converts this instance to a Sugars object for calculation
   Sugars toSugars() => Sugars(
@@ -499,9 +578,9 @@ class BulkStorageVesselModel with DatabaseSerializable {
 
   BulkStorageVesselModel({
     ObjectId? id,
-    required this.barcode,
+    this.barcode = '',
     String? name,
-    required this.capacity,
+    this.capacity = 0,
     this.currentLals = 0,
     this.status = BulkStorageVesselStatus.active,
     this.productId,
@@ -1511,10 +1590,19 @@ class OrderModel with DatabaseSerializable {
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
+import 'package:rebellion_rum_models/src/models/alcocalc_dilution_calculation.dart';
 
 part 'packaging_run_item.g.dart';
 
 /// Status of a packaging run
+/// Note: Introduced in v2.0.0 replacing string-based exciseReturn field
+/// Migration path:
+/// - Previous exciseReturn="": maps to inProgress
+/// - Previous exciseReturn="W12345": maps to complete
+/// - Previous exciseReturn=null: maps to inProgress
+/// - All other values map to awaitingExcise
+///
+/// Enhanced in v3.0.0 to add excised status
 enum PackagingRunStatus {
   /// Run is in progress
   inProgress,
@@ -1523,7 +1611,10 @@ enum PackagingRunStatus {
   awaitingExcise,
 
   /// Run is complete with excise return
-  complete
+  complete,
+
+  /// Run is excised (final state)
+  excised
 }
 
 @JsonSerializable()
@@ -1531,22 +1622,65 @@ class PackagingRunItemModel with DatabaseSerializable {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
+
+  /// Barcode of the product being packaged
   String productBarcode;
+
+  /// Size of individual units (typically 700ml, expressed in litres as 0.7)
   double unitSize;
+
+  /// Alcohol strength (ABV) expressed as 0.50 for 50%
   double strength;
+
+  /// Number of units packaged
   double unitsPackaged;
+
+  /// Losses during packaging
   double packagingLosses;
+
+  /// Remaining product after packaging
   double remaining;
+
+  /// Volume available before packaging
   double volumeAvailable;
+
+  /// Volume remaining after packaging
   double volumeRemaining;
 
-  @JsonKey(
-      defaultValue: PackagingRunStatus.inProgress,
-      unknownEnumValue: PackagingRunStatus.complete)
+  /// The initial LALs calculation for the packaging run
+  AlcocalcDilutionCalculation? estimatedProduct;
+
+  /// Secondary dilution calculation, if needed (when ABV reading is out of range)
+  AlcocalcDilutionCalculation? secondaryDilution;
+
+  /// ABV reading taken after dilution
+  double? abvReading;
+
+  /// Target number of bottles to fill, compare to units packaged and ensure its within 1.5% plus or minus
+  int targetBottles;
+
+  /// The timestamp of the packaging run
+  /// If not set, falls back to the ObjectId timestamp
+  DateTime? timestamp;
+
+  /// The date when this packaging run was marked as complete
+  DateTime? completionDate;
+
+  /// Get the effective timestamp, falling back to ObjectId timestamp if not set
+  DateTime get effectiveTimestamp => timestamp ?? id.dateTime;
+
+  /// Default value of inProgress aligns with the migration path where both
+  /// empty strings and null values in the legacy exciseReturn field map to inProgress,
+  /// making it the most appropriate default for new records and migration cases.
+  @JsonKey(unknownEnumValue: PackagingRunStatus.excised)
   PackagingRunStatus status;
 
+  /// Excise return reference - either ObjectId or string identifier
   @NullableObjectIdConverter()
   ObjectId? exciseReturn;
+
+  /// Note explaining discrepancy when actual bottles != expected bottles +- 1.5%
+  String? discrepancyNote;
 
   PackagingRunItemModel({
     ObjectId? id,
@@ -1558,8 +1692,15 @@ class PackagingRunItemModel with DatabaseSerializable {
     required this.remaining,
     required this.volumeAvailable,
     required this.volumeRemaining,
+    this.targetBottles = 0,
     this.status = PackagingRunStatus.inProgress,
-    required this.exciseReturn,
+    this.estimatedProduct,
+    this.secondaryDilution,
+    this.abvReading,
+    this.exciseReturn,
+    this.timestamp,
+    this.discrepancyNote,
+    this.completionDate,
   }) : id = id ?? ObjectId();
 
   factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
@@ -1704,6 +1845,7 @@ class PostcodeModel with DatabaseSerializable {
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
+import 'package:rebellion_rum_models/src/models/alcocalc_dilution_calculation.dart';
 
 part 'product.g.dart';
 
@@ -1787,6 +1929,12 @@ class ProductModel with DatabaseSerializable {
   /// Whether the product is currently enabled for sale
   bool? enabled;
 
+  /// Whether the product is archived (soft deleted)
+  bool isArchived;
+
+  /// Recipe information for producing this product
+  ProductRecipe? recipe;
+
   ProductModel({
     ObjectId? id,
     required this.barcode,
@@ -1806,6 +1954,8 @@ class ProductModel with DatabaseSerializable {
     this.shortcut,
     this.enabled,
     double? matesRatesPrice,
+    this.isArchived = false,
+    this.recipe,
   })  : id = id ?? ObjectId(),
         volume = volume ?? 700.0,
         abv = abv ?? 0.37,
@@ -1828,6 +1978,33 @@ class ProductModel with DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+}
+
+/// Represents a recipe for a product, including target ABV and sugar additions.
+///
+/// This class is used in production to standardize the dilution and flavor process
+/// for spirits and liqueurs. It contains the target ABV and any sugar additions
+/// required for the final product.
+@JsonSerializable(explicitToJson: true)
+class ProductRecipe {
+  /// Target alcohol by volume percentage for the final product
+  final double targetAbv;
+
+  /// List of sugar additions for the recipe (for liqueurs)
+  final List<SugarAddition> sugars;
+
+  /// Creates a new product recipe
+  ProductRecipe({
+    required this.targetAbv,
+    this.sugars = const [],
+  });
+
+  /// Creates an instance from a JSON object
+  factory ProductRecipe.fromJson(Map<String, dynamic> json) =>
+      _$ProductRecipeFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$ProductRecipeToJson(this);
 }
 
 ```

@@ -10,9 +10,9 @@ BulkStorageVesselModel _$BulkStorageVesselModelFromJson(
         Map<String, dynamic> json) =>
     BulkStorageVesselModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
-      barcode: json['barcode'] as String,
+      barcode: json['barcode'] as String? ?? '',
       name: json['name'] as String?,
-      capacity: (json['capacity'] as num).toDouble(),
+      capacity: (json['capacity'] as num?)?.toDouble() ?? 0,
       currentLals: (json['currentLals'] as num?)?.toDouble() ?? 0,
       status: $enumDecodeNullable(
               _$BulkStorageVesselStatusEnumMap, json['status']) ??

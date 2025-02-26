@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:json_annotation/json_annotation.dart';
 

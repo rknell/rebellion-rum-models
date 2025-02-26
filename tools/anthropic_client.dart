@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -45,14 +47,15 @@ class AnthropicClient {
 
 /// Example usage:
 void main() async {
-  const apiKey = '';
+  const apiKey =
+      '';
 
   final client = AnthropicClient(apiKey: apiKey);
 
-  try {
-    final response = await client.sendMessage(message: 'Hello, world');
-    print('Response: ${response['content'][0]['text']}');
-  } catch (e) {
-    print('Error: $e');
-  }
-}
+//   try {
+//     final response = await client.sendMessage(message: 'Hello, world');
+//     print('Response: ${response['content'][0]['text']}');
+//   } catch (e) {
+//     print('Error: $e');
+//   }
+// }
