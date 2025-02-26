@@ -29,6 +29,10 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       shortcut: json['shortcut'] as String?,
       enabled: json['enabled'] as bool?,
       matesRatesPrice: (json['matesRatesPrice'] as num?)?.toDouble(),
+      isArchived: json['isArchived'] as bool? ?? false,
+      recipe: json['recipe'] == null
+          ? null
+          : ProductRecipe.fromJson(json['recipe'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
@@ -54,6 +58,8 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       'percentAustralian': instance.percentAustralian,
       if (instance.shortcut case final value?) 'shortcut': value,
       if (instance.enabled case final value?) 'enabled': value,
+      'isArchived': instance.isArchived,
+      if (instance.recipe?.toJson() case final value?) 'recipe': value,
     };
 
 const _$ProductCategoryEnumMap = {
@@ -64,6 +70,21 @@ const _$ProductCategoryEnumMap = {
   ProductCategory.merch: 'merch',
   ProductCategory.other: 'other',
 };
+
+ProductRecipe _$ProductRecipeFromJson(Map<String, dynamic> json) =>
+    ProductRecipe(
+      targetAbv: (json['targetAbv'] as num).toDouble(),
+      sugars: (json['sugars'] as List<dynamic>?)
+              ?.map((e) => SugarAddition.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$ProductRecipeToJson(ProductRecipe instance) =>
+    <String, dynamic>{
+      'targetAbv': instance.targetAbv,
+      'sugars': instance.sugars.map((e) => e.toJson()).toList(),
+    };
 
 // **************************************************************************
 // ObjectIdFieldsGenerator

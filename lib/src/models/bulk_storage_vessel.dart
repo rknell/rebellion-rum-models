@@ -52,9 +52,9 @@ class BulkStorageVesselModel with DatabaseSerializable {
 
   BulkStorageVesselModel({
     ObjectId? id,
-    required this.barcode,
+    this.barcode = '',
     String? name,
-    required this.capacity,
+    this.capacity = 0,
     this.currentLals = 0,
     this.status = BulkStorageVesselStatus.active,
     this.productId,

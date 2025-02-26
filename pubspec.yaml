@@ -29,6 +29,7 @@ dev_dependencies:
   test_process: ^2.1.0
   bson: ^5.0.5
   build_config: ^1.1.1
+  http:
 
 targets:
   $default:
