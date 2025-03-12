@@ -80,16 +80,3 @@ const _$PackagingRunStatusEnumMap = {
   PackagingRunStatus.complete: 'complete',
   PackagingRunStatus.excised: 'excised',
 };
-
-// **************************************************************************
-// ObjectIdFieldsGenerator
-// **************************************************************************
-
-// Generated objectIdFields getter for PackagingRunItemModel
-extension PackagingRunItemModelObjectIdFields on PackagingRunItemModel {
-  @override
-  Set<String> get objectIdFields => {
-        '_id',
-        'exciseReturn',
-      };
-}

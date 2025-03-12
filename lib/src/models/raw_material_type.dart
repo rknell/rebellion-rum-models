@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import '../json_helpers.dart';
 
 part 'raw_material_type.g.dart';
@@ -17,12 +16,7 @@ part 'raw_material_type.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class RawMaterialTypeModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class RawMaterialTypeModel extends DatabaseSerializable {
   /// The name of the raw material type (e.g., Molasses, Sugar Cane)
   String name;
 
@@ -31,10 +25,10 @@ class RawMaterialTypeModel with DatabaseSerializable {
   double specificGravity;
 
   RawMaterialTypeModel({
-    ObjectId? id,
+    super.id,
     required this.name,
     required this.specificGravity,
-  }) : id = id ?? ObjectId();
+  });
 
   factory RawMaterialTypeModel.fromJson(Map<String, dynamic> json) =>
       _$RawMaterialTypeModelFromJson(json);

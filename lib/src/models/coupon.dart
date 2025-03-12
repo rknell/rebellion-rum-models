@@ -1,14 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'coupon.g.dart';
 
 @JsonSerializable()
-class CouponModel with DatabaseSerializable {
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  ObjectId id;
+class CouponModel extends DatabaseSerializable {
   String code;
   String description;
   double amount;
@@ -37,7 +33,7 @@ class CouponModel with DatabaseSerializable {
   }
 
   CouponModel({
-    ObjectId? id,
+    super.id,
     required this.code,
     required this.description,
     required this.amount,
@@ -45,8 +41,7 @@ class CouponModel with DatabaseSerializable {
     this.phone,
     this.redeemed,
     double? remainingValue,
-  })  : id = id ?? ObjectId(),
-        _remainingValue = remainingValue;
+  }) : _remainingValue = remainingValue;
 
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
       _$CouponModelFromJson(json);

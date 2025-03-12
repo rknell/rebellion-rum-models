@@ -34,15 +34,3 @@ Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
       if (instance.shippingReceipt case final value?) 'shippingReceipt': value,
       'totalQuote': instance.totalQuote,
     };
-
-// **************************************************************************
-// ObjectIdFieldsGenerator
-// **************************************************************************
-
-// Generated objectIdFields getter for OrderModel
-extension OrderModelObjectIdFields on OrderModel {
-  @override
-  Set<String> get objectIdFields => {
-        '_id',
-      };
-}

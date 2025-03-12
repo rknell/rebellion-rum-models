@@ -5,11 +5,7 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 part 'volume_transferred_record.g.dart';
 
 @JsonSerializable()
-class VolumeTransferredRecordModel with DatabaseSerializable {
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class VolumeTransferredRecordModel extends DatabaseSerializable {
   @ObjectIdConverter()
   ObjectId chargeId;
 
@@ -19,12 +15,12 @@ class VolumeTransferredRecordModel with DatabaseSerializable {
   double lals;
 
   VolumeTransferredRecordModel({
-    ObjectId? id,
+    super.id,
     required this.chargeId,
     required this.washId,
     required this.volume,
     required this.lals,
-  }) : id = id ?? ObjectId();
+  });
 
   factory VolumeTransferredRecordModel.fromJson(Map<String, dynamic> json) =>
       _$VolumeTransferredRecordModelFromJson(json);

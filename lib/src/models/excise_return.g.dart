@@ -21,15 +21,3 @@ Map<String, dynamic> _$ExciseReturnModelToJson(ExciseReturnModel instance) =>
       'remissionApplied': instance.remissionApplied,
       if (instance.referenceNumber case final value?) 'referenceNumber': value,
     };
-
-// **************************************************************************
-// ObjectIdFieldsGenerator
-// **************************************************************************
-
-// Generated objectIdFields getter for ExciseReturnModel
-extension ExciseReturnModelObjectIdFields on ExciseReturnModel {
-  @override
-  Set<String> get objectIdFields => {
-        '_id',
-      };
-}

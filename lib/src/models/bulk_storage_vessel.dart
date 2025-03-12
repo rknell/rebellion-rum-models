@@ -7,12 +7,7 @@ part 'bulk_storage_vessel.g.dart';
 
 /// Represents a bulk storage vessel used for storing spirits.
 @JsonSerializable()
-class BulkStorageVesselModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class BulkStorageVesselModel extends DatabaseSerializable {
   /// Unique identifier for the vessel
   String barcode;
 
@@ -51,7 +46,7 @@ class BulkStorageVesselModel with DatabaseSerializable {
   bool needsStocktake;
 
   BulkStorageVesselModel({
-    ObjectId? id,
+    super.id,
     this.barcode = '',
     String? name,
     this.capacity = 0,
@@ -59,8 +54,7 @@ class BulkStorageVesselModel with DatabaseSerializable {
     this.status = BulkStorageVesselStatus.active,
     this.productId,
     this.needsStocktake = false,
-  })  : id = id ?? ObjectId(),
-        _name = name;
+  }) : _name = name;
 
   /// Get the remaining LALs in the vessel
   double get remainingLALs => currentLals;

@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'payment.g.dart';
@@ -21,11 +20,7 @@ enum PaymentType { cash, eftpos, coupon, online, bank, unknown }
 /// );
 /// ```
 @JsonSerializable()
-class PaymentModel with DatabaseSerializable {
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class PaymentModel extends DatabaseSerializable {
   /// Amount paid in this payment
   final double amount;
 
@@ -37,11 +32,11 @@ class PaymentModel with DatabaseSerializable {
   final String? reference;
 
   PaymentModel({
-    ObjectId? id,
+    super.id,
     required this.amount,
     required this.type,
     this.reference,
-  }) : id = id ?? ObjectId();
+  });
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) =>
       _$PaymentModelFromJson(json);

@@ -10,12 +10,7 @@ part 'bulk_storage_register_item.g.dart';
 /// Each entry tracks a movement or adjustment of spirits between vessels,
 /// to/from packaging, or other operations like stocktake adjustments.
 @JsonSerializable(explicitToJson: true)
-class BulkStorageRegisterItemModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class BulkStorageRegisterItemModel extends DatabaseSerializable {
   /// LALs calculation for this movement
   @JsonKey(includeIfNull: false)
   final AlcocalcLalsCalculation? lalsCalculation;
@@ -105,7 +100,7 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
       };
 
   BulkStorageRegisterItemModel({
-    ObjectId? id,
+    super.id,
     this.lalsCalculation,
     this.legacyLals,
     this.feintsDestroyed = false,
@@ -119,9 +114,8 @@ class BulkStorageRegisterItemModel with DatabaseSerializable {
     this.toPackagingId,
     this.fromPackagingId,
     this.productId,
-  })  : assert(lalsCalculation != null || legacyLals != null,
-            'Either lalsCalculation or legacyLals must be provided'),
-        id = id ?? ObjectId();
+  }) : assert(lalsCalculation != null || legacyLals != null,
+            'Either lalsCalculation or legacyLals must be provided');
 
   /// Get the LALs value from either the calculation or legacy field
   /// If lalsCalculation exists, use its value

@@ -42,16 +42,3 @@ const _$BulkStorageVesselStatusEnumMap = {
   BulkStorageVesselStatus.decommissioned: 'decommissioned',
   BulkStorageVesselStatus.maintenance: 'maintenance',
 };
-
-// **************************************************************************
-// ObjectIdFieldsGenerator
-// **************************************************************************
-
-// Generated objectIdFields getter for BulkStorageVesselModel
-extension BulkStorageVesselModelObjectIdFields on BulkStorageVesselModel {
-  @override
-  Set<String> get objectIdFields => {
-        '_id',
-        'productId',
-      };
-}

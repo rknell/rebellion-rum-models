@@ -68,7 +68,13 @@ class NullableObjectIdConverter implements JsonConverter<ObjectId?, dynamic> {
 /// This mixin adds a [toDatabase] method that converts the model to a format
 /// suitable for database storage, preserving ObjectId instances instead of
 /// converting them to strings.
-mixin DatabaseSerializable {
+abstract class DatabaseSerializable {
+  @JsonKey(name: '_id')
+  @ObjectIdConverter()
+  final ObjectId id;
+
+  DatabaseSerializable({ObjectId? id}) : id = id ?? ObjectId();
+
   /// Override this method to specify which fields contain ObjectIds
   /// Returns a set of field names that should be treated as ObjectIds
   /// This is the default implementation, but it can be overridden by extensions

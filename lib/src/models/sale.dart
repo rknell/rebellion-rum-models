@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'sale_item.dart';
 import 'payment.dart';
@@ -24,12 +23,7 @@ part 'sale.g.dart';
 /// );
 /// ```
 @JsonSerializable(explicitToJson: true)
-class SaleModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  ObjectId id;
-
+class SaleModel extends DatabaseSerializable {
   /// When the sale was completed
   DateTime timestamp;
 
@@ -88,7 +82,7 @@ class SaleModel with DatabaseSerializable {
   }
 
   SaleModel({
-    ObjectId? id,
+    super.id,
     DateTime? timestamp,
     List<SaleItemModel>? items,
     this.customerId,
@@ -100,8 +94,7 @@ class SaleModel with DatabaseSerializable {
     bool? isMatesRates,
     this.dueDate,
     SaleStatus? status,
-  })  : id = id ?? ObjectId(),
-        timestamp = timestamp ?? DateTime.now(),
+  })  : timestamp = timestamp ?? DateTime.now(),
         coupons = _couponsFromJson(coupons),
         items = items ?? [],
         payments = payments ?? [],

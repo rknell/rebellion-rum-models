@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'cart.g.dart';
@@ -19,12 +18,7 @@ part 'cart.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class CartModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class CartModel extends DatabaseSerializable {
   /// Unique identifier for the cart session
   final String cartId;
 
@@ -41,13 +35,13 @@ class CartModel with DatabaseSerializable {
   PaymentIntentModel? paymentIntent;
 
   CartModel({
-    ObjectId? id,
+    super.id,
     required this.cartId,
     this.deliveryMethod,
     required this.products,
     required this.userInfo,
     this.paymentIntent,
-  }) : id = id ?? ObjectId();
+  });
 
   factory CartModel.fromJson(Map<String, dynamic> json) =>
       _$CartModelFromJson(json);
@@ -84,7 +78,7 @@ class CartModel with DatabaseSerializable {
 /// );
 /// ```
 @JsonSerializable(fieldRename: FieldRename.snake)
-class DeliveryMethodModel with DatabaseSerializable {
+class DeliveryMethodModel {
   /// Service code identifier
   final String serviceCode;
 
@@ -123,7 +117,7 @@ class DeliveryMethodModel with DatabaseSerializable {
 /// );
 /// ```
 @JsonSerializable()
-class CartProductModel with DatabaseSerializable {
+class CartProductModel {
   /// Product identifier
   final String id;
 
@@ -190,7 +184,7 @@ class CartProductModel with DatabaseSerializable {
 /// );
 /// ```
 @JsonSerializable()
-class UserInfoModel with DatabaseSerializable {
+class UserInfoModel {
   /// Customer email address
   final String email;
 
@@ -261,7 +255,7 @@ class UserInfoModel with DatabaseSerializable {
 /// );
 /// ```
 @JsonSerializable(fieldRename: FieldRename.snake)
-class PaymentIntentModel with DatabaseSerializable {
+class PaymentIntentModel {
   final String object;
   final String id;
   final int amount;

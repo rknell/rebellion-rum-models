@@ -32,15 +32,3 @@ Map<String, dynamic> _$StockLocationModelToJson(StockLocationModel instance) =>
       'isWarehouse': instance.isWarehouse,
       if (instance.stockLevels case final value?) 'stockLevels': value,
     };
-
-// **************************************************************************
-// ObjectIdFieldsGenerator
-// **************************************************************************
-
-// Generated objectIdFields getter for StockLocationModel
-extension StockLocationModelObjectIdFields on StockLocationModel {
-  @override
-  Set<String> get objectIdFields => {
-        '_id',
-      };
-}

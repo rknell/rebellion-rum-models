@@ -5,10 +5,7 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 part 'raw_materials_register.g.dart';
 
 @JsonSerializable()
-class RawMaterialsRegisterModel with DatabaseSerializable {
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
+class RawMaterialsRegisterModel extends DatabaseSerializable {
   String? invoiceNumber;
   String? batchNumber;
 
@@ -27,7 +24,7 @@ class RawMaterialsRegisterModel with DatabaseSerializable {
   }
 
   RawMaterialsRegisterModel(
-      {ObjectId? id,
+      {super.id,
       this.invoiceNumber,
       this.batchNumber,
       this.fermentationRecordId,
@@ -35,8 +32,7 @@ class RawMaterialsRegisterModel with DatabaseSerializable {
       required this.qtyIn,
       required this.qtyOut,
       DateTime? timestamp})
-      : id = id ?? ObjectId(),
-        _timestamp = timestamp;
+      : _timestamp = timestamp;
 
   factory RawMaterialsRegisterModel.fromJson(Map<String, dynamic> json) =>
       _$RawMaterialsRegisterModelFromJson(json);

@@ -29,11 +29,7 @@ enum PackagingRunStatus {
 }
 
 @JsonSerializable()
-class PackagingRunItemModel with DatabaseSerializable {
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class PackagingRunItemModel extends DatabaseSerializable {
   /// Barcode of the product being packaged
   String? productBarcode;
 
@@ -99,7 +95,7 @@ class PackagingRunItemModel with DatabaseSerializable {
       ((unitSize ?? 0) / 1000) * (unitsPackaged ?? 0) * (strength ?? 0);
 
   PackagingRunItemModel(
-      {ObjectId? id,
+      {super.id,
       this.productBarcode,
       this.unitSize,
       this.strength,
@@ -117,8 +113,7 @@ class PackagingRunItemModel with DatabaseSerializable {
       this.timestamp,
       this.discrepancyNote,
       this.completionDate,
-      this.isConfirmedSugars = false})
-      : id = id ?? ObjectId();
+      this.isConfirmedSugars = false});
 
   factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
       _$PackagingRunItemModelFromJson(json);
