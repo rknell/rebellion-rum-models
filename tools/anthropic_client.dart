@@ -46,12 +46,11 @@ class AnthropicClient {
 }
 
 /// Example usage:
-void main() async {
-  const apiKey =
-      '';
-
-  final client = AnthropicClient(apiKey: apiKey);
-
+// void main() async {
+//   const apiKey = '';
+//
+// final client = AnthropicClient(apiKey: apiKey);
+//
 //   try {
 //     final response = await client.sendMessage(message: 'Hello, world');
 //     print('Response: ${response['content'][0]['text']}');
