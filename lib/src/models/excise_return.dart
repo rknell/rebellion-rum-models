@@ -18,6 +18,8 @@ class ExciseReturnModel with DatabaseSerializable {
   /// Whether remission has been applied to this return
   final bool remissionApplied;
 
+  String? referenceNumber;
+
   ExciseReturnModel({
     ObjectId? id,
     required this.totalLals,

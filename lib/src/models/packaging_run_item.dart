@@ -35,40 +35,40 @@ class PackagingRunItemModel with DatabaseSerializable {
   final ObjectId id;
 
   /// Barcode of the product being packaged
-  String productBarcode;
+  String? productBarcode;
 
   /// Size of individual units (typically 700ml, expressed in litres as 0.7)
-  double unitSize;
+  double? unitSize;
 
   /// Alcohol strength (ABV) expressed as 0.50 for 50%
-  double strength;
+  double? strength;
 
   /// Number of units packaged
-  double unitsPackaged;
+  double? unitsPackaged;
 
-  /// Losses during packaging
-  double packagingLosses;
+  /// Losses during packaging in LALs
+  double? packagingLosses;
 
-  /// Remaining product after packaging
-  double remaining;
+  /// Remaining product after packaging in LALs
+  double? remaining;
 
-  /// Volume available before packaging
-  double volumeAvailable;
+  /// Volume available before packaging in LALs
+  double? volumeAvailable;
 
-  /// Volume remaining after packaging
-  double volumeRemaining;
+  /// Volume remaining after packaging in LALs
+  double? volumeRemaining;
 
   /// The initial LALs calculation for the packaging run
-  AlcocalcDilutionCalculation? estimatedProduct;
+  AlcocalcDilutionResultModel? estimatedDilution;
 
-  /// Secondary dilution calculation, if needed (when ABV reading is out of range)
-  AlcocalcDilutionCalculation? secondaryDilution;
+  /// The actual production dilution calculation, performed when you have a known weight and abv
+  AlcocalcDilutionResultModel? productionDilution;
 
   /// ABV reading taken after dilution
   double? abvReading;
 
   /// Target number of bottles to fill, compare to units packaged and ensure its within 1.5% plus or minus
-  int targetBottles;
+  double targetBottles;
 
   /// The timestamp of the packaging run
   /// If not set, falls back to the ObjectId timestamp
@@ -93,26 +93,32 @@ class PackagingRunItemModel with DatabaseSerializable {
   /// Note explaining discrepancy when actual bottles != expected bottles +- 1.5%
   String? discrepancyNote;
 
-  PackagingRunItemModel({
-    ObjectId? id,
-    required this.productBarcode,
-    required this.unitSize,
-    required this.strength,
-    required this.unitsPackaged,
-    required this.packagingLosses,
-    required this.remaining,
-    required this.volumeAvailable,
-    required this.volumeRemaining,
-    this.targetBottles = 0,
-    this.status = PackagingRunStatus.inProgress,
-    this.estimatedProduct,
-    this.secondaryDilution,
-    this.abvReading,
-    this.exciseReturn,
-    this.timestamp,
-    this.discrepancyNote,
-    this.completionDate,
-  }) : id = id ?? ObjectId();
+  bool isConfirmedSugars;
+
+  double get lals =>
+      ((unitSize ?? 0) / 1000) * (unitsPackaged ?? 0) * (strength ?? 0);
+
+  PackagingRunItemModel(
+      {ObjectId? id,
+      this.productBarcode,
+      this.unitSize,
+      this.strength,
+      this.unitsPackaged,
+      this.packagingLosses,
+      this.remaining,
+      this.volumeAvailable,
+      this.volumeRemaining,
+      this.targetBottles = 0,
+      this.status = PackagingRunStatus.inProgress,
+      this.estimatedDilution,
+      this.productionDilution,
+      this.abvReading,
+      this.exciseReturn,
+      this.timestamp,
+      this.discrepancyNote,
+      this.completionDate,
+      this.isConfirmedSugars = false})
+      : id = id ?? ObjectId();
 
   factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
       _$PackagingRunItemModelFromJson(json);

@@ -10,26 +10,26 @@ PackagingRunItemModel _$PackagingRunItemModelFromJson(
         Map<String, dynamic> json) =>
     PackagingRunItemModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
-      productBarcode: json['productBarcode'] as String,
-      unitSize: (json['unitSize'] as num).toDouble(),
-      strength: (json['strength'] as num).toDouble(),
-      unitsPackaged: (json['unitsPackaged'] as num).toDouble(),
-      packagingLosses: (json['packagingLosses'] as num).toDouble(),
-      remaining: (json['remaining'] as num).toDouble(),
-      volumeAvailable: (json['volumeAvailable'] as num).toDouble(),
-      volumeRemaining: (json['volumeRemaining'] as num).toDouble(),
-      targetBottles: (json['targetBottles'] as num?)?.toInt() ?? 0,
+      productBarcode: json['productBarcode'] as String?,
+      unitSize: (json['unitSize'] as num?)?.toDouble(),
+      strength: (json['strength'] as num?)?.toDouble(),
+      unitsPackaged: (json['unitsPackaged'] as num?)?.toDouble(),
+      packagingLosses: (json['packagingLosses'] as num?)?.toDouble(),
+      remaining: (json['remaining'] as num?)?.toDouble(),
+      volumeAvailable: (json['volumeAvailable'] as num?)?.toDouble(),
+      volumeRemaining: (json['volumeRemaining'] as num?)?.toDouble(),
+      targetBottles: (json['targetBottles'] as num?)?.toDouble() ?? 0,
       status: $enumDecodeNullable(_$PackagingRunStatusEnumMap, json['status'],
               unknownValue: PackagingRunStatus.excised) ??
           PackagingRunStatus.inProgress,
-      estimatedProduct: json['estimatedProduct'] == null
+      estimatedDilution: json['estimatedDilution'] == null
           ? null
-          : AlcocalcDilutionCalculation.fromJson(
-              json['estimatedProduct'] as Map<String, dynamic>),
-      secondaryDilution: json['secondaryDilution'] == null
+          : AlcocalcDilutionResultModel.fromJson(
+              json['estimatedDilution'] as Map<String, dynamic>),
+      productionDilution: json['productionDilution'] == null
           ? null
-          : AlcocalcDilutionCalculation.fromJson(
-              json['secondaryDilution'] as Map<String, dynamic>),
+          : AlcocalcDilutionResultModel.fromJson(
+              json['productionDilution'] as Map<String, dynamic>),
       abvReading: (json['abvReading'] as num?)?.toDouble(),
       exciseReturn:
           const NullableObjectIdConverter().fromJson(json['exciseReturn']),
@@ -40,6 +40,7 @@ PackagingRunItemModel _$PackagingRunItemModelFromJson(
       completionDate: json['completionDate'] == null
           ? null
           : DateTime.parse(json['completionDate'] as String),
+      isConfirmedSugars: json['isConfirmedSugars'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$PackagingRunItemModelToJson(
@@ -47,18 +48,18 @@ Map<String, dynamic> _$PackagingRunItemModelToJson(
     <String, dynamic>{
       if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
-      'productBarcode': instance.productBarcode,
-      'unitSize': instance.unitSize,
-      'strength': instance.strength,
-      'unitsPackaged': instance.unitsPackaged,
-      'packagingLosses': instance.packagingLosses,
-      'remaining': instance.remaining,
-      'volumeAvailable': instance.volumeAvailable,
-      'volumeRemaining': instance.volumeRemaining,
-      if (instance.estimatedProduct?.toJson() case final value?)
-        'estimatedProduct': value,
-      if (instance.secondaryDilution?.toJson() case final value?)
-        'secondaryDilution': value,
+      if (instance.productBarcode case final value?) 'productBarcode': value,
+      if (instance.unitSize case final value?) 'unitSize': value,
+      if (instance.strength case final value?) 'strength': value,
+      if (instance.unitsPackaged case final value?) 'unitsPackaged': value,
+      if (instance.packagingLosses case final value?) 'packagingLosses': value,
+      if (instance.remaining case final value?) 'remaining': value,
+      if (instance.volumeAvailable case final value?) 'volumeAvailable': value,
+      if (instance.volumeRemaining case final value?) 'volumeRemaining': value,
+      if (instance.estimatedDilution?.toJson() case final value?)
+        'estimatedDilution': value,
+      if (instance.productionDilution?.toJson() case final value?)
+        'productionDilution': value,
       if (instance.abvReading case final value?) 'abvReading': value,
       'targetBottles': instance.targetBottles,
       if (instance.timestamp?.toIso8601String() case final value?)
@@ -70,6 +71,7 @@ Map<String, dynamic> _$PackagingRunItemModelToJson(
           case final value?)
         'exciseReturn': value,
       if (instance.discrepancyNote case final value?) 'discrepancyNote': value,
+      'isConfirmedSugars': instance.isConfirmedSugars,
     };
 
 const _$PackagingRunStatusEnumMap = {
