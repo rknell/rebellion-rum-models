@@ -11,7 +11,7 @@ ExciseReturnModel _$ExciseReturnModelFromJson(Map<String, dynamic> json) =>
       id: const ObjectIdConverter().fromJson(json['_id']),
       totalLals: (json['totalLals'] as num).toDouble(),
       remissionApplied: json['remissionApplied'] as bool,
-    );
+    )..referenceNumber = json['referenceNumber'] as String?;
 
 Map<String, dynamic> _$ExciseReturnModelToJson(ExciseReturnModel instance) =>
     <String, dynamic>{
@@ -19,6 +19,7 @@ Map<String, dynamic> _$ExciseReturnModelToJson(ExciseReturnModel instance) =>
         '_id': value,
       'totalLals': instance.totalLals,
       'remissionApplied': instance.remissionApplied,
+      if (instance.referenceNumber case final value?) 'referenceNumber': value,
     };
 
 // **************************************************************************

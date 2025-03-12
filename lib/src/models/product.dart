@@ -147,7 +147,7 @@ class ProductRecipe {
   final double targetAbv;
 
   /// List of sugar additions for the recipe (for liqueurs)
-  final List<SugarAddition> sugars;
+  final List<SugarInputModel> sugars;
 
   /// Creates a new product recipe
   ProductRecipe({

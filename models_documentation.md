@@ -7,277 +7,433 @@ This documentation is automatically generated from the model files.
 *File: lib/src/models/alcocalc_dilution_calculation.dart*
 
 ```dart
-import 'package:alcocalc/alcocalc.dart';
+import 'package:alcocalc/alcocalc.dart' as alcocalc;
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rebellion_rum_models/src/models/product.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
+
+// # Alcocalc Library API Documentation
+//
+// NOTE: This is a summary of the Alcocalc API. For complete documentation,
+// please refer to the AlcoCalc_api.md file in the documentation directory.
+//
+// ## Major Changes in v2.0
+//
+// The library has been significantly refactored:
+// 1. All functions are now static methods on the `Alcocalc` class
+// 2. Result objects have more properties and better documentation
+// 3. Sugar handling has been improved with the `SugarResult` class
+//
+// ## Key Static Methods
+//
+// - `Alcocalc.diluteByWeight`: Calculates dilution by weight using OIML tables
+// - `Alcocalc.dilution`: Calculates a dilution with optional sugar additions
+// - `Alcocalc.diluteToVolume`: Calculates a dilution to achieve a specific target volume
+// - `Alcocalc.diluteToBottles`: Calculates a dilution to produce a specific number of bottles
+// - `Alcocalc.calculateAlcoholAddition`: Calculates how much high-proof alcohol to add
+// - `Alcocalc.correctedABV`: Corrects ABV for temperature using OIML tables
+// - `Alcocalc.abvToAbw`: Converts ABV to ABW
+// - `Alcocalc.litresOfAlcoholCalculation`: Calculates the total litres of pure alcohol (LALs)
+//
+// ## Key Classes
+//
+// - `DiluteByWeightResult`: Contains all calculated values from a dilution by weight operation
+// - `DilutionResult`: Represents the complete result of a dilution operation
+// - `SugarResult`: Represents a sugar addition in a dilution operation
+// - `Sugars`: Defines a type of sugar to be used in dilution calculations
+// - `AlcoholAdditionResult`: Contains the results of an alcohol addition calculation
+//
+// ## Usage Examples
+//
+// ```dart
+// // Dilution by weight
+// final result = Alcocalc.diluteByWeight(
+//   startingABV: 0.60,      // 60% ABV
+//   startingTemperature: 20, // 20°C
+//   targetABV: 0.40,        // 40% ABV
+//   startingWeight: 10.0,    // 10kg
+// );
+//
+// // Dilution with sugar
+// final sugars = [
+//   Sugars(name: 'Simple syrup', specificGravity: 1.33, percentage: 0.05),
+// ];
+//
+// final result = Alcocalc.dilution(
+//   startingWeight: 10.0,
+//   startingABV: 0.60,
+//   startingTemperature: 20,
+//   sugars: sugars,
+//   targetABV: 0.40,
+// );
+//
+// // Adding high-proof alcohol
+// final result = Alcocalc.calculateAlcoholAddition(
+//   currentWeight: 20.0,
+//   currentABV: 0.35,
+//   targetABV: 0.40,
+//   additionABV: 0.962,
+//   temperature: 20.0,
+// );
+// ```
 
 part 'alcocalc_dilution_calculation.g.dart';
 
-/// Represents a sugar to be added to a product recipe
-@JsonSerializable(explicitToJson: true)
-class AlcocalcSugar {
-  /// Name of the sugar (e.g., "White Sugar", "Honey", etc.)
+/// Represents a sugar to be used in dilution calculations.
+@JsonSerializable()
+class SugarInputModel with DatabaseSerializable {
+  /// Name of the sugar
   final String name;
 
-  /// Weight of sugar in kilograms
-  final double weight;
-
-  /// Brix measurement of the sugar
-  final double brix;
-
-  /// Creates a new instance of [AlcocalcSugar]
-  AlcocalcSugar({
-    required this.name,
-    required this.weight,
-    required this.brix,
-  });
-
-  /// Creates an instance from a JSON object
-  factory AlcocalcSugar.fromJson(Map<String, dynamic> json) =>
-      _$AlcocalcSugarFromJson(json);
-
-  /// Converts this instance to a JSON object
-  Map<String, dynamic> toJson() => _$AlcocalcSugarToJson(this);
-}
-
-/// A model for recording dilution calculations using the alcocalc package.
-/// This model stores the input parameters and calculated results for audit purposes.
-@JsonSerializable(explicitToJson: true)
-class AlcocalcDilutionCalculation {
-  /// Creates a new instance of [AlcocalcDilutionCalculation].
-  factory AlcocalcDilutionCalculation({
-    required double startingWeight,
-    required double startingAbv,
-    required double targetAbv,
-    List<SugarAddition> sugars = const [],
-    double temperature = 20.0,
-  }) {
-    // Validate inputs
-    if (startingAbv <= targetAbv) {
-      throw ArgumentError('Starting ABV must be greater than target ABV');
-    }
-    if (startingAbv <= 0 || startingAbv > 100) {
-      throw ArgumentError('Starting ABV must be between 0 and 100');
-    }
-    if (targetAbv <= 0 || targetAbv > 100) {
-      throw ArgumentError('Target ABV must be between 0 and 100');
-    }
-    if (temperature < -20 || temperature > 40) {
-      throw ArgumentError('Temperature must be between -20°C and 40°C');
-    }
-
-    // Calculate dilution once
-    final result = dilution(
-      startingWeight: startingWeight,
-      startingABV: startingAbv,
-      startingTemperature: temperature,
-      sugars: sugars.map((s) => s.toSugars()).toList(),
-      targetABV: targetAbv,
-    );
-
-    // Create instance with all values
-    return AlcocalcDilutionCalculation._(
-      startingWeight: startingWeight,
-      startingAbv: startingAbv,
-      targetAbv: targetAbv,
-      temperature: temperature,
-      sugars: sugars,
-      date: DateTime.now(),
-      waterToAdd: result.additionalWaterLitres,
-      weightAfterWater: result.targetWeightAfterWater,
-      finalVolume: result.targetVolume,
-      lals: result.lals,
-      expectedBottles: result.expectedBottles,
-      calculatedAbv: result.calculatedABV,
-      acceptableAbvLow: result.acceptableABVLow,
-      acceptableAbvHigh: result.acceptableABVHigh,
-      sugarResults: result.sugarResults
-          .map((sugar) => SugarResult(
-                name: sugar.name,
-                weight: sugar.weight,
-              ))
-          .toList(),
-    );
-  }
-
-  /// Creates a new instance of [AlcocalcDilutionCalculation] from a product recipe.
-  ///
-  /// Takes the starting weight, starting ABV, and a product recipe which provides
-  /// the target ABV and any sugar additions required for the recipe. This factory
-  /// simplifies creating dilution calculations that adhere to standardized recipes.
-  factory AlcocalcDilutionCalculation.fromRecipe({
-    required double startingWeight,
-    required double startingAbv,
-    required ProductRecipe recipe,
-    double temperature = 20.0,
-  }) {
-    return AlcocalcDilutionCalculation(
-      startingWeight: startingWeight,
-      startingAbv: startingAbv,
-      targetAbv: recipe.targetAbv,
-      sugars: recipe.sugars,
-      temperature: temperature,
-    );
-  }
-
-  /// Private constructor for creating an instance with pre-calculated values
-  AlcocalcDilutionCalculation._({
-    required this.startingWeight,
-    required this.startingAbv,
-    required this.targetAbv,
-    required this.temperature,
-    required this.sugars,
-    required this.date,
-    required this.waterToAdd,
-    required this.weightAfterWater,
-    required this.finalVolume,
-    required this.lals,
-    required this.expectedBottles,
-    required this.calculatedAbv,
-    required this.acceptableAbvLow,
-    required this.acceptableAbvHigh,
-    required this.sugarResults,
-  }) {
-    // Calculate the final weight (after water and sugar)
-    _finalWeight = weightAfterWater +
-        sugarResults.fold(0.0, (sum, sugar) => sum + sugar.weight);
-  }
-
-  // Final weight after all additions (water + sugar)
-  double _finalWeight = 0.0;
-
-  /// The final weight after adding water and all sugars
-  /// This is the total weight including the starting liquid, added water, and any sugar additions
-  double get finalWeight => _finalWeight;
-
-  /// Starting weight in kilograms
-  final double startingWeight;
-
-  /// Starting alcohol by volume percentage
-  final double startingAbv;
-
-  /// Target alcohol by volume percentage
-  final double targetAbv;
-
-  /// Temperature in celsius
-  final double temperature;
-
-  /// Optional list of sugars to add (for liqueurs)
-  final List<SugarAddition> sugars;
-
-  /// Date and time of calculation
-  final DateTime date;
-
-  /// Amount of water to add in litres to reach target ABV
-  final double waterToAdd;
-
-  /// Target weight after adding water (before sugar additions)
-  final double weightAfterWater;
-
-  /// Final volume after dilution in litres
-  final double finalVolume;
-
-  /// Total litres of absolute alcohol (LALs)
-  final double lals;
-
-  /// Expected number of 700ml bottles
-  final double expectedBottles;
-
-  /// Calculated ABV after all additions
-  final double calculatedAbv;
-
-  /// Minimum acceptable ABV for quality control
-  final double acceptableAbvLow;
-
-  /// Maximum acceptable ABV for quality control
-  final double acceptableAbvHigh;
-
-  /// List of sugar additions with calculated weights
-  final List<SugarResult> sugarResults;
-
-  /// Creates an instance from a JSON object
-  factory AlcocalcDilutionCalculation.fromJson(Map<String, dynamic> json) =>
-      _$AlcocalcDilutionCalculationFromJson(json);
-
-  /// Converts this instance to a JSON object
-  Map<String, dynamic> toJson() => _$AlcocalcDilutionCalculationToJson(this);
-}
-
-/// Represents a sugar addition in the dilution calculation
-@JsonSerializable(explicitToJson: true)
-class SugarAddition {
-  /// Name of the sugar (e.g., "White Sugar", "Honey", etc.)
-  final String name;
-
-  /// Specific gravity of the sugar (single source of truth)
+  /// Specific gravity of the sugar
   final double specificGravity;
 
-  /// Percentage of sugar to add (as a decimal, e.g., 0.1 for 10%)
+  /// Percentage of the sugar in the solution (as a decimal)
   final double percentage;
 
-  /// Creates a new instance of [SugarAddition]
-  SugarAddition({
+  /// Gets the sugar content in degrees Brix (°Bx) by converting the specific gravity
+  double get brix => alcocalc.Alcocalc.densityToBrix(specificGravity);
+
+  SugarInputModel({
     required this.name,
     required this.specificGravity,
     required this.percentage,
-  }) : assert(percentage < 1, "Percentage must be a decimal");
+  });
 
-  /// Factory constructor that takes brix instead of specific gravity
-  factory SugarAddition.fromBrix({
-    required String name,
-    required double brix,
-    required double percentage,
-  }) {
-    return SugarAddition(
+  /// Converts this model to the Alcocalc Sugars class
+  alcocalc.Sugars toAlcoCalc() {
+    return alcocalc.Sugars(
       name: name,
-      specificGravity: Alcocalc.brixToDensity(brix),
+      specificGravity: specificGravity,
       percentage: percentage,
     );
   }
 
-  /// Get the Brix value calculated from specific gravity
-  double get brix => Alcocalc.densityToBrix(specificGravity);
+  /// Creates a SugarModel from an Alcocalc Sugars instance
+  factory SugarInputModel.fromAlcoCalc(alcocalc.Sugars sugar) {
+    return SugarInputModel(
+      name: sugar.name,
+      specificGravity: sugar.specificGravity,
+      percentage: sugar.percentage,
+    );
+  }
 
-  /// Weight getter for backward compatibility
-  /// This should be populated from sugar result calculations
-  double get weight => 0.0;
+  factory SugarInputModel.fromBrix({
+    required String name,
+    required double degreesBrix,
+    required double percentage,
+  }) {
+    final specificGravity = alcocalc.Alcocalc.brixToDensity(degreesBrix);
+    return SugarInputModel(
+      name: name,
+      specificGravity: specificGravity,
+      percentage: percentage,
+    );
+  }
 
-  /// Converts this instance to a Sugars object for calculation
-  Sugars toSugars() => Sugars(
-        name: name,
-        specificGravity: specificGravity,
-        percentage: percentage,
-      );
+  factory SugarInputModel.fromJson(Map<String, dynamic> json) =>
+      _$SugarInputModelFromJson(json);
 
-  /// Creates an instance from a JSON object
-  factory SugarAddition.fromJson(Map<String, dynamic> json) =>
-      _$SugarAdditionFromJson(json);
+  Map<String, dynamic> toJson() => _$SugarInputModelToJson(this);
 
-  /// Converts this instance to a JSON object
-  Map<String, dynamic> toJson() => _$SugarAdditionToJson(this);
+  @override
+  Set<String> get objectIdFields => {};
 }
 
-/// Represents the result of a sugar addition calculation
+/// Represents the input parameters for a dilution calculation.
 @JsonSerializable(explicitToJson: true)
-class SugarResult {
+class AlcocalcDilutionInputModel with DatabaseSerializable {
+  /// Initial weight in kilograms
+  final double startingWeight;
+
+  /// Initial alcohol by volume as a decimal (e.g., 0.40 for 40%)
+  final double startingABV;
+
+  /// Temperature in Celsius
+  final double startingTemperature;
+
+  /// Optional list of sugars to add to the dilution
+  final List<SugarInputModel> sugars;
+
+  /// Desired final alcohol by volume as a decimal
+  final double targetABV;
+
+  /// Reference to the product being diluted
+  @NullableObjectIdConverter()
+  final ObjectId? productId;
+
+  /// Optional bottle size in liters for dilution calculations
+  final double bottleSize;
+
+  /// Timestamp of when this calculation was created
+  final DateTime createdAt;
+
+  AlcocalcDilutionInputModel({
+    required this.startingWeight,
+    required this.startingABV,
+    required this.startingTemperature,
+    this.sugars = const [],
+    required this.targetABV,
+    this.productId,
+    this.bottleSize = 0.7,
+    DateTime? createdAt,
+  }) : createdAt = createdAt ?? DateTime.now();
+
+  factory AlcocalcDilutionInputModel.fromJson(Map<String, dynamic> json) =>
+      _$AlcocalcDilutionInputModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AlcocalcDilutionInputModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id', 'productId'};
+}
+
+/// Represents a sugar addition result in a dilution operation.
+/// The equivalent AlcoCalc class is alcocalc.SugarResult
+@JsonSerializable()
+class SugarResultModel with DatabaseSerializable {
   /// Name of the sugar
   final String name;
 
   /// Weight of sugar to add in kilograms
   final double weight;
 
-  /// Creates a new instance of [SugarResult]
-  SugarResult({
-    required this.name,
-    required this.weight,
+  /// Cumulative weight including this sugar and all previous sugars
+  final double runningWeight;
+
+  SugarResultModel(
+      {required this.name, required this.weight, required this.runningWeight});
+
+  /// Creates a SugarResultModel from an Alcocalc SugarResult instance
+  factory SugarResultModel.fromAlcoCalcSugarResult(
+      alcocalc.SugarResult result) {
+    return SugarResultModel(
+        name: result.name,
+        weight: result.weight,
+        runningWeight: result.runningWeight);
+  }
+
+  /// Converts this model to an Alcocalc Sugar instance
+  alcocalc.SugarResult toAlcoCalcSugarResult() {
+    return alcocalc.SugarResult(
+        name: name, weight: weight, runningWeight: runningWeight);
+  }
+
+  factory SugarResultModel.fromJson(Map<String, dynamic> json) =>
+      _$SugarResultModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SugarResultModelToJson(this);
+}
+
+/// Represents the complete result of a dilution calculation.
+@JsonSerializable(explicitToJson: true)
+class AlcocalcDilutionResultModel with DatabaseSerializable {
+  /// Date when the calculation was performed
+  final DateTime date;
+
+  /// Initial weight in kilograms
+  final double startingWeight;
+
+  /// Temperature-corrected initial ABV
+  final double correctedStartingABV;
+
+  /// Litres of pure alcohol
+  final double lals;
+
+  /// Amount of water to add in litres
+  final double additionalWaterLitres;
+
+  /// Target weight after adding water
+  final double targetWeightAfterWater;
+
+  /// Calculated final ABV
+  final double calculatedABV;
+
+  /// Lower acceptable ABV limit
+  final double acceptableABVLow;
+
+  /// Upper acceptable ABV limit
+  final double acceptableABVHigh;
+
+  /// List of sugar additions
+  final List<SugarResultModel> sugarResults;
+
+  /// Target volume after dilution
+  final double targetVolume;
+
+  /// Expected number of bottles
+  final double expectedBottles;
+
+  /// Target final weight in kilograms after all additions
+  final double targetFinalWeight;
+
+  AlcocalcDilutionResultModel({
+    required this.date,
+    required this.startingWeight,
+    required this.correctedStartingABV,
+    required this.lals,
+    required this.additionalWaterLitres,
+    required this.targetWeightAfterWater,
+    required this.calculatedABV,
+    required this.acceptableABVLow,
+    required this.acceptableABVHigh,
+    required this.sugarResults,
+    required this.targetVolume,
+    required this.expectedBottles,
+    required this.targetFinalWeight,
   });
 
-  /// Creates an instance from a JSON object
-  factory SugarResult.fromJson(Map<String, dynamic> json) =>
-      _$SugarResultFromJson(json);
+  /// Creates an AlcocalcDilutionResultModel from an Alcocalc DilutionResult instance
+  factory AlcocalcDilutionResultModel.fromAlcoCalc(
+      alcocalc.DilutionResult result) {
+    return AlcocalcDilutionResultModel(
+      date: result.date,
+      startingWeight: result.startingWeight,
+      correctedStartingABV: result.correctedStartingABV,
+      lals: result.lals,
+      additionalWaterLitres: result.additionalWaterLitres,
+      targetWeightAfterWater: result.targetWeightAfterWater,
+      calculatedABV: result.calculatedABV,
+      acceptableABVLow: result.acceptableABVLow,
+      acceptableABVHigh: result.acceptableABVHigh,
+      sugarResults: result.sugarResults
+          .map((s) => SugarResultModel.fromAlcoCalcSugarResult(s))
+          .toList(),
+      targetVolume: result.targetVolume,
+      expectedBottles: result.expectedBottles,
+      targetFinalWeight: result.targetFinalWeight,
+    );
+  }
 
-  /// Converts this instance to a JSON object
-  Map<String, dynamic> toJson() => _$SugarResultToJson(this);
+  /// Creates an Alcocalc DilutionResult from this model
+  alcocalc.DilutionResult toAlcoCalc() {
+    return alcocalc.DilutionResult(
+      startingWeight: startingWeight,
+      correctedStartingABV: correctedStartingABV,
+      lals: lals,
+      additionalWaterLitres: additionalWaterLitres,
+      targetWeightAfterWater: targetWeightAfterWater,
+      calculatedABV: calculatedABV,
+      sugarResults: sugarResults.map((s) => s.toAlcoCalcSugarResult()).toList(),
+      targetVolume: targetVolume,
+      expectedBottles: expectedBottles,
+      targetFinalWeight: targetFinalWeight,
+    );
+  }
+
+  factory AlcocalcDilutionResultModel.fromJson(Map<String, dynamic> json) =>
+      _$AlcocalcDilutionResultModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AlcocalcDilutionResultModelToJson(this);
+}
+
+/// Represents the result of an alcohol addition calculation.
+@JsonSerializable(explicitToJson: true)
+class AlcoholAdditionResultModel with DatabaseSerializable {
+  /// The current weight of the original liquid in kilograms
+  final double currentWeight;
+
+  /// The original ABV of the liquid as a decimal
+  final double currentABV;
+
+  /// The desired target ABV as a decimal
+  final double targetABV;
+
+  /// The ABV of the alcohol being added as a decimal
+  final double additionABV;
+
+  /// The temperature in Celsius at which the calculation is performed
+  final double temperature;
+
+  /// ABV corrected for temperature effects
+  final double correctedCurrentABV;
+
+  /// ABV of the addition corrected for temperature effects
+  final double correctedAdditionABV;
+
+  /// The density of the original liquid in kg/L
+  final double currentDensity;
+
+  /// The density of the alcohol being added in kg/L
+  final double additionDensity;
+
+  /// The density of the resulting mixture in kg/L
+  final double targetDensity;
+
+  /// The volume of the original liquid in liters
+  final double currentVolume;
+
+  /// The volume of pure alcohol in the original liquid in liters
+  final double currentAlcoholVolume;
+
+  /// The volume of alcohol to be added in liters
+  final double additionVolume;
+
+  /// The weight of high-proof alcohol that needs to be added in kilograms
+  final double requiredAlcoholWeight;
+
+  /// The total weight after addition in kilograms
+  final double finalWeight;
+
+  /// The total volume after addition in liters
+  final double finalVolume;
+
+  /// Liters of Absolute Alcohol (LALs) added
+  final double lals;
+
+  /// Date when the calculation was performed
+  final DateTime createdAt;
+
+  AlcoholAdditionResultModel({
+    required this.currentWeight,
+    required this.currentABV,
+    required this.targetABV,
+    required this.additionABV,
+    required this.temperature,
+    required this.correctedCurrentABV,
+    required this.correctedAdditionABV,
+    required this.currentDensity,
+    required this.additionDensity,
+    required this.targetDensity,
+    required this.currentVolume,
+    required this.currentAlcoholVolume,
+    required this.additionVolume,
+    required this.requiredAlcoholWeight,
+    required this.finalWeight,
+    required this.finalVolume,
+    required this.lals,
+    DateTime? createdAt,
+  }) : createdAt = createdAt ?? DateTime.now();
+
+  /// Creates an AlcoholAdditionResultModel from an Alcocalc AlcoholAdditionResult instance
+  factory AlcoholAdditionResultModel.fromAlcoCalc(
+    alcocalc.AlcoholAdditionResult result,
+  ) {
+    return AlcoholAdditionResultModel(
+      currentWeight: result.currentWeight,
+      currentABV: result.currentABV,
+      targetABV: result.targetABV,
+      additionABV: result.additionABV,
+      temperature: result.temperature,
+      correctedCurrentABV: result.correctedCurrentABV,
+      correctedAdditionABV: result.correctedAdditionABV,
+      currentDensity: result.currentDensity,
+      additionDensity: result.additionDensity,
+      targetDensity: result.targetDensity,
+      currentVolume: result.currentVolume,
+      currentAlcoholVolume: result.currentAlcoholVolume,
+      additionVolume: result.additionVolume,
+      requiredAlcoholWeight: result.requiredAlcoholWeight,
+      finalWeight: result.finalWeight,
+      finalVolume: result.finalVolume,
+      lals: result.lals,
+    );
+  }
+
+  factory AlcoholAdditionResultModel.fromJson(Map<String, dynamic> json) =>
+      _$AlcoholAdditionResultModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AlcoholAdditionResultModelToJson(this);
 }
 
 ```
@@ -1323,6 +1479,8 @@ class ExciseReturnModel with DatabaseSerializable {
   /// Whether remission has been applied to this return
   final bool remissionApplied;
 
+  String? referenceNumber;
+
   ExciseReturnModel({
     ObjectId? id,
     required this.totalLals,
@@ -1624,40 +1782,40 @@ class PackagingRunItemModel with DatabaseSerializable {
   final ObjectId id;
 
   /// Barcode of the product being packaged
-  String productBarcode;
+  String? productBarcode;
 
   /// Size of individual units (typically 700ml, expressed in litres as 0.7)
-  double unitSize;
+  double? unitSize;
 
   /// Alcohol strength (ABV) expressed as 0.50 for 50%
-  double strength;
+  double? strength;
 
   /// Number of units packaged
-  double unitsPackaged;
+  double? unitsPackaged;
 
-  /// Losses during packaging
-  double packagingLosses;
+  /// Losses during packaging in LALs
+  double? packagingLosses;
 
-  /// Remaining product after packaging
-  double remaining;
+  /// Remaining product after packaging in LALs
+  double? remaining;
 
-  /// Volume available before packaging
-  double volumeAvailable;
+  /// Volume available before packaging in LALs
+  double? volumeAvailable;
 
-  /// Volume remaining after packaging
-  double volumeRemaining;
+  /// Volume remaining after packaging in LALs
+  double? volumeRemaining;
 
   /// The initial LALs calculation for the packaging run
-  AlcocalcDilutionCalculation? estimatedProduct;
+  AlcocalcDilutionResultModel? estimatedDilution;
 
-  /// Secondary dilution calculation, if needed (when ABV reading is out of range)
-  AlcocalcDilutionCalculation? secondaryDilution;
+  /// The actual production dilution calculation, performed when you have a known weight and abv
+  AlcocalcDilutionResultModel? productionDilution;
 
   /// ABV reading taken after dilution
   double? abvReading;
 
   /// Target number of bottles to fill, compare to units packaged and ensure its within 1.5% plus or minus
-  int targetBottles;
+  double targetBottles;
 
   /// The timestamp of the packaging run
   /// If not set, falls back to the ObjectId timestamp
@@ -1682,26 +1840,32 @@ class PackagingRunItemModel with DatabaseSerializable {
   /// Note explaining discrepancy when actual bottles != expected bottles +- 1.5%
   String? discrepancyNote;
 
-  PackagingRunItemModel({
-    ObjectId? id,
-    required this.productBarcode,
-    required this.unitSize,
-    required this.strength,
-    required this.unitsPackaged,
-    required this.packagingLosses,
-    required this.remaining,
-    required this.volumeAvailable,
-    required this.volumeRemaining,
-    this.targetBottles = 0,
-    this.status = PackagingRunStatus.inProgress,
-    this.estimatedProduct,
-    this.secondaryDilution,
-    this.abvReading,
-    this.exciseReturn,
-    this.timestamp,
-    this.discrepancyNote,
-    this.completionDate,
-  }) : id = id ?? ObjectId();
+  bool isConfirmedSugars;
+
+  double get lals =>
+      ((unitSize ?? 0) / 1000) * (unitsPackaged ?? 0) * (strength ?? 0);
+
+  PackagingRunItemModel(
+      {ObjectId? id,
+      this.productBarcode,
+      this.unitSize,
+      this.strength,
+      this.unitsPackaged,
+      this.packagingLosses,
+      this.remaining,
+      this.volumeAvailable,
+      this.volumeRemaining,
+      this.targetBottles = 0,
+      this.status = PackagingRunStatus.inProgress,
+      this.estimatedDilution,
+      this.productionDilution,
+      this.abvReading,
+      this.exciseReturn,
+      this.timestamp,
+      this.discrepancyNote,
+      this.completionDate,
+      this.isConfirmedSugars = false})
+      : id = id ?? ObjectId();
 
   factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
       _$PackagingRunItemModelFromJson(json);
@@ -1991,7 +2155,7 @@ class ProductRecipe {
   final double targetAbv;
 
   /// List of sugar additions for the recipe (for liqueurs)
-  final List<SugarAddition> sugars;
+  final List<SugarInputModel> sugars;
 
   /// Creates a new product recipe
   ProductRecipe({
@@ -2005,6 +2169,59 @@ class ProductRecipe {
 
   /// Converts this instance to a JSON object
   Map<String, dynamic> toJson() => _$ProductRecipeToJson(this);
+}
+
+```
+
+## raw_material_type
+
+*File: lib/src/models/raw_material_type.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import '../json_helpers.dart';
+
+part 'raw_material_type.g.dart';
+
+/// Represents a type of raw material used in distillation.
+///
+/// This model serves as a lookup table between sugar type and specific gravity,
+/// which is needed for tax calculations and tracking raw materials.
+///
+/// Example:
+/// ```dart
+/// final molasses = RawMaterialTypeModel(
+///   name: 'Molasses',
+///   specificGravity: 1.4,
+/// );
+/// ```
+@JsonSerializable()
+class RawMaterialTypeModel with DatabaseSerializable {
+  /// MongoDB document ID
+  @JsonKey(name: '_id')
+  @ObjectIdConverter()
+  final ObjectId id;
+
+  /// The name of the raw material type (e.g., Molasses, Sugar Cane)
+  String name;
+
+  /// The specific gravity of the raw material
+  /// Used in calculations for conversion rates and tax purposes
+  double specificGravity;
+
+  RawMaterialTypeModel({
+    ObjectId? id,
+    required this.name,
+    required this.specificGravity,
+  }) : id = id ?? ObjectId();
+
+  factory RawMaterialTypeModel.fromJson(Map<String, dynamic> json) =>
+      _$RawMaterialTypeModelFromJson(json);
+  Map<String, dynamic> toJson() => _$RawMaterialTypeModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```

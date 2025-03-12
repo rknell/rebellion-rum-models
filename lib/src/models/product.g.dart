@@ -75,7 +75,7 @@ ProductRecipe _$ProductRecipeFromJson(Map<String, dynamic> json) =>
     ProductRecipe(
       targetAbv: (json['targetAbv'] as num).toDouble(),
       sugars: (json['sugars'] as List<dynamic>?)
-              ?.map((e) => SugarAddition.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => SugarInputModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
     );

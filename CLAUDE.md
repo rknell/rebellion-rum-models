@@ -16,6 +16,23 @@ dart test test/path/to/test_file.dart
 dart run coverage:test_with_coverage
 ```
 
+## Documentation Resources
+
+### Model Documentation
+- Refer to `models_documentation.md` for comprehensive documentation on all models
+- This file contains up-to-date information on model structure, properties, and usage examples
+- Documentation is automatically generated from the model files and includes code samples
+
+### AlcoCalc API
+- Use `distillery_manager/docs/AlcoCalc_api.md` for all alcohol calculations and conversions
+- This documentation provides details on:
+  - Dilution calculations
+  - ABV/ABW conversions
+  - Temperature corrections
+  - LALs calculations
+  - Sugar additions and brix conversions
+- **ALWAYS** follow the API guidelines when working with alcohol calculations
+
 ## Code Style Guidelines
 
 ### Late Keyword Prohibition
