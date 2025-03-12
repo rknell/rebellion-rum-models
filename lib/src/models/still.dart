@@ -1,17 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import '../json_helpers.dart';
 
 part 'still.g.dart';
 
 /// Represents a still in the distillery
 @JsonSerializable()
-class StillModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class StillModel extends DatabaseSerializable {
   /// The name of the still
   String name;
 
@@ -31,14 +25,14 @@ class StillModel with DatabaseSerializable {
   DateTime? decommissionedDate;
 
   StillModel({
-    ObjectId? id,
+    super.id,
     required this.name,
     required this.capacityLiters,
     this.description = '',
     this.isActive = true,
     required this.commissionedDate,
     this.decommissionedDate,
-  }) : id = id ?? ObjectId();
+  });
 
   factory StillModel.fromJson(Map<String, dynamic> json) =>
       _$StillModelFromJson(json);

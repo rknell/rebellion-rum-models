@@ -72,7 +72,7 @@ part 'alcocalc_dilution_calculation.g.dart';
 
 /// Represents a sugar to be used in dilution calculations.
 @JsonSerializable()
-class SugarInputModel with DatabaseSerializable {
+class SugarInputModel {
   /// Name of the sugar
   final String name;
 
@@ -126,14 +126,11 @@ class SugarInputModel with DatabaseSerializable {
       _$SugarInputModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$SugarInputModelToJson(this);
-
-  @override
-  Set<String> get objectIdFields => {};
 }
 
 /// Represents the input parameters for a dilution calculation.
 @JsonSerializable(explicitToJson: true)
-class AlcocalcDilutionInputModel with DatabaseSerializable {
+class AlcocalcDilutionInputModel {
   /// Initial weight in kilograms
   final double startingWeight;
 
@@ -175,14 +172,13 @@ class AlcocalcDilutionInputModel with DatabaseSerializable {
 
   Map<String, dynamic> toJson() => _$AlcocalcDilutionInputModelToJson(this);
 
-  @override
   Set<String> get objectIdFields => {'_id', 'productId'};
 }
 
 /// Represents a sugar addition result in a dilution operation.
 /// The equivalent AlcoCalc class is alcocalc.SugarResult
 @JsonSerializable()
-class SugarResultModel with DatabaseSerializable {
+class SugarResultModel {
   /// Name of the sugar
   final String name;
 
@@ -218,7 +214,7 @@ class SugarResultModel with DatabaseSerializable {
 
 /// Represents the complete result of a dilution calculation.
 @JsonSerializable(explicitToJson: true)
-class AlcocalcDilutionResultModel with DatabaseSerializable {
+class AlcocalcDilutionResultModel {
   /// Date when the calculation was performed
   final DateTime date;
 
@@ -320,7 +316,7 @@ class AlcocalcDilutionResultModel with DatabaseSerializable {
 
 /// Represents the result of an alcohol addition calculation.
 @JsonSerializable(explicitToJson: true)
-class AlcoholAdditionResultModel with DatabaseSerializable {
+class AlcoholAdditionResultModel {
   /// The current weight of the original liquid in kilograms
   final double currentWeight;
 

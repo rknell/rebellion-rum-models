@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import '../json_helpers.dart';
 
 part 'distillation_record.g.dart';
@@ -22,12 +21,7 @@ enum DistillationStatus {
 /// including the still used, LALs measurements, and any notes taken during the process.
 /// The record's ObjectId serves as the charge number, using its timestamp for sequential tracking.
 @JsonSerializable()
-class DistillationRecordModel with DatabaseSerializable {
-  /// MongoDB document ID (also serves as charge number via timestamp)
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class DistillationRecordModel extends DatabaseSerializable {
   /// The still used for this distillation run
   String stillUsed;
 
@@ -54,7 +48,7 @@ class DistillationRecordModel with DatabaseSerializable {
   final List<NoteModel> notes;
 
   DistillationRecordModel({
-    ObjectId? id,
+    super.id,
     this.stillUsed = '',
     DateTime? startTime,
     this.status = DistillationStatus.inProgress,
@@ -63,8 +57,7 @@ class DistillationRecordModel with DatabaseSerializable {
     this.totalLALsCharged = 0,
     this.totalLALsYield = 0,
     List<NoteModel>? notes,
-  })  : id = id ?? ObjectId(),
-        startTime = startTime ?? DateTime.now(),
+  })  : startTime = startTime ?? DateTime.now(),
         notes = notes ?? [];
 
   factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>
@@ -87,7 +80,7 @@ class DistillationRecordModel with DatabaseSerializable {
 
 /// Represents a note in the distillation process
 @JsonSerializable()
-class NoteModel with DatabaseSerializable {
+class NoteModel {
   String content;
   final DateTime date;
   final bool isSystem;

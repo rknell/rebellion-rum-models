@@ -54,15 +54,3 @@ const _$SaleStatusEnumMap = {
   SaleStatus.unpaid: 'unpaid',
   SaleStatus.paid: 'paid',
 };
-
-// **************************************************************************
-// ObjectIdFieldsGenerator
-// **************************************************************************
-
-// Generated objectIdFields getter for SaleModel
-extension SaleModelObjectIdFields on SaleModel {
-  @override
-  Set<String> get objectIdFields => {
-        '_id',
-      };
-}

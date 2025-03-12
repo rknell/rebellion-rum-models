@@ -1,7 +1,6 @@
 import 'dart:core';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'customer.g.dart';
@@ -44,12 +43,7 @@ enum CustomerPreferences {
 }
 
 @JsonSerializable()
-class CustomerModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class CustomerModel extends DatabaseSerializable {
   /// Company name (optional)
   String? companyName;
 
@@ -88,7 +82,7 @@ class CustomerModel with DatabaseSerializable {
   Set<CustomerPreferences> preferences;
 
   CustomerModel(
-      {ObjectId? id,
+      {super.id,
       this.companyName,
       required this.firstName,
       required this.lastName,
@@ -102,8 +96,7 @@ class CustomerModel with DatabaseSerializable {
       this.country = "Australia",
       Set<CustomerPreferences>? preferences,
       this.isWholesale = false})
-      : id = id ?? ObjectId(),
-        preferences = preferences ?? <CustomerPreferences>{};
+      : preferences = preferences ?? <CustomerPreferences>{};
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);

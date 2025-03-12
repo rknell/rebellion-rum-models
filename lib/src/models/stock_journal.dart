@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_journal.g.dart';
@@ -9,12 +8,7 @@ part 'stock_journal.g.dart';
 /// Stock journals track all changes to stock levels, including transfers
 /// between locations and packaging operations.
 @JsonSerializable()
-class StockJournalModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class StockJournalModel extends DatabaseSerializable {
   /// Barcode identifier for the product or vessel
   String barcode;
 
@@ -31,13 +25,13 @@ class StockJournalModel with DatabaseSerializable {
   double qty;
 
   StockJournalModel({
-    ObjectId? id,
+    super.id,
     required this.barcode,
     required this.type,
     required this.from,
     required this.to,
     required this.qty,
-  }) : id = id ?? ObjectId();
+  });
 
   factory StockJournalModel.fromJson(Map<String, dynamic> json) =>
       _$StockJournalModelFromJson(json);

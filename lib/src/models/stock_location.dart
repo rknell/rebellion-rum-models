@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_location.g.dart';
@@ -10,12 +9,7 @@ part 'stock_location.g.dart';
 /// within the facility. Each location has a unique identifier and specific flags
 /// indicating its type and purpose.
 @JsonSerializable()
-class StockLocationModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class StockLocationModel extends DatabaseSerializable {
   /// Human-readable name for the location
   String name;
 
@@ -38,7 +32,7 @@ class StockLocationModel with DatabaseSerializable {
   Map<String, double>? stockLevels;
 
   StockLocationModel({
-    ObjectId? id,
+    super.id,
     required this.name,
     required this.barcode,
     required this.isBondStore,
@@ -46,7 +40,7 @@ class StockLocationModel with DatabaseSerializable {
     required this.isAvailableOnline,
     required this.isWarehouse,
     this.stockLevels,
-  }) : id = id ?? ObjectId();
+  });
 
   factory StockLocationModel.fromJson(Map<String, dynamic> json) =>
       _$StockLocationModelFromJson(json);

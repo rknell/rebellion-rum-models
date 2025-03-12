@@ -68,23 +68,3 @@ Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
           case final value?)
         'productId': value,
     };
-
-// **************************************************************************
-// ObjectIdFieldsGenerator
-// **************************************************************************
-
-// Generated objectIdFields getter for BulkStorageRegisterItemModel
-extension BulkStorageRegisterItemModelObjectIdFields
-    on BulkStorageRegisterItemModel {
-  @override
-  Set<String> get objectIdFields => {
-        '_id',
-        'fromChargeId',
-        'fromPackagingId',
-        'fromVesselId',
-        'productId',
-        'toChargeId',
-        'toPackagingId',
-        'toVesselId',
-      };
-}

@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'postcode.g.dart';
@@ -21,12 +20,7 @@ part 'postcode.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class PostcodeModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class PostcodeModel extends DatabaseSerializable {
   /// Four-digit Australian postcode
   final String postcode;
 
@@ -39,8 +33,8 @@ class PostcodeModel with DatabaseSerializable {
   /// Delivery zone classification for shipping
   final String combined;
 
-  const PostcodeModel({
-    required this.id,
+  PostcodeModel({
+    super.id,
     required this.postcode,
     required this.locality,
     required this.state,

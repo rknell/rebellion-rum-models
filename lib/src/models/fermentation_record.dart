@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'fermentation_record.g.dart';
@@ -41,12 +40,7 @@ enum FermentationType {
 }
 
 @JsonSerializable()
-class FermentationRecordModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class FermentationRecordModel extends DatabaseSerializable {
   /// Batch number for this fermentation
   int batchNumber;
 
@@ -82,7 +76,7 @@ class FermentationRecordModel with DatabaseSerializable {
   DateTime? completionDate;
 
   FermentationRecordModel({
-    ObjectId? id,
+    super.id,
     required this.batchNumber,
     required this.type,
     required this.washVolume,
@@ -94,8 +88,7 @@ class FermentationRecordModel with DatabaseSerializable {
     this.recipe = '',
     this.completed = false,
     this.completionDate,
-  })  : id = id ?? ObjectId(),
-        fermentationProgress = fermentationProgress ?? [];
+  }) : fermentationProgress = fermentationProgress ?? [];
 
   factory FermentationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$FermentationRecordModelFromJson(json);
@@ -116,7 +109,7 @@ class FermentationRecordModel with DatabaseSerializable {
 }
 
 @JsonSerializable()
-class FermentationProgressModel with DatabaseSerializable {
+class FermentationProgressModel {
   final double sg;
   final double? ph;
   final double? temp;

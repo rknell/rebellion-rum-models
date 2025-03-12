@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'customer.dart';
 
@@ -24,12 +23,7 @@ part 'order.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class OrderModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class OrderModel extends DatabaseSerializable {
   /// Customer who placed the order
   CustomerModel customer;
 
@@ -59,7 +53,7 @@ class OrderModel with DatabaseSerializable {
   double totalQuote;
 
   OrderModel({
-    ObjectId? id,
+    super.id,
     required this.customer,
     required this.date,
     required this.items,
@@ -69,7 +63,7 @@ class OrderModel with DatabaseSerializable {
     this.paymentReceipt,
     this.shippingMethod,
     this.shippingReceipt,
-  }) : id = id ?? ObjectId();
+  });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);

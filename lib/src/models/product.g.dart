@@ -85,15 +85,3 @@ Map<String, dynamic> _$ProductRecipeToJson(ProductRecipe instance) =>
       'targetAbv': instance.targetAbv,
       'sugars': instance.sugars.map((e) => e.toJson()).toList(),
     };
-
-// **************************************************************************
-// ObjectIdFieldsGenerator
-// **************************************************************************
-
-// Generated objectIdFields getter for ProductModel
-extension ProductModelObjectIdFields on ProductModel {
-  @override
-  Set<String> get objectIdFields => {
-        '_id',
-      };
-}

@@ -77,15 +77,3 @@ Map<String, dynamic> _$FermentationProgressModelToJson(
       'timestamp': instance.timestamp.toIso8601String(),
       'notes': instance.notes,
     };
-
-// **************************************************************************
-// ObjectIdFieldsGenerator
-// **************************************************************************
-
-// Generated objectIdFields getter for FermentationRecordModel
-extension FermentationRecordModelObjectIdFields on FermentationRecordModel {
-  @override
-  Set<String> get objectIdFields => {
-        '_id',
-      };
-}

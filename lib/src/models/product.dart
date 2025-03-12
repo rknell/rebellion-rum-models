@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'package:rebellion_rum_models/src/models/alcocalc_dilution_calculation.dart';
 
@@ -27,12 +26,7 @@ part 'product.g.dart';
 enum ProductCategory { vodka, gin, rum, softdrink, merch, other }
 
 @JsonSerializable()
-class ProductModel with DatabaseSerializable {
-  /// MongoDB document ID
-  @JsonKey(name: '_id')
-  @ObjectIdConverter()
-  final ObjectId id;
-
+class ProductModel extends DatabaseSerializable {
   /// Unique barcode identifier for the product
   final String barcode;
 
@@ -92,7 +86,7 @@ class ProductModel with DatabaseSerializable {
   ProductRecipe? recipe;
 
   ProductModel({
-    ObjectId? id,
+    super.id,
     required this.barcode,
     String? name,
     required this.price,
@@ -112,8 +106,7 @@ class ProductModel with DatabaseSerializable {
     double? matesRatesPrice,
     this.isArchived = false,
     this.recipe,
-  })  : id = id ?? ObjectId(),
-        volume = volume ?? 700.0,
+  })  : volume = volume ?? 700.0,
         abv = abv ?? 0.37,
         name = name ?? '',
         percentAustralian = percentAustralian ?? 1.0,
