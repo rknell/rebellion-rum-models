@@ -44,6 +44,7 @@ class StockLocationModel extends DatabaseSerializable {
 
   factory StockLocationModel.fromJson(Map<String, dynamic> json) =>
       _$StockLocationModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$StockLocationModelToJson(this);
 
   @override

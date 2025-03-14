@@ -24,6 +24,7 @@ class VolumeTransferredRecordModel extends DatabaseSerializable {
 
   factory VolumeTransferredRecordModel.fromJson(Map<String, dynamic> json) =>
       _$VolumeTransferredRecordModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$VolumeTransferredRecordModelToJson(this);
 
   @override

@@ -123,6 +123,7 @@ class ProductModel extends DatabaseSerializable {
 
     return _$ProductModelFromJson(json);
   }
+  @override
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 
   @override

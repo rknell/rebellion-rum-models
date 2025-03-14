@@ -117,6 +117,7 @@ class PackagingRunItemModel extends DatabaseSerializable {
 
   factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
       _$PackagingRunItemModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PackagingRunItemModelToJson(this);
 
   @override

@@ -67,6 +67,7 @@ class OrderModel extends DatabaseSerializable {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$OrderModelToJson(this);
 
   @override

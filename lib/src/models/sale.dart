@@ -103,24 +103,11 @@ class SaleModel extends DatabaseSerializable {
 
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SaleModelToJson(this);
 
   @override
   Set<String> get objectIdFields => {'_id'};
-
-  @override
-  Map<String, bool> get nestedDatabaseSerializables => {
-        'items': true, // List of SaleItemModel
-        'payments': true, // List of PaymentModel
-        'coupons': true, // List of CouponModel
-      };
-
-  @override
-  Map<String, Function> get nestedTypes => {
-        'items': SaleItemModel.fromJson,
-        'payments': PaymentModel.fromJson,
-        'coupons': CouponModel.fromJson,
-      };
 }
 
 /// Status of a sale

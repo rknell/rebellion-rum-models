@@ -45,6 +45,7 @@ class CartModel extends DatabaseSerializable {
 
   factory CartModel.fromJson(Map<String, dynamic> json) =>
       _$CartModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$CartModelToJson(this);
 
   @override

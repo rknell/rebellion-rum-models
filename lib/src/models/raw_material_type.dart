@@ -32,6 +32,7 @@ class RawMaterialTypeModel extends DatabaseSerializable {
 
   factory RawMaterialTypeModel.fromJson(Map<String, dynamic> json) =>
       _$RawMaterialTypeModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RawMaterialTypeModelToJson(this);
 
   @override
