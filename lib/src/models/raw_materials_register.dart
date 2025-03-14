@@ -36,6 +36,7 @@ class RawMaterialsRegisterModel extends DatabaseSerializable {
 
   factory RawMaterialsRegisterModel.fromJson(Map<String, dynamic> json) =>
       _$RawMaterialsRegisterModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RawMaterialsRegisterModelToJson(this);
 
   @override

@@ -45,6 +45,7 @@ class CouponModel extends DatabaseSerializable {
 
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
       _$CouponModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$CouponModelToJson(this);
 
   @override

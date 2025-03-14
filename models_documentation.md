@@ -660,6 +660,7 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
 
   factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageRegisterItemModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BulkStorageRegisterItemModelToJson(this);
 }
 
@@ -733,6 +734,7 @@ class BulkStorageVesselModel extends DatabaseSerializable {
 
   factory BulkStorageVesselModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageVesselModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BulkStorageVesselModelToJson(this);
 
   @override
@@ -812,6 +814,7 @@ class CartModel extends DatabaseSerializable {
 
   factory CartModel.fromJson(Map<String, dynamic> json) =>
       _$CartModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$CartModelToJson(this);
 
   @override
@@ -1108,6 +1111,7 @@ class CouponModel extends DatabaseSerializable {
 
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
       _$CouponModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$CouponModelToJson(this);
 
   @override
@@ -1124,7 +1128,6 @@ class CouponModel extends DatabaseSerializable {
 import 'dart:core';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'customer.g.dart';
@@ -1224,6 +1227,7 @@ class CustomerModel extends DatabaseSerializable {
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
 
   @override
@@ -1238,7 +1242,6 @@ class CustomerModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'delivery_authority.g.dart';
@@ -1256,6 +1259,7 @@ class DeliveryAuthorityModel extends DatabaseSerializable {
 
   factory DeliveryAuthorityModel.fromJson(Map<String, dynamic> json) =>
       _$DeliveryAuthorityModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DeliveryAuthorityModelToJson(this);
 
   @override
@@ -1270,7 +1274,6 @@ class DeliveryAuthorityModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import '../json_helpers.dart';
 
 part 'distillation_record.g.dart';
@@ -1334,6 +1337,7 @@ class DistillationRecordModel extends DatabaseSerializable {
 
   factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$DistillationRecordModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DistillationRecordModelToJson(this);
 
   @override
@@ -1376,7 +1380,6 @@ class NoteModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import '../json_helpers.dart';
 
 part 'eftpos_terminal.g.dart';
@@ -1400,6 +1403,7 @@ class EftposTerminalModel extends DatabaseSerializable {
   factory EftposTerminalModel.fromJson(Map<String, dynamic> json) =>
       _$EftposTerminalModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$EftposTerminalModelToJson(this);
 
   @override
@@ -1414,7 +1418,6 @@ class EftposTerminalModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'excise_return.g.dart';
@@ -1438,6 +1441,7 @@ class ExciseReturnModel extends DatabaseSerializable {
 
   factory ExciseReturnModel.fromJson(Map<String, dynamic> json) =>
       _$ExciseReturnModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ExciseReturnModelToJson(this);
 
   @override
@@ -1452,7 +1456,6 @@ class ExciseReturnModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'fermentation_record.g.dart';
@@ -1546,6 +1549,7 @@ class FermentationRecordModel extends DatabaseSerializable {
 
   factory FermentationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$FermentationRecordModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FermentationRecordModelToJson(this);
 
   @override
@@ -1591,7 +1595,6 @@ class FermentationProgressModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'customer.dart';
 
@@ -1660,6 +1663,7 @@ class OrderModel extends DatabaseSerializable {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$OrderModelToJson(this);
 
   @override
@@ -1802,6 +1806,7 @@ class PackagingRunItemModel extends DatabaseSerializable {
 
   factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
       _$PackagingRunItemModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PackagingRunItemModelToJson(this);
 
   @override
@@ -1816,7 +1821,6 @@ class PackagingRunItemModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'payment.g.dart';
@@ -1858,6 +1862,7 @@ class PaymentModel extends DatabaseSerializable {
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) =>
       _$PaymentModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PaymentModelToJson(this);
 
   @override
@@ -1872,7 +1877,6 @@ class PaymentModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'postcode.g.dart';
@@ -1917,6 +1921,7 @@ class PostcodeModel extends DatabaseSerializable {
 
   factory PostcodeModel.fromJson(Map<String, dynamic> json) =>
       _$PostcodeModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PostcodeModelToJson(this);
 
   @override
@@ -1931,7 +1936,6 @@ class PostcodeModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'package:rebellion_rum_models/src/models/alcocalc_dilution_calculation.dart';
 
@@ -2056,6 +2060,7 @@ class ProductModel extends DatabaseSerializable {
 
     return _$ProductModelFromJson(json);
   }
+  @override
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 
   @override
@@ -2097,7 +2102,6 @@ class ProductRecipe {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import '../json_helpers.dart';
 
 part 'raw_material_type.g.dart';
@@ -2131,6 +2135,7 @@ class RawMaterialTypeModel extends DatabaseSerializable {
 
   factory RawMaterialTypeModel.fromJson(Map<String, dynamic> json) =>
       _$RawMaterialTypeModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RawMaterialTypeModelToJson(this);
 
   @override
@@ -2182,6 +2187,7 @@ class RawMaterialsRegisterModel extends DatabaseSerializable {
 
   factory RawMaterialsRegisterModel.fromJson(Map<String, dynamic> json) =>
       _$RawMaterialsRegisterModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RawMaterialsRegisterModelToJson(this);
 
   @override
@@ -2196,7 +2202,6 @@ class RawMaterialsRegisterModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'sale_item.dart';
 import 'payment.dart';
@@ -2301,6 +2306,7 @@ class SaleModel extends DatabaseSerializable {
 
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SaleModelToJson(this);
 
   @override
@@ -2338,7 +2344,6 @@ enum SaleStatus {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'sale_item.g.dart';
 
@@ -2357,7 +2362,7 @@ part 'sale_item.g.dart';
 /// );
 /// ```
 @JsonSerializable()
-class SaleItemModel with DatabaseSerializable {
+class SaleItemModel {
   /// Product description as shown on receipt
   String description;
 
@@ -2392,7 +2397,6 @@ class SaleItemModel with DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import '../json_helpers.dart';
 
 part 'still.g.dart';
@@ -2430,6 +2434,7 @@ class StillModel extends DatabaseSerializable {
 
   factory StillModel.fromJson(Map<String, dynamic> json) =>
       _$StillModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$StillModelToJson(this);
 
   @override
@@ -2444,7 +2449,6 @@ class StillModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_journal.g.dart';
@@ -2481,6 +2485,7 @@ class StockJournalModel extends DatabaseSerializable {
 
   factory StockJournalModel.fromJson(Map<String, dynamic> json) =>
       _$StockJournalModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$StockJournalModelToJson(this);
 
   @override
@@ -2495,7 +2500,6 @@ class StockJournalModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stock_location.g.dart';
@@ -2541,6 +2545,7 @@ class StockLocationModel extends DatabaseSerializable {
 
   factory StockLocationModel.fromJson(Map<String, dynamic> json) =>
       _$StockLocationModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$StockLocationModelToJson(this);
 
   @override
@@ -2555,7 +2560,6 @@ class StockLocationModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import '../json_helpers.dart';
 
 part 'stocktake.g.dart';
@@ -2590,6 +2594,7 @@ class StocktakeModel extends DatabaseSerializable {
 
   factory StocktakeModel.fromJson(Map<String, dynamic> json) =>
       _$StocktakeModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$StocktakeModelToJson(this);
 
   @override
@@ -2629,6 +2634,7 @@ class VolumeTransferredRecordModel extends DatabaseSerializable {
 
   factory VolumeTransferredRecordModel.fromJson(Map<String, dynamic> json) =>
       _$VolumeTransferredRecordModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$VolumeTransferredRecordModelToJson(this);
 
   @override

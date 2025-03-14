@@ -16,6 +16,7 @@ class DeliveryAuthorityModel extends DatabaseSerializable {
 
   factory DeliveryAuthorityModel.fromJson(Map<String, dynamic> json) =>
       _$DeliveryAuthorityModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DeliveryAuthorityModelToJson(this);
 
   @override

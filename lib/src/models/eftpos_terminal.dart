@@ -22,6 +22,7 @@ class EftposTerminalModel extends DatabaseSerializable {
   factory EftposTerminalModel.fromJson(Map<String, dynamic> json) =>
       _$EftposTerminalModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$EftposTerminalModelToJson(this);
 
   @override

@@ -100,6 +100,7 @@ class CustomerModel extends DatabaseSerializable {
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
 
   @override

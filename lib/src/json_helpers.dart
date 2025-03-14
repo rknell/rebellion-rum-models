@@ -62,13 +62,23 @@ class NullableObjectIdConverter implements JsonConverter<ObjectId?, dynamic> {
   String? toJson(ObjectId? object) => object?.oid;
 }
 
+abstract class JsonSerializableModel {
+  /// Converts this model instance to a JSON map.
+  ///
+  /// The returned map should contain only JSON-compatible values
+  /// (String, num, bool, null, List of JSON values, or Map with String keys and JSON values).
+  ///
+  /// @return A map representation of this model suitable for JSON serialization
+  Map<String, dynamic> toJson();
+}
+
 /// A mixin that provides database serialization functionality for models
 /// that use json_serializable and have ObjectId fields.
 ///
 /// This mixin adds a [toDatabase] method that converts the model to a format
 /// suitable for database storage, preserving ObjectId instances instead of
 /// converting them to strings.
-abstract class DatabaseSerializable {
+abstract class DatabaseSerializable extends JsonSerializableModel {
   @JsonKey(name: '_id')
   @ObjectIdConverter()
   final ObjectId id;
@@ -93,7 +103,7 @@ abstract class DatabaseSerializable {
   /// 4. Returns a Map that can be directly used with MongoDB operations
   Map<String, dynamic> toDatabase() {
     // Get the raw data from the object
-    final data = Map<String, dynamic>.from((this as dynamic).toJson());
+    final data = toJson();
 
     // Get the actual objectIdFields from the extension if available
     Set<String> fields;
@@ -144,14 +154,20 @@ abstract class DatabaseSerializable {
         // Handle list of nested objects
         if (data[field] is List) {
           final list = data[field] as List;
+
           data[field] = list.map((item) {
             if (item is DatabaseSerializable) {
               return item.toDatabase();
+            } else if (_isJsonSerializable(item)) {
+              return _getToJsonFunction(item);
             } else if (item is Map<String, dynamic>) {
               final originalType = nestedTypes[field];
               if (originalType != null) {
                 final instance = originalType(item);
-                return (instance as DatabaseSerializable).toDatabase();
+                if (originalType is DatabaseSerializable) {
+                  return (instance as DatabaseSerializable).toDatabase();
+                }
+                return item;
               }
             }
             return item;
@@ -163,7 +179,14 @@ abstract class DatabaseSerializable {
           final originalType = nestedTypes[field];
           if (originalType != null) {
             final instance = originalType(data[field] as Map<String, dynamic>);
-            data[field] = (instance as DatabaseSerializable).toDatabase();
+            if (instance is DatabaseSerializable) {
+              data[field] = instance.toDatabase();
+            } else if (_isJsonSerializable(instance)) {
+              var toJsonFunction = _getToJsonFunction(instance);
+              if (toJsonFunction != null) {
+                data[field] = toJsonFunction();
+              }
+            }
           }
         }
       }
@@ -176,4 +199,48 @@ abstract class DatabaseSerializable {
   /// Override this to provide factory constructors for nested types
   /// Key is the field name, value is a function that creates an instance from JSON
   Map<String, Function> get nestedTypes => {};
+
+  bool _isJsonSerializable(dynamic object) {
+    return _getToJsonFunction(object) != null;
+  }
+
+  /// Returns the toJson function of an object if it exists, otherwise returns null.
+  ///
+  /// This helper method uses reflection to check if an object has a toJson method
+  /// that can be called to serialize it to a `Map<String, dynamic>`.
+  ///
+  /// Example:
+  /// ```dart
+  /// final jsonFunc = _getToJsonFunction(someObject);
+  /// if (jsonFunc != null) {
+  ///   final json = jsonFunc(someObject);
+  ///   // Use the JSON data...
+  /// }
+  /// ```
+  Map<String, dynamic> Function()? _getToJsonFunction(dynamic object) {
+    if (object == null) return null;
+
+    try {
+      // Use dynamic access to avoid static type checking errors
+      final toJsonMethod = object.toJson;
+
+      if (toJsonMethod != null && toJsonMethod is Function) {
+        // Create a wrapper function that ensures the return type is Map<String, dynamic>
+        return () {
+          final result = toJsonMethod();
+          if (result is Map<String, dynamic>) {
+            return result;
+          } else {
+            throw FormatException(
+                'Object\'s toJson method did not return a Map<String, dynamic>');
+          }
+        };
+      }
+    } catch (e) {
+      // If accessing toJson throws an error, the object doesn't have the method
+      return null;
+    }
+
+    return null;
+  }
 }

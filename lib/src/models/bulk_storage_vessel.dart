@@ -61,6 +61,7 @@ class BulkStorageVesselModel extends DatabaseSerializable {
 
   factory BulkStorageVesselModel.fromJson(Map<String, dynamic> json) =>
       _$BulkStorageVesselModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BulkStorageVesselModelToJson(this);
 
   @override

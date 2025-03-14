@@ -36,6 +36,7 @@ class StillModel extends DatabaseSerializable {
 
   factory StillModel.fromJson(Map<String, dynamic> json) =>
       _$StillModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$StillModelToJson(this);
 
   @override

@@ -40,6 +40,7 @@ class PaymentModel extends DatabaseSerializable {
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) =>
       _$PaymentModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PaymentModelToJson(this);
 
   @override

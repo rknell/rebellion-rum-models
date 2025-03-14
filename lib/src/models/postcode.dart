@@ -43,6 +43,7 @@ class PostcodeModel extends DatabaseSerializable {
 
   factory PostcodeModel.fromJson(Map<String, dynamic> json) =>
       _$PostcodeModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PostcodeModelToJson(this);
 
   @override

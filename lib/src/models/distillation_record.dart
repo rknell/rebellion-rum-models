@@ -62,6 +62,7 @@ class DistillationRecordModel extends DatabaseSerializable {
 
   factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$DistillationRecordModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DistillationRecordModelToJson(this);
 
   @override

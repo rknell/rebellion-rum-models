@@ -57,11 +57,12 @@ void createDatabaseSerializationTests<T extends DatabaseSerializable>({
               for (final item in list) {
                 if (item is Map<String, dynamic> && item.containsKey('_id')) {
                   if (item['_id'] == null) continue;
+
                   expect(
                     item['_id'],
                     isA<ObjectId>(),
                     reason:
-                        'Nested list item _id should be an ObjectId in database format',
+                        '${model.runtimeType} - Nested list item _id should be an ObjectId in database format',
                   );
                 }
               }

@@ -92,6 +92,7 @@ class FermentationRecordModel extends DatabaseSerializable {
 
   factory FermentationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$FermentationRecordModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FermentationRecordModelToJson(this);
 
   @override

@@ -33,6 +33,7 @@ class StocktakeModel extends DatabaseSerializable {
 
   factory StocktakeModel.fromJson(Map<String, dynamic> json) =>
       _$StocktakeModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$StocktakeModelToJson(this);
 
   @override

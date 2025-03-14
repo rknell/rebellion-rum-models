@@ -22,6 +22,7 @@ class ExciseReturnModel extends DatabaseSerializable {
 
   factory ExciseReturnModel.fromJson(Map<String, dynamic> json) =>
       _$ExciseReturnModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ExciseReturnModelToJson(this);
 
   @override
