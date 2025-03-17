@@ -38,7 +38,7 @@ class OrderModel extends DatabaseSerializable {
   String orderNumber;
 
   /// Method used for payment (e.g., 'card')
-  String paymentMethod;
+  String? paymentMethod;
 
   /// Payment receipt details
   Map<String, dynamic>? paymentReceipt;

@@ -3,6 +3,50 @@
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+/// Converts various formats to DateTime.
+///
+/// When deserializing:
+/// - Accepts DateTime instances directly
+/// - Accepts ISO 8601 strings (e.g. "2023-01-01T12:00:00.000Z")
+/// - Throws FormatException for invalid formats
+///
+/// @param json The input value to convert to DateTime
+/// @return DateTime object
+DateTime jsonToDateTime(dynamic json) {
+  // Already a DateTime
+  if (json is DateTime) return json;
+
+  // String format (ISO 8601)
+  if (json is String) {
+    try {
+      return DateTime.parse(json);
+    } catch (e) {
+      throw FormatException('Invalid DateTime format: $json');
+    }
+  }
+
+  throw FormatException('Cannot convert to DateTime: $json');
+}
+
+/// Converts various formats to nullable DateTime.
+///
+/// When deserializing:
+/// - Returns null for null input
+/// - Accepts DateTime instances directly
+/// - Accepts ISO 8601 strings (e.g. "2023-01-01T12:00:00.000Z")
+/// - Throws FormatException for invalid formats
+///
+/// @param json The input value to convert to DateTime?
+/// @return DateTime object or null
+DateTime? jsonToNullableDateTime(dynamic json) {
+  if (json == null) return null;
+  return jsonToDateTime(json);
+}
+
+String dateTimeToJson(DateTime dateTime) => dateTime.toIso8601String();
+String? dateTimeToJsonNullable(DateTime? dateTime) =>
+    dateTime?.toIso8601String();
+
 /// Converts ObjectIds to and from JSON format.
 ///
 /// When deserializing (fromJson):

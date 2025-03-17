@@ -25,7 +25,18 @@ part 'sale.g.dart';
 @JsonSerializable(explicitToJson: true)
 class SaleModel extends DatabaseSerializable {
   /// When the sale was completed
-  DateTime timestamp;
+  @JsonKey(name: 'timestamp')
+  dynamic _timestamp;
+
+  DateTime get timestamp {
+    return _timestamp is String
+        ? DateTime.tryParse(_timestamp)
+        : _timestamp ?? id.dateTime;
+  }
+
+  set timestamp(DateTime time) {
+    _timestamp = time;
+  }
 
   /// Due date for credit sales
   DateTime? dueDate;
@@ -94,7 +105,7 @@ class SaleModel extends DatabaseSerializable {
     bool? isMatesRates,
     this.dueDate,
     SaleStatus? status,
-  })  : timestamp = timestamp ?? DateTime.now(),
+  })  : _timestamp = timestamp,
         coupons = _couponsFromJson(coupons),
         items = items ?? [],
         payments = payments ?? [],

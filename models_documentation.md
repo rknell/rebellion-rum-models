@@ -1634,7 +1634,7 @@ class OrderModel extends DatabaseSerializable {
   String orderNumber;
 
   /// Method used for payment (e.g., 'card')
-  String paymentMethod;
+  String? paymentMethod;
 
   /// Payment receipt details
   Map<String, dynamic>? paymentReceipt;
@@ -2228,7 +2228,8 @@ part 'sale.g.dart';
 @JsonSerializable(explicitToJson: true)
 class SaleModel extends DatabaseSerializable {
   /// When the sale was completed
-  DateTime timestamp;
+  @JsonKey(toJson: dateTimeToJsonNullable, fromJson: jsonToNullableDateTime)
+  DateTime? timestamp;
 
   /// Due date for credit sales
   DateTime? dueDate;
@@ -2311,20 +2312,6 @@ class SaleModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
-
-  @override
-  Map<String, bool> get nestedDatabaseSerializables => {
-        'items': true, // List of SaleItemModel
-        'payments': true, // List of PaymentModel
-        'coupons': true, // List of CouponModel
-      };
-
-  @override
-  Map<String, Function> get nestedTypes => {
-        'items': SaleItemModel.fromJson,
-        'payments': PaymentModel.fromJson,
-        'coupons': CouponModel.fromJson,
-      };
 }
 
 /// Status of a sale
