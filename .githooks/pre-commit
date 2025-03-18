@@ -2,9 +2,16 @@
 
 echo "Running pre-commit hooks..."
 
+# Define paths
+DART_PATH=~/sdks/flutter/bin/dart
+# Fallback to PATH if the explicit path doesn't work
+if [[ ! -x "$DART_PATH" ]]; then
+  DART_PATH=$(which dart 2>/dev/null || echo "dart")
+fi
+
 # Run build_runner first
 echo "Running build_runner..."
-dart run build_runner build --delete-conflicting-outputs
+"$DART_PATH" run build_runner build --delete-conflicting-outputs
 BUILD_EXIT_CODE=$?
 
 if [ $BUILD_EXIT_CODE -ne 0 ]; then
@@ -17,7 +24,7 @@ git add "**/*.g.dart"
 
 # Run dart format and stage changes
 echo "Running dart format..."
-dart format .
+"$DART_PATH" format .
 FORMAT_EXIT_CODE=$?
 
 if [ $FORMAT_EXIT_CODE -ne 0 ]; then
@@ -30,7 +37,7 @@ git add .
 
 # Run dart analyze
 echo "Running dart analyze..."
-dart analyze
+"$DART_PATH" analyze
 ANALYZE_EXIT_CODE=$?
 
 if [ $ANALYZE_EXIT_CODE -ne 0 ]; then
@@ -40,7 +47,7 @@ fi
 
 # Run tests
 echo "Running tests..."
-dart test
+"$DART_PATH" test
 TEST_EXIT_CODE=$?
 
 if [ $TEST_EXIT_CODE -ne 0 ]; then

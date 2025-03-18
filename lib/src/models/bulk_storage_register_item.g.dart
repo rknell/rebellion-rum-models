@@ -19,13 +19,13 @@ BulkStorageRegisterItemModel _$BulkStorageRegisterItemModelFromJson(
       wastage: json['wastage'] as bool? ?? false,
       isStocktake: json['isStocktake'] as bool? ?? false,
       notes: json['notes'] as String?,
-      fromChargeId:
+      fromDistillationId:
           const NullableObjectIdConverter().fromJson(json['fromChargeId']),
       fromVesselId:
           const NullableObjectIdConverter().fromJson(json['fromVesselId']),
       toVesselId:
           const NullableObjectIdConverter().fromJson(json['toVesselId']),
-      toChargeId:
+      toDistillationId:
           const NullableObjectIdConverter().fromJson(json['toChargeId']),
       toPackagingId:
           const NullableObjectIdConverter().fromJson(json['toPackagingId']),
@@ -46,7 +46,7 @@ Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
       'feintsDestroyed': instance.feintsDestroyed,
       'wastage': instance.wastage,
       if (instance.notes case final value?) 'notes': value,
-      if (const NullableObjectIdConverter().toJson(instance.fromChargeId)
+      if (const NullableObjectIdConverter().toJson(instance.fromDistillationId)
           case final value?)
         'fromChargeId': value,
       if (const NullableObjectIdConverter().toJson(instance.fromVesselId)
@@ -55,7 +55,7 @@ Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
       if (const NullableObjectIdConverter().toJson(instance.toVesselId)
           case final value?)
         'toVesselId': value,
-      if (const NullableObjectIdConverter().toJson(instance.toChargeId)
+      if (const NullableObjectIdConverter().toJson(instance.toDistillationId)
           case final value?)
         'toChargeId': value,
       if (const NullableObjectIdConverter().toJson(instance.toPackagingId)

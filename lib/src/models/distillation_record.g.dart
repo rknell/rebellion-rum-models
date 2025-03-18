@@ -24,7 +24,10 @@ DistillationRecordModel _$DistillationRecordModelFromJson(
       notes: (json['notes'] as List<dynamic>?)
           ?.map((e) => NoteModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-    );
+    )..ginStillStocktake = json['ginStillStocktake'] == null
+        ? null
+        : GinStillStocktakeModel.fromJson(
+            json['ginStillStocktake'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$DistillationRecordModelToJson(
         DistillationRecordModel instance) =>
@@ -39,6 +42,8 @@ Map<String, dynamic> _$DistillationRecordModelToJson(
       'totalLALsCharged': instance.totalLALsCharged,
       'totalLALsYield': instance.totalLALsYield,
       'notes': instance.notes.map((e) => e.toJson()).toList(),
+      if (instance.ginStillStocktake?.toJson() case final value?)
+        'ginStillStocktake': value,
     };
 
 const _$DistillationStatusEnumMap = {
@@ -57,4 +62,20 @@ Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
       'content': instance.content,
       'date': instance.date.toIso8601String(),
       'isSystem': instance.isSystem,
+    };
+
+GinStillStocktakeModel _$GinStillStocktakeModelFromJson(
+        Map<String, dynamic> json) =>
+    GinStillStocktakeModel(
+      height: (json['height'] as num).toDouble(),
+      abv: (json['abv'] as num).toDouble(),
+      temperature: (json['temperature'] as num?)?.toDouble() ?? 20,
+    );
+
+Map<String, dynamic> _$GinStillStocktakeModelToJson(
+        GinStillStocktakeModel instance) =>
+    <String, dynamic>{
+      'height': instance.height,
+      'abv': instance.abv,
+      'temperature': instance.temperature,
     };

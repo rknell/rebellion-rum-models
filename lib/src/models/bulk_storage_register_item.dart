@@ -32,14 +32,14 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
     if (wastage) return BulkStorageMovementType.wastage;
 
     // Handle vessel/charge/packaging transfers
-    if (fromChargeId != null) {
+    if (fromDistillationId != null) {
       if (toVesselId != null) return BulkStorageMovementType.fromStill;
       // If no destination and feints destroyed, it's still feints destroyed
       if (feintsDestroyed) return BulkStorageMovementType.feintsDestroyed;
     }
 
     if (fromVesselId != null) {
-      if (toChargeId != null) return BulkStorageMovementType.toStill;
+      if (toDistillationId != null) return BulkStorageMovementType.toStill;
       if (toPackagingId != null) return BulkStorageMovementType.toPackaging;
       if (toVesselId != null) return BulkStorageMovementType.vesselTransfer;
     }
@@ -58,7 +58,8 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
 
   /// Reference to the source charge (if applicable)
   @NullableObjectIdConverter()
-  ObjectId? fromChargeId;
+  @JsonKey(name: 'fromChargeId')
+  ObjectId? fromDistillationId;
 
   /// Reference to the source vessel (if applicable)
   @NullableObjectIdConverter()
@@ -70,7 +71,8 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
 
   /// Reference to the destination charge (if applicable)
   @NullableObjectIdConverter()
-  ObjectId? toChargeId;
+  @JsonKey(name: 'toChargeId')
+  ObjectId? toDistillationId;
 
   /// Reference to the destination packaging (if applicable)
   @NullableObjectIdConverter()
@@ -107,10 +109,10 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
     this.wastage = false,
     this.isStocktake = false,
     this.notes,
-    this.fromChargeId,
+    this.fromDistillationId,
     this.fromVesselId,
     this.toVesselId,
-    this.toChargeId,
+    this.toDistillationId,
     this.toPackagingId,
     this.fromPackagingId,
     this.productId,

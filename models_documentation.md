@@ -559,14 +559,14 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
     if (wastage) return BulkStorageMovementType.wastage;
 
     // Handle vessel/charge/packaging transfers
-    if (fromChargeId != null) {
+    if (fromDistillationId != null) {
       if (toVesselId != null) return BulkStorageMovementType.fromStill;
       // If no destination and feints destroyed, it's still feints destroyed
       if (feintsDestroyed) return BulkStorageMovementType.feintsDestroyed;
     }
 
     if (fromVesselId != null) {
-      if (toChargeId != null) return BulkStorageMovementType.toStill;
+      if (toDistillationId != null) return BulkStorageMovementType.toStill;
       if (toPackagingId != null) return BulkStorageMovementType.toPackaging;
       if (toVesselId != null) return BulkStorageMovementType.vesselTransfer;
     }
@@ -585,7 +585,8 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
 
   /// Reference to the source charge (if applicable)
   @NullableObjectIdConverter()
-  ObjectId? fromChargeId;
+  @JsonKey(name: 'fromChargeId')
+  ObjectId? fromDistillationId;
 
   /// Reference to the source vessel (if applicable)
   @NullableObjectIdConverter()
@@ -597,7 +598,8 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
 
   /// Reference to the destination charge (if applicable)
   @NullableObjectIdConverter()
-  ObjectId? toChargeId;
+  @JsonKey(name: 'toChargeId')
+  ObjectId? toDistillationId;
 
   /// Reference to the destination packaging (if applicable)
   @NullableObjectIdConverter()
@@ -634,10 +636,10 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
     this.wastage = false,
     this.isStocktake = false,
     this.notes,
-    this.fromChargeId,
+    this.fromDistillationId,
     this.fromVesselId,
     this.toVesselId,
-    this.toChargeId,
+    this.toDistillationId,
     this.toPackagingId,
     this.fromPackagingId,
     this.productId,
@@ -800,16 +802,12 @@ class CartModel extends DatabaseSerializable {
   /// Customer information for delivery
   UserInfoModel userInfo;
 
-  /// Payment processing information
-  PaymentIntentModel? paymentIntent;
-
   CartModel({
     super.id,
     required this.cartId,
     this.deliveryMethod,
     required this.products,
     required this.userInfo,
-    this.paymentIntent,
   });
 
   factory CartModel.fromJson(Map<String, dynamic> json) =>
@@ -833,7 +831,6 @@ class CartModel extends DatabaseSerializable {
         'deliveryMethod': DeliveryMethodModel.fromJson,
         'products': CartProductModel.fromJson,
         'userInfo': UserInfoModel.fromJson,
-        'paymentIntent': PaymentIntentModel.fromJson,
       };
 }
 
@@ -1001,60 +998,6 @@ class UserInfoModel {
   factory UserInfoModel.fromJson(Map<String, dynamic> json) =>
       _$UserInfoModelFromJson(json);
   Map<String, dynamic> toJson() => _$UserInfoModelToJson(this);
-}
-
-/// Represents a Stripe payment intent for processing payments.
-///
-/// Contains all necessary information for tracking and processing
-/// a payment through the Stripe payment system.
-///
-/// Example:
-/// ```dart
-/// final intent = PaymentIntentModel(
-///   object: 'payment_intent',
-///   id: 'pi_123456',
-///   amount: 4999,
-///   amount_received: 4999,
-///   automatic_payment_methods: {'enabled': true},
-///   client_secret: 'pi_123456_secret_789',
-///   currency: 'aud',
-///   status: 'succeeded',
-///   created: 1634567890,
-///   metadata: {},
-///   payment_method_types: ['card'],
-/// );
-/// ```
-@JsonSerializable(fieldRename: FieldRename.snake)
-class PaymentIntentModel {
-  final String object;
-  final String id;
-  final int amount;
-  final int amountReceived;
-  final Map<String, dynamic> automaticPaymentMethods;
-  final String clientSecret;
-  final String currency;
-  final String status;
-  final int created;
-  final Map<String, dynamic> metadata;
-  final List<String> paymentMethodTypes;
-
-  const PaymentIntentModel({
-    required this.object,
-    required this.id,
-    required this.amount,
-    required this.amountReceived,
-    required this.automaticPaymentMethods,
-    required this.clientSecret,
-    required this.currency,
-    required this.status,
-    required this.created,
-    required this.metadata,
-    required this.paymentMethodTypes,
-  });
-
-  factory PaymentIntentModel.fromJson(Map<String, dynamic> json) =>
-      _$PaymentIntentModelFromJson(json);
-  Map<String, dynamic> toJson() => _$PaymentIntentModelToJson(this);
 }
 
 ```
@@ -1322,6 +1265,8 @@ class DistillationRecordModel extends DatabaseSerializable {
   /// Notes taken during the distillation process
   final List<NoteModel> notes;
 
+  GinStillStocktakeModel? ginStillStocktake;
+
   DistillationRecordModel({
     super.id,
     this.stillUsed = '',
@@ -1370,6 +1315,34 @@ class NoteModel {
   factory NoteModel.fromJson(Map<String, dynamic> json) =>
       _$NoteModelFromJson(json);
   Map<String, dynamic> toJson() => _$NoteModelToJson(this);
+}
+
+/// Represents a stocktake measurement for a gin still
+///
+/// This model captures the key measurements needed for inventory tracking
+/// of spirits in a gin still, including the liquid height, alcohol by volume,
+/// and temperature (defaulting to 20°C if not specified).
+@JsonSerializable()
+class GinStillStocktakeModel {
+  /// The height of the liquid in the still
+  final double height;
+
+  /// The alcohol by volume (ABV) as a decimal (e.g., 0.40 for 40%)
+  final double abv;
+
+  /// The temperature of the liquid in Celsius
+  /// Defaults to 20°C if not specified
+  final double temperature;
+
+  GinStillStocktakeModel({
+    required this.height,
+    required this.abv,
+    this.temperature = 20,
+  });
+
+  factory GinStillStocktakeModel.fromJson(Map<String, dynamic> json) =>
+      _$GinStillStocktakeModelFromJson(json);
+  Map<String, dynamic> toJson() => _$GinStillStocktakeModelToJson(this);
 }
 
 ```
@@ -2228,8 +2201,18 @@ part 'sale.g.dart';
 @JsonSerializable(explicitToJson: true)
 class SaleModel extends DatabaseSerializable {
   /// When the sale was completed
-  @JsonKey(toJson: dateTimeToJsonNullable, fromJson: jsonToNullableDateTime)
-  DateTime? timestamp;
+  @JsonKey(name: 'timestamp')
+  dynamic _timestamp;
+
+  DateTime get timestamp {
+    return _timestamp is String
+        ? DateTime.tryParse(_timestamp)
+        : _timestamp ?? id.dateTime;
+  }
+
+  set timestamp(DateTime time) {
+    _timestamp = time;
+  }
 
   /// Due date for credit sales
   DateTime? dueDate;
@@ -2298,7 +2281,7 @@ class SaleModel extends DatabaseSerializable {
     bool? isMatesRates,
     this.dueDate,
     SaleStatus? status,
-  })  : timestamp = timestamp ?? DateTime.now(),
+  })  : _timestamp = timestamp,
         coupons = _couponsFromJson(coupons),
         items = items ?? [],
         payments = payments ?? [],

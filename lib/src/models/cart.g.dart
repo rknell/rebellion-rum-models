@@ -18,10 +18,6 @@ CartModel _$CartModelFromJson(Map<String, dynamic> json) => CartModel(
           .toList(),
       userInfo:
           UserInfoModel.fromJson(json['userInfo'] as Map<String, dynamic>),
-      paymentIntent: json['paymentIntent'] == null
-          ? null
-          : PaymentIntentModel.fromJson(
-              json['paymentIntent'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CartModelToJson(CartModel instance) => <String, dynamic>{
@@ -32,8 +28,6 @@ Map<String, dynamic> _$CartModelToJson(CartModel instance) => <String, dynamic>{
         'deliveryMethod': value,
       'products': instance.products.map((e) => e.toJson()).toList(),
       'userInfo': instance.userInfo.toJson(),
-      if (instance.paymentIntent?.toJson() case final value?)
-        'paymentIntent': value,
     };
 
 DeliveryMethodModel _$DeliveryMethodModelFromJson(Map<String, dynamic> json) =>
@@ -105,37 +99,4 @@ Map<String, dynamic> _$UserInfoModelToJson(UserInfoModel instance) =>
       'country': instance.country,
       'state': instance.state,
       'postcode': instance.postcode,
-    };
-
-PaymentIntentModel _$PaymentIntentModelFromJson(Map<String, dynamic> json) =>
-    PaymentIntentModel(
-      object: json['object'] as String,
-      id: json['id'] as String,
-      amount: (json['amount'] as num).toInt(),
-      amountReceived: (json['amount_received'] as num).toInt(),
-      automaticPaymentMethods:
-          json['automatic_payment_methods'] as Map<String, dynamic>,
-      clientSecret: json['client_secret'] as String,
-      currency: json['currency'] as String,
-      status: json['status'] as String,
-      created: (json['created'] as num).toInt(),
-      metadata: json['metadata'] as Map<String, dynamic>,
-      paymentMethodTypes: (json['payment_method_types'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-    );
-
-Map<String, dynamic> _$PaymentIntentModelToJson(PaymentIntentModel instance) =>
-    <String, dynamic>{
-      'object': instance.object,
-      'id': instance.id,
-      'amount': instance.amount,
-      'amount_received': instance.amountReceived,
-      'automatic_payment_methods': instance.automaticPaymentMethods,
-      'client_secret': instance.clientSecret,
-      'currency': instance.currency,
-      'status': instance.status,
-      'created': instance.created,
-      'metadata': instance.metadata,
-      'payment_method_types': instance.paymentMethodTypes,
     };

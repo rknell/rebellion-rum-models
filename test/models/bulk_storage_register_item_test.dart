@@ -13,7 +13,7 @@ void main() {
         final model = BulkStorageRegisterItemModel(
           id: id,
           fromVesselId: fromVesselId,
-          toChargeId: toChargeId,
+          toDistillationId: toChargeId,
           lalsCalculation: AlcocalcLalsCalculation(
             weight: 10.0,
             abv: 0.15,
@@ -64,7 +64,7 @@ void main() {
         final model = BulkStorageRegisterItemModel(
           id: id,
           fromVesselId: fromVesselId,
-          toChargeId: toChargeId,
+          toDistillationId: toChargeId,
           lalsCalculation: AlcocalcLalsCalculation(
             weight: 10.0,
             abv: 0.15,
@@ -118,10 +118,10 @@ void main() {
 
       test('should handle all ObjectId fields', () {
         final model = BulkStorageRegisterItemModel(
-          fromChargeId: ObjectId(),
+          fromDistillationId: ObjectId(),
           fromVesselId: ObjectId(),
           toVesselId: ObjectId(),
-          toChargeId: ObjectId(),
+          toDistillationId: ObjectId(),
           toPackagingId: ObjectId(),
           fromPackagingId: ObjectId(),
           productId: ObjectId(),

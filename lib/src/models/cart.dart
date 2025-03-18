@@ -31,16 +31,12 @@ class CartModel extends DatabaseSerializable {
   /// Customer information for delivery
   UserInfoModel userInfo;
 
-  /// Payment processing information
-  PaymentIntentModel? paymentIntent;
-
   CartModel({
     super.id,
     required this.cartId,
     this.deliveryMethod,
     required this.products,
     required this.userInfo,
-    this.paymentIntent,
   });
 
   factory CartModel.fromJson(Map<String, dynamic> json) =>
@@ -64,7 +60,6 @@ class CartModel extends DatabaseSerializable {
         'deliveryMethod': DeliveryMethodModel.fromJson,
         'products': CartProductModel.fromJson,
         'userInfo': UserInfoModel.fromJson,
-        'paymentIntent': PaymentIntentModel.fromJson,
       };
 }
 
@@ -232,58 +227,4 @@ class UserInfoModel {
   factory UserInfoModel.fromJson(Map<String, dynamic> json) =>
       _$UserInfoModelFromJson(json);
   Map<String, dynamic> toJson() => _$UserInfoModelToJson(this);
-}
-
-/// Represents a Stripe payment intent for processing payments.
-///
-/// Contains all necessary information for tracking and processing
-/// a payment through the Stripe payment system.
-///
-/// Example:
-/// ```dart
-/// final intent = PaymentIntentModel(
-///   object: 'payment_intent',
-///   id: 'pi_123456',
-///   amount: 4999,
-///   amount_received: 4999,
-///   automatic_payment_methods: {'enabled': true},
-///   client_secret: 'pi_123456_secret_789',
-///   currency: 'aud',
-///   status: 'succeeded',
-///   created: 1634567890,
-///   metadata: {},
-///   payment_method_types: ['card'],
-/// );
-/// ```
-@JsonSerializable(fieldRename: FieldRename.snake)
-class PaymentIntentModel {
-  final String object;
-  final String id;
-  final int amount;
-  final int amountReceived;
-  final Map<String, dynamic> automaticPaymentMethods;
-  final String clientSecret;
-  final String currency;
-  final String status;
-  final int created;
-  final Map<String, dynamic> metadata;
-  final List<String> paymentMethodTypes;
-
-  const PaymentIntentModel({
-    required this.object,
-    required this.id,
-    required this.amount,
-    required this.amountReceived,
-    required this.automaticPaymentMethods,
-    required this.clientSecret,
-    required this.currency,
-    required this.status,
-    required this.created,
-    required this.metadata,
-    required this.paymentMethodTypes,
-  });
-
-  factory PaymentIntentModel.fromJson(Map<String, dynamic> json) =>
-      _$PaymentIntentModelFromJson(json);
-  Map<String, dynamic> toJson() => _$PaymentIntentModelToJson(this);
 }
