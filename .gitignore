@@ -8,3 +8,10 @@ coverage/
 test/.test_coverage.dart 
 
 anthropic_key.txt
+
+# Fixing fuckups
+scripts/clean_git_history.dart
+scripts/clean_git_history_bfg.dart
+clean_git_history.sh
+bfg-1.14.0.jar
+..bfg-report/
