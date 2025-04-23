@@ -1216,7 +1216,9 @@ class DeliveryAuthorityModel extends DatabaseSerializable {
 *File: lib/src/models/distillation_record.dart*
 
 ```dart
+import 'package:alcocalc/alcocalc.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/models/alcocalc_lals_calculation.dart';
 import '../json_helpers.dart';
 
 part 'distillation_record.g.dart';
@@ -1334,11 +1336,46 @@ class GinStillStocktakeModel {
   /// Defaults to 20°C if not specified
   final double temperature;
 
+  final double volume;
+
+  static double currentVolume(double height) {
+    var stillWidth = 70; //cm
+    var stillHeight = 61; //cm
+    // Calculate the volume based on the "head gap" measurement
+    // The height field represents the gap between liquid and top of vessel
+
+    // Calculate the actual liquid height by subtracting the head gap from still height
+    var liquidHeight = stillHeight - height;
+
+    // Ensure the liquid height is not negative
+    if (liquidHeight < 0) {
+      return 0;
+    }
+
+    // Calculate the volume using the formula for a cylinder: V = π * r² * h
+    // where r is the radius (stillWidth/2) and h is the liquid height
+
+    // Convert width to radius in cm
+    var radius = stillWidth / 2;
+
+    // Calculate the total volume of the cylinder in cubic cm
+    var liquidVolumeCm3 = 3.14159 * radius * radius * liquidHeight;
+
+    // Convert to liters (1000 cm³ = 1 liter)
+    return liquidVolumeCm3 / 1000;
+  }
+
+  final AlcocalcLalsCalculation lals;
+
   GinStillStocktakeModel({
     required this.height,
     required this.abv,
     this.temperature = 20,
-  });
+  })  : volume = currentVolume(height),
+        lals = AlcocalcLalsCalculation(
+            weight: Alcocalc.abvToAbw(abv) * currentVolume(height),
+            abv: abv,
+            temperature: temperature);
 
   factory GinStillStocktakeModel.fromJson(Map<String, dynamic> json) =>
       _$GinStillStocktakeModelFromJson(json);
@@ -2357,6 +2394,481 @@ class SaleItemModel {
   Map<String, dynamic> toJson() => _$SaleItemModelToJson(this);
 
   // No need to override objectIdFields since this model has no ObjectId fields
+}
+
+```
+
+## shipping_quote_request_model
+
+*File: lib/src/models/shipping_quote_request_model.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/models/startshipit_rate_destination_address_model.dart';
+import 'package:rebellion_rum_models/src/models/startshipit_rate_package_model.dart';
+import 'package:rebellion_rum_models/src/models/startshipit_rate_sender_address_model.dart';
+
+part 'shipping_quote_request_model.g.dart';
+
+/// Represents a request for shipping quotes.
+///
+/// This model wraps a destination address and a map of items with their quantities.
+/// It's used to request shipping rate quotes for a specific address and set of items.
+///
+/// Example:
+/// ```dart
+/// final request = ShippingQuoteRequestModel(
+///   address: destinationAddress,
+///   items: {'product-123': 2, 'product-456': 1},
+/// );
+/// ```
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ShippingQuoteRequestModel {
+  /// The destination address for the shipping quote
+  final StartShipItRateDestinationAddressModel address;
+
+  /// Map of item identifiers to quantities
+  /// Key: Product/item identifier
+  /// Value: Quantity of the item
+  final Map<String, int> items;
+
+  /// Calculates the total number of items by summing all quantities in the items map
+  int get totalItems => items.values.fold(0, (sum, quantity) => sum + quantity);
+
+  List<StartShipItRatePackageModel> get packages {
+    // Calculate how many packages we need based on the total items
+    // Each package can hold up to 6 items
+    final int totalItems = this.totalItems;
+    final int packagesNeeded = (totalItems / 6).ceil();
+
+    // Create the list of packages
+    final List<StartShipItRatePackageModel> result = [];
+
+    int remainingItems = totalItems;
+
+    // Create each package with the appropriate number of items
+    for (int i = 0; i < packagesNeeded; i++) {
+      // For each package, determine how many items it will contain
+      // (up to 6 items per package)
+      final int itemsInPackage = remainingItems >= 6 ? 6 : remainingItems;
+
+      result.add(
+        StartShipItRatePackageModel(
+          weight: itemsInPackage.toDouble() *
+              1.4, // Weight based on number of items
+          length: 0.29,
+          width: 0.25,
+          height: 0.20,
+        ),
+      );
+
+      remainingItems -= itemsInPackage;
+    }
+
+    return result;
+  }
+
+  StartShipItRateSenderAddressModel get sender =>
+      StartShipItRateSenderAddressModel(
+          street: "Unit 27/3 Octal St",
+          suburb: "Yatala",
+          state: "QLD",
+          postCode: "4207",
+          countryCode: "AU");
+
+  const ShippingQuoteRequestModel({
+    required this.address,
+    required this.items,
+  });
+
+  /// Creates an instance from a JSON object
+  factory ShippingQuoteRequestModel.fromJson(Map<String, dynamic> json) =>
+      _$ShippingQuoteRequestModelFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$ShippingQuoteRequestModelToJson(this);
+}
+
+```
+
+## startshipit_error_model
+
+*File: lib/src/models/startshipit_error_model.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'startshipit_error_model.g.dart';
+
+/// Represents an error from StartShipIt API
+///
+/// Contains information about the error, including the error message
+/// and detailed exception information.
+///
+/// Example:
+/// ```dart
+/// final error = StartShipItErrorModel(
+///   message: 'Invalid address',
+///   details: 'The provided postal code is not valid for the country',
+/// );
+/// ```
+@JsonSerializable(fieldRename: FieldRename.snake)
+class StartShipItErrorModel {
+  /// Error message
+  final String message;
+
+  /// Detailed exception information
+  final String details;
+
+  const StartShipItErrorModel({
+    required this.message,
+    required this.details,
+  });
+
+  /// Creates an instance from a JSON object
+  factory StartShipItErrorModel.fromJson(Map<String, dynamic> json) =>
+      _$StartShipItErrorModelFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$StartShipItErrorModelToJson(this);
+}
+
+```
+
+## startshipit_get_rates_request_model
+
+*File: lib/src/models/startshipit_get_rates_request_model.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/models/startshipit_rate_destination_address_model.dart';
+import 'package:rebellion_rum_models/src/models/startshipit_rate_package_model.dart';
+import 'package:rebellion_rum_models/src/models/startshipit_rate_sender_address_model.dart';
+
+part 'startshipit_get_rates_request_model.g.dart';
+
+/// Represents a request to get shipping rates from StartShipIt.
+///
+/// Contains sender and destination addresses, package information,
+/// and currency code.
+///
+/// Example:
+/// ```dart
+/// final request = StartShipItGetRatesRequestModel(
+///   destination: destinationAddress,
+///   packages: [package1, package2],
+///   currency: 'AUD',
+///   sender: senderAddress,
+/// );
+/// ```
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+class StartShipItGetRatesRequestModel {
+  /// Sender address details (Rate Sender Address Model)
+  /// If not provided, Pickup Address details from the Settings are used
+  final StartShipItRateSenderAddressModel? sender;
+
+  /// Shipping address details (Rate Destination Address Model)
+  final StartShipItRateDestinationAddressModel destination;
+
+  /// A list of packages with weight and dimensions (Rate Package Model)
+  final List<StartShipItRatePackageModel> packages;
+
+  /// Currency code for the order value (max length: 3) e.g. AUD
+  final String currency;
+
+  const StartShipItGetRatesRequestModel({
+    this.sender,
+    required this.destination,
+    required this.packages,
+    this.currency = "AUD",
+  });
+
+  /// Creates an instance from a JSON object
+  factory StartShipItGetRatesRequestModel.fromJson(Map<String, dynamic> json) =>
+      _$StartShipItGetRatesRequestModelFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() =>
+      _$StartShipItGetRatesRequestModelToJson(this);
+}
+
+```
+
+## startshipit_get_rates_response_model
+
+*File: lib/src/models/startshipit_get_rates_response_model.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/models/startshipit_rate_model.dart';
+
+part 'startshipit_get_rates_response_model.g.dart';
+
+/// Represents a response from the StartShipIt Get Rates API.
+///
+/// Contains a list of available shipping rates, success status,
+/// and any errors that occurred during the request.
+///
+/// Example:
+/// ```dart
+/// final response = StartShipItGetRatesResponseModel(
+///   rates: [rate1, rate2],
+///   success: true,
+///   errors: [],
+/// );
+/// ```
+@JsonSerializable(fieldRename: FieldRename.snake)
+class StartShipItGetRatesResponseModel {
+  /// A list of available shipping rates (Rate Model)
+  final List<StartShipItRateModel> rates;
+
+  /// Determines whether the request was successfully submitted
+  final bool success;
+
+  const StartShipItGetRatesResponseModel(
+      {required this.rates, required this.success});
+
+  /// Creates an instance from a JSON object
+  factory StartShipItGetRatesResponseModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$StartShipItGetRatesResponseModelFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() =>
+      _$StartShipItGetRatesResponseModelToJson(this);
+}
+
+```
+
+## startshipit_rate_destination_address_model
+
+*File: lib/src/models/startshipit_rate_destination_address_model.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'startshipit_rate_destination_address_model.g.dart';
+
+/// Represents a destination address for StartShipIt rate calculations.
+///
+/// Contains all required address components for shipping rate calculations,
+/// including street, suburb, city, state, post code, and country code.
+///
+/// Example:
+/// ```dart
+/// final destinationAddress = StartShipItRateDestinationAddressModel(
+///   street: '123 Main St',
+///   suburb: 'Richmond',
+///   city: 'Melbourne',
+///   state: 'VIC',
+///   postCode: '3121',
+///   countryCode: 'AU',
+/// );
+/// ```
+@JsonSerializable(fieldRename: FieldRename.snake)
+class StartShipItRateDestinationAddressModel {
+  /// Street number and name of the delivery address
+  final String street;
+
+  /// Suburb of the delivery address
+  final String suburb;
+
+  /// City of the delivery address
+  final String city;
+
+  /// State, regional, provincial or county name of the delivery address
+  final String state;
+
+  /// Postal or zip code of the delivery address
+  final String postCode;
+
+  /// The country code of the delivery address
+  final String countryCode;
+
+  const StartShipItRateDestinationAddressModel({
+    required this.street,
+    required this.suburb,
+    required this.state,
+    required this.postCode,
+    this.countryCode = 'AU',
+  }) : city = suburb;
+
+  /// Creates an instance from a JSON object
+  factory StartShipItRateDestinationAddressModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$StartShipItRateDestinationAddressModelFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() =>
+      _$StartShipItRateDestinationAddressModelToJson(this);
+}
+
+```
+
+## startshipit_rate_model
+
+*File: lib/src/models/startshipit_rate_model.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'startshipit_rate_model.g.dart';
+
+/// Represents a shipping rate from StartShipIt.
+///
+/// Contains information about the carrier service, including service name,
+/// service code, and total price.
+///
+/// Example:
+/// ```dart
+/// final rate = StartShipItRateModel(
+///   serviceName: 'Express Post',
+///   serviceCode: 'AUS_EXPRESS',
+///   totalPrice: 15.50,
+/// );
+/// ```
+@JsonSerializable(fieldRename: FieldRename.snake)
+class StartShipItRateModel {
+  /// Description of the carrier service
+  final String serviceName;
+
+  /// Carrier service/product code
+  final String serviceCode;
+
+  /// Price of service
+  final double totalPrice;
+
+  const StartShipItRateModel({
+    required this.serviceName,
+    required this.serviceCode,
+    required this.totalPrice,
+  });
+
+  /// Creates an instance from a JSON object
+  factory StartShipItRateModel.fromJson(Map<String, dynamic> json) =>
+      _$StartShipItRateModelFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$StartShipItRateModelToJson(this);
+}
+
+```
+
+## startshipit_rate_package_model
+
+*File: lib/src/models/startshipit_rate_package_model.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'startshipit_rate_package_model.g.dart';
+
+/// Represents a package for StartShipIt rate calculations.
+///
+/// Contains all required package dimensions and weight for shipping rate calculations,
+/// including weight, height, width, and length.
+///
+/// Example:
+/// ```dart
+/// final package = StartShipItRatePackageModel(
+///   weight: 1.5,
+///   height: 0.3,
+///   width: 0.25,
+///   length: 0.4,
+/// );
+/// ```
+@JsonSerializable(fieldRename: FieldRename.snake)
+class StartShipItRatePackageModel {
+  /// Physical weight of the parcel in kilograms (kg)
+  final double weight;
+
+  /// Height of the parcel in meters (m)
+  final double? height;
+
+  /// Width of the parcel in meters (m)
+  final double? width;
+
+  /// Length of the parcel in meters (m)
+  final double? length;
+
+  const StartShipItRatePackageModel({
+    required this.weight,
+    this.height,
+    this.width,
+    this.length,
+  });
+
+  /// Creates an instance from a JSON object
+  factory StartShipItRatePackageModel.fromJson(Map<String, dynamic> json) =>
+      _$StartShipItRatePackageModelFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$StartShipItRatePackageModelToJson(this);
+}
+
+```
+
+## startshipit_rate_sender_address_model
+
+*File: lib/src/models/startshipit_rate_sender_address_model.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'startshipit_rate_sender_address_model.g.dart';
+
+/// Represents a sender address for StartShipIt rate calculations.
+///
+/// Contains all required address components for shipping rate calculations,
+/// including street, suburb, city, state, post code, and country code.
+///
+/// Example:
+/// ```dart
+/// final senderAddress = StartShipItRateSenderAddressModel(
+///   street: '123 Main St',
+///   suburb: 'Richmond',
+///   city: 'Melbourne',
+///   state: 'VIC',
+///   postCode: '3121',
+///   countryCode: 'AU',
+/// );
+/// ```
+@JsonSerializable(fieldRename: FieldRename.snake)
+class StartShipItRateSenderAddressModel {
+  /// Street number and name of the sender address
+  final String street;
+
+  /// Suburb of the sender address
+  final String suburb;
+
+  /// City of the sender address
+  final String city;
+
+  /// State, regional, provincial or county name of the sender address
+  final String state;
+
+  /// Postal or zip code of the sender address
+  final String postCode;
+
+  /// The country code of the sender address
+  final String countryCode;
+
+  const StartShipItRateSenderAddressModel({
+    required this.street,
+    required this.suburb,
+    required this.state,
+    required this.postCode,
+    required this.countryCode,
+  }) : city = suburb;
+
+  /// Creates an instance from a JSON object
+  factory StartShipItRateSenderAddressModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$StartShipItRateSenderAddressModelFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() =>
+      _$StartShipItRateSenderAddressModelToJson(this);
 }
 
 ```

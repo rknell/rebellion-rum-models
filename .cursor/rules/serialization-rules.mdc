@@ -8,6 +8,32 @@ globs: *.dart
 These rules define the standard practices for JSON serialization in the Rebellion Rum Models package.
 Following these guidelines ensures consistent, robust serialization behavior across all models.
 
+## Build Runner
+
+### Required Step After Model Changes
+- After creating or modifying any JSON serializable model, you MUST run the build_runner to generate the `.g.dart` files
+- This step is required before considering any model modification task complete
+- Run the build_runner using: `dart run build_runner build --delete-conflicting-outputs`
+- Always check for build errors or warnings and address them before committing changes
+
+### Required Analysis After Build Runner
+- After running the build_runner, always run `dart analyze` to check for any issues
+- Fix any analyzer warnings or errors before considering the task complete
+- Common issues include:
+  - Missing imports in generated files
+  - Type mismatches between declared types and serialized types
+  - Nullable/non-nullable type issues
+- This verification step helps catch issues early and ensures code quality
+
+## Model Registration
+
+### Export New Models
+- All newly created models MUST be exported in the `lib/rebellion_rum_models.dart` file
+- Add an export statement for each new model file in the Models section
+- Example: `export 'src/models/your_new_model.dart';`
+- This ensures the model is available to consumers of the package
+- This step is required before considering any new model implementation complete
+
 ## Enum Serialization
 
 ### Required Annotations
