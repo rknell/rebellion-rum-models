@@ -13,7 +13,7 @@ part 'shipping_quote_request_model.g.dart';
 /// Example:
 /// ```dart
 /// final request = ShippingQuoteRequestModel(
-///   address: destinationAddress,
+///   address: <StartShipItRateDestinationAddressModel>,
 ///   items: {'product-123': 2, 'product-456': 1},
 /// );
 /// ```

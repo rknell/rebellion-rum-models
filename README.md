@@ -8,6 +8,7 @@ This package contains the data models used across the Rebellion Rum applications
 - MongoDB/Database serialization with proper ObjectId handling
 - Type-safe model definitions with documentation
 - Comprehensive test coverage
+- TypeScript type definitions generation for frontend projects
 
 ## Getting Started
 
@@ -128,11 +129,32 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ### Build
 
-Generate JSON serialization code:
+Generate JSON serialization code and TypeScript definitions:
 
 ```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
+
+### TypeScript Definitions
+
+The package includes a tool to generate TypeScript definitions from your Dart models. This ensures your frontend code stays in sync with your Dart models.
+
+Generate individual TypeScript files (happens automatically with build_runner):
+```bash
+dart run build_runner build --delete-conflicting-outputs
+```
+
+Combine all TypeScript definitions into a single file:
+```bash
+dart run bin/generate_typescript_definitions.dart
+```
+
+For custom input/output paths:
+```bash
+dart run bin/generate_typescript_definitions.dart -i lib/src/models -o frontend/src/types/models.d.ts
+```
+
+See [TypeScript Generator Documentation](docs/typescript_generator.md) for more details.
 
 ### Watch Mode
 

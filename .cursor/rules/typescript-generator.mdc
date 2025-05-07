@@ -1,0 +1,132 @@
+---
+description: 
+globs: typescript_definitions_generator.dart
+alwaysApply: false
+---
+# Rules for changing the typescript generator
+
+- All solutions need to be general.
+- A reference to a specific field name or class name is BAD and will be rejected
+- Generate and check the [models.d.ts](mdc:dist/models.d.ts) for linter errors when complete
+- Do not include logic for types that do not exist in dart, for example `dict`
+- Don't hard code the dynamic types, extract them. For example, a `Map<String, dynamic>` the types should be detected as Map, String, dynamic (any). Don't use like contains `String.contains("Map<String, String>")` instead check that it contains `String.contains("Map<")` and further build the logic from there. The same goes for `List<` and `Set<`. 
+
+## Field Name Handling
+
+- Always preserve the JSON field names in the generated TypeScript interfaces
+- Extract field names directly from JSON access patterns in the fromJson methods
+- Support models with `@JsonSerializable(fieldRename: FieldRename.snake)` and other field rename strategies by examining the actual JSON keys used
+- Use a multi-pass approach:
+  1. First check for direct JSON key accesses like `json['field_name']` or `json["field_name"]`
+  2. Then fall back to other sources like toJson methods for additional field mappings
+  3. Finally use standard field name conversion if no explicit mapping is found
+
+## Type Parsing
+
+The type parser should work like this:
+```dart
+class ThreeTypeReturn {
+    Type parentType;
+    Type type1;
+    Type type2;
+
+    ...
+}
+
+ThreeTypeReturn parseThreeType(String input){
+    /// input = Map<String, dynamic>
+    return ThreeTypeReturn(
+        parentType: Map,
+        type1: String,
+        type2: dynamic
+    )
+}
+```
+
+## Collection Handling
+
+- Sets should be converted to lists/arrays in TypeScript
+- Maps should be converted to `Record<K, V>` in TypeScript
+- When handling collections, examine the element types for proper conversion
+
+##
+
+# TypeScript Definitions Generator
+
+This package includes a build_runner generator that automatically creates TypeScript type definitions from Dart JSON serializable models.
+
+## Overview
+
+The TypeScript Definitions Generator reads your Dart models that use `@JsonSerializable()` annotations and automatically generates equivalent TypeScript interfaces. This ensures your frontend TypeScript code stays in sync with your Dart models.
+
+Key features:
+- Automatic conversion of Dart types to TypeScript types
+- Support for enums, nested objects, and collections
+- Respects nullability and optional fields
+- Handles ObjectId fields by converting them to string in TypeScript
+- Supports combining all definitions into a single file for easy import
+
+## Usage
+
+### Generating TypeScript Definitions
+
+When you run the build_runner, TypeScript definition files will be generated alongside your Dart files:
+```bash
+dart run build_runner build --delete-conflicting-outputs
+```
+
+This will create `.ts` files for each of your model files in the same directory. For example:
+- `lib/src/models/product.dart` → `lib/src/models/product.ts`
+
+
+## Type Conversion Table
+
+| Dart Type | TypeScript Type |
+|-----------|----------------|
+| String | string |
+| int, double, num | number |
+| bool | boolean |
+| DateTime | string |
+| ObjectId | string |
+| List\<T> | T[] |
+| Map\<K, V> | Record\<K, V> |
+| enum | enum |
+| class | interface |
+| nullable types | type \| null |
+
+
+# Here is the logic we use:
+i think the basic logic is flawed and its totally possible to get this right, you just need to do a multi step approach.
+
+consider this input:
+
+the lalsCalculation field needs to be extracted accurately first and considered a single line, so the logic should flow something like this:
+
+after the => operator get the model name, then match everything between the opening brackeet and the closing bracket with a semicolon - that is all of the fields.
+
+split the string by a comma (,) to get the individual fields
+
+then we run a logic tree of something like this:
+
+if it contains ?? its NOT NULLABLE, if it doesn't then its nullable
+if it contains .fromJson - get the classname immediately before it, thats the type name
+if it contains as num then its a number
+if it contains NullableObjectIdConverter its a nullable string
+if it contains ObjectIdConverter its a non nullable string
+if it contains as String its a string
+if it contains as bool its a boolean
+if its contains as Map its a record
+if it contains toDouble() or toInt() its a number
+if it contains List<dynamic> or as List and contains .map or toList, it's an array
+  - if the array contains .fromJson, get the classname before it and use Type[]
+  - if the array contains as String, use string[]
+  - if the array contains as num, toDouble, or toInt, use number[]
+  - if the array contains as bool, use boolean[]
+  - otherwise, use any[]
+if it contains DateTime.parse, it's a string
+if it contains _$EnumMap, extract the enum name and use that as the type
+
+
+dont even need regex barely for this approach and it should be pretty robust.
+
+update @generate_typescript_from_g_dart.dart to use this approach and discard the current approach
