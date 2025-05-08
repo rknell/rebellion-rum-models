@@ -340,6 +340,18 @@ export interface PostcodeModel {
   state: string;
 }
 
+export interface ProductEphemeralDetails {
+  barcode: string;
+  price: number;
+  stock: number;
+}
+
+export interface ProductEphemeralDetailsResponse {
+  items: ProductEphemeralDetails[];
+  success: boolean;
+  total: number;
+}
+
 export interface ProductModel {
   _id: any;
   abv: number | null;
