@@ -1002,6 +1002,101 @@ class UserInfoModel {
 
 ```
 
+## confirm_payment_request
+
+*File: lib/src/models/confirm_payment_request.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'confirm_payment_request.g.dart';
+
+/// Represents a request to confirm a payment intent.
+///
+/// This model contains the necessary information to confirm a previously created
+/// payment intent, including the payment intent ID and optional payment method ID.
+///
+/// Example:
+/// ```dart
+/// final request = ConfirmPaymentRequest(
+///   paymentIntentId: 'pi_1234567890',
+///   paymentMethodId: 'pm_1234567890',
+/// );
+/// ```
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ConfirmPaymentRequest {
+  /// The ID of the payment intent to confirm
+  final String paymentIntentId;
+
+  /// The optional ID of the payment method to use for confirmation
+  final String? paymentMethodId;
+
+  /// Creates a new payment confirmation request
+  const ConfirmPaymentRequest({
+    required this.paymentIntentId,
+    this.paymentMethodId,
+  });
+
+  /// Creates an instance from a JSON object
+  factory ConfirmPaymentRequest.fromJson(Map<String, dynamic> json) =>
+      _$ConfirmPaymentRequestFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$ConfirmPaymentRequestToJson(this);
+}
+
+```
+
+## confirm_payment_response
+
+*File: lib/src/models/confirm_payment_response.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'confirm_payment_response.g.dart';
+
+/// Represents a response from confirming a payment intent.
+///
+/// This model contains information about the confirmed payment intent, including
+/// the payment intent details and status.
+///
+/// Example:
+/// ```dart
+/// final response = ConfirmPaymentResponse(
+///   success: true,
+///   paymentIntent: {'id': 'pi_1234567890', 'status': 'succeeded'},
+///   status: 'succeeded',
+/// );
+/// ```
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ConfirmPaymentResponse {
+  /// Whether the payment intent confirmation was successful
+  final bool success;
+
+  /// The details of the confirmed payment intent
+  final Map<String, dynamic>? paymentIntent;
+
+  /// The status of the payment intent after confirmation
+  final String? status;
+
+  /// Creates a new payment confirmation response
+  const ConfirmPaymentResponse({
+    required this.success,
+    this.paymentIntent,
+    this.status,
+  });
+
+  /// Creates an instance from a JSON object
+  factory ConfirmPaymentResponse.fromJson(Map<String, dynamic> json) =>
+      _$ConfirmPaymentResponseFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$ConfirmPaymentResponseToJson(this);
+}
+
+```
+
 ## coupon
 
 *File: lib/src/models/coupon.dart*
@@ -3235,6 +3330,49 @@ class StripePaymentIntentModel {
 
   /// Converts this instance to a JSON object
   Map<String, dynamic> toJson() => _$StripePaymentIntentModelToJson(this);
+}
+
+```
+
+## stripe_public_key_response
+
+*File: lib/src/models/stripe_public_key_response.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'stripe_public_key_response.g.dart';
+
+/// Represents a response from the Stripe Public Key API.
+///
+/// Contains the publishable key and success status.
+///
+/// Example:
+/// ```dart
+/// final response = StripePublicKeyResponse(
+///   publishableKey: 'pk_test_example',
+///   success: true,
+/// );
+/// ```
+@JsonSerializable(fieldRename: FieldRename.snake)
+class StripePublicKeyResponse {
+  /// The Stripe publishable key used for client-side initialization
+  final String publishableKey;
+
+  /// Whether the request was successful
+  final bool success;
+
+  const StripePublicKeyResponse({
+    required this.publishableKey,
+    required this.success,
+  });
+
+  /// Creates an instance from a JSON object
+  factory StripePublicKeyResponse.fromJson(Map<String, dynamic> json) =>
+      _$StripePublicKeyResponseFromJson(json);
+
+  /// Converts this instance to a JSON object
+  Map<String, dynamic> toJson() => _$StripePublicKeyResponseToJson(this);
 }
 
 ```

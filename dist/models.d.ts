@@ -171,6 +171,17 @@ export interface CartProductModel {
   volume: number;
 }
 
+export interface ConfirmPaymentRequest {
+  payment_intent_id: string;
+  payment_method_id: string | null;
+}
+
+export interface ConfirmPaymentResponse {
+  payment_intent: Record<string, number> | null;
+  status: string | null;
+  success: boolean;
+}
+
 export interface CouponModel {
   _id: any;
   amount: number;
@@ -501,6 +512,11 @@ export interface StripePaymentIntentModel {
   payment_method_options: Record<string, string[]> | null;
   payment_method_types: string[];
   status: string;
+}
+
+export interface StripePublicKeyResponse {
+  publishable_key: string;
+  success: boolean;
 }
 
 export interface SugarInputModel {
