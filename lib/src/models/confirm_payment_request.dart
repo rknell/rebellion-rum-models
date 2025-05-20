@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/rebellion_rum_models.dart';
 
 part 'confirm_payment_request.g.dart';
 
@@ -22,10 +23,30 @@ class ConfirmPaymentRequest {
   /// The optional ID of the payment method to use for confirmation
   final String? paymentMethodId;
 
+  final PaymentIntentRequest order;
+
+  final CustomerModel customer;
+
+  final Map<String, double> items; //Barcode > Qty
+
+  final String shippingMethod;
+
   /// Creates a new payment confirmation request
+  /// Constructs a [ConfirmPaymentRequest] with all required fields.
+  ///
+  /// [paymentIntentId] - The Stripe payment intent ID to confirm.
+  /// [paymentMethodId] - The Stripe payment method ID to use (nullable).
+  /// [order] - The original payment intent request (contains address, items, shipping method).
+  /// [customer] - The customer placing the order.
+  /// [items] - Map of product barcodes to quantities.
+  /// [shippingMethod] - The shipping method code.
   const ConfirmPaymentRequest({
     required this.paymentIntentId,
-    this.paymentMethodId,
+    required this.paymentMethodId,
+    required this.order,
+    required this.customer,
+    required this.items,
+    required this.shippingMethod,
   });
 
   /// Creates an instance from a JSON object

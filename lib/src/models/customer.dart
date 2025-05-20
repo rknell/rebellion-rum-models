@@ -5,26 +5,29 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'customer.g.dart';
 
-/// Represents a customer in the system.
+/// Represents a customer in the system, merging all fields from both
+/// legacy CustomerModel and CustomerDetails (used in payment/order flows).
 ///
-/// Customers can be either retail or wholesale, and may have various
-/// preferences and contact information stored.
+/// This is the canonical customer representation for all business logic.
 ///
 /// Example:
 /// ```dart
 /// final customer = CustomerModel(
+///   email: 'john@example.com',
 ///   firstName: 'John',
 ///   lastName: 'Doe',
-///   email: 'john@example.com',
-///   phone: '1234567890',
+///   companyName: 'Acme Pty Ltd',
 ///   addressLine1: '123 Main St',
+///   addressLine2: 'Apt 4',
 ///   city: 'Melbourne',
 ///   state: 'VIC',
 ///   postcode: '3000',
+///   country: 'AU',
+///   phone: '1234567890',
+///   isWholesale: false,
+///   preferences: {CustomerPreferences.darkRum},
 /// );
 /// ```
-///
-///
 
 enum CustomerPreferences {
   darkRum,
@@ -59,10 +62,10 @@ class CustomerModel extends DatabaseSerializable {
   /// Contact phone number
   String phone;
 
-  /// First line of address
+  /// First line of address (street)
   String addressLine1;
 
-  /// Second line of address (optional)
+  /// Second line of address (apartment, suite, etc.) (optional)
   String? addressLine2;
 
   /// City/suburb
@@ -74,32 +77,47 @@ class CustomerModel extends DatabaseSerializable {
   /// Postal code
   String postcode;
 
-  /// Country
+  /// Country code (e.g., 'AU')
   String country;
 
+  /// True if the customer is a wholesale customer
   bool isWholesale;
 
+  /// Customer's product preferences (optional)
   Set<CustomerPreferences> preferences;
 
-  CustomerModel(
-      {super.id,
-      this.companyName,
-      required this.firstName,
-      required this.lastName,
-      required this.email,
-      required this.phone,
-      required this.addressLine1,
-      this.addressLine2,
-      required this.city,
-      required this.state,
-      required this.postcode,
-      this.country = "Australia",
-      Set<CustomerPreferences>? preferences,
-      this.isWholesale = false})
-      : preferences = preferences ?? <CustomerPreferences>{};
+  /// Apartment, suite, etc. (alias for addressLine2, for compatibility)
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String? get apartment => addressLine2;
+
+  /// Suburb (alias for city, for compatibility)
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String get suburb => city;
+
+  /// Address (alias for addressLine1, for compatibility)
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String get address => addressLine1;
+
+  CustomerModel({
+    super.id,
+    this.companyName,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.phone,
+    required this.addressLine1,
+    this.addressLine2,
+    required this.city,
+    required this.state,
+    required this.postcode,
+    this.country = "Australia",
+    Set<CustomerPreferences>? preferences,
+    this.isWholesale = false,
+  }) : preferences = preferences ?? <CustomerPreferences>{};
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
+
   @override
   Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
 

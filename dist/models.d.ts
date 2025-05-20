@@ -172,12 +172,17 @@ export interface CartProductModel {
 }
 
 export interface ConfirmPaymentRequest {
+  customer: CustomerModel;
+  items: Record<string, number>;
+  order: PaymentIntentRequest;
   payment_intent_id: string;
   payment_method_id: string | null;
+  shipping_method: string;
 }
 
 export interface ConfirmPaymentResponse {
-  payment_intent: Record<string, number> | null;
+  message: string | null;
+  redirect_url: string;
   status: string | null;
   success: boolean;
 }
@@ -191,6 +196,15 @@ export interface CouponModel {
   phone: string | null;
   redeemed: boolean | null;
   remainingValue: number | null;
+}
+
+export interface CreateOrderWithPaymentRequest {
+  customer: Record<string, any>;
+  date: string;
+  items: Record<string, number>;
+  shipping_method: string | null;
+  shipping_receipt: Record<string, any> | null;
+  total_quote: number;
 }
 
 export interface CustomerModel {
@@ -297,6 +311,14 @@ export interface OrderModel {
   totalQuote: number;
 }
 
+export interface OrderWithPaymentResponse {
+  date: string;
+  id: any;
+  order_number: string;
+  payment_intent: Record<string, number>;
+  status: string;
+}
+
 export interface PackagingRunItemModel {
   _id: any;
   abvReading: number | null;
@@ -317,6 +339,10 @@ export interface PackagingRunItemModel {
   unitsPackaged: number | null;
   volumeAvailable: number | null;
   volumeRemaining: number | null;
+}
+
+export interface PaymentFailedRequest {
+  error: string;
 }
 
 export interface PaymentIntentRequest {

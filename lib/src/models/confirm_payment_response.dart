@@ -20,18 +20,20 @@ class ConfirmPaymentResponse {
   /// Whether the payment intent confirmation was successful
   final bool success;
 
-  /// The details of the confirmed payment intent
-  final Map<String, dynamic>? paymentIntent;
-
   /// The status of the payment intent after confirmation
   final String? status;
 
+  /// Optional server message for error or informational display to the customer
+  final String? message;
+
+  final String redirectUrl;
+
   /// Creates a new payment confirmation response
-  const ConfirmPaymentResponse({
-    required this.success,
-    this.paymentIntent,
-    this.status,
-  });
+  const ConfirmPaymentResponse(
+      {required this.success,
+      this.status,
+      this.message,
+      required this.redirectUrl});
 
   /// Creates an instance from a JSON object
   factory ConfirmPaymentResponse.fromJson(Map<String, dynamic> json) =>

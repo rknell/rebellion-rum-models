@@ -1008,6 +1008,7 @@ class UserInfoModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/rebellion_rum_models.dart';
 
 part 'confirm_payment_request.g.dart';
 
@@ -1031,10 +1032,30 @@ class ConfirmPaymentRequest {
   /// The optional ID of the payment method to use for confirmation
   final String? paymentMethodId;
 
+  final PaymentIntentRequest order;
+
+  final CustomerModel customer;
+
+  final Map<String, double> items; //Barcode > Qty
+
+  final String shippingMethod;
+
   /// Creates a new payment confirmation request
+  /// Constructs a [ConfirmPaymentRequest] with all required fields.
+  ///
+  /// [paymentIntentId] - The Stripe payment intent ID to confirm.
+  /// [paymentMethodId] - The Stripe payment method ID to use (nullable).
+  /// [order] - The original payment intent request (contains address, items, shipping method).
+  /// [customer] - The customer placing the order.
+  /// [items] - Map of product barcodes to quantities.
+  /// [shippingMethod] - The shipping method code.
   const ConfirmPaymentRequest({
     required this.paymentIntentId,
-    this.paymentMethodId,
+    required this.paymentMethodId,
+    required this.order,
+    required this.customer,
+    required this.items,
+    required this.shippingMethod,
   });
 
   /// Creates an instance from a JSON object
@@ -1074,18 +1095,20 @@ class ConfirmPaymentResponse {
   /// Whether the payment intent confirmation was successful
   final bool success;
 
-  /// The details of the confirmed payment intent
-  final Map<String, dynamic>? paymentIntent;
-
   /// The status of the payment intent after confirmation
   final String? status;
 
+  /// Optional server message for error or informational display to the customer
+  final String? message;
+
+  final String redirectUrl;
+
   /// Creates a new payment confirmation response
-  const ConfirmPaymentResponse({
-    required this.success,
-    this.paymentIntent,
-    this.status,
-  });
+  const ConfirmPaymentResponse(
+      {required this.success,
+      this.status,
+      this.message,
+      required this.redirectUrl});
 
   /// Creates an instance from a JSON object
   factory ConfirmPaymentResponse.fromJson(Map<String, dynamic> json) =>
@@ -1170,26 +1193,29 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'customer.g.dart';
 
-/// Represents a customer in the system.
+/// Represents a customer in the system, merging all fields from both
+/// legacy CustomerModel and CustomerDetails (used in payment/order flows).
 ///
-/// Customers can be either retail or wholesale, and may have various
-/// preferences and contact information stored.
+/// This is the canonical customer representation for all business logic.
 ///
 /// Example:
 /// ```dart
 /// final customer = CustomerModel(
+///   email: 'john@example.com',
 ///   firstName: 'John',
 ///   lastName: 'Doe',
-///   email: 'john@example.com',
-///   phone: '1234567890',
+///   companyName: 'Acme Pty Ltd',
 ///   addressLine1: '123 Main St',
+///   addressLine2: 'Apt 4',
 ///   city: 'Melbourne',
 ///   state: 'VIC',
 ///   postcode: '3000',
+///   country: 'AU',
+///   phone: '1234567890',
+///   isWholesale: false,
+///   preferences: {CustomerPreferences.darkRum},
 /// );
 /// ```
-///
-///
 
 enum CustomerPreferences {
   darkRum,
@@ -1224,10 +1250,10 @@ class CustomerModel extends DatabaseSerializable {
   /// Contact phone number
   String phone;
 
-  /// First line of address
+  /// First line of address (street)
   String addressLine1;
 
-  /// Second line of address (optional)
+  /// Second line of address (apartment, suite, etc.) (optional)
   String? addressLine2;
 
   /// City/suburb
@@ -1239,32 +1265,47 @@ class CustomerModel extends DatabaseSerializable {
   /// Postal code
   String postcode;
 
-  /// Country
+  /// Country code (e.g., 'AU')
   String country;
 
+  /// True if the customer is a wholesale customer
   bool isWholesale;
 
+  /// Customer's product preferences (optional)
   Set<CustomerPreferences> preferences;
 
-  CustomerModel(
-      {super.id,
-      this.companyName,
-      required this.firstName,
-      required this.lastName,
-      required this.email,
-      required this.phone,
-      required this.addressLine1,
-      this.addressLine2,
-      required this.city,
-      required this.state,
-      required this.postcode,
-      this.country = "Australia",
-      Set<CustomerPreferences>? preferences,
-      this.isWholesale = false})
-      : preferences = preferences ?? <CustomerPreferences>{};
+  /// Apartment, suite, etc. (alias for addressLine2, for compatibility)
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String? get apartment => addressLine2;
+
+  /// Suburb (alias for city, for compatibility)
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String get suburb => city;
+
+  /// Address (alias for addressLine1, for compatibility)
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String get address => addressLine1;
+
+  CustomerModel({
+    super.id,
+    this.companyName,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.phone,
+    required this.addressLine1,
+    this.addressLine2,
+    required this.city,
+    required this.state,
+    required this.postcode,
+    this.country = "Australia",
+    Set<CustomerPreferences>? preferences,
+    this.isWholesale = false,
+  }) : preferences = preferences ?? <CustomerPreferences>{};
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
+
   @override
   Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
 
