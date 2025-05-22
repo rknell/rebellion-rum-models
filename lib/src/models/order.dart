@@ -64,7 +64,7 @@ class OrderModel extends DatabaseSerializable {
   Map<String, dynamic> metadata;
 
   /// Payment intent ID from Stripe
-  String? paymentIntentId;
+  String? paymentIntentClientSecret;
 
   /// Shipping method (e.g., 'FREEDELIVERY')
   String? shippingMethod;
@@ -88,7 +88,7 @@ class OrderModel extends DatabaseSerializable {
     this.status = OrderStatus.pending,
     this.totalQuote,
     Map<String, dynamic>? metadata,
-    this.paymentIntentId,
+    this.paymentIntentClientSecret,
     this.shippingMethod,
     this.shippingReceipt,
     this.notes,
@@ -119,6 +119,30 @@ class OrderModel extends DatabaseSerializable {
       _$OrderModelFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$OrderModelToJson(this);
+
+  /// Returns a sanitized JSON representation of the order
+  ///
+  /// This method returns a JSON map containing only fields that are safe
+  /// to expose to clients. It excludes sensitive internal fields and
+  /// ensures consistent data formatting.
+  ///
+  /// Returns a `Map<String, dynamic>` with the sanitized order data
+  Map<String, dynamic> toJsonSanitized() {
+    return {
+      'id': id.toString(),
+      'customer': customer?.toJson(),
+      'date': date.toIso8601String(),
+      'items': items,
+      'orderNumber': orderNumber,
+      'paymentMethod': paymentMethod,
+      'status': status.toString(),
+      'totalQuote': totalQuote,
+      'shippingMethod': shippingMethod,
+      'shippingReceipt': shippingReceipt,
+      'notes': notes,
+      'paymentIntentClientSecret': paymentIntentClientSecret
+    };
+  }
 
   @override
   Set<String> get objectIdFields => {'_id', 'customerId'};

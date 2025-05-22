@@ -38,6 +38,15 @@ export enum FermentationType {
   other = "other",
 }
 
+export enum OrderStatus {
+  cancelled = "cancelled",
+  delivered = "delivered",
+  pending = "pending",
+  processing = "processing",
+  refunded = "refunded",
+  shipped = "shipped",
+}
+
 export enum PackagingRunStatus {
   awaitingExcise = "awaitingExcise",
   complete = "complete",
@@ -176,22 +185,6 @@ export interface CartProductModel {
   volume: number;
 }
 
-export interface ConfirmPaymentRequest {
-  customer: CustomerModel;
-  items: Record<string, number>;
-  order: PaymentIntentRequest | null;
-  payment_intent_id: string;
-  payment_method_id: string | null;
-  shipping_method: string;
-}
-
-export interface ConfirmPaymentResponse {
-  message: string | null;
-  redirect_url: string;
-  status: string | null;
-  success: boolean;
-}
-
 export interface CouponModel {
   _id: any;
   amount: number;
@@ -303,10 +296,11 @@ export interface OrderModel {
   metadata: Record<string, any> | null;
   notes: string | null;
   orderNumber: string;
-  paymentIntentId: string | null;
+  paymentIntentClientSecret: string | null;
   paymentMethod: string | null;
   shippingMethod: string | null;
   shippingReceipt: Record<string, any> | null;
+  status: OrderStatus;
   totalQuote: number | null;
 }
 

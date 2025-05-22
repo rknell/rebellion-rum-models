@@ -10,8 +10,6 @@ export 'src/models/bulk_storage_register_item.dart';
 export 'src/models/bulk_storage_vessel.dart';
 export 'src/models/bulk_storage_vessel_status.dart';
 export 'src/models/cart.dart';
-export 'src/models/confirm_payment_request.dart';
-export 'src/models/confirm_payment_response.dart';
 export 'src/models/coupon.dart';
 export 'src/models/customer.dart';
 export 'src/models/delivery_authority.dart';

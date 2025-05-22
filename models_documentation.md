@@ -1002,129 +1002,6 @@ class UserInfoModel {
 
 ```
 
-## confirm_payment_request
-
-*File: lib/src/models/confirm_payment_request.dart*
-
-```dart
-import 'package:json_annotation/json_annotation.dart';
-import 'package:rebellion_rum_models/rebellion_rum_models.dart';
-
-part 'confirm_payment_request.g.dart';
-
-/// Represents a request to confirm a payment intent.
-///
-/// This model contains the necessary information to confirm a previously created
-/// payment intent, including the payment intent ID and optional payment method ID.
-///
-/// Example:
-/// ```dart
-/// final request = ConfirmPaymentRequest(
-///   paymentIntentId: 'pi_1234567890',
-///   paymentMethodId: 'pm_1234567890',
-///   customer: CustomerModel(...),
-///   items: {'PRODUCT-001': 2, 'PRODUCT-002': 1},
-///   shippingMethod: 'STANDARD'
-/// );
-/// ```
-@JsonSerializable(fieldRename: FieldRename.snake)
-class ConfirmPaymentRequest {
-  /// The ID of the payment intent to confirm
-  final String paymentIntentId;
-
-  /// The optional ID of the payment method to use for confirmation
-  final String? paymentMethodId;
-
-  final PaymentIntentRequest? order;
-
-  final CustomerModel customer;
-
-  /// Map of product barcodes to quantities
-  /// Can handle both integer and double quantities
-  final Map<String, dynamic> items;
-
-  final String shippingMethod;
-
-  /// Creates a new payment confirmation request
-  /// Constructs a [ConfirmPaymentRequest] with all required fields.
-  ///
-  /// [paymentIntentId] - The Stripe payment intent ID to confirm.
-  /// [paymentMethodId] - The Stripe payment method ID to use (nullable).
-  /// [order] - The original payment intent request (contains address, items, shipping method).
-  /// [customer] - The customer placing the order.
-  /// [items] - Map of product barcodes to quantities.
-  /// [shippingMethod] - The shipping method code.
-  const ConfirmPaymentRequest({
-    required this.paymentIntentId,
-    required this.paymentMethodId,
-    this.order,
-    required this.customer,
-    required this.items,
-    required this.shippingMethod,
-  });
-
-  /// Creates an instance from a JSON object
-  factory ConfirmPaymentRequest.fromJson(Map<String, dynamic> json) =>
-      _$ConfirmPaymentRequestFromJson(json);
-
-  /// Converts this instance to a JSON object
-  Map<String, dynamic> toJson() => _$ConfirmPaymentRequestToJson(this);
-}
-
-```
-
-## confirm_payment_response
-
-*File: lib/src/models/confirm_payment_response.dart*
-
-```dart
-import 'package:json_annotation/json_annotation.dart';
-
-part 'confirm_payment_response.g.dart';
-
-/// Represents a response from confirming a payment intent.
-///
-/// This model contains information about the confirmed payment intent, including
-/// the payment intent details and status.
-///
-/// Example:
-/// ```dart
-/// final response = ConfirmPaymentResponse(
-///   success: true,
-///   paymentIntent: {'id': 'pi_1234567890', 'status': 'succeeded'},
-///   status: 'succeeded',
-/// );
-/// ```
-@JsonSerializable(fieldRename: FieldRename.snake)
-class ConfirmPaymentResponse {
-  /// Whether the payment intent confirmation was successful
-  final bool success;
-
-  /// The status of the payment intent after confirmation
-  final String? status;
-
-  /// Optional server message for error or informational display to the customer
-  final String? message;
-
-  final String redirectUrl;
-
-  /// Creates a new payment confirmation response
-  const ConfirmPaymentResponse(
-      {required this.success,
-      this.status,
-      this.message,
-      required this.redirectUrl});
-
-  /// Creates an instance from a JSON object
-  factory ConfirmPaymentResponse.fromJson(Map<String, dynamic> json) =>
-      _$ConfirmPaymentResponseFromJson(json);
-
-  /// Converts this instance to a JSON object
-  Map<String, dynamic> toJson() => _$ConfirmPaymentResponseToJson(this);
-}
-
-```
-
 ## coupon
 
 *File: lib/src/models/coupon.dart*
@@ -1195,7 +1072,6 @@ import 'dart:core';
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rebellion_rum_models/rebellion_rum_models.dart';
-import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'customer.g.dart';
 
@@ -1793,9 +1669,18 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'customer.dart';
-import 'confirm_payment_request.dart';
 
 part 'order.g.dart';
+
+/// Order status representing the current state of an order in the fulfillment process
+enum OrderStatus {
+  pending, // Initial state when order is created
+  processing, // Payment confirmed, order being prepared
+  shipped, // Order has been shipped
+  delivered, // Order has been delivered
+  cancelled, // Order was cancelled
+  refunded // Order was refunded
+}
 
 /// Represents a customer order in the system.
 ///
@@ -1813,13 +1698,14 @@ part 'order.g.dart';
 ///   orderNumber: 'ORD-2024-001',
 ///   paymentMethod: 'credit_card',
 ///   totalQuote: 149.99,
+///   status: OrderStatus.pending,
 /// );
 /// ```
 @JsonSerializable()
 class OrderModel extends DatabaseSerializable {
   /// Reference to the customer who placed the order
-  @ObjectIdConverter()
-  ObjectId customerId;
+  @NullableObjectIdConverter()
+  ObjectId? customerId;
 
   CustomerModel? customer;
 
@@ -1836,11 +1722,16 @@ class OrderModel extends DatabaseSerializable {
   /// Method used for payment (e.g., 'card')
   String? paymentMethod;
 
+  /// Current status of the order in the fulfillment process
+  @JsonKey(
+      defaultValue: OrderStatus.pending, unknownEnumValue: OrderStatus.pending)
+  OrderStatus status;
+
   /// Metadata for the order
   Map<String, dynamic> metadata;
 
   /// Payment intent ID from Stripe
-  String? paymentIntentId;
+  String? paymentIntentClientSecret;
 
   /// Shipping method (e.g., 'FREEDELIVERY')
   String? shippingMethod;
@@ -1861,9 +1752,10 @@ class OrderModel extends DatabaseSerializable {
     required this.items,
     required this.orderNumber,
     required this.paymentMethod,
+    this.status = OrderStatus.pending,
     this.totalQuote,
     Map<String, dynamic>? metadata,
-    this.paymentIntentId,
+    this.paymentIntentClientSecret,
     this.shippingMethod,
     this.shippingReceipt,
     this.notes,
@@ -1874,6 +1766,7 @@ class OrderModel extends DatabaseSerializable {
   ///
   /// This method is used to safely update an existing order with user-provided
   /// changes while ensuring that only allowed fields are modified.
+  /// Note: status is deliberately excluded to ensure it's managed by server-side logic.
   ///
   /// [source] - The source OrderModel containing the changes to apply
   /// Returns this OrderModel instance for method chaining
@@ -1882,6 +1775,7 @@ class OrderModel extends DatabaseSerializable {
     items = source.items;
     shippingMethod = source.shippingMethod;
     notes = source.notes;
+    // Status is deliberately not updated here as it should be managed by server-side logic
     // Reset totalQuote so it can be recalculated
     totalQuote = null;
 
@@ -1892,6 +1786,30 @@ class OrderModel extends DatabaseSerializable {
       _$OrderModelFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$OrderModelToJson(this);
+
+  /// Returns a sanitized JSON representation of the order
+  ///
+  /// This method returns a JSON map containing only fields that are safe
+  /// to expose to clients. It excludes sensitive internal fields and
+  /// ensures consistent data formatting.
+  ///
+  /// Returns a Map<String, dynamic> with the sanitized order data
+  Map<String, dynamic> toJsonSanitized() {
+    return {
+      'id': id.toString(),
+      'customer': customer?.toJson(),
+      'date': date.toIso8601String(),
+      'items': items,
+      'orderNumber': orderNumber,
+      'paymentMethod': paymentMethod,
+      'status': status.toString(),
+      'totalQuote': totalQuote,
+      'shippingMethod': shippingMethod,
+      'shippingReceipt': shippingReceipt,
+      'notes': notes,
+      'paymentIntentClientSecret': paymentIntentClientSecret
+    };
+  }
 
   @override
   Set<String> get objectIdFields => {'_id', 'customerId'};

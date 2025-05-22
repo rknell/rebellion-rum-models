@@ -20,7 +20,7 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
           OrderStatus.pending,
       totalQuote: (json['totalQuote'] as num?)?.toInt(),
       metadata: json['metadata'] as Map<String, dynamic>?,
-      paymentIntentId: json['paymentIntentId'] as String?,
+      paymentIntentClientSecret: json['paymentIntentClientSecret'] as String?,
       shippingMethod: json['shippingMethod'] as String?,
       shippingReceipt: json['shippingReceipt'] as Map<String, dynamic>?,
       notes: json['notes'] as String?,
@@ -42,7 +42,8 @@ Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
       if (instance.paymentMethod case final value?) 'paymentMethod': value,
       'status': _$OrderStatusEnumMap[instance.status]!,
       'metadata': instance.metadata,
-      if (instance.paymentIntentId case final value?) 'paymentIntentId': value,
+      if (instance.paymentIntentClientSecret case final value?)
+        'paymentIntentClientSecret': value,
       if (instance.shippingMethod case final value?) 'shippingMethod': value,
       if (instance.shippingReceipt case final value?) 'shippingReceipt': value,
       if (instance.totalQuote case final value?) 'totalQuote': value,
