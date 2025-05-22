@@ -68,6 +68,11 @@ export enum SaleStatus {
   unpaid = "unpaid",
 }
 
+export enum StripeSetupFutureUsage {
+  offSession = "off_session",
+  onSession = "on_session",
+}
+
 export interface AlcocalcDilutionInputModel {
   bottleSize: number | null;
   createdAt: string | null;
@@ -174,7 +179,7 @@ export interface CartProductModel {
 export interface ConfirmPaymentRequest {
   customer: CustomerModel;
   items: Record<string, number>;
-  order: PaymentIntentRequest;
+  order: PaymentIntentRequest | null;
   payment_intent_id: string;
   payment_method_id: string | null;
   shipping_method: string;
@@ -196,15 +201,6 @@ export interface CouponModel {
   phone: string | null;
   redeemed: boolean | null;
   remainingValue: number | null;
-}
-
-export interface CreateOrderWithPaymentRequest {
-  customer: Record<string, any>;
-  date: string;
-  items: Record<string, number>;
-  shipping_method: string | null;
-  shipping_receipt: Record<string, any> | null;
-  total_quote: number;
 }
 
 export interface CustomerModel {
@@ -301,22 +297,17 @@ export interface NoteModel {
 export interface OrderModel {
   _id: any;
   customer: CustomerModel;
-  date: string;
+  customerId: any;
+  date: string | null;
   items: Record<string, number>;
+  metadata: Record<string, any> | null;
+  notes: string | null;
   orderNumber: string;
+  paymentIntentId: string | null;
   paymentMethod: string | null;
-  paymentReceipt: Record<string, any> | null;
   shippingMethod: string | null;
   shippingReceipt: Record<string, any> | null;
-  totalQuote: number;
-}
-
-export interface OrderWithPaymentResponse {
-  date: string;
-  id: any;
-  order_number: string;
-  payment_intent: Record<string, number>;
-  status: string;
+  totalQuote: number | null;
 }
 
 export interface PackagingRunItemModel {
@@ -339,10 +330,6 @@ export interface PackagingRunItemModel {
   unitsPackaged: number | null;
   volumeAvailable: number | null;
   volumeRemaining: number | null;
-}
-
-export interface PaymentFailedRequest {
-  error: string;
 }
 
 export interface PaymentIntentRequest {
@@ -432,7 +419,7 @@ export interface SaleItemModel {
 
 export interface SaleModel {
   _id: any;
-  coupons: any;
+  coupons: any[];
   customerId: string | null;
   discountTotal: number | null;
   dueDate: string | null;
@@ -534,6 +521,67 @@ export interface StocktakeModel {
   timestamp: string | null;
 }
 
+export interface StripeAddress {
+  city: string | null;
+  country: string | null;
+  line1: string | null;
+  line2: string | null;
+  postal_code: string | null;
+  state: string | null;
+}
+
+export interface StripeConfirmPaymentIntentRequest {
+  error_on_requires_action: boolean | null;
+  mandate: string | null;
+  payment_method: string | null;
+  receipt_email: string | null;
+  return_url: string | null;
+  setup_future_usage: StripeSetupFutureUsage;
+  shipping: StripeShippingDetails | null;
+  use_stripe_sdk: boolean | null;
+}
+
+export interface StripeConfirmPaymentIntentResponse {
+  amount: number;
+  amount_capturable: number | null;
+  amount_details: Record<string, number> | null;
+  amount_received: number | null;
+  application: string | null;
+  application_fee_amount: number | null;
+  automatic_payment_methods: Record<string, string[]> | null;
+  canceled_at: number | null;
+  cancellation_reason: string | null;
+  capture_method: string;
+  client_secret: string;
+  confirmation_method: string;
+  created: number;
+  currency: string;
+  customer: string | null;
+  description: string | null;
+  id: string;
+  last_payment_error: Record<string, any> | null;
+  latest_charge: string | null;
+  livemode: boolean;
+  metadata: Record<string, any> | null;
+  next_action: Record<string, any> | null;
+  object: string;
+  on_behalf_of: string | null;
+  payment_method: string | null;
+  payment_method_options: Record<string, string[]> | null;
+  payment_method_types: string[] | null;
+  processing: Record<string, any> | null;
+  receipt_email: string | null;
+  review: string | null;
+  setup_future_usage: string | null;
+  shipping: Record<string, any> | null;
+  source: string | null;
+  statement_descriptor: string | null;
+  statement_descriptor_suffix: string | null;
+  status: string;
+  transfer_data: Record<string, any> | null;
+  transfer_group: string | null;
+}
+
 export interface StripePaymentIntentModel {
   amount: number;
   amount_capturable: number;
@@ -555,6 +603,14 @@ export interface StripePaymentIntentModel {
 export interface StripePublicKeyResponse {
   publishable_key: string;
   success: boolean;
+}
+
+export interface StripeShippingDetails {
+  address: StripeAddress | null;
+  carrier: string | null;
+  name: string | null;
+  phone: string | null;
+  tracking_number: string | null;
 }
 
 export interface SugarInputModel {

@@ -1,6 +1,7 @@
 [
   {
     "_id": "677c5f830073edd2e9822d0a",
+    "status": "pending",
     "customer": {
       "firstName": "Katrina",
       "lastName": "Talbot",
@@ -231,6 +232,7 @@
   },
   {
     "_id": "6777c60f005a251c788ce195",
+    "status": "processing",
     "customer": {
       "firstName": "Michael",
       "lastName": "Fyfe",

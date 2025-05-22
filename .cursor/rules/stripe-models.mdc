@@ -1,0 +1,135 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Stripe Models Guidelines
+
+This document outlines the standards and best practices for creating models that interact with the Stripe API.
+
+## Naming Conventions
+
+1. **Class Prefix**
+   - All Stripe model classes MUST be prefixed with "Stripe"
+   - Example: `StripeCustomer`, `StripePaymentIntent`, `StripeShippingDetails`
+
+2. **File Naming**
+   - File names should use snake_case and be prefixed with "stripe_"
+   - Example: `stripe_payment_intent.dart`, `stripe_customer.dart`
+   - Each file should match the name of the primary class it contains
+
+3. **Consistency**
+   - Field names should follow Dart's camelCase convention internally
+   - JsonKey annotations should be used to map to Stripe's snake_case fields
+
+## File Organization
+
+1. **One Model Per File**
+   - Each primary model class should be in its own file
+   - Related helper classes or enums can be included in the same file if they're only used by that model
+   - Shared models used by multiple Stripe models should be in their own files
+
+2. **Functional Grouping**
+   - Models should be grouped by Stripe API resource type:
+     - Payment: payment intents, payment methods, charges
+     - Customer: customers, cards, bank accounts
+     - Subscription: subscriptions, plans, invoices
+     - etc.
+
+## Serialization Practices
+
+1. **Required Annotations**
+   - Use `@JsonSerializable()` for all Stripe model classes
+   - Include proper part directive for generated code: `part 'stripe_model_name.g.dart';`
+
+2. **Field Mappings**
+   - Use `@JsonKey(name: 'stripe_field_name')` when property names differ from Stripe field names
+   - Do NOT use explicit JsonKey(name: ) when the field name is the same
+
+3. **Enum Handling**
+   - All enum fields MUST include both `defaultValue` and `unknownEnumValue` in their `@JsonKey` annotation
+   - The `unknownEnumValue` should typically match the `defaultValue`
+   - Use `@JsonValue('enum_value')` to map enum values to Stripe's string representation
+
+4. **Nullable Fields**
+   - Most Stripe API fields should be nullable unless explicitly required by the API
+   - Document which fields are required and which are optional
+
+## Documentation Requirements
+
+1. **Class Documentation**
+   - All model classes MUST include a dartdoc description
+   - Include a link to the corresponding Stripe API documentation
+   - Provide an example of typical usage
+
+2. **Field Documentation**
+   - Document all fields with clear descriptions of their purpose
+   - Indicate which fields are required vs optional
+   - Include any validation constraints or business rules
+
+3. **Special Considerations**
+   - Document any non-obvious behaviors or edge cases
+   - Include information about when certain fields should be used
+
+## Example Implementation
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'stripe_payment_method.g.dart';
+
+/// Represents a Stripe PaymentMethod object.
+///
+/// A PaymentMethod represents a customer's payment instrument.
+/// It can be used with PaymentIntents to collect payments.
+///
+/// See Stripe API documentation:
+/// https://stripe.com/docs/api/payment_methods
+///
+/// Example usage:
+/// ```dart
+/// final paymentMethod = StripePaymentMethod(
+///   id: 'pm_123456789',
+///   type: StripePaymentMethodType.card,
+///   card: StripeCard(...),
+/// );
+/// ```
+@JsonSerializable()
+class StripePaymentMethod {
+  /// Unique identifier for the payment method.
+  final String id;
+  
+  /// The type of payment method.
+  @JsonKey(
+    defaultValue: StripePaymentMethodType.card,
+    unknownEnumValue: StripePaymentMethodType.card
+  )
+  final StripePaymentMethodType type;
+  
+  /// Details about the payment method, specific to the payment method type.
+  final StripeCard? card;
+  
+  // ...additional fields and methods
+}
+```
+
+## Testing Requirements
+
+1. **Unit Tests**
+   - Each Stripe model should have unit tests for serialization/deserialization
+   - Test with actual API response samples when possible
+   - Verify handling of optional fields and enum values
+
+2. **Edge Cases**
+   - Test deserialization with unknown enum values
+   - Test with minimum required fields and with all fields
+
+## Versioning and Compatibility
+
+1. **API Versioning**
+   - Include a comment on the model class indicating which Stripe API version it was designed for
+   - Document any known compatibility issues with older/newer API versions
+
+2. **Breaking Changes**
+   - Document major changes from Stripe API that require model updates
+   - When fields are deprecated by Stripe, mark them as @deprecated in the model

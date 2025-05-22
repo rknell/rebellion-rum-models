@@ -1022,6 +1022,9 @@ part 'confirm_payment_request.g.dart';
 /// final request = ConfirmPaymentRequest(
 ///   paymentIntentId: 'pi_1234567890',
 ///   paymentMethodId: 'pm_1234567890',
+///   customer: CustomerModel(...),
+///   items: {'PRODUCT-001': 2, 'PRODUCT-002': 1},
+///   shippingMethod: 'STANDARD'
 /// );
 /// ```
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -1032,11 +1035,13 @@ class ConfirmPaymentRequest {
   /// The optional ID of the payment method to use for confirmation
   final String? paymentMethodId;
 
-  final PaymentIntentRequest order;
+  final PaymentIntentRequest? order;
 
   final CustomerModel customer;
 
-  final Map<String, double> items; //Barcode > Qty
+  /// Map of product barcodes to quantities
+  /// Can handle both integer and double quantities
+  final Map<String, dynamic> items;
 
   final String shippingMethod;
 
@@ -1052,7 +1057,7 @@ class ConfirmPaymentRequest {
   const ConfirmPaymentRequest({
     required this.paymentIntentId,
     required this.paymentMethodId,
-    required this.order,
+    this.order,
     required this.customer,
     required this.items,
     required this.shippingMethod,
@@ -1189,6 +1194,7 @@ class CouponModel extends DatabaseSerializable {
 import 'dart:core';
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/rebellion_rum_models.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'customer.g.dart';
@@ -1302,6 +1308,49 @@ class CustomerModel extends DatabaseSerializable {
     Set<CustomerPreferences>? preferences,
     this.isWholesale = false,
   }) : preferences = preferences ?? <CustomerPreferences>{};
+
+  /// Updates this customer with sanitized fields from another customer
+  ///
+  /// This method is used to safely update an existing customer with user-provided
+  /// changes while ensuring that only allowed fields are modified.
+  ///
+  /// [source] - The source CustomerModel containing the changes to apply
+  /// Returns this CustomerModel instance for method chaining
+  CustomerModel mergeSanitized(CustomerModel source) {
+    // Update personal information
+    firstName = source.firstName;
+    lastName = source.lastName;
+    email = source.email;
+    phone = source.phone;
+
+    // Update address information
+    companyName = source.companyName;
+    addressLine1 = source.addressLine1;
+    addressLine2 = source.addressLine2;
+    city = source.city;
+    state = source.state;
+    postcode = source.postcode;
+    country = source.country;
+
+    // Update preferences
+    preferences = source.preferences;
+
+    // Note: isWholesale is not updated as it requires business approval
+
+    return this;
+  }
+
+  StartShipItRateDestinationAddressModel
+      toStartShipItRateDestinationAddressModel() {
+    return StartShipItRateDestinationAddressModel(
+      street:
+          addressLine2 != null ? '$addressLine1, $addressLine2' : addressLine1,
+      suburb: city,
+      state: state,
+      postCode: postcode,
+      countryCode: country == 'Australia' ? 'AU' : country,
+    );
+  }
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
@@ -1741,8 +1790,10 @@ class FermentationProgressModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'customer.dart';
+import 'confirm_payment_request.dart';
 
 part 'order.g.dart';
 
@@ -1756,7 +1807,7 @@ part 'order.g.dart';
 /// ```dart
 /// final order = OrderModel(
 ///   id: '123',
-///   customer: CustomerModel(...),
+///   customerId: ObjectId(),
 ///   date: DateTime.now(),
 ///   items: {'PRODUCT-001': 2, 'PRODUCT-002': 1},
 ///   orderNumber: 'ORD-2024-001',
@@ -1766,8 +1817,11 @@ part 'order.g.dart';
 /// ```
 @JsonSerializable()
 class OrderModel extends DatabaseSerializable {
-  /// Customer who placed the order
-  CustomerModel customer;
+  /// Reference to the customer who placed the order
+  @ObjectIdConverter()
+  ObjectId customerId;
+
+  CustomerModel? customer;
 
   /// When the order was placed
   DateTime date;
@@ -1782,8 +1836,11 @@ class OrderModel extends DatabaseSerializable {
   /// Method used for payment (e.g., 'card')
   String? paymentMethod;
 
-  /// Payment receipt details
-  Map<String, dynamic>? paymentReceipt;
+  /// Metadata for the order
+  Map<String, dynamic> metadata;
+
+  /// Payment intent ID from Stripe
+  String? paymentIntentId;
 
   /// Shipping method (e.g., 'FREEDELIVERY')
   String? shippingMethod;
@@ -1792,20 +1849,44 @@ class OrderModel extends DatabaseSerializable {
   Map<String, dynamic>? shippingReceipt;
 
   /// Total quoted price for the order
-  double totalQuote;
+  int? totalQuote;
+
+  /// Additional notes for the order
+  String? notes;
 
   OrderModel({
     super.id,
-    required this.customer,
-    required this.date,
+    required this.customerId,
+    DateTime? date,
     required this.items,
     required this.orderNumber,
     required this.paymentMethod,
-    required this.totalQuote,
-    this.paymentReceipt,
+    this.totalQuote,
+    Map<String, dynamic>? metadata,
+    this.paymentIntentId,
     this.shippingMethod,
     this.shippingReceipt,
-  });
+    this.notes,
+  })  : date = date ?? DateTime.now(),
+        metadata = metadata ?? {};
+
+  /// Updates this order with sanitized fields from another order
+  ///
+  /// This method is used to safely update an existing order with user-provided
+  /// changes while ensuring that only allowed fields are modified.
+  ///
+  /// [source] - The source OrderModel containing the changes to apply
+  /// Returns this OrderModel instance for method chaining
+  OrderModel mergeSanitized(OrderModel source) {
+    // Only specific fields can be edited
+    items = source.items;
+    shippingMethod = source.shippingMethod;
+    notes = source.notes;
+    // Reset totalQuote so it can be recalculated
+    totalQuote = null;
+
+    return this;
+  }
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
@@ -1813,17 +1894,13 @@ class OrderModel extends DatabaseSerializable {
   Map<String, dynamic> toJson() => _$OrderModelToJson(this);
 
   @override
-  Set<String> get objectIdFields => {'_id'};
+  Set<String> get objectIdFields => {'_id', 'customerId'};
 
   @override
-  Map<String, bool> get nestedDatabaseSerializables => {
-        'customer': false,
-      };
+  Map<String, bool> get nestedDatabaseSerializables => {};
 
   @override
-  Map<String, Function> get nestedTypes => {
-        'customer': CustomerModel.fromJson,
-      };
+  Map<String, Function> get nestedTypes => {};
 }
 
 ```
@@ -3363,6 +3440,475 @@ class StocktakeModel extends DatabaseSerializable {
 
 ```
 
+## stripe_address
+
+*File: lib/src/models/stripe/stripe_address.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'stripe_address.g.dart';
+
+/// Postal address for shipping information in Stripe API requests.
+///
+/// This model represents a postal address as used in Stripe shipping
+/// and customer information.
+///
+/// See Stripe API documentation:
+/// https://stripe.com/docs/api/payment_intents/confirm#confirm_payment_intent-shipping
+@JsonSerializable()
+class StripeAddress {
+  /// City, district, suburb, town, or village.
+  final String? city;
+
+  /// Two-letter country code (ISO 3166-1 alpha-2).
+  final String? country;
+
+  /// Address line 1 (e.g., street, PO Box, or company name).
+  final String? line1;
+
+  /// Address line 2 (e.g., apartment, suite, unit, or building).
+  final String? line2;
+
+  /// ZIP or postal code.
+  @JsonKey(name: 'postal_code')
+  final String? postalCode;
+
+  /// State, county, province, or region.
+  final String? state;
+
+  /// Creates a new [StripeAddress].
+  StripeAddress({
+    this.city,
+    this.country,
+    this.line1,
+    this.line2,
+    this.postalCode,
+    this.state,
+  });
+
+  /// Creates a [StripeAddress] from a JSON object.
+  factory StripeAddress.fromJson(Map<String, dynamic> json) =>
+      _$StripeAddressFromJson(json);
+
+  /// Converts this [StripeAddress] to a JSON object.
+  Map<String, dynamic> toJson() => _$StripeAddressToJson(this);
+}
+
+```
+
+## stripe_confirm_payment_intent_request
+
+*File: lib/src/models/stripe/stripe_confirm_payment_intent_request.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'stripe_shipping_details.dart';
+
+part 'stripe_confirm_payment_intent_request.g.dart';
+
+/// A request model for confirming a Stripe PaymentIntent.
+///
+/// Used to confirm that a customer intends to pay with current or provided payment method.
+/// Upon confirmation, the PaymentIntent will attempt to initiate a payment.
+///
+/// If the selected payment method requires additional authentication steps, the PaymentIntent
+/// will transition to the `requires_action` status and suggest additional actions.
+/// If payment succeeds, the PaymentIntent will transition to the `succeeded` status.
+///
+/// See Stripe API documentation:
+/// https://stripe.com/docs/api/payment_intents/confirm
+///
+/// Example usage:
+/// ```dart
+/// // Create a request to confirm a payment intent with a specific payment method
+/// final request = StripeConfirmPaymentIntentRequest(
+///   paymentMethod: 'pm_card_visa',
+///   receiptEmail: 'customer@example.com',
+///   returnUrl: 'https://example.com/payment/success',
+/// );
+///
+/// // Convert to JSON for API request
+/// final Map<String, dynamic> jsonData = request.toJson();
+///
+/// // Make API request to Stripe
+/// final response = await stripeApiClient.confirmPaymentIntent(
+///   'pi_3MtweELkdIwHu7ix0Dt0gF2H',
+///   jsonData,
+/// );
+/// ```
+@JsonSerializable()
+class StripeConfirmPaymentIntentRequest {
+  /// ID of the payment method (a PaymentMethod, Card, or compatible Source object)
+  /// to attach to this PaymentIntent.
+  @JsonKey(name: 'payment_method')
+  final String? paymentMethod;
+
+  /// Email address that the receipt for the resulting payment will be sent to.
+  ///
+  /// If specified for a payment in live mode, a receipt will be sent regardless
+  /// of your Stripe email settings.
+  @JsonKey(name: 'receipt_email')
+  final String? receiptEmail;
+
+  /// Indicates that you intend to make future payments with this PaymentIntent's payment method.
+  ///
+  /// If you provide a Customer with the PaymentIntent, you can use this parameter to
+  /// attach the payment method to the Customer after the PaymentIntent is confirmed
+  /// and the customer completes any required actions.
+  ///
+  /// When processing card payments, Stripe uses this field to help you comply with
+  /// regional legislation and network rules, such as SCA.
+  @JsonKey(
+    name: 'setup_future_usage',
+    defaultValue: StripeSetupFutureUsage.none,
+    unknownEnumValue: StripeSetupFutureUsage.none,
+  )
+  final StripeSetupFutureUsage? setupFutureUsage;
+
+  /// Shipping information for this PaymentIntent.
+  final StripeShippingDetails? shipping;
+
+  /// The URL to redirect your customer back to after they authenticate or cancel
+  /// their payment on the payment method's app or site.
+  @JsonKey(name: 'return_url')
+  final String? returnUrl;
+
+  /// Set to true to fail the payment attempt if the PaymentIntent transitions to `requires_action`.
+  ///
+  /// This parameter is only intended for direct integrations with the payment_intents API.
+  @JsonKey(name: 'error_on_requires_action')
+  final bool? errorOnRequiresAction;
+
+  /// A string that identifies the resulting payment as part of a group.
+  final String? mandate;
+
+  /// If present, this property tells the SDK whether this payment requires
+  /// 3D Secure authentication.
+  ///
+  /// If set to true, this payment will always undergo 3D Secure authentication.
+  /// If set to false, this payment avoids 3D Secure when possible.
+  /// If not provided, Stripe will determine the best value based on the
+  /// card being used and the payment context.
+  @JsonKey(name: 'use_stripe_sdk')
+  final bool? useStripeSdk;
+
+  /// Creates a new [StripeConfirmPaymentIntentRequest].
+  StripeConfirmPaymentIntentRequest({
+    this.paymentMethod,
+    this.receiptEmail,
+    this.setupFutureUsage,
+    this.shipping,
+    this.returnUrl,
+    this.errorOnRequiresAction,
+    this.mandate,
+    this.useStripeSdk = false,
+  });
+
+  /// Creates a [StripeConfirmPaymentIntentRequest] from a JSON object.
+  factory StripeConfirmPaymentIntentRequest.fromJson(
+          Map<String, dynamic> json) =>
+      _$StripeConfirmPaymentIntentRequestFromJson(json);
+
+  /// Converts this [StripeConfirmPaymentIntentRequest] to a JSON object.
+  Map<String, dynamic> toJson() =>
+      _$StripeConfirmPaymentIntentRequestToJson(this);
+}
+
+/// Defines how the payment method attached to a successful PaymentIntent
+/// can be used for future payments.
+enum StripeSetupFutureUsage {
+  /// Use 'off_session' if your customer may or may not be present in your checkout flow.
+  ///
+  /// This is appropriate for scenarios where you'll charge the customer later
+  /// without their direct involvement (subscriptions, invoices, etc).
+  @JsonValue('off_session')
+  offSession,
+
+  /// Use 'on_session' if you intend to only reuse the payment method
+  /// when your customer is present in your checkout flow.
+  ///
+  /// This requires the customer's active participation in future transactions.
+  @JsonValue('on_session')
+  onSession,
+
+  /// No future usage intended (default state).
+  @JsonValue(null)
+  none,
+}
+
+```
+
+## stripe_confirm_payment_intent_response
+
+*File: lib/src/models/stripe/stripe_confirm_payment_intent_response.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'stripe_confirm_payment_intent_response.g.dart';
+
+/// Represents a Stripe payment intent confirmation response.
+///
+/// This model contains the response from Stripe after confirming a payment intent.
+/// It includes details about the payment status, amount, and various configuration options.
+///
+/// See Stripe API documentation:
+/// https://stripe.com/docs/api/payment_intents/confirm
+///
+/// Example JSON:
+/// ```json
+/// {
+///   "id": "pi_3MtweELkdIwHu7ix0Dt0gF2H",
+///   "object": "payment_intent",
+///   "amount": 2000,
+///   "amount_capturable": 0,
+///   "amount_details": {
+///     "tip": {}
+///   },
+///   "amount_received": 2000,
+///   "application": null,
+///   "application_fee_amount": null,
+///   "automatic_payment_methods": {
+///     "enabled": true
+///   },
+///   "canceled_at": null,
+///   "cancellation_reason": null,
+///   "capture_method": "automatic",
+///   "client_secret": "pi_3MtweELkdIwHu7ix0Dt0gF2H_secret_ALlpPMIZse0ac8YzPxkMkFgGC",
+///   "confirmation_method": "automatic",
+///   "created": 1680802258,
+///   "currency": "usd",
+///   "customer": null,
+///   "description": null,
+///   "last_payment_error": null,
+///   "latest_charge": "ch_3MtweELkdIwHu7ix05lnLAFd",
+///   "livemode": false,
+///   "metadata": {},
+///   "next_action": null,
+///   "on_behalf_of": null,
+///   "payment_method": "pm_1MtweELkdIwHu7ixxrsejPtG",
+///   "payment_method_options": {
+///     "card": {
+///       "installments": null,
+///       "mandate_options": null,
+///       "network": null,
+///       "request_three_d_secure": "automatic"
+///     },
+///     "link": {
+///       "persistent_token": null
+///     }
+///   },
+///   "payment_method_types": [
+///     "card",
+///     "link"
+///   ],
+///   "processing": null,
+///   "receipt_email": null,
+///   "review": null,
+///   "setup_future_usage": null,
+///   "shipping": null,
+///   "source": null,
+///   "statement_descriptor": null,
+///   "statement_descriptor_suffix": null,
+///   "status": "succeeded",
+///   "transfer_data": null,
+///   "transfer_group": null
+/// }
+/// ```
+@JsonSerializable()
+class StripeConfirmPaymentIntentResponse {
+  /// The payment intent ID
+  final String id;
+
+  /// The type of object ('payment_intent')
+  final String object;
+
+  /// The amount in cents
+  final int amount;
+
+  /// Amount that can be captured
+  @JsonKey(name: 'amount_capturable')
+  final int? amountCapturable;
+
+  /// Additional amount details
+  @JsonKey(name: 'amount_details')
+  final Map<String, dynamic>? amountDetails;
+
+  /// Amount received in cents
+  @JsonKey(name: 'amount_received')
+  final int? amountReceived;
+
+  /// Application ID if any
+  final String? application;
+
+  /// Application fee amount if any
+  @JsonKey(name: 'application_fee_amount')
+  final int? applicationFeeAmount;
+
+  /// Automatic payment methods configuration
+  @JsonKey(name: 'automatic_payment_methods')
+  final Map<String, dynamic>? automaticPaymentMethods;
+
+  /// When the payment intent was canceled, if applicable
+  @JsonKey(name: 'canceled_at')
+  final int? canceledAt;
+
+  /// Reason for cancellation, if applicable
+  @JsonKey(name: 'cancellation_reason')
+  final String? cancellationReason;
+
+  /// Capture method ('automatic' or 'manual')
+  @JsonKey(name: 'capture_method')
+  final String captureMethod;
+
+  /// Client secret for the payment intent
+  @JsonKey(name: 'client_secret')
+  final String clientSecret;
+
+  /// Confirmation method ('automatic' or 'manual')
+  @JsonKey(name: 'confirmation_method')
+  final String confirmationMethod;
+
+  /// When the payment intent was created (unix timestamp)
+  final int created;
+
+  /// Currency code (e.g., 'usd')
+  final String currency;
+
+  /// Customer ID if associated with a customer
+  final String? customer;
+
+  /// Description of the payment
+  final String? description;
+
+  /// Details of the last payment error if any
+  @JsonKey(name: 'last_payment_error')
+  final Map<String, dynamic>? lastPaymentError;
+
+  /// ID of the latest charge
+  @JsonKey(name: 'latest_charge')
+  final String? latestCharge;
+
+  /// Whether this is in live mode or test mode
+  final bool livemode;
+
+  /// Metadata associated with the payment intent
+  final Map<String, dynamic>? metadata;
+
+  /// Next actions required, if any
+  @JsonKey(name: 'next_action')
+  final Map<String, dynamic>? nextAction;
+
+  /// On behalf of account, if any
+  @JsonKey(name: 'on_behalf_of')
+  final String? onBehalfOf;
+
+  /// Payment method ID
+  @JsonKey(name: 'payment_method')
+  final String? paymentMethod;
+
+  /// Payment method options
+  @JsonKey(name: 'payment_method_options')
+  final Map<String, dynamic>? paymentMethodOptions;
+
+  /// List of payment method types
+  @JsonKey(name: 'payment_method_types')
+  final List<String>? paymentMethodTypes;
+
+  /// Processing details, if any
+  final Map<String, dynamic>? processing;
+
+  /// Email to send receipt to
+  @JsonKey(name: 'receipt_email')
+  final String? receiptEmail;
+
+  /// ID of the review, if any
+  final String? review;
+
+  /// Setup future usage setting
+  @JsonKey(name: 'setup_future_usage')
+  final String? setupFutureUsage;
+
+  /// Shipping details, if any
+  final Map<String, dynamic>? shipping;
+
+  /// Source used for the payment, if any
+  final String? source;
+
+  /// Statement descriptor
+  @JsonKey(name: 'statement_descriptor')
+  final String? statementDescriptor;
+
+  /// Statement descriptor suffix
+  @JsonKey(name: 'statement_descriptor_suffix')
+  final String? statementDescriptorSuffix;
+
+  /// Status of the payment intent
+  final String status;
+
+  /// Transfer data, if any
+  @JsonKey(name: 'transfer_data')
+  final Map<String, dynamic>? transferData;
+
+  /// Transfer group, if any
+  @JsonKey(name: 'transfer_group')
+  final String? transferGroup;
+
+  /// Creates a new [StripeConfirmPaymentIntentResponse].
+  StripeConfirmPaymentIntentResponse({
+    required this.id,
+    required this.object,
+    required this.amount,
+    this.amountCapturable,
+    this.amountDetails,
+    this.amountReceived,
+    this.application,
+    this.applicationFeeAmount,
+    this.automaticPaymentMethods,
+    this.canceledAt,
+    this.cancellationReason,
+    required this.captureMethod,
+    required this.clientSecret,
+    required this.confirmationMethod,
+    required this.created,
+    required this.currency,
+    this.customer,
+    this.description,
+    this.lastPaymentError,
+    this.latestCharge,
+    required this.livemode,
+    this.metadata,
+    this.nextAction,
+    this.onBehalfOf,
+    this.paymentMethod,
+    this.paymentMethodOptions,
+    this.paymentMethodTypes,
+    this.processing,
+    this.receiptEmail,
+    this.review,
+    this.setupFutureUsage,
+    this.shipping,
+    this.source,
+    this.statementDescriptor,
+    this.statementDescriptorSuffix,
+    required this.status,
+    this.transferData,
+    this.transferGroup,
+  });
+
+  /// Creates a [StripeConfirmPaymentIntentResponse] from a JSON object.
+  factory StripeConfirmPaymentIntentResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$StripeConfirmPaymentIntentResponseFromJson(json);
+
+  /// Converts this [StripeConfirmPaymentIntentResponse] to a JSON object.
+  Map<String, dynamic> toJson() =>
+      _$StripeConfirmPaymentIntentResponseToJson(this);
+}
+
+```
+
 ## stripe_payment_intent_model
 
 *File: lib/src/models/stripe_payment_intent_model.dart*
@@ -3508,6 +4054,62 @@ class StripePublicKeyResponse {
 
   /// Converts this instance to a JSON object
   Map<String, dynamic> toJson() => _$StripePublicKeyResponseToJson(this);
+}
+
+```
+
+## stripe_shipping_details
+
+*File: lib/src/models/stripe/stripe_shipping_details.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'stripe_address.dart';
+
+part 'stripe_shipping_details.g.dart';
+
+/// Shipping information for a Stripe payment.
+///
+/// This model represents shipping details as used in Stripe payment intents
+/// and other Stripe API objects.
+///
+/// See Stripe API documentation:
+/// https://stripe.com/docs/api/payment_intents/confirm#confirm_payment_intent-shipping
+@JsonSerializable()
+class StripeShippingDetails {
+  /// Shipping address.
+  final StripeAddress? address;
+
+  /// The delivery service that shipped a physical product,
+  /// such as Fedex, UPS, USPS, etc.
+  final String? carrier;
+
+  /// Recipient name.
+  final String? name;
+
+  /// Recipient phone (including extension).
+  final String? phone;
+
+  /// The tracking number for a physical product,
+  /// obtained from the delivery service.
+  @JsonKey(name: 'tracking_number')
+  final String? trackingNumber;
+
+  /// Creates a new [StripeShippingDetails].
+  StripeShippingDetails({
+    this.address,
+    this.carrier,
+    this.name,
+    this.phone,
+    this.trackingNumber,
+  });
+
+  /// Creates a [StripeShippingDetails] from a JSON object.
+  factory StripeShippingDetails.fromJson(Map<String, dynamic> json) =>
+      _$StripeShippingDetailsFromJson(json);
+
+  /// Converts this [StripeShippingDetails] to a JSON object.
+  Map<String, dynamic> toJson() => _$StripeShippingDetailsToJson(this);
 }
 
 ```

@@ -13,6 +13,9 @@ part 'confirm_payment_request.g.dart';
 /// final request = ConfirmPaymentRequest(
 ///   paymentIntentId: 'pi_1234567890',
 ///   paymentMethodId: 'pm_1234567890',
+///   customer: CustomerModel(...),
+///   items: {'PRODUCT-001': 2, 'PRODUCT-002': 1},
+///   shippingMethod: 'STANDARD'
 /// );
 /// ```
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -23,11 +26,13 @@ class ConfirmPaymentRequest {
   /// The optional ID of the payment method to use for confirmation
   final String? paymentMethodId;
 
-  final PaymentIntentRequest order;
+  final PaymentIntentRequest? order;
 
   final CustomerModel customer;
 
-  final Map<String, double> items; //Barcode > Qty
+  /// Map of product barcodes to quantities
+  /// Can handle both integer and double quantities
+  final Map<String, dynamic> items;
 
   final String shippingMethod;
 
@@ -43,7 +48,7 @@ class ConfirmPaymentRequest {
   const ConfirmPaymentRequest({
     required this.paymentIntentId,
     required this.paymentMethodId,
-    required this.order,
+    this.order,
     required this.customer,
     required this.items,
     required this.shippingMethod,

@@ -45,3 +45,7 @@ export 'src/models/volume_transferred_record.dart';
 export 'src/models/stocktake.dart';
 export 'src/json_helpers.dart';
 export 'src/models/still.dart';
+export 'src/models/stripe/stripe_address.dart';
+export 'src/models/stripe/stripe_shipping_details.dart';
+export 'src/models/stripe/stripe_confirm_payment_intent_request.dart';
+export 'src/models/stripe/stripe_confirm_payment_intent_response.dart';

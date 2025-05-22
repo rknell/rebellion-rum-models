@@ -1,7 +1,7 @@
 import 'dart:core';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rebellion_rum_models/src/json_helpers.dart';
+import 'package:rebellion_rum_models/rebellion_rum_models.dart';
 
 part 'customer.g.dart';
 
@@ -114,6 +114,49 @@ class CustomerModel extends DatabaseSerializable {
     Set<CustomerPreferences>? preferences,
     this.isWholesale = false,
   }) : preferences = preferences ?? <CustomerPreferences>{};
+
+  /// Updates this customer with sanitized fields from another customer
+  ///
+  /// This method is used to safely update an existing customer with user-provided
+  /// changes while ensuring that only allowed fields are modified.
+  ///
+  /// [source] - The source CustomerModel containing the changes to apply
+  /// Returns this CustomerModel instance for method chaining
+  CustomerModel mergeSanitized(CustomerModel source) {
+    // Update personal information
+    firstName = source.firstName;
+    lastName = source.lastName;
+    email = source.email;
+    phone = source.phone;
+
+    // Update address information
+    companyName = source.companyName;
+    addressLine1 = source.addressLine1;
+    addressLine2 = source.addressLine2;
+    city = source.city;
+    state = source.state;
+    postcode = source.postcode;
+    country = source.country;
+
+    // Update preferences
+    preferences = source.preferences;
+
+    // Note: isWholesale is not updated as it requires business approval
+
+    return this;
+  }
+
+  StartShipItRateDestinationAddressModel
+      toStartShipItRateDestinationAddressModel() {
+    return StartShipItRateDestinationAddressModel(
+      street:
+          addressLine2 != null ? '$addressLine1, $addressLine2' : addressLine1,
+      suburb: city,
+      state: state,
+      postCode: postcode,
+      countryCode: country == 'Australia' ? 'AU' : country,
+    );
+  }
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);

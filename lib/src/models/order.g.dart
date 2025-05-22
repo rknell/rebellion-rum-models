@@ -8,29 +8,52 @@ part of 'order.dart';
 
 OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
-      customer:
-          CustomerModel.fromJson(json['customer'] as Map<String, dynamic>),
-      date: DateTime.parse(json['date'] as String),
+      customerId:
+          const NullableObjectIdConverter().fromJson(json['customerId']),
+      date:
+          json['date'] == null ? null : DateTime.parse(json['date'] as String),
       items: Map<String, int>.from(json['items'] as Map),
       orderNumber: json['orderNumber'] as String,
       paymentMethod: json['paymentMethod'] as String?,
-      totalQuote: (json['totalQuote'] as num).toDouble(),
-      paymentReceipt: json['paymentReceipt'] as Map<String, dynamic>?,
+      status: $enumDecodeNullable(_$OrderStatusEnumMap, json['status'],
+              unknownValue: OrderStatus.pending) ??
+          OrderStatus.pending,
+      totalQuote: (json['totalQuote'] as num?)?.toInt(),
+      metadata: json['metadata'] as Map<String, dynamic>?,
+      paymentIntentId: json['paymentIntentId'] as String?,
       shippingMethod: json['shippingMethod'] as String?,
       shippingReceipt: json['shippingReceipt'] as Map<String, dynamic>?,
-    );
+      notes: json['notes'] as String?,
+    )..customer = json['customer'] == null
+        ? null
+        : CustomerModel.fromJson(json['customer'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
     <String, dynamic>{
       if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
-      'customer': instance.customer.toJson(),
+      if (const NullableObjectIdConverter().toJson(instance.customerId)
+          case final value?)
+        'customerId': value,
+      if (instance.customer?.toJson() case final value?) 'customer': value,
       'date': instance.date.toIso8601String(),
       'items': instance.items,
       'orderNumber': instance.orderNumber,
       if (instance.paymentMethod case final value?) 'paymentMethod': value,
-      if (instance.paymentReceipt case final value?) 'paymentReceipt': value,
+      'status': _$OrderStatusEnumMap[instance.status]!,
+      'metadata': instance.metadata,
+      if (instance.paymentIntentId case final value?) 'paymentIntentId': value,
       if (instance.shippingMethod case final value?) 'shippingMethod': value,
       if (instance.shippingReceipt case final value?) 'shippingReceipt': value,
-      'totalQuote': instance.totalQuote,
+      if (instance.totalQuote case final value?) 'totalQuote': value,
+      if (instance.notes case final value?) 'notes': value,
     };
+
+const _$OrderStatusEnumMap = {
+  OrderStatus.pending: 'pending',
+  OrderStatus.processing: 'processing',
+  OrderStatus.shipped: 'shipped',
+  OrderStatus.delivered: 'delivered',
+  OrderStatus.cancelled: 'cancelled',
+  OrderStatus.refunded: 'refunded',
+};
