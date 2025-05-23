@@ -123,25 +123,14 @@ class OrderModel extends DatabaseSerializable {
   /// Returns a sanitized JSON representation of the order
   ///
   /// This method returns a JSON map containing only fields that are safe
-  /// to expose to clients. It excludes sensitive internal fields and
-  /// ensures consistent data formatting.
+  /// to expose to clients. It excludes sensitive internal metadata fields
+  /// while preserving all other order data.
   ///
   /// Returns a `Map<String, dynamic>` with the sanitized order data
   Map<String, dynamic> toJsonSanitized() {
-    return {
-      'id': id.toString(),
-      'customer': customer?.toJson(),
-      'date': date.toIso8601String(),
-      'items': items,
-      'orderNumber': orderNumber,
-      'paymentMethod': paymentMethod,
-      'status': status.toString(),
-      'totalQuote': totalQuote,
-      'shippingMethod': shippingMethod,
-      'shippingReceipt': shippingReceipt,
-      'notes': notes,
-      'paymentIntentClientSecret': paymentIntentClientSecret
-    };
+    final json = toJson();
+    json.remove('metadata');
+    return json;
   }
 
   @override
