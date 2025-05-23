@@ -41,9 +41,8 @@ export enum FermentationType {
 export enum OrderStatus {
   cancelled = "cancelled",
   delivered = "delivered",
+  paid = "paid",
   pending = "pending",
-  processing = "processing",
-  refunded = "refunded",
   shipped = "shipped",
 }
 
@@ -429,6 +428,57 @@ export interface SaleModel {
 export interface ShippingQuoteRequestModel {
   address: StartShipItRateDestinationAddressModel;
   items: Record<string, number>;
+}
+
+export interface StarShipItAddress {
+  country: string;
+  delivery_instructions: string | null;
+  name: string;
+  phone: string;
+  post_code: string;
+  state: string;
+  street: string;
+  suburb: string;
+}
+
+export interface StarShipItCreateOrderRequest {
+  order: StarShipItOrder;
+}
+
+export interface StarShipItItem {
+  country_of_origin: string | null;
+  description: string | null;
+  item_id: number | null;
+  quantity: number | null;
+  quantity_to_ship: number | null;
+  sku: string | null;
+  tariff_code: string | null;
+  value: number | null;
+  weight: number | null;
+}
+
+export interface StarShipItOrder {
+  carrier: string | null;
+  carrier_name: string | null;
+  currency: string | null;
+  destination: StarShipItAddress;
+  items: StarShipItItem[] | null;
+  order_date: string | null;
+  order_number: string;
+  packages: StarShipItPackage[] | null;
+  reference: string | null;
+  return_order: boolean | null;
+  sender_details: StarShipItAddress | null;
+  shipping_description: string | null;
+  shipping_method: string | null;
+  signature_required: boolean | null;
+}
+
+export interface StarShipItPackage {
+  height: number | null;
+  length: number | null;
+  weight: number | null;
+  width: number | null;
 }
 
 export interface StartShipItErrorModel {

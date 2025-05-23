@@ -8,11 +8,10 @@ part 'order.g.dart';
 /// Order status representing the current state of an order in the fulfillment process
 enum OrderStatus {
   pending, // Initial state when order is created
-  processing, // Payment confirmed, order being prepared
+  paid, // Payment confirmed, order being prepared
   shipped, // Order has been shipped
   delivered, // Order has been delivered
-  cancelled, // Order was cancelled
-  refunded // Order was refunded
+  cancelled // Order was cancelled
 }
 
 /// Represents a customer order in the system.
