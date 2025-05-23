@@ -441,8 +441,24 @@ export interface StarShipItAddress {
   suburb: string;
 }
 
+export interface StarShipItAddressResponse {
+  country: string;
+  delivery_instructions: string | null;
+  name: string;
+  phone: string;
+  post_code: string;
+  state: string;
+  street: string;
+  suburb: string;
+}
+
 export interface StarShipItCreateOrderRequest {
   order: StarShipItOrder;
+}
+
+export interface StarShipItCreateOrderResponse {
+  order: StarShipItOrderResponse;
+  success: boolean;
 }
 
 export interface StarShipItItem {
@@ -455,6 +471,16 @@ export interface StarShipItItem {
   tariff_code: string | null;
   value: number | null;
   weight: number | null;
+}
+
+export interface StarShipItItemResponse {
+  description: string;
+  item_id: number;
+  quantity: number;
+  quantity_to_ship: number;
+  sku: string;
+  value: number;
+  weight: number;
 }
 
 export interface StarShipItOrder {
@@ -474,11 +500,36 @@ export interface StarShipItOrder {
   signature_required: boolean | null;
 }
 
+export interface StarShipItOrderResponse {
+  carrier: string | null;
+  carrier_name: string | null;
+  carrier_service_code: string | null;
+  dangerous_goods: boolean | null;
+  declared_value: number | null;
+  destination: StarShipItAddressResponse;
+  items: StarShipItItemResponse[] | null;
+  order_date: string;
+  order_id: number;
+  order_number: string;
+  packages: StarShipItPackageResponse[] | null;
+  reference: string | null;
+  shipping_method: string | null;
+  signature_required: boolean | null;
+}
+
 export interface StarShipItPackage {
   height: number | null;
   length: number | null;
   weight: number | null;
   width: number | null;
+}
+
+export interface StarShipItPackageResponse {
+  height: number;
+  length: number;
+  package_id: number;
+  weight: number;
+  width: number;
 }
 
 export interface StartShipItErrorModel {
