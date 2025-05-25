@@ -158,6 +158,18 @@ class CustomerModel extends DatabaseSerializable {
     );
   }
 
+  StarShipItAddress toStarShipItAddress() {
+    return StarShipItAddress(
+      name: '$firstName $lastName',
+      phone: phone,
+      street: addressLine1,
+      suburb: city,
+      state: state,
+      postCode: postcode,
+      country: country,
+    );
+  }
+
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
 

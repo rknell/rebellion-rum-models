@@ -62,7 +62,6 @@ void main() {
 
       final response = StarShipItCreateOrderResponse.fromJson(json);
 
-      expect(response.success, equals(true));
       expect(response.order.orderId, equals(1020304051));
       expect(response.order.orderDate,
           equals(DateTime.parse('2020-04-29T22:47:00.0593501Z')));
@@ -163,10 +162,7 @@ void main() {
         declaredValue: 0.0,
       );
 
-      final response = StarShipItCreateOrderResponse(
-        order: orderResponse,
-        success: true,
-      );
+      final response = StarShipItCreateOrderResponse(order: orderResponse);
 
       final json = response.toJson();
 
@@ -233,7 +229,6 @@ void main() {
 
       final response = StarShipItCreateOrderResponse.fromJson(json);
 
-      expect(response.success, equals(true));
       expect(response.order.orderId, equals(12345));
       expect(response.order.orderNumber, equals('MIN123'));
       expect(response.order.reference, isNull);

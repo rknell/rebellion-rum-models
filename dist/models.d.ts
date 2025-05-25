@@ -458,7 +458,7 @@ export interface StarShipItCreateOrderRequest {
 
 export interface StarShipItCreateOrderResponse {
   order: StarShipItOrderResponse;
-  success: boolean;
+  success: boolean | null;
 }
 
 export interface StarShipItItem {
@@ -501,7 +501,7 @@ export interface StarShipItOrder {
 }
 
 export interface StarShipItOrderResponse {
-  carrier: string | null;
+  carrier: any;
   carrier_name: string | null;
   carrier_service_code: string | null;
   dangerous_goods: boolean | null;

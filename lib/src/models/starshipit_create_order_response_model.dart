@@ -8,12 +8,12 @@ class StarShipItCreateOrderResponse {
   /// The created order details
   final StarShipItOrderResponse order;
 
-  /// Whether the operation was successful
+  /// Indicates if the order creation was successful
   final bool success;
 
   const StarShipItCreateOrderResponse({
     required this.order,
-    required this.success,
+    this.success = true,
   });
 
   factory StarShipItCreateOrderResponse.fromJson(Map<String, dynamic> json) =>
@@ -41,6 +41,7 @@ class StarShipItOrderResponse {
   final String? reference;
 
   /// Carrier code
+  @JsonKey(fromJson: _carrierFromJson, toJson: _carrierToJson)
   final String? carrier;
 
   /// Carrier display name
@@ -97,6 +98,17 @@ class StarShipItOrderResponse {
       _$StarShipItOrderResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$StarShipItOrderResponseToJson(this);
+
+  /// Custom converter for carrier field - handles both int and string values
+  static String? _carrierFromJson(dynamic value) {
+    if (value == null) return null;
+    if (value is String) return value.isEmpty ? null : value;
+    if (value is int) return value == -1 ? null : value.toString();
+    return value.toString();
+  }
+
+  /// Custom converter for carrier field
+  static dynamic _carrierToJson(String? value) => value;
 }
 
 /// Address and contact details for StarShipIt order responses
