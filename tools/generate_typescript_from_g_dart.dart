@@ -81,6 +81,8 @@ Future<String> generateTypeScriptString(String? inputPath,
     throw ArgumentError('Either inputPath or inputContent must be provided');
   }
 
+  final logger = Logger('TypeScriptFromGDartGenerator');
+
   // Maps to store parsed information
   final interfaces =
       <String, Map<String, String>>{}; // className -> {fieldName -> tsType}
@@ -101,6 +103,32 @@ Future<String> generateTypeScriptString(String? inputPath,
     await for (final entity in inputDir.list(recursive: true)) {
       if (entity is File && entity.path.endsWith('.g.dart')) {
         final content = await entity.readAsString();
+
+        // Special debugging for alcocalc file
+        if (entity.path.contains('alcocalc_dilution_calculation.g.dart')) {
+          logger.info('=== DEBUGGING ALCOCALC FILE ===');
+          logger.info('File path: ${entity.path}');
+          logger.info('Content length: ${content.length}');
+
+          // Check if AlcocalcDilutionResultModel is in the content
+          if (content.contains('AlcocalcDilutionResultModel')) {
+            logger.info('✓ AlcocalcDilutionResultModel found in content');
+          } else {
+            logger.info('✗ AlcocalcDilutionResultModel NOT found in content');
+          }
+
+          // Check for the specific fromJson pattern
+          final testRegex = RegExp(
+              r'AlcocalcDilutionResultModel\s+_\$AlcocalcDilutionResultModelFromJson');
+          if (testRegex.hasMatch(content)) {
+            logger.info('✓ AlcocalcDilutionResultModel fromJson pattern found');
+          } else {
+            logger.info(
+                '✗ AlcocalcDilutionResultModel fromJson pattern NOT found');
+          }
+
+          logger.info('=== END ALCOCALC DEBUGGING ===');
+        }
 
         // Extract model info from .g.dart files using the new approach
         _extractModelsFromGDart(content, interfaces, enums);
@@ -248,9 +276,15 @@ void extractModelsFromGDart(
 
     // 4. Parse the constructor args string into field assignments
     logger.info('Extracting field assignments for $className...');
-    final fieldAssignments = _extractFieldAssignments(constructorArgsString);
+    final fieldAssignments =
+        _extractAllFieldAssignments(constructorArgsString, className);
+
+    // 5. Extract cascade assignments from the full content
+    final cascadeAssignments = _extractCascadeAssignments(content, className);
+    fieldAssignments.addAll(cascadeAssignments);
+
     logger.info(
-        'Extracted ${fieldAssignments.length} fields for $className: ${fieldAssignments.keys.join(', ')}');
+        'Extracted ${fieldAssignments.length} total fields for $className: ${fieldAssignments.keys.join(', ')}');
 
     // Track which fields have been successfully extracted using the direct JSON key access
     final processedFields = <String>{};
@@ -670,10 +704,9 @@ Map<String, String> _extractFromJsonBlocks(String content) {
 
   logger.info('Extracting fromJson blocks from content...');
 
-  // Regex to find the fromJson method signature and capture the class name
-  // and the entire content within the constructor invocation `ModelName(...)`.
+  // More robust regex that handles various whitespace patterns and multiline constructors
   final fromJsonRegex = RegExp(
-      r'(\w+)\s+_\$(\w+)FromJson\(\s*Map<String,\s+dynamic>\s+json\)\s*=>\s*\w+\(([\s\S]*?)\);',
+      r'(\w+)\s+_\$(\w+)FromJson\s*\(\s*Map<String,\s*dynamic>\s+json\s*\)\s*=>\s*(\w+)\s*\(([\s\S]*?)\)\s*(?:\.\.[\s\S]*?)?;',
       multiLine: true);
 
   int matchCount = 0;
@@ -681,33 +714,11 @@ Map<String, String> _extractFromJsonBlocks(String content) {
     matchCount++;
     final returnType = match.group(1)!;
     final className = match.group(2)!;
-
-    // Group 3 contains the raw arguments string between the constructor parentheses.
-    final constructorArgs = match.group(3)!.trim();
+    final constructorName = match.group(3)!;
+    final constructorArgs = match.group(4)!.trim();
 
     logger.info(
-        'Match #$matchCount: Found class $className (return type: $returnType)');
-    logger.info(
-        '  Constructor args preview: ${constructorArgs.length > 50 ? "${constructorArgs.substring(0, 50)}..." : constructorArgs}');
-
-    // Check for Map<String, int> fields specifically
-    if (constructorArgs.contains('Map<String, int>.from')) {
-      logger.info('  Found Map<String, int>.from field in $className');
-    }
-
-    // Check for specific patterns that might cause issues
-    if (constructorArgs.contains('),')) {
-      logger.info(
-          '  NOTE: Constructor contains nested closing parenthesis with comma - potential parsing challenge');
-
-      // Extract the specific problematic part for debugging
-      final lines = constructorArgs.split('\n');
-      for (int i = 0; i < lines.length; i++) {
-        if (lines[i].trim().contains('),')) {
-          logger.info('  Line ${i + 1} contains ),: "${lines[i].trim()}"');
-        }
-      }
-    }
+        'Match #$matchCount: Found class $className (return type: $returnType, constructor: $constructorName)');
 
     result[className] = constructorArgs;
   }
@@ -715,35 +726,113 @@ Map<String, String> _extractFromJsonBlocks(String content) {
   logger.info(
       'Extracted ${result.length} fromJson blocks from $matchCount regex matches');
 
-  // If we didn't find any matches, try a simpler regex
-  if (result.isEmpty) {
-    final simpleRegex = RegExp(
-        r'(\w+)\s+_\$(\w+)FromJson\(Map<String, dynamic> json\)\s*=>',
-        multiLine: true);
+  // Enhanced fallback: If we didn't find many matches, try a more flexible approach
+  if (result.length < 10) {
+    logger.info('Low match count, trying enhanced fallback approach...');
 
-    for (final match in simpleRegex.allMatches(content)) {
-      final className = match.group(2)!;
-      logger.info('Using simpler regex, found class: $className');
+    // Split content into lines and process more carefully
+    final lines = content.split('\n');
+    for (int i = 0; i < lines.length; i++) {
+      final line = lines[i].trim();
 
-      // Find the constructor arguments
-      final startPos = match.end;
-      final endPos = content.indexOf(';', startPos);
-      if (endPos > startPos) {
-        final fullExpression = content.substring(startPos, endPos).trim();
-        // Extract just the constructor arguments from ModelName(args)
-        final argsStartPos = fullExpression.indexOf('(');
-        final argsEndPos = fullExpression.lastIndexOf(')');
-        if (argsStartPos != -1 && argsEndPos > argsStartPos) {
-          final args =
-              fullExpression.substring(argsStartPos + 1, argsEndPos).trim();
-          result[className] = args;
+      // Look for fromJson function signatures with more flexible pattern
+      final fromJsonMatch = RegExp(
+              r'(\w+)\s+_\$(\w+)FromJson\s*\(\s*Map<String,\s*dynamic>\s+json\s*\)\s*=>')
+          .firstMatch(line);
+
+      if (fromJsonMatch != null) {
+        final returnType = fromJsonMatch.group(1)!;
+        final className = fromJsonMatch.group(2)!;
+
+        // Skip if we already found this class
+        if (result.containsKey(className)) continue;
+
+        logger.info(
+            'Fallback: Found fromJson function for class: $className (return type: $returnType)');
+
+        // Find the constructor call - look for ClassName( pattern
+        String constructorArgs = '';
+        bool foundConstructor = false;
+        int parenthesesDepth = 0;
+        bool insideConstructor = false;
+
+        // Search forward from current line to find the constructor
+        for (int j = i; j < lines.length && j < i + 50; j++) {
+          final currentLine = lines[j];
+
+          if (!foundConstructor) {
+            // Look for constructor pattern: ClassName(
+            final constructorPattern = RegExp('\\b$className\\s*\\(');
+            final constructorMatch = constructorPattern.firstMatch(currentLine);
+
+            if (constructorMatch != null) {
+              foundConstructor = true;
+              insideConstructor = true;
+
+              // Start collecting from after the opening parenthesis
+              final startPos =
+                  constructorMatch.end - 1; // Include the opening parenthesis
+              final lineAfterConstructor = currentLine.substring(startPos + 1);
+
+              // Process characters to track parentheses depth
+              for (int k = 0; k < lineAfterConstructor.length; k++) {
+                final char = lineAfterConstructor[k];
+                if (char == '(') {
+                  parenthesesDepth++;
+                } else if (char == ')') {
+                  parenthesesDepth--;
+                  if (parenthesesDepth < 0) {
+                    // Found the closing parenthesis of the constructor
+                    insideConstructor = false;
+                    break;
+                  }
+                }
+                constructorArgs += char;
+              }
+
+              if (!insideConstructor) {
+                break; // Constructor completed on same line
+              }
+            }
+          } else if (insideConstructor) {
+            // Continue collecting constructor arguments
+            for (int k = 0; k < currentLine.length; k++) {
+              final char = currentLine[k];
+              if (char == '(') {
+                parenthesesDepth++;
+              } else if (char == ')') {
+                parenthesesDepth--;
+                if (parenthesesDepth < 0) {
+                  // Found the closing parenthesis of the constructor
+                  insideConstructor = false;
+                  break;
+                }
+              }
+              constructorArgs += char;
+            }
+
+            if (!insideConstructor) break; // Constructor completed
+            constructorArgs += '\n'; // Add newline for multi-line constructors
+          }
+
+          // Stop if we hit a semicolon and we're not inside the constructor
+          if (!insideConstructor && currentLine.contains(';')) {
+            break;
+          }
+        }
+
+        if (foundConstructor && constructorArgs.isNotEmpty) {
+          result[className] = constructorArgs.trim();
           logger.info(
-              'Extracted constructor args for $className with simple regex');
+              'Fallback: Extracted constructor args for $className (${constructorArgs.length} chars)');
+        } else {
+          logger.warning('Fallback: Could not find constructor for $className');
         }
       }
     }
   }
 
+  logger.info('Final result: Extracted ${result.length} fromJson blocks');
   return result;
 }
 
@@ -753,98 +842,197 @@ Map<String, String> _extractFieldAssignments(String constructorArgs) {
   final logger = Logger('TypeScriptFromGDartGenerator');
   final fields = <String, String>{};
 
-  // Use a more precise approach to track balance of delimiters
-  final lines = constructorArgs.split('\n');
-  String currentFieldBuffer = '';
-  String? currentFieldName;
-  int parenthesesBalance = 0;
-  int squareBracketBalance = 0;
-  int curlyBraceBalance = 0;
-  bool insideQuotes = false;
-  String? lastChar;
+  if (constructorArgs.trim().isEmpty) {
+    logger.info('Constructor args is empty, returning empty fields map');
+    return fields;
+  }
 
   logger
       .info('Processing constructor args (length: ${constructorArgs.length})');
 
-  // First pass: combine lines into field entries based on proper delimiter balance
-  for (int i = 0; i < lines.length; i++) {
-    final line = lines[i].trim();
-    if (line.isEmpty) continue;
+  // Clean up the constructor args first - remove any trailing characters that aren't part of the structure
+  String cleanedArgs = constructorArgs.trim();
 
-    // Process each character for accurate delimiter tracking
-    for (int j = 0; j < line.length; j++) {
-      final char = line[j];
+  // Remove any trailing characters that might be artifacts
+  if (cleanedArgs.endsWith(',')) {
+    cleanedArgs = cleanedArgs.substring(0, cleanedArgs.length - 1);
+  }
 
-      // Handle quotes (only track if not escaped)
-      if (char == '"' || char == "'") {
-        if (lastChar != '\\') {
-          insideQuotes = !insideQuotes;
+  // Split into logical field entries by looking for field patterns
+  final fieldEntries = <String>[];
+  final lines = cleanedArgs.split('\n');
+
+  String currentEntry = '';
+  int parenthesesDepth = 0;
+  int squareBracketDepth = 0;
+  int curlyBraceDepth = 0;
+  bool inQuotes = false;
+  String? quoteChar;
+
+  for (final line in lines) {
+    final trimmedLine = line.trim();
+    if (trimmedLine.isEmpty) continue;
+
+    // Process each character to track delimiters properly
+    for (int i = 0; i < trimmedLine.length; i++) {
+      final char = trimmedLine[i];
+      final prevChar = i > 0 ? trimmedLine[i - 1] : '';
+
+      // Handle quotes (only if not escaped)
+      if ((char == '"' || char == "'") && prevChar != '\\') {
+        if (!inQuotes) {
+          inQuotes = true;
+          quoteChar = char;
+        } else if (char == quoteChar) {
+          inQuotes = false;
+          quoteChar = null;
         }
       }
 
-      // Only track delimiter balance outside of quotes
-      if (!insideQuotes) {
-        if (char == '(') parenthesesBalance++;
-        if (char == ')') parenthesesBalance--;
-        if (char == '[') squareBracketBalance++;
-        if (char == ']') squareBracketBalance--;
-        if (char == '{') curlyBraceBalance++;
-        if (char == '}') curlyBraceBalance--;
+      // Only track delimiters outside of quotes
+      if (!inQuotes) {
+        switch (char) {
+          case '(':
+            parenthesesDepth++;
+            break;
+          case ')':
+            parenthesesDepth--;
+            break;
+          case '[':
+            squareBracketDepth++;
+            break;
+          case ']':
+            squareBracketDepth--;
+            break;
+          case '{':
+            curlyBraceDepth++;
+            break;
+          case '}':
+            curlyBraceDepth--;
+            break;
+        }
       }
 
-      lastChar = char;
+      currentEntry += char;
     }
 
-    // Accumulate the line into the current field buffer
-    if (currentFieldBuffer.isEmpty) {
-      currentFieldBuffer = line;
+    // Check if we're at the end of a field entry
+    final isBalanced = parenthesesDepth == 0 &&
+        squareBracketDepth == 0 &&
+        curlyBraceDepth == 0 &&
+        !inQuotes;
+
+    if (trimmedLine.endsWith(',') && isBalanced) {
+      // Complete field entry found
+      fieldEntries.add(currentEntry.trim());
+      currentEntry = '';
     } else {
-      currentFieldBuffer += '\n$line';
-    }
-
-    // Check if the field entry is complete (ends with comma and all delimiters are balanced)
-    final isBalanced = parenthesesBalance == 0 &&
-        squareBracketBalance == 0 &&
-        curlyBraceBalance == 0;
-
-    if (line.endsWith(',') && isBalanced) {
-      // Extract field name from the buffer
-      final colonIndex = currentFieldBuffer.indexOf(':');
-      if (colonIndex != -1) {
-        currentFieldName = currentFieldBuffer.substring(0, colonIndex).trim();
-        final fieldValue = currentFieldBuffer
-            .substring(colonIndex + 1, currentFieldBuffer.length - 1)
-            .trim();
-        fields[currentFieldName] = fieldValue;
-        logger.info('Extracted complete field: $currentFieldName');
-      } else {
-        logger.warning('Failed to find field name in: $currentFieldBuffer');
-      }
-
-      // Reset for next field
-      currentFieldBuffer = '';
-      currentFieldName = null;
+      // Continue building the current entry
+      currentEntry += '\n';
     }
   }
 
-  // Handle any remaining field buffer
-  if (currentFieldBuffer.isNotEmpty) {
-    // Try to extract a field from any remaining buffer
-    final colonIndex = currentFieldBuffer.indexOf(':');
-    if (colonIndex != -1) {
-      currentFieldName = currentFieldBuffer.substring(0, colonIndex).trim();
-      final fieldValue = currentFieldBuffer.substring(colonIndex + 1).trim();
-      // Remove trailing comma if present
-      String cleanValue = fieldValue;
-      if (cleanValue.endsWith(',')) {
-        cleanValue = cleanValue.substring(0, cleanValue.length - 1);
-      }
-      fields[currentFieldName] = cleanValue;
-      logger.info('Extracted final field: $currentFieldName');
+  // Handle any remaining entry
+  if (currentEntry.trim().isNotEmpty) {
+    fieldEntries.add(currentEntry.trim());
+  }
+
+  // Parse each field entry
+  for (final entry in fieldEntries) {
+    final colonIndex = entry.indexOf(':');
+    if (colonIndex == -1) continue;
+
+    final fieldName = entry.substring(0, colonIndex).trim();
+    String fieldValue = entry.substring(colonIndex + 1).trim();
+
+    // Clean up field value - remove trailing comma and any stray characters
+    if (fieldValue.endsWith(',')) {
+      fieldValue = fieldValue.substring(0, fieldValue.length - 1).trim();
+    }
+
+    // Validate field name (should be a valid identifier)
+    if (RegExp(r'^[a-zA-Z_][a-zA-Z0-9_]*$').hasMatch(fieldName)) {
+      fields[fieldName] = fieldValue;
+      logger.info('Extracted field: $fieldName');
+    } else {
+      logger.warning('Skipping invalid field name: "$fieldName"');
     }
   }
 
   logger.info('Extracted ${fields.length} fields: ${fields.keys.join(', ')}');
+  return fields;
+}
+
+/// Enhanced field extraction that also looks for cascade assignments (..field = value)
+Map<String, String> _extractAllFieldAssignments(
+    String constructorArgs, String className) {
+  final logger = Logger('TypeScriptFromGDartGenerator');
+  final fields = <String, String>{};
+
+  // First, extract fields from constructor arguments
+  final constructorFields = _extractFieldAssignments(constructorArgs);
+  fields.addAll(constructorFields);
+
+  logger.info(
+      'Extracted ${constructorFields.length} constructor fields for $className');
+
+  // For cascade assignments, we need to look at the full content, not just constructor args
+  // This will be handled separately in the main extraction function
+
+  return fields;
+}
+
+/// Extracts cascade assignments from the full fromJson method content
+Map<String, String> _extractCascadeAssignments(
+    String content, String className) {
+  final logger = Logger('TypeScriptFromGDartGenerator');
+  final fields = <String, String>{};
+
+  // Look for cascade assignments in the fromJson method
+  // Updated regex to handle multiple cascade assignments properly
+  final cascadeRegex = RegExp(r'\.\.(\w+)\s*=\s*([^;]+?)(?=\s*(?:\.\.|;))');
+  final fromJsonPattern = RegExp(
+      r'(\w+)\s+_\$' +
+          className +
+          r'FromJson\(Map<String, dynamic> json\)\s*=>\s*' +
+          className +
+          r'\([^)]*\)([\s\S]*?)(?=\n\w|\n\n|\Z)',
+      multiLine: true);
+
+  final fromJsonMatch = fromJsonPattern.firstMatch(content);
+  if (fromJsonMatch != null) {
+    final cascadeSection = fromJsonMatch.group(2) ?? '';
+    logger.info(
+        'Found cascade section for $className: ${cascadeSection.length} chars');
+
+    for (final match in cascadeRegex.allMatches(cascadeSection)) {
+      final fieldName = match.group(1)!;
+      final fieldValue = match.group(2)!.trim();
+
+      // Clean up the field value (remove trailing semicolons)
+      String cleanValue = fieldValue;
+      if (cleanValue.endsWith(';')) {
+        cleanValue = cleanValue.substring(0, cleanValue.length - 1);
+      }
+
+      fields[fieldName] = cleanValue;
+      logger.info('Extracted cascade field: $fieldName = $cleanValue');
+    }
+  } else {
+    logger.warning('No fromJson method found for $className');
+
+    // Try a simpler pattern to find cascade assignments anywhere in the content
+    logger.info('Trying simpler cascade pattern search...');
+    final simpleCascadeMatches = cascadeRegex.allMatches(content);
+    for (final match in simpleCascadeMatches) {
+      final fieldName = match.group(1)!;
+      final fieldValue = match.group(2)!.trim();
+      logger.info('Found cascade assignment: $fieldName = $fieldValue');
+    }
+  }
+
+  logger
+      .info('Total cascade fields extracted for $className: ${fields.length}');
   return fields;
 }
 
@@ -859,12 +1047,20 @@ String _inferTypeSimple(String assignmentCode, [String? fieldName]) {
 
   final nullableSuffix = isNullable ? ' | null' : '';
 
-  // 1. DateTime parsing detection - maps to string in TypeScript
+  // 1. ObjectId converter detection - maps to string in TypeScript
+  if (code.contains('NullableObjectIdConverter().fromJson(')) {
+    return 'string | null';
+  }
+  if (code.contains('ObjectIdConverter().fromJson(')) {
+    return 'string$nullableSuffix';
+  }
+
+  // 2. DateTime parsing detection - maps to string in TypeScript
   if (code.contains('DateTime.parse')) {
     return 'string$nullableSuffix';
   }
 
-  // 2. List handling with proper element type inference
+  // 3. List handling with proper element type inference
   if (code.contains('List<dynamic>') || code.contains(' as List')) {
     // Check for complex list transformations
     if (code.contains('.map') && code.contains('.toList()')) {
@@ -903,7 +1099,7 @@ String _inferTypeSimple(String assignmentCode, [String? fieldName]) {
     return 'any[]$nullableSuffix';
   }
 
-  // 3. Set handling - maps to arrays in TypeScript
+  // 4. Set handling - maps to arrays in TypeScript
   if (code.contains('.toSet()') || code.contains('as Set')) {
     // Apply similar type inference as for lists
     if (code.contains('as String')) {
@@ -918,7 +1114,7 @@ String _inferTypeSimple(String assignmentCode, [String? fieldName]) {
     return 'any[]$nullableSuffix';
   }
 
-  // 4. Conditional expressions with model references
+  // 5. Conditional expressions with model references
   // Check for conditional with fromJson in either branch (ternary operator)
   final conditionalRegex =
       RegExp(r'(.+)\s*==\s*null\s*\?\s*null\s*:\s*(.+)\.fromJson');
@@ -930,14 +1126,14 @@ String _inferTypeSimple(String assignmentCode, [String? fieldName]) {
     }
   }
 
-  // 5. Direct model references (standard fromJson pattern)
+  // 6. Direct model references (standard fromJson pattern)
   final fromJsonRegex = RegExp(r'(\w+)\.fromJson');
   final fromJsonMatch = fromJsonRegex.firstMatch(code);
   if (fromJsonMatch != null) {
     return fromJsonMatch.group(1)! + nullableSuffix;
   }
 
-  // 6. Map handling with key/value type inference
+  // 7. Map handling with key/value type inference
   if (code.contains('Map<String,')) {
     // Try to extract the value type
     final mapTypeRegex = RegExp(r'Map<String,\s*(\w+)>');
@@ -973,13 +1169,13 @@ String _inferTypeSimple(String assignmentCode, [String? fieldName]) {
     return 'Record<string, any>$nullableSuffix';
   }
 
-  // 7. Enum references
+  // 8. Enum references
   final enumMatch = RegExp(r'_\$(\w+)EnumMap').firstMatch(code);
   if (enumMatch != null) {
     return enumMatch.group(1)! + nullableSuffix;
   }
 
-  // 8. Basic primitive types
+  // 9. Basic primitive types
   if (code.contains('as String')) {
     return 'string$nullableSuffix';
   } else if (code.contains('as int') ||

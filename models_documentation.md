@@ -2199,9 +2199,6 @@ class ProductModel extends DatabaseSerializable {
   /// Percentage of Australian content
   double percentAustralian;
 
-  /// URL-friendly shortcut name
-  String? shortcut;
-
   /// Whether the product is currently enabled for sale
   bool? enabled;
 
@@ -2210,6 +2207,12 @@ class ProductModel extends DatabaseSerializable {
 
   /// Recipe information for producing this product
   ProductRecipe? recipe;
+
+  /// URL-friendly slug for the product
+  String? slug;
+
+  /// Primary product image
+  String? image;
 
   ProductModel({
     super.id,
@@ -2227,7 +2230,6 @@ class ProductModel extends DatabaseSerializable {
     this.longDescription,
     this.shortDescription,
     this.weight,
-    this.shortcut,
     this.enabled,
     double? matesRatesPrice,
     this.isArchived = false,

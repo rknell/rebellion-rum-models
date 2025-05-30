@@ -61,6 +61,7 @@ const _\$BulkStorageVesselStatusEnumMap = {
       // Replace print statements
       TestLogger.debug('Generated TypeScript:');
       TestLogger.debug(result);
+
       expect(
         result.contains('export interface BulkStorageVesselModel'),
         isTrue,
@@ -69,13 +70,13 @@ const _\$BulkStorageVesselStatusEnumMap = {
       );
 
       // Verify that all fields from the model are present in the interface
-      expect(result.contains('_id: any'), isTrue);
+      expect(result.contains('_id: string'), isTrue);
       expect(result.contains('barcode: string'), isTrue);
       expect(result.contains('name: string | null'), isTrue);
       expect(result.contains('capacity: number'), isTrue);
       expect(result.contains('currentLals: number'), isTrue);
       expect(result.contains('status: BulkStorageVesselStatus'), isTrue);
-      expect(result.contains('productId: any'), isTrue);
+      expect(result.contains('productId: string | null'), isTrue);
       expect(result.contains('needsStocktake: boolean'), isTrue);
     });
 

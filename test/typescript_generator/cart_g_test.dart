@@ -119,6 +119,7 @@ Map<String, dynamic> _\$UserInfoModelToJson(UserInfoModel instance) =>
       // Replace print statements
       TestLogger.debug('Generated TypeScript:');
       TestLogger.debug(result);
+
       expect(
         result.contains('export interface CartModel'),
         isTrue,
@@ -126,7 +127,7 @@ Map<String, dynamic> _\$UserInfoModelToJson(UserInfoModel instance) =>
       );
 
       // Verify that all fields from the model are present in the interface
-      expect(result.contains('_id: any'), isTrue);
+      expect(result.contains('_id: string'), isTrue);
       expect(result.contains('cartId: string'), isTrue);
       expect(result.contains('deliveryMethod: DeliveryMethodModel | null'),
           isTrue);

@@ -23,10 +23,13 @@ dart run tools/generate_typescript_from_g_dart.dart
 # Check if TypeScript generation was successful
 if [ $? -eq 0 ]; then
     echo "TypeScript definitions generated successfully!"
+    cp dist/models.d.ts ../rebellion-rum-website/src/types/shared-models.d.ts
 else
     echo "TypeScript definition generation failed!"
     exit 1
 fi
 
-
 dart tools/concat_models.dart
+
+tsc --noEmit dist/models.d.ts
+cp dist/models.d.ts ../rebellion-rum-website/src/types/shared-models.d.ts

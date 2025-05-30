@@ -53,7 +53,7 @@ Map<String, dynamic> _\$StockJournalModelToJson(StockJournalModel instance) =>
       );
 
       // Verify that all fields from the model are present in the interface
-      expect(result.contains('_id: any'), isTrue);
+      expect(result.contains('_id: string'), isTrue);
       expect(result.contains('barcode: string'), isTrue);
       expect(result.contains('type: string'), isTrue);
       expect(result.contains('from: string'), isTrue);

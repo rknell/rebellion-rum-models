@@ -48,7 +48,7 @@ Map<String, dynamic> _\$ExciseReturnModelToJson(ExciseReturnModel instance) =>
       );
 
       // Verify that all fields from the model are present in the interface
-      expect(result.contains('_id: any'), isTrue);
+      expect(result.contains('_id: string'), isTrue);
       expect(result.contains('totalLals: number'), isTrue);
       expect(result.contains('remissionApplied: boolean'), isTrue);
       // Note: The referenceNumber field is not appearing in the generated TypeScript

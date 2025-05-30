@@ -84,7 +84,7 @@ export enum StripeSetupFutureUsage {
 export interface AlcocalcDilutionInputModel {
   bottleSize: number | null;
   createdAt: string | null;
-  productId: any;
+  productId: string | null;
   startingABV: number;
   startingTemperature: number;
   startingWeight: number;
@@ -136,35 +136,35 @@ export interface AlcoholAdditionResultModel {
 }
 
 export interface BulkStorageRegisterItemModel {
-  _id: any;
+  _id: string;
   feintsDestroyed: boolean | null;
-  fromChargeId: any;
-  fromPackagingId: any;
-  fromVesselId: any;
+  fromChargeId: string | null;
+  fromPackagingId: string | null;
+  fromVesselId: string | null;
   isStocktake: boolean | null;
   lals: number | null;
   lalsCalculation: AlcocalcLalsCalculation | null;
   notes: string | null;
-  productId: any;
-  toChargeId: any;
-  toPackagingId: any;
-  toVesselId: any;
+  productId: string | null;
+  toChargeId: string | null;
+  toPackagingId: string | null;
+  toVesselId: string | null;
   wastage: boolean | null;
 }
 
 export interface BulkStorageVesselModel {
-  _id: any;
+  _id: string;
   barcode: string | null;
   capacity: number | null;
   currentLals: number | null;
   name: string | null;
   needsStocktake: boolean | null;
-  productId: any;
+  productId: string | null;
   status: BulkStorageVesselStatus;
 }
 
 export interface CartModel {
-  _id: any;
+  _id: string;
   cartId: string;
   deliveryMethod: DeliveryMethodModel | null;
   products: CartProductModel[];
@@ -185,7 +185,7 @@ export interface CartProductModel {
 }
 
 export interface CouponModel {
-  _id: any;
+  _id: string;
   amount: number;
   code: string;
   description: string;
@@ -196,7 +196,7 @@ export interface CouponModel {
 }
 
 export interface CustomerModel {
-  _id: any;
+  _id: string;
   addressLine1: string;
   addressLine2: string | null;
   city: string;
@@ -213,7 +213,7 @@ export interface CustomerModel {
 }
 
 export interface DeliveryAuthorityModel {
-  _id: any;
+  _id: string;
   deliveryAuthorityNumber: string;
   lals: number;
 }
@@ -225,9 +225,8 @@ export interface DeliveryMethodModel {
 }
 
 export interface DistillationRecordModel {
-  _id: any;
+  _id: string;
   feintsAdded: number | null;
-  ginStillStocktake: GinStillStocktakeModel;
   lalsCharged: number | null;
   notes: NoteModel[] | null;
   startTime: string | null;
@@ -238,7 +237,7 @@ export interface DistillationRecordModel {
 }
 
 export interface EftposTerminalModel {
-  _id: any;
+  _id: string;
   createdAt: string | null;
   lastUsed: string | null;
   name: string;
@@ -246,7 +245,8 @@ export interface EftposTerminalModel {
 }
 
 export interface ExciseReturnModel {
-  _id: any;
+  _id: string;
+  referenceNumber: string | null;
   remissionApplied: boolean;
   totalLals: number;
 }
@@ -260,7 +260,7 @@ export interface FermentationProgressModel {
 }
 
 export interface FermentationRecordModel {
-  _id: any;
+  _id: string;
   batchNumber: number;
   completed: boolean | null;
   completionDate: string | null;
@@ -287,9 +287,9 @@ export interface NoteModel {
 }
 
 export interface OrderModel {
-  _id: any;
-  customer: CustomerModel;
-  customerId: any;
+  _id: string;
+  customer: CustomerModel | null;
+  customerId: string | null;
   date: string | null;
   items: Record<string, number>;
   metadata: Record<string, any> | null;
@@ -304,12 +304,12 @@ export interface OrderModel {
 }
 
 export interface PackagingRunItemModel {
-  _id: any;
+  _id: string;
   abvReading: number | null;
   completionDate: string | null;
   discrepancyNote: string | null;
   estimatedDilution: AlcocalcDilutionResultModel | null;
-  exciseReturn: any;
+  exciseReturn: string | null;
   isConfirmedSugars: boolean | null;
   packagingLosses: number | null;
   productBarcode: string | null;
@@ -332,14 +332,14 @@ export interface PaymentIntentRequest {
 }
 
 export interface PaymentModel {
-  _id: any;
+  _id: string;
   amount: number;
   reference: string | null;
   type: PaymentType;
 }
 
 export interface PostcodeModel {
-  _id: any;
+  _id: string;
   combined: string;
   locality: string;
   postcode: string;
@@ -359,11 +359,12 @@ export interface ProductEphemeralDetailsResponse {
 }
 
 export interface ProductModel {
-  _id: any;
+  _id: string;
   abv: number | null;
   barcode: string;
   category: ProductCategory;
   enabled: boolean | null;
+  image: string | null;
   images: string[] | null;
   isArchived: boolean | null;
   isAvailableOnline: boolean | null;
@@ -375,7 +376,7 @@ export interface ProductModel {
   productType: string | null;
   recipe: ProductRecipe | null;
   shortDescription: string | null;
-  shortcut: string | null;
+  slug: string | null;
   stock: number | null;
   volume: number | null;
   weight: number | null;
@@ -387,13 +388,13 @@ export interface ProductRecipe {
 }
 
 export interface RawMaterialTypeModel {
-  _id: any;
+  _id: string;
   name: string;
   specificGravity: number;
 }
 
 export interface RawMaterialsRegisterModel {
-  _id: any;
+  _id: string;
   batchNumber: string | null;
   fermentationRecordId: any;
   invoiceNumber: string | null;
@@ -411,7 +412,7 @@ export interface SaleItemModel {
 }
 
 export interface SaleModel {
-  _id: any;
+  _id: string;
   coupons: any[];
   customerId: string | null;
   discountTotal: number | null;
@@ -579,7 +580,7 @@ export interface StartShipItRateSenderAddressModel {
 }
 
 export interface StillModel {
-  _id: any;
+  _id: string;
   capacityLiters: number;
   commissionedDate: string;
   decommissionedDate: string | null;
@@ -589,7 +590,7 @@ export interface StillModel {
 }
 
 export interface StockJournalModel {
-  _id: any;
+  _id: string;
   barcode: string;
   from: string;
   qty: number;
@@ -598,7 +599,7 @@ export interface StockJournalModel {
 }
 
 export interface StockLocationModel {
-  _id: any;
+  _id: string;
   barcode: string;
   isAvailableOnline: boolean;
   isBondStore: boolean;
@@ -609,7 +610,7 @@ export interface StockLocationModel {
 }
 
 export interface StocktakeModel {
-  _id: any;
+  _id: string;
   currentStock: number;
   materialType: string;
   newCount: number;
@@ -734,10 +735,10 @@ export interface UserInfoModel {
 }
 
 export interface VolumeTransferredRecordModel {
-  _id: any;
-  chargeId: any;
+  _id: string;
+  chargeId: string;
   lals: number;
   volume: number;
-  washId: any;
+  washId: string;
 }
 

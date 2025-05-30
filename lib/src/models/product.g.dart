@@ -26,14 +26,15 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       longDescription: json['longDescription'] as String?,
       shortDescription: json['shortDescription'] as String?,
       weight: (json['weight'] as num?)?.toDouble(),
-      shortcut: json['shortcut'] as String?,
       enabled: json['enabled'] as bool?,
       matesRatesPrice: (json['matesRatesPrice'] as num?)?.toDouble(),
       isArchived: json['isArchived'] as bool? ?? false,
       recipe: json['recipe'] == null
           ? null
           : ProductRecipe.fromJson(json['recipe'] as Map<String, dynamic>),
-    );
+    )
+      ..slug = json['slug'] as String?
+      ..image = json['image'] as String?;
 
 Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
     <String, dynamic>{
@@ -56,10 +57,11 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       if (instance.weight case final value?) 'weight': value,
       'abv': instance.abv,
       'percentAustralian': instance.percentAustralian,
-      if (instance.shortcut case final value?) 'shortcut': value,
       if (instance.enabled case final value?) 'enabled': value,
       'isArchived': instance.isArchived,
       if (instance.recipe?.toJson() case final value?) 'recipe': value,
+      if (instance.slug case final value?) 'slug': value,
+      if (instance.image case final value?) 'image': value,
     };
 
 const _$ProductCategoryEnumMap = {
