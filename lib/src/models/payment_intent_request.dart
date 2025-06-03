@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rebellion_rum_models/src/models/shipping_quote_request_model.dart';
-import 'startshipit_rate_destination_address_model.dart';
+import 'package:rebellion_rum_models/src/models/startshipit_rate_destination_address_model.dart';
 
 part 'payment_intent_request.g.dart';
 

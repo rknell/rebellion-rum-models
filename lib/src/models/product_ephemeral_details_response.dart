@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'product.dart';
+import 'package:rebellion_rum_models/src/models/product.dart';
 
 part 'product_ephemeral_details_response.g.dart';
 

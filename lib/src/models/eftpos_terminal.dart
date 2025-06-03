@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import '../json_helpers.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'eftpos_terminal.g.dart';
 

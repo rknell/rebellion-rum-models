@@ -12,6 +12,7 @@ analyzer:
     
 linter:
   rules:
+    - always_use_package_imports
     - avoid_print
     - avoid_relative_lib_imports
     - avoid_returning_null_for_future

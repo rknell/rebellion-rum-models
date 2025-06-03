@@ -1,7 +1,7 @@
 import 'package:alcocalc/alcocalc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rebellion_rum_models/src/models/alcocalc_lals_calculation.dart';
-import '../json_helpers.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'distillation_record.g.dart';
 

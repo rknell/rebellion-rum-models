@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'stripe_address.dart';
+import 'package:rebellion_rum_models/src/models/stripe/stripe_address.dart';
 
 part 'stripe_shipping_details.g.dart';
 

@@ -1292,7 +1292,7 @@ class DeliveryAuthorityModel extends DatabaseSerializable {
 import 'package:alcocalc/alcocalc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rebellion_rum_models/src/models/alcocalc_lals_calculation.dart';
-import '../json_helpers.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'distillation_record.g.dart';
 
@@ -1463,7 +1463,7 @@ class GinStillStocktakeModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import '../json_helpers.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'eftpos_terminal.g.dart';
 
@@ -1672,6 +1672,62 @@ class FermentationProgressModel {
 
 ```
 
+## newsletter_signup
+
+*File: lib/src/models/newsletter_signup.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
+
+part 'newsletter_signup.g.dart';
+
+/// Represents a newsletter signup record.
+///
+/// This model tracks contact information for users who have signed up
+/// for the newsletter. Currently stores the contact information (typically
+/// an email address) along with the signup timestamp.
+///
+/// Example:
+/// ```dart
+/// final signup = NewsletterSignupModel(
+///   contactInfo: 'customer@example.com',
+/// );
+/// ```
+@JsonSerializable()
+class NewsletterSignupModel extends DatabaseSerializable {
+  /// Contact information (typically email address) for the newsletter signup. It may also contain a mobile number
+  final String contactInfo;
+
+  /// Timestamp when the signup occurred
+  /// If not set, falls back to the ObjectId timestamp
+  final DateTime? signupDate;
+
+  /// Whether this signup is still active (for managing unsubscribes)
+  final bool isActive;
+
+  /// Get the effective signup timestamp, falling back to ObjectId timestamp if not set
+  DateTime get effectiveSignupDate => signupDate ?? id.dateTime;
+
+  NewsletterSignupModel({
+    super.id,
+    required this.contactInfo,
+    this.signupDate,
+    this.isActive = true,
+  });
+
+  factory NewsletterSignupModel.fromJson(Map<String, dynamic> json) =>
+      _$NewsletterSignupModelFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$NewsletterSignupModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+}
+
+```
+
 ## order
 
 *File: lib/src/models/order.dart*
@@ -1680,7 +1736,7 @@ class FermentationProgressModel {
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
-import 'customer.dart';
+import 'package:rebellion_rum_models/src/models/customer.dart';
 
 part 'order.g.dart';
 
@@ -2019,7 +2075,7 @@ class PaymentModel extends DatabaseSerializable {
 ```dart
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rebellion_rum_models/src/models/shipping_quote_request_model.dart';
-import 'startshipit_rate_destination_address_model.dart';
+import 'package:rebellion_rum_models/src/models/startshipit_rate_destination_address_model.dart';
 
 part 'payment_intent_request.g.dart';
 
@@ -2293,7 +2349,7 @@ class ProductRecipe {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'product.dart';
+import 'package:rebellion_rum_models/src/models/product.dart';
 
 part 'product_ephemeral_details_response.g.dart';
 
@@ -2387,7 +2443,7 @@ class ProductEphemeralDetailsResponse {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import '../json_helpers.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'raw_material_type.g.dart';
 
@@ -2488,9 +2544,9 @@ class RawMaterialsRegisterModel extends DatabaseSerializable {
 ```dart
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
-import 'sale_item.dart';
-import 'payment.dart';
-import 'coupon.dart';
+import 'package:rebellion_rum_models/src/models/sale_item.dart';
+import 'package:rebellion_rum_models/src/models/payment.dart';
+import 'package:rebellion_rum_models/src/models/coupon.dart';
 
 part 'sale.g.dart';
 
@@ -3624,7 +3680,7 @@ class StartShipItRateSenderAddressModel {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import '../json_helpers.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'still.g.dart';
 
@@ -3787,7 +3843,7 @@ class StockLocationModel extends DatabaseSerializable {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import '../json_helpers.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'stocktake.g.dart';
 
@@ -3893,7 +3949,7 @@ class StripeAddress {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'stripe_shipping_details.dart';
+import 'package:rebellion_rum_models/src/models/stripe/stripe_shipping_details.dart';
 
 part 'stripe_confirm_payment_intent_request.g.dart';
 
@@ -4454,7 +4510,7 @@ class StripePublicKeyResponse {
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
-import 'stripe_address.dart';
+import 'package:rebellion_rum_models/src/models/stripe/stripe_address.dart';
 
 part 'stripe_shipping_details.g.dart';
 

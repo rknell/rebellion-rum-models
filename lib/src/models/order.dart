@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
-import 'customer.dart';
+import 'package:rebellion_rum_models/src/models/customer.dart';
 
 part 'order.g.dart';
 

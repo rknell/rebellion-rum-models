@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'stripe_shipping_details.dart';
+import 'package:rebellion_rum_models/src/models/stripe/stripe_shipping_details.dart';
 
 part 'stripe_confirm_payment_intent_request.g.dart';
 

@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
-import 'sale_item.dart';
-import 'payment.dart';
-import 'coupon.dart';
+import 'package:rebellion_rum_models/src/models/sale_item.dart';
+import 'package:rebellion_rum_models/src/models/payment.dart';
+import 'package:rebellion_rum_models/src/models/coupon.dart';
 
 part 'sale.g.dart';
 

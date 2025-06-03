@@ -17,6 +17,7 @@ export 'src/models/distillation_record.dart';
 export 'src/models/eftpos_terminal.dart';
 export 'src/models/excise_return.dart';
 export 'src/models/fermentation_record.dart';
+export 'src/models/newsletter_signup.dart';
 export 'src/models/order.dart';
 export 'src/models/packaging_run_item.dart';
 export 'src/models/payment.dart';

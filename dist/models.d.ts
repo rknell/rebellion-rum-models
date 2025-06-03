@@ -280,6 +280,13 @@ export interface GinStillStocktakeModel {
   temperature: number | null;
 }
 
+export interface NewsletterSignupModel {
+  _id: string;
+  contactInfo: string;
+  isActive: boolean | null;
+  signupDate: string | null;
+}
+
 export interface NoteModel {
   content: string;
   date: string;
