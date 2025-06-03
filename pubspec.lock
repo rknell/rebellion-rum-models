@@ -12,9 +12,11 @@ packages:
   alcocalc:
     dependency: "direct main"
     description:
-      path: "../alcocalc"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: "64ee9386b9f1f6b46b71b49bcd51bd5b1d6fc216"
+      url: "git@github.com:rknell/alcocalc.git"
+    source: git
     version: "1.0.0"
   analyzer:
     dependency: "direct main"

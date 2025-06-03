@@ -15,7 +15,9 @@ dependencies:
   path: ^1.8.0
   logging: ^1.2.0
   alcocalc:
-    path: ../alcocalc
+    git:
+      url: git@github.com:rknell/alcocalc.git
+      ref: main
   source_gen: ^2.0.0
   analyzer: ^7.3.0
   build: ^2.4.1
