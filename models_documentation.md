@@ -480,6 +480,92 @@ class AlcocalcLalsCalculation {
 
 ```
 
+## botanical
+
+*File: lib/src/models/botanical.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
+
+part 'botanical.g.dart';
+
+/// Represents a botanical ingredient in the Rebellion Rum system.
+///
+/// This model stores information about botanical ingredients used in the
+/// distillation process, including their scientific names, descriptions,
+/// and associated images. Each botanical has a unique numeric identifier
+/// and is designed to showcase the natural ingredients used in spirits.
+///
+/// Example:
+/// ```dart
+/// final botanical = BotanicalModel(
+///   botanicalId: 8,
+///   name: 'Juniper',
+///   botanicalName: 'Juniperus communis',
+///   description: 'Without juniper, there is no gin. When distilled, it adds a medicinal flavor with pine notes.',
+///   image: '/assets/botanicals/juniper_berries.png',
+/// );
+/// ```
+@JsonSerializable()
+class BotanicalModel extends DatabaseSerializable {
+  /// Unique numeric identifier for the botanical (from legacy system)
+  @JsonKey(name: 'id')
+  final int botanicalId;
+
+  /// Common name of the botanical
+  final String name;
+
+  /// Scientific/botanical name of the plant
+  final String botanicalName;
+
+  /// Detailed description of the botanical and its characteristics
+  final String description;
+
+  /// Image path for the botanical
+  final String image;
+
+  /// Whether this botanical is currently active/available
+  final bool isActive;
+
+  /// Whether this botanical is featured in product descriptions
+  final bool isFeatured;
+
+  /// List of product IDs that use this botanical
+  final List<String> productIds;
+
+  /// Creation timestamp
+  final DateTime? createdAt;
+
+  /// Last updated timestamp
+  final DateTime? updatedAt;
+
+  BotanicalModel({
+    super.id,
+    required this.botanicalId,
+    required this.name,
+    required this.botanicalName,
+    required this.description,
+    required this.image,
+    this.isActive = true,
+    this.isFeatured = false,
+    this.productIds = const [],
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory BotanicalModel.fromJson(Map<String, dynamic> json) =>
+      _$BotanicalModelFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$BotanicalModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+}
+
+```
+
 ## bulk_storage_movement_type
 
 *File: lib/src/models/bulk_storage_movement_type.dart*
@@ -998,6 +1084,113 @@ class UserInfoModel {
   factory UserInfoModel.fromJson(Map<String, dynamic> json) =>
       _$UserInfoModelFromJson(json);
   Map<String, dynamic> toJson() => _$UserInfoModelToJson(this);
+}
+
+```
+
+## cocktail_recipe
+
+*File: lib/src/models/cocktail_recipe.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
+
+part 'cocktail_recipe.g.dart';
+
+/// Represents a cocktail recipe in the Rebellion Rum system.
+///
+/// This model stores complete cocktail recipe information including ingredients,
+/// instructions, garnishes, and associated images. Each recipe has a unique
+/// slug for URL-friendly identification and is designed to showcase drinks
+/// that can be made with Rebellion Rum products.
+///
+/// Example:
+/// ```dart
+/// final recipe = CocktailRecipeModel(
+///   name: 'Dark n Stormy',
+///   slug: 'dark-n-stormy',
+///   description: 'A refreshing Bermudian cocktail with spicy ginger beer and dark rum.',
+///   ingredients: ['2 shots Cloak & Dagger dark rum', '4 shots ginger beer', '0.5 shot lime juice'],
+///   instructions: ['Fill a glass with ice.', 'Add rum and lime juice.', 'Top with ginger beer.'],
+///   glass: 'Highball',
+///   garnish: 'Lime wedge, candied ginger',
+/// );
+/// ```
+@JsonSerializable()
+class CocktailRecipeModel extends DatabaseSerializable {
+  /// The display name of the cocktail
+  final String name;
+
+  /// Detailed description of the cocktail
+  final String description;
+
+  /// Main image URL for the recipe
+  final String? image;
+
+  /// Thumbnail image URL for the recipe
+  final String? imageThumbnail;
+
+  /// URL-friendly slug for routing and identification
+  final String slug;
+
+  /// List of ingredients with measurements
+  final List<String> ingredients;
+
+  /// Step-by-step preparation instructions
+  final List<String> instructions;
+
+  /// Garnish description
+  final String? garnish;
+
+  /// Type of glass to serve in
+  final String glass;
+
+  /// AI-friendly description for image generation
+  final String? llmDescription;
+
+  /// Whether this recipe is featured on the homepage or in special sections
+  final bool isFeatured;
+
+  /// Whether this recipe is currently active/published
+  final bool isActive;
+
+  /// List of product IDs that this recipe showcases
+  final List<String> featuredProductIds;
+
+  /// Creation timestamp
+  final DateTime? createdAt;
+
+  /// Last updated timestamp
+  final DateTime? updatedAt;
+
+  CocktailRecipeModel({
+    super.id,
+    required this.name,
+    required this.description,
+    required this.slug,
+    required this.ingredients,
+    required this.instructions,
+    required this.glass,
+    this.image,
+    this.imageThumbnail,
+    this.garnish,
+    this.llmDescription,
+    this.isFeatured = false,
+    this.isActive = true,
+    this.featuredProductIds = const [],
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory CocktailRecipeModel.fromJson(Map<String, dynamic> json) =>
+      _$CocktailRecipeModelFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$CocktailRecipeModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
 }
 
 ```
@@ -2207,6 +2400,32 @@ part 'product.g.dart';
 
 enum ProductCategory { vodka, gin, rum, softdrink, merch, other }
 
+/// Represents an award received by a product
+@JsonSerializable()
+class Award {
+  /// Unique identifier for the award
+  final int id;
+
+  /// Award level (e.g., "Bronze", "Silver", "Gold")
+  final String level;
+
+  /// Name of the competition where the award was received
+  final String competition;
+
+  /// Year the award was received
+  final int year;
+
+  Award({
+    required this.id,
+    required this.level,
+    required this.competition,
+    required this.year,
+  });
+
+  factory Award.fromJson(Map<String, dynamic> json) => _$AwardFromJson(json);
+  Map<String, dynamic> toJson() => _$AwardToJson(this);
+}
+
 @JsonSerializable()
 class ProductModel extends DatabaseSerializable {
   /// Unique barcode identifier for the product
@@ -2234,15 +2453,6 @@ class ProductModel extends DatabaseSerializable {
   /// Whether the product can be purchased online
   bool isAvailableOnline;
 
-  /// List of image URLs associated with the product
-  List<String> images;
-
-  /// Detailed product description for online store
-  String? longDescription;
-
-  /// Brief product description for listings
-  String? shortDescription;
-
   /// Product volume in milliliters (ml)
   double volume;
 
@@ -2267,8 +2477,41 @@ class ProductModel extends DatabaseSerializable {
   /// URL-friendly slug for the product
   String? slug;
 
-  /// Primary product image
-  String? image;
+  /// Whether the product is featured on the homepage or in special sections
+  bool? isFeatured;
+
+  /// Hero image URL for product showcase pages
+  String? heroImage;
+
+  /// Description text for hero sections
+  String? heroDescription;
+
+  /// Main bottle image URL for product display
+  String? bottleImage;
+
+  /// First story image URL for product storytelling
+  String? story1Image;
+
+  /// Second story image URL for product storytelling
+  String? story2Image;
+
+  /// List of awards received by this product
+  List<Award> awards;
+
+  /// First story text for product storytelling
+  String? story1;
+
+  /// Second story text for product storytelling
+  String? story2;
+
+  /// List of botanical IDs used in this product
+  List<int> botanicals;
+
+  /// List of recipe slugs associated with this product
+  List<String> recipeSlugs;
+
+  /// Header alignment preference for product display ("left", "center", "right")
+  String? headerAlignment;
 
   ProductModel({
     super.id,
@@ -2282,14 +2525,23 @@ class ProductModel extends DatabaseSerializable {
     double? percentAustralian,
     this.productType,
     this.isAvailableOnline = false,
-    this.images = const [],
-    this.longDescription,
-    this.shortDescription,
     this.weight,
     this.enabled,
     double? matesRatesPrice,
     this.isArchived = false,
     this.recipe,
+    this.isFeatured,
+    this.heroImage,
+    this.heroDescription,
+    this.bottleImage,
+    this.story1Image,
+    this.story2Image,
+    this.awards = const [],
+    this.story1,
+    this.story2,
+    this.botanicals = const [],
+    this.recipeSlugs = const [],
+    this.headerAlignment,
   })  : volume = volume ?? 700.0,
         abv = abv ?? 0.37,
         name = name ?? '',

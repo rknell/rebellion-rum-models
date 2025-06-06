@@ -1,0 +1,84 @@
+[
+  {
+    "_id": "507f1f77bcf86cd799439011",
+    "name": "Dark 'n' Stormy",
+    "description": "A refreshing Bermudian cocktail with spicy ginger beer and dark rum.",
+    "image": "assets/recipes/dark_n_stormy.png",
+    "imageThumbnail": "assets/recipes/dark_n_stormy.png",
+    "slug": "dark-n-stormy",
+    "ingredients": [
+      "2 shots Cloak & Dagger dark rum",
+      "4 shots ginger beer",
+      "0.5 shot lime juice"
+    ],
+    "instructions": [
+      "Fill a glass with ice.",
+      "Add rum and lime juice.",
+      "Top with ginger beer.",
+      "Garnish with lime wedge and candied ginger."
+    ],
+    "garnish": "Lime wedge, candied ginger",
+    "glass": "Highball",
+    "llmDescription": "Dark 'n' Stormy, in a highball glass, with lime wedge and candied ginger garnish",
+    "isFeatured": true,
+    "isActive": true,
+    "featuredProductIds": ["507f1f77bcf86cd799439012"],
+    "createdAt": "2023-01-01T12:00:00.000Z",
+    "updatedAt": "2023-06-01T12:00:00.000Z"
+  },
+  {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "Rum Punch",
+    "description": "A Caribbean classic with fruity, tangy, and sweet flavors.",
+    "image": "assets/recipes/rum_punch.png",
+    "imageThumbnail": "assets/recipes/rum_punch.png",
+    "slug": "rum-punch",
+    "ingredients": [
+      "2 shots Cloak & Dagger dark rum",
+      "1 shot lime juice",
+      "1 shot orange juice",
+      "0.5 shot grenadine",
+      "0.5 shot simple syrup"
+    ],
+    "instructions": [
+      "Shake all ingredients with ice.",
+      "Strain into a glass over crushed ice.",
+      "Garnish with orange wheel and cherry."
+    ],
+    "garnish": "Orange wheel, cocktail cherry",
+    "glass": "Hurricane",
+    "llmDescription": "Rum Punch, in a hurricane glass, with orange wheel and cocktail cherry garnish",
+    "isFeatured": false,
+    "isActive": true,
+    "featuredProductIds": ["507f1f77bcf86cd799439012"],
+    "createdAt": "2023-01-02T12:00:00.000Z",
+    "updatedAt": null
+  },
+  {
+    "_id": "507f1f77bcf86cd799439014",
+    "name": "Gin & Tonic",
+    "description": "The quintessential gin cocktail with tonic water",
+    "image": "assets/recipes/gin_and_tonic.png",
+    "imageThumbnail": null,
+    "slug": "gin-and-tonic",
+    "ingredients": [
+      "50ml gin",
+      "150ml premium tonic water",
+      "Lime wedge"
+    ],
+    "instructions": [
+      "Fill highball glass with ice",
+      "Add gin",
+      "Top with tonic water",
+      "Stir gently and garnish"
+    ],
+    "garnish": "Lime wedge",
+    "glass": "Highball",
+    "llmDescription": null,
+    "isFeatured": true,
+    "isActive": false,
+    "featuredProductIds": [],
+    "createdAt": "2023-01-03T12:00:00.000Z",
+    "updatedAt": "2023-07-01T12:00:00.000Z"
+  }
+] 

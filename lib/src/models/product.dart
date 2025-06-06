@@ -25,6 +25,32 @@ part 'product.g.dart';
 
 enum ProductCategory { vodka, gin, rum, softdrink, merch, other }
 
+/// Represents an award received by a product
+@JsonSerializable()
+class Award {
+  /// Unique identifier for the award
+  final int id;
+
+  /// Award level (e.g., "Bronze", "Silver", "Gold")
+  final String level;
+
+  /// Name of the competition where the award was received
+  final String competition;
+
+  /// Year the award was received
+  final int year;
+
+  Award({
+    required this.id,
+    required this.level,
+    required this.competition,
+    required this.year,
+  });
+
+  factory Award.fromJson(Map<String, dynamic> json) => _$AwardFromJson(json);
+  Map<String, dynamic> toJson() => _$AwardToJson(this);
+}
+
 @JsonSerializable()
 class ProductModel extends DatabaseSerializable {
   /// Unique barcode identifier for the product
@@ -52,15 +78,6 @@ class ProductModel extends DatabaseSerializable {
   /// Whether the product can be purchased online
   bool isAvailableOnline;
 
-  /// List of image URLs associated with the product
-  List<String> images;
-
-  /// Detailed product description for online store
-  String? longDescription;
-
-  /// Brief product description for listings
-  String? shortDescription;
-
   /// Product volume in milliliters (ml)
   double volume;
 
@@ -85,8 +102,41 @@ class ProductModel extends DatabaseSerializable {
   /// URL-friendly slug for the product
   String? slug;
 
-  /// Primary product image
-  String? image;
+  /// Whether the product is featured on the homepage or in special sections
+  bool? isFeatured;
+
+  /// Hero image URL for product showcase pages
+  String? heroImage;
+
+  /// Description text for hero sections
+  String? heroDescription;
+
+  /// Main bottle image URL for product display
+  String? bottleImage;
+
+  /// First story image URL for product storytelling
+  String? story1Image;
+
+  /// Second story image URL for product storytelling
+  String? story2Image;
+
+  /// List of awards received by this product
+  List<Award> awards;
+
+  /// First story text for product storytelling
+  String? story1;
+
+  /// Second story text for product storytelling
+  String? story2;
+
+  /// List of botanical IDs used in this product
+  List<int> botanicals;
+
+  /// List of recipe slugs associated with this product
+  List<String> recipeSlugs;
+
+  /// Header alignment preference for product display ("left", "center", "right")
+  String? headerAlignment;
 
   ProductModel({
     super.id,
@@ -100,14 +150,23 @@ class ProductModel extends DatabaseSerializable {
     double? percentAustralian,
     this.productType,
     this.isAvailableOnline = false,
-    this.images = const [],
-    this.longDescription,
-    this.shortDescription,
     this.weight,
     this.enabled,
     double? matesRatesPrice,
     this.isArchived = false,
     this.recipe,
+    this.isFeatured,
+    this.heroImage,
+    this.heroDescription,
+    this.bottleImage,
+    this.story1Image,
+    this.story2Image,
+    this.awards = const [],
+    this.story1,
+    this.story2,
+    this.botanicals = const [],
+    this.recipeSlugs = const [],
+    this.headerAlignment,
   })  : volume = volume ?? 700.0,
         abv = abv ?? 0.37,
         name = name ?? '',

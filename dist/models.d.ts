@@ -135,6 +135,27 @@ export interface AlcoholAdditionResultModel {
   temperature: number;
 }
 
+export interface Award {
+  competition: string;
+  id: number;
+  level: string;
+  year: number;
+}
+
+export interface BotanicalModel {
+  _id: string;
+  botanicalName: string;
+  createdAt: string | null;
+  description: string;
+  id: number;
+  image: string;
+  isActive: boolean | null;
+  isFeatured: boolean | null;
+  name: string;
+  productIds: string[] | null;
+  updatedAt: string | null;
+}
+
 export interface BulkStorageRegisterItemModel {
   _id: string;
   feintsDestroyed: boolean | null;
@@ -182,6 +203,25 @@ export interface CartProductModel {
   quantity: number;
   stock: number;
   volume: number;
+}
+
+export interface CocktailRecipeModel {
+  _id: string;
+  createdAt: string | null;
+  description: string;
+  featuredProductIds: string[] | null;
+  garnish: string | null;
+  glass: string;
+  image: string | null;
+  imageThumbnail: string | null;
+  ingredients: string[];
+  instructions: string[];
+  isActive: boolean | null;
+  isFeatured: boolean | null;
+  llmDescription: string | null;
+  name: string;
+  slug: string;
+  updatedAt: string | null;
 }
 
 export interface CouponModel {
@@ -368,23 +408,31 @@ export interface ProductEphemeralDetailsResponse {
 export interface ProductModel {
   _id: string;
   abv: number | null;
+  awards: Award[] | null;
   barcode: string;
+  botanicals: number[] | null;
+  bottleImage: string | null;
   category: ProductCategory;
   enabled: boolean | null;
-  image: string | null;
-  images: string[] | null;
+  headerAlignment: string | null;
+  heroDescription: string | null;
+  heroImage: string | null;
   isArchived: boolean | null;
   isAvailableOnline: boolean | null;
-  longDescription: string | null;
+  isFeatured: boolean | null;
   matesRatesPrice: number | null;
   name: string | null;
   percentAustralian: number | null;
   price: number;
   productType: string | null;
   recipe: ProductRecipe | null;
-  shortDescription: string | null;
+  recipeSlugs: string[] | null;
   slug: string | null;
   stock: number | null;
+  story1: string | null;
+  story1Image: string | null;
+  story2: string | null;
+  story2Image: string | null;
   volume: number | null;
   weight: number | null;
 }

@@ -1,5 +1,0 @@
----
-description: ignore rules when assessing models_documentation.md
-globs: models_documentation.md
----
-This is an automatically generated concatenated file. Ignore any issues that arise relating to this file.

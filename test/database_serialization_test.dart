@@ -151,6 +151,9 @@ void _validateBsonValue(dynamic value, {required String fieldName}) {
 }
 
 void main() {
+  createDatabaseSerializationTests<BotanicalModel>(
+      resourcePath: 'resources/botanicals.json',
+      fromJson: BotanicalModel.fromJson);
   createDatabaseSerializationTests<BulkStorageRegisterItemModel>(
       resourcePath: 'resources/bulkStorageRegisterItem.json',
       fromJson: BulkStorageRegisterItemModel.fromJson);
@@ -159,6 +162,9 @@ void main() {
       fromJson: BulkStorageVesselModel.fromJson);
   createDatabaseSerializationTests<CartModel>(
       resourcePath: 'resources/carts.json', fromJson: CartModel.fromJson);
+  createDatabaseSerializationTests<CocktailRecipeModel>(
+      resourcePath: 'resources/cocktailRecipes.json',
+      fromJson: CocktailRecipeModel.fromJson);
   createDatabaseSerializationTests<CouponModel>(
       resourcePath: 'resources/coupons.json', fromJson: CouponModel.fromJson);
   createDatabaseSerializationTests<DeliveryAuthorityModel>(
