@@ -61,7 +61,9 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
               .toList() ??
           const [],
       headerAlignment: json['headerAlignment'] as String?,
-    )..slug = json['slug'] as String?;
+    )
+      ..slug = json['slug'] as String?
+      ..shortcut = json['shortcut'] as String?;
 
 Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
     <String, dynamic>{
@@ -96,6 +98,7 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       'botanicals': instance.botanicals,
       'recipeSlugs': instance.recipeSlugs,
       if (instance.headerAlignment case final value?) 'headerAlignment': value,
+      if (instance.shortcut case final value?) 'shortcut': value,
     };
 
 const _$ProductCategoryEnumMap = {

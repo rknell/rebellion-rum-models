@@ -138,6 +138,9 @@ class ProductModel extends DatabaseSerializable {
   /// Header alignment preference for product display ("left", "center", "right")
   String? headerAlignment;
 
+  /// Shortcut key used in the pos system for this product
+  String? shortcut;
+
   ProductModel({
     super.id,
     required this.barcode,

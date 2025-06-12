@@ -427,6 +427,7 @@ export interface ProductModel {
   productType: string | null;
   recipe: ProductRecipe | null;
   recipeSlugs: string[] | null;
+  shortcut: string | null;
   slug: string | null;
   stock: number | null;
   story1: string | null;
