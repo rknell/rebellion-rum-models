@@ -13,7 +13,7 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
       date:
           json['date'] == null ? null : DateTime.parse(json['date'] as String),
       items: Map<String, int>.from(json['items'] as Map),
-      orderNumber: json['orderNumber'] as String,
+      orderNumber: json['orderNumber'] as String?,
       paymentMethod: json['paymentMethod'] as String?,
       status: $enumDecodeNullable(_$OrderStatusEnumMap, json['status'],
               unknownValue: OrderStatus.pending) ??
@@ -38,7 +38,7 @@ Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
       if (instance.customer?.toJson() case final value?) 'customer': value,
       'date': instance.date.toIso8601String(),
       'items': instance.items,
-      'orderNumber': instance.orderNumber,
+      if (instance.orderNumber case final value?) 'orderNumber': value,
       if (instance.paymentMethod case final value?) 'paymentMethod': value,
       'status': _$OrderStatusEnumMap[instance.status]!,
       'metadata': instance.metadata,

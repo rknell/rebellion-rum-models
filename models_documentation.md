@@ -1976,8 +1976,8 @@ class OrderModel extends DatabaseSerializable {
   /// Key: Product ID, Value: Quantity
   Map<String, int> items;
 
-  /// Human-readable order reference number
-  String orderNumber;
+  /// Human-readable order reference number, should be assigned on first save
+  String? orderNumber;
 
   /// Method used for payment (e.g., 'card')
   String? paymentMethod;

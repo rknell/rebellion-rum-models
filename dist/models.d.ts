@@ -341,7 +341,7 @@ export interface OrderModel {
   items: Record<string, number>;
   metadata: Record<string, any> | null;
   notes: string | null;
-  orderNumber: string;
+  orderNumber: string | null;
   paymentIntentClientSecret: string | null;
   paymentMethod: string | null;
   shippingMethod: string | null;
