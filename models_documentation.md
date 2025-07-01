@@ -3632,12 +3632,19 @@ class StartShipItGetRatesRequestModel {
   /// Currency code for the order value (max length: 3) e.g. AUD
   final String currency;
 
-  const StartShipItGetRatesRequestModel({
-    this.sender,
+  StartShipItGetRatesRequestModel({
+    StartShipItRateSenderAddressModel? sender,
     required this.destination,
     required this.packages,
     this.currency = "AUD",
-  });
+  }) : sender = sender ??
+            StartShipItRateSenderAddressModel(
+              street: '27/3 Octal Street',
+              suburb: 'Yatala',
+              state: 'QLD',
+              postCode: '4207',
+              countryCode: 'AU',
+            );
 
   /// Creates an instance from a JSON object
   factory StartShipItGetRatesRequestModel.fromJson(Map<String, dynamic> json) =>
