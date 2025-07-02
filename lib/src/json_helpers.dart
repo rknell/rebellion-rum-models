@@ -145,9 +145,9 @@ abstract class DatabaseSerializable extends JsonSerializableModel {
   /// 2. Then converts any ObjectId string representations back to ObjectId instances
   /// 3. Recursively handles nested objects that implement DatabaseSerializable
   /// 4. Returns a Map that can be directly used with MongoDB operations
-  Map<String, dynamic> toDatabase() {
+  Map<String, dynamic> toDatabase({Map<String, dynamic>? data}) {
     // Get the raw data from the object
-    final data = toJson();
+    data = data ?? toJson();
 
     // Get the actual objectIdFields from the extension if available
     Set<String> fields;

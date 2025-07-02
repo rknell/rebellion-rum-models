@@ -186,5 +186,10 @@ class CustomerModel extends DatabaseSerializable {
   }
 
   @override
+  Map<String, dynamic> toDatabase({Map<String, dynamic>? data}) {
+    return super.toDatabase(data: toJson(includePassword: true));
+  }
+
+  @override
   Set<String> get objectIdFields => {'_id'};
 }
