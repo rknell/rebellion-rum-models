@@ -24,7 +24,7 @@ CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) =>
           ?.map((e) => $enumDecode(_$CustomerPreferencesEnumMap, e))
           .toSet(),
       isWholesale: json['isWholesale'] as bool? ?? false,
-    );
+    )..password = json['password'] as String?;
 
 Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
     <String, dynamic>{
@@ -45,6 +45,7 @@ Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
       'preferences': instance.preferences
           .map((e) => _$CustomerPreferencesEnumMap[e]!)
           .toList(),
+      if (instance.password case final value?) 'password': value,
     };
 
 const _$CustomerPreferencesEnumMap = {
