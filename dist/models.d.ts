@@ -246,6 +246,7 @@ export interface CustomerModel {
   firstName: string;
   isWholesale: boolean | null;
   lastName: string;
+  password: string | null;
   phone: string;
   postcode: string;
   preferences: any[] | null;

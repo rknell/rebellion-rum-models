@@ -1361,6 +1361,9 @@ class CustomerModel extends DatabaseSerializable {
   @JsonKey(includeFromJson: false, includeToJson: false)
   String get address => addressLine1;
 
+  /// Password (optional)
+  String? password;
+
   CustomerModel({
     super.id,
     this.companyName,
@@ -1437,7 +1440,18 @@ class CustomerModel extends DatabaseSerializable {
       _$CustomerModelFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
+  Map<String, dynamic> toJson({bool includePassword = false}) {
+    final json = _$CustomerModelToJson(this);
+    if (!includePassword) {
+      json.remove('password');
+    }
+    return json;
+  }
+
+  @override
+  Map<String, dynamic> toDatabase({Map<String, dynamic>? data}) {
+    return super.toDatabase(data: toJson(includePassword: true));
+  }
 
   @override
   Set<String> get objectIdFields => {'_id'};
