@@ -489,14 +489,20 @@ export interface ShippingQuoteRequestModel {
 }
 
 export interface StarShipItAddress {
+  building: string | null;
+  city: string | null;
+  company: string | null;
   country: string;
   delivery_instructions: string | null;
+  email: string | null;
   name: string;
-  phone: string;
-  post_code: string;
-  state: string;
+  phone: string | null;
+  post_code: string | null;
+  state: string | null;
   street: string;
   suburb: string;
+  tax_number: string | null;
+  tax_numbers: string[] | null;
 }
 
 export interface StarShipItAddressResponse {

@@ -1427,12 +1427,19 @@ class CustomerModel extends DatabaseSerializable {
   StarShipItAddress toStarShipItAddress() {
     return StarShipItAddress(
       name: '$firstName $lastName',
+      email: email,
       phone: phone,
+      building: addressLine2,
+      company: companyName,
       street: addressLine1,
       suburb: city,
+      city: city,
       state: state,
       postCode: postcode,
       country: country,
+      deliveryInstructions: null, // Not available in Customer model
+      taxNumbers: null, // Not available in Customer model
+      taxNumber: null, // Not available in Customer model
     );
   }
 
@@ -3195,41 +3202,67 @@ class StarShipItOrder {
 /// Address and contact details for StarShipIt orders
 @JsonSerializable()
 class StarShipItAddress {
-  /// Contact name
+  /// Contact name of the receiver (max length: 100)
   final String name;
 
-  /// Contact phone number
-  final String phone;
+  /// Contact email address of the receiver (max length: 100) (optional)
+  final String? email;
 
-  /// Street address
+  /// Contact phone number of the receiver (max length: 100) (optional)
+  final String? phone;
+
+  /// Building name of the delivery address (max length: 100) (optional)
+  final String? building;
+
+  /// Name of company that the parcel is being delivered to (max length: 100) (optional)
+  final String? company;
+
+  /// Street number and name of the delivery address (max length: 100)
   final String street;
 
-  /// Suburb/city
+  /// Suburb of the delivery address (max length: 100)
   final String suburb;
 
-  /// State/province
-  final String state;
+  /// City of the delivery address (max length: 100) (optional)
+  final String? city;
 
-  /// Postal/zip code
+  /// Regional, provincial or county name of the delivery address (max length: 100) (optional)
+  final String? state;
+
+  /// Postal or zip code of the delivery address (max length: 10) (optional)
   @JsonKey(name: 'post_code')
-  final String postCode;
+  final String? postCode;
 
-  /// Country name
+  /// The country name of delivery address (min length: 2, max length: 100)
   final String country;
 
-  /// Special delivery instructions (optional)
+  /// Delivery instructions for courier (max length: 100) (optional)
   @JsonKey(name: 'delivery_instructions')
   final String? deliveryInstructions;
 
+  /// List of receiver tax numbers (optional)
+  @JsonKey(name: 'tax_numbers')
+  final List<String>? taxNumbers;
+
+  /// Recipient tax number (max length: 20) (optional)
+  @JsonKey(name: 'tax_number')
+  final String? taxNumber;
+
   const StarShipItAddress({
     required this.name,
-    required this.phone,
+    this.email,
+    this.phone,
+    this.building,
+    this.company,
     required this.street,
     required this.suburb,
-    required this.state,
-    required this.postCode,
+    this.city,
+    this.state,
+    this.postCode,
     required this.country,
     this.deliveryInstructions,
+    this.taxNumbers,
+    this.taxNumber,
   });
 
   factory StarShipItAddress.fromJson(Map<String, dynamic> json) =>

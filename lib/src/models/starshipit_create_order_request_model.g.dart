@@ -73,26 +73,40 @@ Map<String, dynamic> _$StarShipItOrderToJson(StarShipItOrder instance) =>
 StarShipItAddress _$StarShipItAddressFromJson(Map<String, dynamic> json) =>
     StarShipItAddress(
       name: json['name'] as String,
-      phone: json['phone'] as String,
+      email: json['email'] as String?,
+      phone: json['phone'] as String?,
+      building: json['building'] as String?,
+      company: json['company'] as String?,
       street: json['street'] as String,
       suburb: json['suburb'] as String,
-      state: json['state'] as String,
-      postCode: json['post_code'] as String,
+      city: json['city'] as String?,
+      state: json['state'] as String?,
+      postCode: json['post_code'] as String?,
       country: json['country'] as String,
       deliveryInstructions: json['delivery_instructions'] as String?,
+      taxNumbers: (json['tax_numbers'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      taxNumber: json['tax_number'] as String?,
     );
 
 Map<String, dynamic> _$StarShipItAddressToJson(StarShipItAddress instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'phone': instance.phone,
+      if (instance.email case final value?) 'email': value,
+      if (instance.phone case final value?) 'phone': value,
+      if (instance.building case final value?) 'building': value,
+      if (instance.company case final value?) 'company': value,
       'street': instance.street,
       'suburb': instance.suburb,
-      'state': instance.state,
-      'post_code': instance.postCode,
+      if (instance.city case final value?) 'city': value,
+      if (instance.state case final value?) 'state': value,
+      if (instance.postCode case final value?) 'post_code': value,
       'country': instance.country,
       if (instance.deliveryInstructions case final value?)
         'delivery_instructions': value,
+      if (instance.taxNumbers case final value?) 'tax_numbers': value,
+      if (instance.taxNumber case final value?) 'tax_number': value,
     };
 
 StarShipItItem _$StarShipItItemFromJson(Map<String, dynamic> json) =>

@@ -164,12 +164,19 @@ class CustomerModel extends DatabaseSerializable {
   StarShipItAddress toStarShipItAddress() {
     return StarShipItAddress(
       name: '$firstName $lastName',
+      email: email,
       phone: phone,
+      building: addressLine2,
+      company: companyName,
       street: addressLine1,
       suburb: city,
+      city: city,
       state: state,
       postCode: postcode,
       country: country,
+      deliveryInstructions: null, // Not available in Customer model
+      taxNumbers: null, // Not available in Customer model
+      taxNumber: null, // Not available in Customer model
     );
   }
 
