@@ -28,6 +28,7 @@ export 'src/models/postcode.dart';
 export 'src/models/product.dart';
 export 'src/models/product_ephemeral_details_response.dart';
 export 'src/models/raw_materials_register.dart';
+export 'src/models/reconciliation.dart';
 export 'src/models/sale.dart';
 export 'src/models/sale_item.dart';
 export 'src/models/shipping_quote_request_model.dart';

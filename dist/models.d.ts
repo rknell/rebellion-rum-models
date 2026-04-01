@@ -461,6 +461,19 @@ export interface RawMaterialsRegisterModel {
   timestamp: string | null;
 }
 
+export interface ReconciliationModel {
+  _id: string;
+  actualEftposSales: number;
+  cashInTill: number;
+  date: string;
+  discrepancyExplanation: string;
+  signature: string;
+  startingFloat: number;
+  totalDiscrepancy: number;
+  totalSales: number;
+  withdrawals: WithdrawalModel[] | null;
+}
+
 export interface SaleItemModel {
   description: string;
   itemId: string;
@@ -803,5 +816,11 @@ export interface VolumeTransferredRecordModel {
   lals: number;
   volume: number;
   washId: string;
+}
+
+export interface WithdrawalModel {
+  _id: string;
+  amount: number;
+  purpose: string;
 }
 
