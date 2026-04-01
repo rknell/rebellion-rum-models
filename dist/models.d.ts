@@ -469,6 +469,7 @@ export interface ReconciliationModel {
   discrepancyExplanation: string;
   signature: string;
   startingFloat: number;
+  tillOpeningValue: number;
   totalDiscrepancy: number;
   totalSales: number;
   withdrawals: WithdrawalModel[] | null;

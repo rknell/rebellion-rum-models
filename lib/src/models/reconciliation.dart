@@ -26,6 +26,9 @@ class ReconciliationModel extends DatabaseSerializable {
   /// Starting float (cash in till before trading/day)
   double startingFloat;
 
+  /// Total cash counted in the till at opening (start of shift or day)
+  double tillOpeningValue;
+
   /// Calculated or reported discrepancy (difference between actual and expected)
   double totalDiscrepancy;
 
@@ -44,6 +47,7 @@ class ReconciliationModel extends DatabaseSerializable {
     required this.actualEftposSales,
     required this.cashInTill,
     required this.startingFloat,
+    required this.tillOpeningValue,
     required this.totalDiscrepancy,
     required this.discrepancyExplanation,
     List<WithdrawalModel>? withdrawals,

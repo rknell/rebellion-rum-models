@@ -15,6 +15,7 @@ ReconciliationModel _$ReconciliationModelFromJson(Map<String, dynamic> json) =>
       actualEftposSales: (json['actualEftposSales'] as num).toDouble(),
       cashInTill: (json['cashInTill'] as num).toDouble(),
       startingFloat: (json['startingFloat'] as num).toDouble(),
+      tillOpeningValue: (json['tillOpeningValue'] as num).toDouble(),
       totalDiscrepancy: (json['totalDiscrepancy'] as num).toDouble(),
       discrepancyExplanation: json['discrepancyExplanation'] as String,
       withdrawals: (json['withdrawals'] as List<dynamic>?)
@@ -34,6 +35,7 @@ Map<String, dynamic> _$ReconciliationModelToJson(
       'actualEftposSales': instance.actualEftposSales,
       'cashInTill': instance.cashInTill,
       'startingFloat': instance.startingFloat,
+      'tillOpeningValue': instance.tillOpeningValue,
       'totalDiscrepancy': instance.totalDiscrepancy,
       'discrepancyExplanation': instance.discrepancyExplanation,
       'withdrawals': instance.withdrawals.map((e) => e.toJson()).toList(),
