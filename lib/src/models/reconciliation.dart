@@ -8,11 +8,14 @@ part 'reconciliation.g.dart';
 /// Contains sums, float, actuals, discrepancies, signatures, and sub-list of withdrawals.
 @JsonSerializable(explicitToJson: true)
 class ReconciliationModel extends DatabaseSerializable {
-  /// Date of reconciliation (usually end-of-day)
-  DateTime date;
+  /// The time the shift or day opened
+  final DateTime openingTime;
+
+  /// The time the shift or day closed
+  DateTime? closingTime;
 
   /// Name or signature of the person who completed reconciliation
-  String signature;
+  String? signature;
 
   /// Total recorded sales in the system
   double totalSales;
@@ -21,19 +24,19 @@ class ReconciliationModel extends DatabaseSerializable {
   double actualEftposSales;
 
   /// Amount of cash counted in the till at end
-  double cashInTill;
+  double eodCashInTill;
+
+  /// The total amount from coupons applied to sales
+  double couponTotalAmount;
 
   /// Starting float (cash in till before trading/day)
   double startingFloat;
-
-  /// Total cash counted in the till at opening (start of shift or day)
-  double tillOpeningValue;
 
   /// Calculated or reported discrepancy (difference between actual and expected)
   double totalDiscrepancy;
 
   /// Free text explanation for discrepancy (if any)
-  String discrepancyExplanation;
+  String? discrepancyExplanation;
 
   /// List of withdrawals from till (e.g. for expenses, payouts)
   @JsonKey(defaultValue: <WithdrawalModel>[])
@@ -41,15 +44,16 @@ class ReconciliationModel extends DatabaseSerializable {
 
   ReconciliationModel({
     super.id,
-    required this.date,
-    required this.signature,
-    required this.totalSales,
-    required this.actualEftposSales,
-    required this.cashInTill,
-    required this.startingFloat,
-    required this.tillOpeningValue,
-    required this.totalDiscrepancy,
-    required this.discrepancyExplanation,
+    required this.openingTime,
+    this.closingTime,
+    this.signature,
+    this.totalSales = 0,
+    this.actualEftposSales = 0,
+    this.eodCashInTill = 0,
+    this.couponTotalAmount = 0,
+    this.startingFloat = 0,
+    this.totalDiscrepancy = 0,
+    this.discrepancyExplanation = '',
     List<WithdrawalModel>? withdrawals,
   }) : withdrawals = withdrawals ?? [];
 

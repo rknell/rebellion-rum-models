@@ -463,15 +463,16 @@ export interface RawMaterialsRegisterModel {
 
 export interface ReconciliationModel {
   _id: string;
-  actualEftposSales: number;
-  cashInTill: number;
-  date: string;
-  discrepancyExplanation: string;
-  signature: string;
-  startingFloat: number;
-  tillOpeningValue: number;
-  totalDiscrepancy: number;
-  totalSales: number;
+  actualEftposSales: number | null;
+  closingTime: string | null;
+  couponTotalAmount: number | null;
+  discrepancyExplanation: string | null;
+  eodCashInTill: number | null;
+  openingTime: string;
+  signature: string | null;
+  startingFloat: number | null;
+  totalDiscrepancy: number | null;
+  totalSales: number | null;
   withdrawals: WithdrawalModel[] | null;
 }
 

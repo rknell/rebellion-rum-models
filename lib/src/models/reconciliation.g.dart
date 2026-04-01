@@ -9,15 +9,18 @@ part of 'reconciliation.dart';
 ReconciliationModel _$ReconciliationModelFromJson(Map<String, dynamic> json) =>
     ReconciliationModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
-      date: DateTime.parse(json['date'] as String),
-      signature: json['signature'] as String,
-      totalSales: (json['totalSales'] as num).toDouble(),
-      actualEftposSales: (json['actualEftposSales'] as num).toDouble(),
-      cashInTill: (json['cashInTill'] as num).toDouble(),
-      startingFloat: (json['startingFloat'] as num).toDouble(),
-      tillOpeningValue: (json['tillOpeningValue'] as num).toDouble(),
-      totalDiscrepancy: (json['totalDiscrepancy'] as num).toDouble(),
-      discrepancyExplanation: json['discrepancyExplanation'] as String,
+      openingTime: DateTime.parse(json['openingTime'] as String),
+      closingTime: json['closingTime'] == null
+          ? null
+          : DateTime.parse(json['closingTime'] as String),
+      signature: json['signature'] as String?,
+      totalSales: (json['totalSales'] as num?)?.toDouble() ?? 0,
+      actualEftposSales: (json['actualEftposSales'] as num?)?.toDouble() ?? 0,
+      eodCashInTill: (json['eodCashInTill'] as num?)?.toDouble() ?? 0,
+      couponTotalAmount: (json['couponTotalAmount'] as num?)?.toDouble() ?? 0,
+      startingFloat: (json['startingFloat'] as num?)?.toDouble() ?? 0,
+      totalDiscrepancy: (json['totalDiscrepancy'] as num?)?.toDouble() ?? 0,
+      discrepancyExplanation: json['discrepancyExplanation'] as String? ?? '',
       withdrawals: (json['withdrawals'] as List<dynamic>?)
               ?.map((e) => WithdrawalModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -29,15 +32,18 @@ Map<String, dynamic> _$ReconciliationModelToJson(
     <String, dynamic>{
       if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
-      'date': instance.date.toIso8601String(),
-      'signature': instance.signature,
+      'openingTime': instance.openingTime.toIso8601String(),
+      if (instance.closingTime?.toIso8601String() case final value?)
+        'closingTime': value,
+      if (instance.signature case final value?) 'signature': value,
       'totalSales': instance.totalSales,
       'actualEftposSales': instance.actualEftposSales,
-      'cashInTill': instance.cashInTill,
+      'eodCashInTill': instance.eodCashInTill,
+      'couponTotalAmount': instance.couponTotalAmount,
       'startingFloat': instance.startingFloat,
-      'tillOpeningValue': instance.tillOpeningValue,
       'totalDiscrepancy': instance.totalDiscrepancy,
-      'discrepancyExplanation': instance.discrepancyExplanation,
+      if (instance.discrepancyExplanation case final value?)
+        'discrepancyExplanation': value,
       'withdrawals': instance.withdrawals.map((e) => e.toJson()).toList(),
     };
 
