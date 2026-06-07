@@ -144,6 +144,22 @@ void main() {
       expect(product.botanicals, isEmpty);
       expect(product.recipeSlugs, isEmpty);
       expect(product.headerAlignment, isNull);
+      expect(product.storefrontIds, equals(['rebellion']));
+    });
+
+    test('should serialize and deserialize storefrontIds', () {
+      final product = ProductModel(
+        barcode: 'FH-SOUR-001',
+        price: 45,
+        name: 'Sour Watermelon',
+        storefrontIds: const ['fuckhead'],
+      );
+
+      final json = product.toJson();
+      expect(json['storefrontIds'], equals(['fuckhead']));
+
+      final deserialized = ProductModel.fromJson(json);
+      expect(deserialized.storefrontIds, equals(['fuckhead']));
     });
   });
 

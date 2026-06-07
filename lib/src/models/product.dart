@@ -141,6 +141,9 @@ class ProductModel extends DatabaseSerializable {
   /// Shortcut key used in the pos system for this product
   String? shortcut;
 
+  /// Storefront IDs this product is available on.
+  List<String> storefrontIds;
+
   ProductModel({
     super.id,
     required this.barcode,
@@ -170,6 +173,7 @@ class ProductModel extends DatabaseSerializable {
     this.botanicals = const [],
     this.recipeSlugs = const [],
     this.headerAlignment,
+    this.storefrontIds = const ['rebellion'],
   })  : volume = volume ?? 700.0,
         abv = abv ?? 0.37,
         name = name ?? '',

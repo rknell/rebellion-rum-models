@@ -12,6 +12,9 @@ class CouponModel extends DatabaseSerializable {
   String? phone;
   bool? redeemed;
 
+  /// Storefront IDs this coupon can be used on.
+  List<String> storefrontIds;
+
   @JsonKey(name: 'remainingValue')
   double? _remainingValue;
 
@@ -41,6 +44,7 @@ class CouponModel extends DatabaseSerializable {
     this.phone,
     this.redeemed,
     double? remainingValue,
+    this.storefrontIds = const ['rebellion'],
   }) : _remainingValue = remainingValue;
 
   factory CouponModel.fromJson(Map<String, dynamic> json) =>

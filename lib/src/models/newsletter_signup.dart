@@ -27,6 +27,9 @@ class NewsletterSignupModel extends DatabaseSerializable {
   /// Whether this signup is still active (for managing unsubscribes)
   final bool isActive;
 
+  /// Storefront where this signup was submitted.
+  final String storefrontId;
+
   /// Get the effective signup timestamp, falling back to ObjectId timestamp if not set
   DateTime get effectiveSignupDate => signupDate ?? id.dateTime;
 
@@ -35,6 +38,7 @@ class NewsletterSignupModel extends DatabaseSerializable {
     required this.contactInfo,
     this.signupDate,
     this.isActive = true,
+    this.storefrontId = 'rebellion',
   });
 
   factory NewsletterSignupModel.fromJson(Map<String, dynamic> json) =>

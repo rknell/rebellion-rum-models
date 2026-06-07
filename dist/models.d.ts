@@ -233,6 +233,7 @@ export interface CouponModel {
   phone: string | null;
   redeemed: boolean | null;
   remainingValue: number | null;
+  storefrontIds: string[] | null;
 }
 
 export interface CustomerModel {
@@ -326,6 +327,7 @@ export interface NewsletterSignupModel {
   contactInfo: string;
   isActive: boolean | null;
   signupDate: string | null;
+  storefrontId: string | null;
 }
 
 export interface NoteModel {
@@ -347,7 +349,9 @@ export interface OrderModel {
   paymentMethod: string | null;
   shippingMethod: string | null;
   shippingReceipt: Record<string, any> | null;
+  sourceDomain: string | null;
   status: OrderStatus;
+  storefrontId: string | null;
   totalQuote: number | null;
 }
 
@@ -431,6 +435,7 @@ export interface ProductModel {
   shortcut: string | null;
   slug: string | null;
   stock: number | null;
+  storefrontIds: string[] | null;
   story1: string | null;
   story1Image: string | null;
   story2: string | null;

@@ -24,6 +24,8 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
       shippingMethod: json['shippingMethod'] as String?,
       shippingReceipt: json['shippingReceipt'] as Map<String, dynamic>?,
       notes: json['notes'] as String?,
+      storefrontId: json['storefrontId'] as String? ?? 'rebellion',
+      sourceDomain: json['sourceDomain'] as String?,
     )..customer = json['customer'] == null
         ? null
         : CustomerModel.fromJson(json['customer'] as Map<String, dynamic>);
@@ -48,6 +50,8 @@ Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
       if (instance.shippingReceipt case final value?) 'shippingReceipt': value,
       if (instance.totalQuote case final value?) 'totalQuote': value,
       if (instance.notes case final value?) 'notes': value,
+      'storefrontId': instance.storefrontId,
+      if (instance.sourceDomain case final value?) 'sourceDomain': value,
     };
 
 const _$OrderStatusEnumMap = {

@@ -15,6 +15,10 @@ CouponModel _$CouponModelFromJson(Map<String, dynamic> json) => CouponModel(
       phone: json['phone'] as String?,
       redeemed: json['redeemed'] as bool?,
       remainingValue: (json['remainingValue'] as num?)?.toDouble(),
+      storefrontIds: (json['storefrontIds'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const ['rebellion'],
     );
 
 Map<String, dynamic> _$CouponModelToJson(CouponModel instance) =>
@@ -27,5 +31,6 @@ Map<String, dynamic> _$CouponModelToJson(CouponModel instance) =>
       if (instance.email case final value?) 'email': value,
       if (instance.phone case final value?) 'phone': value,
       if (instance.redeemed case final value?) 'redeemed': value,
+      'storefrontIds': instance.storefrontIds,
       'remainingValue': instance.remainingValue,
     };

@@ -77,6 +77,12 @@ class OrderModel extends DatabaseSerializable {
   /// Additional notes for the order
   String? notes;
 
+  /// Storefront where this order was created.
+  String storefrontId;
+
+  /// Hostname/domain that submitted the order.
+  String? sourceDomain;
+
   OrderModel({
     super.id,
     required this.customerId,
@@ -91,6 +97,8 @@ class OrderModel extends DatabaseSerializable {
     this.shippingMethod,
     this.shippingReceipt,
     this.notes,
+    this.storefrontId = 'rebellion',
+    this.sourceDomain,
   })  : date = date ?? DateTime.now(),
         metadata = metadata ?? {};
 

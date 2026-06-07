@@ -15,6 +15,7 @@ NewsletterSignupModel _$NewsletterSignupModelFromJson(
           ? null
           : DateTime.parse(json['signupDate'] as String),
       isActive: json['isActive'] as bool? ?? true,
+      storefrontId: json['storefrontId'] as String? ?? 'rebellion',
     );
 
 Map<String, dynamic> _$NewsletterSignupModelToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$NewsletterSignupModelToJson(
       if (instance.signupDate?.toIso8601String() case final value?)
         'signupDate': value,
       'isActive': instance.isActive,
+      'storefrontId': instance.storefrontId,
     };

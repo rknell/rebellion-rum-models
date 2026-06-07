@@ -1214,6 +1214,9 @@ class CouponModel extends DatabaseSerializable {
   String? phone;
   bool? redeemed;
 
+  /// Storefront IDs this coupon can be used on.
+  List<String> storefrontIds;
+
   @JsonKey(name: 'remainingValue')
   double? _remainingValue;
 
@@ -1243,6 +1246,7 @@ class CouponModel extends DatabaseSerializable {
     this.phone,
     this.redeemed,
     double? remainingValue,
+    this.storefrontIds = const ['rebellion'],
   }) : _remainingValue = remainingValue;
 
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
@@ -1920,6 +1924,9 @@ class NewsletterSignupModel extends DatabaseSerializable {
   /// Whether this signup is still active (for managing unsubscribes)
   final bool isActive;
 
+  /// Storefront where this signup was submitted.
+  final String storefrontId;
+
   /// Get the effective signup timestamp, falling back to ObjectId timestamp if not set
   DateTime get effectiveSignupDate => signupDate ?? id.dateTime;
 
@@ -1928,6 +1935,7 @@ class NewsletterSignupModel extends DatabaseSerializable {
     required this.contactInfo,
     this.signupDate,
     this.isActive = true,
+    this.storefrontId = 'rebellion',
   });
 
   factory NewsletterSignupModel.fromJson(Map<String, dynamic> json) =>
@@ -2026,6 +2034,12 @@ class OrderModel extends DatabaseSerializable {
   /// Additional notes for the order
   String? notes;
 
+  /// Storefront where this order was created.
+  String storefrontId;
+
+  /// Hostname/domain that submitted the order.
+  String? sourceDomain;
+
   OrderModel({
     super.id,
     required this.customerId,
@@ -2040,6 +2054,8 @@ class OrderModel extends DatabaseSerializable {
     this.shippingMethod,
     this.shippingReceipt,
     this.notes,
+    this.storefrontId = 'rebellion',
+    this.sourceDomain,
   })  : date = date ?? DateTime.now(),
         metadata = metadata ?? {};
 
@@ -2537,6 +2553,9 @@ class ProductModel extends DatabaseSerializable {
   /// Shortcut key used in the pos system for this product
   String? shortcut;
 
+  /// Storefront IDs this product is available on.
+  List<String> storefrontIds;
+
   ProductModel({
     super.id,
     required this.barcode,
@@ -2566,6 +2585,7 @@ class ProductModel extends DatabaseSerializable {
     this.botanicals = const [],
     this.recipeSlugs = const [],
     this.headerAlignment,
+    this.storefrontIds = const ['rebellion'],
   })  : volume = volume ?? 700.0,
         abv = abv ?? 0.37,
         name = name ?? '',
