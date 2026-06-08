@@ -161,6 +161,66 @@ void main() {
       final deserialized = ProductModel.fromJson(json);
       expect(deserialized.storefrontIds, equals(['fuckhead']));
     });
+
+    test('should preserve explicit trade and channel price tiers', () {
+      final product = ProductModel.fromJson({
+        'barcode': 'FH-SOUR-TRADE',
+        'name': 'Sour Trade Bottle',
+        'price': 49,
+        'websitePrice': 49,
+        'distilleryDoorPrice': 45,
+        'wholesalePrice': 31.5,
+        'websiteMatesRatesPrice': 39,
+        'distilleryDoorMatesRatesPrice': 35,
+        'stock': 20,
+      });
+
+      expect(product.price, equals(49));
+      expect(product.websitePrice, equals(49));
+      expect(product.distilleryDoorPrice, equals(45));
+      expect(product.wholesalePrice, equals(31.5));
+      expect(product.websiteMatesRatesPrice, equals(39));
+      expect(product.distilleryDoorMatesRatesPrice, equals(35));
+
+      final json = product.toJson();
+      expect(json['price'], equals(49));
+      expect(json['websitePrice'], equals(49));
+      expect(json['distilleryDoorPrice'], equals(45));
+      expect(json['wholesalePrice'], equals(31.5));
+      expect(json['websiteMatesRatesPrice'], equals(39));
+      expect(json['distilleryDoorMatesRatesPrice'], equals(35));
+    });
+
+    test('should default legacy price data into website and distillery tiers',
+        () {
+      final product = ProductModel.fromJson({
+        'barcode': 'LEGACY-001',
+        'name': 'Legacy Product',
+        'price': 60,
+        'matesRatesPrice': 48,
+      });
+
+      expect(product.price, equals(60));
+      expect(product.websitePrice, equals(60));
+      expect(product.distilleryDoorPrice, equals(60));
+      expect(product.matesRatesPrice, equals(48));
+      expect(product.websiteMatesRatesPrice, equals(48));
+      expect(product.distilleryDoorMatesRatesPrice, equals(48));
+      expect(product.wholesalePrice, isNull);
+    });
+
+    test('should accept websitePrice when legacy price is absent', () {
+      final product = ProductModel.fromJson({
+        'barcode': 'NEW-PRICE-001',
+        'name': 'New Price Product',
+        'websitePrice': 52,
+        'distilleryDoorPrice': 47,
+      });
+
+      expect(product.price, equals(52));
+      expect(product.websitePrice, equals(52));
+      expect(product.distilleryDoorPrice, equals(47));
+    });
   });
 
   group('Award', () {

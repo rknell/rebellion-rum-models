@@ -1350,6 +1350,27 @@ class CustomerModel extends DatabaseSerializable {
   /// True if the customer is a wholesale customer
   bool isWholesale;
 
+  /// Australian Business Number for trade applications.
+  String? abn;
+
+  /// Business type, such as venue, bottle shop, or distributor.
+  String? venueType;
+
+  /// Trade application lifecycle: none, pending, approved, rejected, disabled.
+  String tradeStatus;
+
+  /// Optional note submitted with a trade application.
+  String? tradeApplicationMessage;
+
+  /// Timestamp when this customer became an authenticated website account.
+  DateTime? accountCreatedAt;
+
+  /// Bcrypt hash of the current password reset token.
+  String? passwordResetTokenHash;
+
+  /// Expiry timestamp for the password reset token.
+  DateTime? passwordResetExpiresAt;
+
   /// Customer's product preferences (optional)
   Set<CustomerPreferences> preferences;
 
@@ -1383,6 +1404,13 @@ class CustomerModel extends DatabaseSerializable {
     this.country = "Australia",
     Set<CustomerPreferences>? preferences,
     this.isWholesale = false,
+    this.abn,
+    this.venueType,
+    this.tradeStatus = 'none',
+    this.tradeApplicationMessage,
+    this.accountCreatedAt,
+    this.passwordResetTokenHash,
+    this.passwordResetExpiresAt,
   }) : preferences = preferences ?? <CustomerPreferences>{};
 
   /// Updates this customer with sanitized fields from another customer
@@ -1411,7 +1439,12 @@ class CustomerModel extends DatabaseSerializable {
     // Update preferences
     preferences = source.preferences;
 
-    // Note: isWholesale is not updated as it requires business approval
+    // Update trade application contact details, but not approval state.
+    abn = source.abn;
+    venueType = source.venueType;
+    tradeApplicationMessage = source.tradeApplicationMessage;
+
+    // Note: auth, reset, and trade approval fields are not updated here.
 
     return this;
   }
@@ -1455,6 +1488,8 @@ class CustomerModel extends DatabaseSerializable {
     final json = _$CustomerModelToJson(this);
     if (!includePassword) {
       json.remove('password');
+      json.remove('passwordResetTokenHash');
+      json.remove('passwordResetExpiresAt');
     }
     return json;
   }
@@ -2346,6 +2381,431 @@ class PaymentIntentRequest extends ShippingQuoteRequestModel {
 
 ```
 
+## pos_api
+
+*File: lib/src/models/pos_api.dart*
+
+```dart
+import 'package:rebellion_rum_models/src/models/coupon.dart';
+import 'package:rebellion_rum_models/src/models/customer.dart';
+import 'package:rebellion_rum_models/src/models/eftpos_terminal.dart';
+import 'package:rebellion_rum_models/src/models/product.dart';
+import 'package:rebellion_rum_models/src/models/reconciliation.dart';
+import 'package:rebellion_rum_models/src/models/sale.dart';
+
+class PosSyncOperationType {
+  static const finalizeSale = 'finalizeSale';
+  static const upsertProduct = 'upsertProduct';
+  static const deleteProduct = 'deleteProduct';
+  static const setProductEnabled = 'setProductEnabled';
+  static const setProductWebsiteVisible = 'setProductWebsiteVisible';
+  static const setProductImages = 'setProductImages';
+  static const adjustStock = 'adjustStock';
+  static const openTill = 'openTill';
+  static const addTillWithdrawal = 'addTillWithdrawal';
+  static const closeTill = 'closeTill';
+  static const addEftposTerminal = 'addEftposTerminal';
+  static const updateEftposTerminalLastUsed = 'updateEftposTerminalLastUsed';
+
+  static const values = <String>{
+    finalizeSale,
+    upsertProduct,
+    deleteProduct,
+    setProductEnabled,
+    setProductWebsiteVisible,
+    setProductImages,
+    adjustStock,
+    openTill,
+    addTillWithdrawal,
+    closeTill,
+    addEftposTerminal,
+    updateEftposTerminalLastUsed,
+  };
+}
+
+class PosSaleFinalizeRequest {
+  final SaleModel sale;
+  final String? operationId;
+  final String? clientId;
+
+  PosSaleFinalizeRequest({
+    required this.sale,
+    this.operationId,
+    this.clientId,
+  });
+
+  factory PosSaleFinalizeRequest.fromJson(Map<String, dynamic> json) {
+    return PosSaleFinalizeRequest(
+      sale: SaleModel.fromJson(Map<String, dynamic>.from(json['sale'] as Map)),
+      operationId: json['operationId'] as String?,
+      clientId: json['clientId'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'sale': sale.toJson(),
+        if (operationId != null) 'operationId': operationId,
+        if (clientId != null) 'clientId': clientId,
+      };
+}
+
+class PosSaleFinalizeResponse {
+  final SaleModel sale;
+  final List<ProductModel> products;
+  final List<CouponModel> coupons;
+
+  PosSaleFinalizeResponse({
+    required this.sale,
+    this.products = const [],
+    this.coupons = const [],
+  });
+
+  factory PosSaleFinalizeResponse.fromJson(Map<String, dynamic> json) {
+    return PosSaleFinalizeResponse(
+      sale: SaleModel.fromJson(Map<String, dynamic>.from(json['sale'] as Map)),
+      products: _models(json['products'], ProductModel.fromJson),
+      coupons: _models(json['coupons'], CouponModel.fromJson),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'sale': sale.toJson(),
+        'products': products.map((p) => p.toJson()).toList(),
+        'coupons': coupons.map((c) => c.toJson()).toList(),
+      };
+}
+
+class PosStockAdjustmentRequest {
+  final String barcode;
+  final int? delta;
+  final int? stock;
+  final String? reason;
+
+  PosStockAdjustmentRequest({
+    required this.barcode,
+    this.delta,
+    this.stock,
+    this.reason,
+  });
+
+  factory PosStockAdjustmentRequest.fromJson(Map<String, dynamic> json) {
+    return PosStockAdjustmentRequest(
+      barcode: json['barcode'] as String,
+      delta: (json['delta'] as num?)?.toInt(),
+      stock: (json['stock'] as num?)?.toInt(),
+      reason: json['reason'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'barcode': barcode,
+        if (delta != null) 'delta': delta,
+        if (stock != null) 'stock': stock,
+        if (reason != null) 'reason': reason,
+      };
+}
+
+class PosStockAdjustmentResponse {
+  final ProductModel product;
+
+  PosStockAdjustmentResponse({required this.product});
+
+  factory PosStockAdjustmentResponse.fromJson(Map<String, dynamic> json) {
+    return PosStockAdjustmentResponse(
+      product:
+          ProductModel.fromJson(Map<String, dynamic>.from(json['product'] as Map)),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {'product': product.toJson()};
+}
+
+class PosCouponSearchResponse {
+  final List<CouponModel> coupons;
+
+  PosCouponSearchResponse({required this.coupons});
+
+  factory PosCouponSearchResponse.fromJson(Map<String, dynamic> json) {
+    return PosCouponSearchResponse(
+      coupons: _models(json['coupons'], CouponModel.fromJson),
+    );
+  }
+
+  Map<String, dynamic> toJson() =>
+      {'coupons': coupons.map((c) => c.toJson()).toList()};
+}
+
+class PosCouponRedeemRequest {
+  final double appliedAmount;
+
+  PosCouponRedeemRequest({required this.appliedAmount});
+
+  factory PosCouponRedeemRequest.fromJson(Map<String, dynamic> json) {
+    return PosCouponRedeemRequest(
+      appliedAmount: (json['appliedAmount'] as num).toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {'appliedAmount': appliedAmount};
+}
+
+class PosReconciliationOpenRequest {
+  final String tillId;
+  final double startingFloat;
+
+  PosReconciliationOpenRequest({
+    required this.tillId,
+    required this.startingFloat,
+  });
+
+  factory PosReconciliationOpenRequest.fromJson(Map<String, dynamic> json) {
+    return PosReconciliationOpenRequest(
+      tillId: json['tillId'] as String? ?? 'default',
+      startingFloat: (json['startingFloat'] as num).toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'tillId': tillId,
+        'startingFloat': startingFloat,
+      };
+}
+
+class PosReconciliationCloseRequest {
+  final String tillId;
+  final ReconciliationModel reconciliation;
+  final Map<String, dynamic>? eodCloseSnapshot;
+
+  PosReconciliationCloseRequest({
+    required this.tillId,
+    required this.reconciliation,
+    this.eodCloseSnapshot,
+  });
+
+  factory PosReconciliationCloseRequest.fromJson(Map<String, dynamic> json) {
+    return PosReconciliationCloseRequest(
+      tillId: json['tillId'] as String? ?? 'default',
+      reconciliation: ReconciliationModel.fromJson(
+        Map<String, dynamic>.from(json['reconciliation'] as Map),
+      ),
+      eodCloseSnapshot: json['eodCloseSnapshot'] == null
+          ? null
+          : Map<String, dynamic>.from(json['eodCloseSnapshot'] as Map),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'tillId': tillId,
+        'reconciliation': reconciliation.toJson(),
+        if (eodCloseSnapshot != null) 'eodCloseSnapshot': eodCloseSnapshot,
+      };
+}
+
+class PosReconciliationResponse {
+  final ReconciliationModel? reconciliation;
+  final String tillId;
+  final Map<String, dynamic>? eodCloseSnapshot;
+
+  PosReconciliationResponse({
+    required this.tillId,
+    this.reconciliation,
+    this.eodCloseSnapshot,
+  });
+
+  factory PosReconciliationResponse.fromJson(Map<String, dynamic> json) {
+    return PosReconciliationResponse(
+      tillId: json['tillId'] as String? ?? 'default',
+      reconciliation: json['reconciliation'] == null
+          ? null
+          : ReconciliationModel.fromJson(
+              Map<String, dynamic>.from(json['reconciliation'] as Map),
+            ),
+      eodCloseSnapshot: json['eodCloseSnapshot'] == null
+          ? null
+          : Map<String, dynamic>.from(json['eodCloseSnapshot'] as Map),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'tillId': tillId,
+        'reconciliation': reconciliation?.toJson(),
+        if (eodCloseSnapshot != null) 'eodCloseSnapshot': eodCloseSnapshot,
+      };
+}
+
+class PosSyncOperation {
+  final String operationId;
+  final String clientId;
+  final String type;
+  final DateTime createdAt;
+  final Map<String, dynamic> payload;
+
+  PosSyncOperation({
+    required this.operationId,
+    required this.clientId,
+    required this.type,
+    required this.createdAt,
+    required this.payload,
+  });
+
+  factory PosSyncOperation.fromJson(Map<String, dynamic> json) {
+    return PosSyncOperation(
+      operationId: json['operationId'] as String,
+      clientId: json['clientId'] as String,
+      type: json['type'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      payload: Map<String, dynamic>.from(json['payload'] as Map),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'operationId': operationId,
+        'clientId': clientId,
+        'type': type,
+        'createdAt': createdAt.toIso8601String(),
+        'payload': payload,
+      };
+}
+
+class PosSyncBatchRequest {
+  final List<PosSyncOperation> operations;
+
+  PosSyncBatchRequest({required this.operations});
+
+  factory PosSyncBatchRequest.fromJson(Map<String, dynamic> json) {
+    return PosSyncBatchRequest(
+      operations: _models(json['operations'], PosSyncOperation.fromJson),
+    );
+  }
+
+  Map<String, dynamic> toJson() =>
+      {'operations': operations.map((op) => op.toJson()).toList()};
+}
+
+class PosSyncOperationResult {
+  final String operationId;
+  final bool success;
+  final Map<String, dynamic>? result;
+  final PosErrorResponse? error;
+  final bool replayed;
+
+  PosSyncOperationResult({
+    required this.operationId,
+    required this.success,
+    this.result,
+    this.error,
+    this.replayed = false,
+  });
+
+  factory PosSyncOperationResult.fromJson(Map<String, dynamic> json) {
+    return PosSyncOperationResult(
+      operationId: json['operationId'] as String,
+      success: json['success'] == true,
+      result: json['result'] == null
+          ? null
+          : Map<String, dynamic>.from(json['result'] as Map),
+      error: json['error'] == null
+          ? null
+          : PosErrorResponse.fromJson(
+              Map<String, dynamic>.from(json['error'] as Map),
+            ),
+      replayed: json['replayed'] == true,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'operationId': operationId,
+        'success': success,
+        if (result != null) 'result': result,
+        if (error != null) 'error': error!.toJson(),
+        'replayed': replayed,
+      };
+}
+
+class PosSyncBatchResponse {
+  final List<PosSyncOperationResult> results;
+
+  PosSyncBatchResponse({required this.results});
+
+  factory PosSyncBatchResponse.fromJson(Map<String, dynamic> json) {
+    return PosSyncBatchResponse(
+      results: _models(json['results'], PosSyncOperationResult.fromJson),
+    );
+  }
+
+  Map<String, dynamic> toJson() =>
+      {'results': results.map((r) => r.toJson()).toList()};
+}
+
+class PosErrorResponse {
+  final String code;
+  final String message;
+  final Map<String, dynamic>? details;
+
+  PosErrorResponse({
+    required this.code,
+    required this.message,
+    this.details,
+  });
+
+  factory PosErrorResponse.fromJson(Map<String, dynamic> json) {
+    return PosErrorResponse(
+      code: json['code'] as String? ?? 'unknown',
+      message: json['message'] as String? ?? '',
+      details: json['details'] == null
+          ? null
+          : Map<String, dynamic>.from(json['details'] as Map),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'code': code,
+        'message': message,
+        if (details != null) 'details': details,
+      };
+}
+
+class PosBootstrapResponse {
+  final List<ProductModel> products;
+  final List<CustomerModel> customers;
+  final List<EftposTerminalModel> eftposTerminals;
+
+  PosBootstrapResponse({
+    this.products = const [],
+    this.customers = const [],
+    this.eftposTerminals = const [],
+  });
+
+  factory PosBootstrapResponse.fromJson(Map<String, dynamic> json) {
+    return PosBootstrapResponse(
+      products: _models(json['products'], ProductModel.fromJson),
+      customers: _models(json['customers'], CustomerModel.fromJson),
+      eftposTerminals: _models(
+        json['eftposTerminals'],
+        EftposTerminalModel.fromJson,
+      ),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'products': products.map((p) => p.toJson()).toList(),
+        'customers': customers.map((c) => c.toJson()).toList(),
+        'eftposTerminals': eftposTerminals.map((t) => t.toJson()).toList(),
+      };
+}
+
+List<T> _models<T>(
+  dynamic raw,
+  T Function(Map<String, dynamic>) fromJson,
+) {
+  if (raw == null) return <T>[];
+  return (raw as List)
+      .map((item) => fromJson(Map<String, dynamic>.from(item as Map)))
+      .toList();
+}
+
+```
+
 ## postcode
 
 *File: lib/src/models/postcode.dart*
@@ -2471,11 +2931,26 @@ class ProductModel extends DatabaseSerializable {
   /// Product name/title
   String name;
 
-  /// Current retail price in local currency
+  /// Legacy website retail price alias in local currency.
   double price;
 
-  /// The discount we can give to friends of the distillery.
+  /// Legacy mates rates website price alias.
   double matesRatesPrice;
+
+  /// Public website price in local currency.
+  double websitePrice;
+
+  /// Public distillery door/POS price in local currency.
+  double distilleryDoorPrice;
+
+  /// Approved trade customer price in local currency.
+  double? wholesalePrice;
+
+  /// Mates rates price for website checkout.
+  double? websiteMatesRatesPrice;
+
+  /// Mates rates price for distillery door/POS sales.
+  double? distilleryDoorMatesRatesPrice;
 
   /// Current stock level
   int stock;
@@ -2560,7 +3035,12 @@ class ProductModel extends DatabaseSerializable {
     super.id,
     required this.barcode,
     String? name,
-    required this.price,
+    double? price,
+    double? websitePrice,
+    double? distilleryDoorPrice,
+    this.wholesalePrice,
+    double? websiteMatesRatesPrice,
+    double? distilleryDoorMatesRatesPrice,
     int? stock = 0,
     ProductCategory? category,
     double? volume,
@@ -2590,7 +3070,17 @@ class ProductModel extends DatabaseSerializable {
         abv = abv ?? 0.37,
         name = name ?? '',
         percentAustralian = percentAustralian ?? 1.0,
-        matesRatesPrice = matesRatesPrice ?? price * .8,
+        price = price ?? websitePrice ?? 0,
+        websitePrice = websitePrice ?? price ?? 0,
+        distilleryDoorPrice = distilleryDoorPrice ?? websitePrice ?? price ?? 0,
+        matesRatesPrice =
+            matesRatesPrice ?? websiteMatesRatesPrice ?? (price ?? 0) * .8,
+        websiteMatesRatesPrice =
+            websiteMatesRatesPrice ?? matesRatesPrice ?? (price ?? 0) * .8,
+        distilleryDoorMatesRatesPrice = distilleryDoorMatesRatesPrice ??
+            websiteMatesRatesPrice ??
+            matesRatesPrice ??
+            (distilleryDoorPrice ?? websitePrice ?? price ?? 0) * .8,
         stock = stock ?? 0,
         category = category ?? ProductCategory.other;
 
@@ -2600,6 +3090,13 @@ class ProductModel extends DatabaseSerializable {
     final description = json['description'] as String?;
     json = Map<String, dynamic>.from(json);
     json['name'] = name ?? description ?? '';
+    json['price'] ??= json['websitePrice'];
+    json['websitePrice'] ??= json['price'];
+    json['distilleryDoorPrice'] ??= json['websitePrice'] ?? json['price'];
+    json['matesRatesPrice'] ??= json['websiteMatesRatesPrice'];
+    json['websiteMatesRatesPrice'] ??= json['matesRatesPrice'];
+    json['distilleryDoorMatesRatesPrice'] ??=
+        json['websiteMatesRatesPrice'] ?? json['matesRatesPrice'];
 
     return _$ProductModelFromJson(json);
   }

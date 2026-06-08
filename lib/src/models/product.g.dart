@@ -24,7 +24,14 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
       barcode: json['barcode'] as String,
       name: json['name'] as String?,
-      price: (json['price'] as num).toDouble(),
+      price: (json['price'] as num?)?.toDouble(),
+      websitePrice: (json['websitePrice'] as num?)?.toDouble(),
+      distilleryDoorPrice: (json['distilleryDoorPrice'] as num?)?.toDouble(),
+      wholesalePrice: (json['wholesalePrice'] as num?)?.toDouble(),
+      websiteMatesRatesPrice:
+          (json['websiteMatesRatesPrice'] as num?)?.toDouble(),
+      distilleryDoorMatesRatesPrice:
+          (json['distilleryDoorMatesRatesPrice'] as num?)?.toDouble(),
       stock: (json['stock'] as num?)?.toInt() ?? 0,
       category: $enumDecodeNullable(_$ProductCategoryEnumMap, json['category'],
           unknownValue: ProductCategory.other),
@@ -77,6 +84,13 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       'name': instance.name,
       'price': instance.price,
       'matesRatesPrice': instance.matesRatesPrice,
+      'websitePrice': instance.websitePrice,
+      'distilleryDoorPrice': instance.distilleryDoorPrice,
+      if (instance.wholesalePrice case final value?) 'wholesalePrice': value,
+      if (instance.websiteMatesRatesPrice case final value?)
+        'websiteMatesRatesPrice': value,
+      if (instance.distilleryDoorMatesRatesPrice case final value?)
+        'distilleryDoorMatesRatesPrice': value,
       'stock': instance.stock,
       if (_$ProductCategoryEnumMap[instance.category] case final value?)
         'category': value,

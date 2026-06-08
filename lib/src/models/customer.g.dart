@@ -24,6 +24,17 @@ CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) =>
           ?.map((e) => $enumDecode(_$CustomerPreferencesEnumMap, e))
           .toSet(),
       isWholesale: json['isWholesale'] as bool? ?? false,
+      abn: json['abn'] as String?,
+      venueType: json['venueType'] as String?,
+      tradeStatus: json['tradeStatus'] as String? ?? 'none',
+      tradeApplicationMessage: json['tradeApplicationMessage'] as String?,
+      accountCreatedAt: json['accountCreatedAt'] == null
+          ? null
+          : DateTime.parse(json['accountCreatedAt'] as String),
+      passwordResetTokenHash: json['passwordResetTokenHash'] as String?,
+      passwordResetExpiresAt: json['passwordResetExpiresAt'] == null
+          ? null
+          : DateTime.parse(json['passwordResetExpiresAt'] as String),
     )..password = json['password'] as String?;
 
 Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
@@ -42,6 +53,17 @@ Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
       'postcode': instance.postcode,
       'country': instance.country,
       'isWholesale': instance.isWholesale,
+      if (instance.abn case final value?) 'abn': value,
+      if (instance.venueType case final value?) 'venueType': value,
+      'tradeStatus': instance.tradeStatus,
+      if (instance.tradeApplicationMessage case final value?)
+        'tradeApplicationMessage': value,
+      if (instance.accountCreatedAt?.toIso8601String() case final value?)
+        'accountCreatedAt': value,
+      if (instance.passwordResetTokenHash case final value?)
+        'passwordResetTokenHash': value,
+      if (instance.passwordResetExpiresAt?.toIso8601String() case final value?)
+        'passwordResetExpiresAt': value,
       'preferences': instance.preferences
           .map((e) => _$CustomerPreferencesEnumMap[e]!)
           .toList(),

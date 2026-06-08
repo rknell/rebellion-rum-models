@@ -83,6 +83,27 @@ class CustomerModel extends DatabaseSerializable {
   /// True if the customer is a wholesale customer
   bool isWholesale;
 
+  /// Australian Business Number for trade applications.
+  String? abn;
+
+  /// Business type, such as venue, bottle shop, or distributor.
+  String? venueType;
+
+  /// Trade application lifecycle: none, pending, approved, rejected, disabled.
+  String tradeStatus;
+
+  /// Optional note submitted with a trade application.
+  String? tradeApplicationMessage;
+
+  /// Timestamp when this customer became an authenticated website account.
+  DateTime? accountCreatedAt;
+
+  /// Bcrypt hash of the current password reset token.
+  String? passwordResetTokenHash;
+
+  /// Expiry timestamp for the password reset token.
+  DateTime? passwordResetExpiresAt;
+
   /// Customer's product preferences (optional)
   Set<CustomerPreferences> preferences;
 
@@ -116,6 +137,13 @@ class CustomerModel extends DatabaseSerializable {
     this.country = "Australia",
     Set<CustomerPreferences>? preferences,
     this.isWholesale = false,
+    this.abn,
+    this.venueType,
+    this.tradeStatus = 'none',
+    this.tradeApplicationMessage,
+    this.accountCreatedAt,
+    this.passwordResetTokenHash,
+    this.passwordResetExpiresAt,
   }) : preferences = preferences ?? <CustomerPreferences>{};
 
   /// Updates this customer with sanitized fields from another customer
@@ -144,7 +172,12 @@ class CustomerModel extends DatabaseSerializable {
     // Update preferences
     preferences = source.preferences;
 
-    // Note: isWholesale is not updated as it requires business approval
+    // Update trade application contact details, but not approval state.
+    abn = source.abn;
+    venueType = source.venueType;
+    tradeApplicationMessage = source.tradeApplicationMessage;
+
+    // Note: auth, reset, and trade approval fields are not updated here.
 
     return this;
   }
@@ -188,6 +221,8 @@ class CustomerModel extends DatabaseSerializable {
     final json = _$CustomerModelToJson(this);
     if (!includePassword) {
       json.remove('password');
+      json.remove('passwordResetTokenHash');
+      json.remove('passwordResetExpiresAt');
     }
     return json;
   }

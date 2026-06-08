@@ -123,5 +123,113 @@ void main() {
       final result = original.mergeSanitized(source);
       expect(result, same(original));
     });
+
+    test('should serialize trade application status and details', () {
+      final customer = CustomerModel(
+        firstName: 'Trade',
+        lastName: 'Buyer',
+        email: 'trade@example.com',
+        phone: '0400000000',
+        addressLine1: '1 Trade Street',
+        city: 'Yatala',
+        state: 'QLD',
+        postcode: '4207',
+        companyName: 'Trade Venue Pty Ltd',
+        abn: '12345678901',
+        venueType: 'Bottle shop',
+        tradeStatus: 'pending',
+        tradeApplicationMessage: 'Interested in Fuckhead wholesale.',
+      );
+      customer.password = 'hashed-password';
+
+      final publicJson = customer.toJson();
+      expect(publicJson['abn'], equals('12345678901'));
+      expect(publicJson['venueType'], equals('Bottle shop'));
+      expect(publicJson['tradeStatus'], equals('pending'));
+      expect(publicJson['tradeApplicationMessage'],
+          equals('Interested in Fuckhead wholesale.'));
+      expect(publicJson.containsKey('password'), isFalse);
+
+      final databaseJson = customer.toDatabase();
+      expect(databaseJson['password'], equals('hashed-password'));
+
+      final deserialized = CustomerModel.fromJson(databaseJson);
+      expect(deserialized.abn, equals('12345678901'));
+      expect(deserialized.venueType, equals('Bottle shop'));
+      expect(deserialized.tradeStatus, equals('pending'));
+      expect(deserialized.password, equals('hashed-password'));
+    });
+
+    test('mergeSanitized should not update trade approval fields', () {
+      final original = CustomerModel(
+        firstName: 'Original',
+        lastName: 'Customer',
+        email: 'original@example.com',
+        phone: '1234567890',
+        addressLine1: '123 Original St',
+        city: 'Original City',
+        state: 'OS',
+        postcode: '12345',
+        isWholesale: false,
+        tradeStatus: 'pending',
+      );
+
+      final source = CustomerModel(
+        firstName: 'New',
+        lastName: 'Person',
+        email: 'new@example.com',
+        phone: '0987654321',
+        addressLine1: '456 New St',
+        city: 'New City',
+        state: 'NS',
+        postcode: '54321',
+        isWholesale: true,
+        tradeStatus: 'approved',
+      );
+
+      original.mergeSanitized(source);
+
+      expect(original.isWholesale, isFalse);
+      expect(original.tradeStatus, equals('pending'));
+    });
+
+    test('should serialize account metadata and hide reset secrets publicly',
+        () {
+      final accountCreatedAt = DateTime.utc(2026, 6, 8, 1, 2, 3);
+      final resetExpiresAt = DateTime.utc(2026, 6, 8, 2, 2, 3);
+      final customer = CustomerModel(
+        firstName: 'Account',
+        lastName: 'Customer',
+        email: 'account@example.com',
+        phone: '0400000000',
+        addressLine1: '1 Account Street',
+        city: 'Yatala',
+        state: 'QLD',
+        postcode: '4207',
+        accountCreatedAt: accountCreatedAt,
+        passwordResetTokenHash: 'hashed-reset-token',
+        passwordResetExpiresAt: resetExpiresAt,
+      );
+      customer.password = 'hashed-password';
+
+      final publicJson = customer.toJson();
+      expect(publicJson['accountCreatedAt'],
+          equals(accountCreatedAt.toIso8601String()));
+      expect(publicJson.containsKey('password'), isFalse);
+      expect(publicJson.containsKey('passwordResetTokenHash'), isFalse);
+      expect(publicJson.containsKey('passwordResetExpiresAt'), isFalse);
+
+      final databaseJson = customer.toDatabase();
+      expect(databaseJson['password'], equals('hashed-password'));
+      expect(
+          databaseJson['passwordResetTokenHash'], equals('hashed-reset-token'));
+      expect(databaseJson['passwordResetExpiresAt'],
+          equals(resetExpiresAt.toIso8601String()));
+
+      final deserialized = CustomerModel.fromJson(databaseJson);
+      expect(deserialized.accountCreatedAt, equals(accountCreatedAt));
+      expect(deserialized.passwordResetTokenHash, equals('hashed-reset-token'));
+      expect(deserialized.passwordResetExpiresAt, equals(resetExpiresAt));
+    });
   });
 }

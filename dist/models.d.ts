@@ -238,6 +238,8 @@ export interface CouponModel {
 
 export interface CustomerModel {
   _id: string;
+  abn: string | null;
+  accountCreatedAt: string | null;
   addressLine1: string;
   addressLine2: string | null;
   city: string;
@@ -248,10 +250,15 @@ export interface CustomerModel {
   isWholesale: boolean | null;
   lastName: string;
   password: string | null;
+  passwordResetExpiresAt: string | null;
+  passwordResetTokenHash: string | null;
   phone: string;
   postcode: string;
   preferences: any[] | null;
   state: string;
+  tradeApplicationMessage: string | null;
+  tradeStatus: string | null;
+  venueType: string | null;
 }
 
 export interface DeliveryAuthorityModel {
@@ -418,6 +425,8 @@ export interface ProductModel {
   botanicals: number[] | null;
   bottleImage: string | null;
   category: ProductCategory;
+  distilleryDoorMatesRatesPrice: number | null;
+  distilleryDoorPrice: number | null;
   enabled: boolean | null;
   headerAlignment: string | null;
   heroDescription: string | null;
@@ -428,7 +437,7 @@ export interface ProductModel {
   matesRatesPrice: number | null;
   name: string | null;
   percentAustralian: number | null;
-  price: number;
+  price: number | null;
   productType: string | null;
   recipe: ProductRecipe | null;
   recipeSlugs: string[] | null;
@@ -441,7 +450,10 @@ export interface ProductModel {
   story2: string | null;
   story2Image: string | null;
   volume: number | null;
+  websiteMatesRatesPrice: number | null;
+  websitePrice: number | null;
   weight: number | null;
+  wholesalePrice: number | null;
 }
 
 export interface ProductRecipe {

@@ -59,11 +59,26 @@ class ProductModel extends DatabaseSerializable {
   /// Product name/title
   String name;
 
-  /// Current retail price in local currency
+  /// Legacy website retail price alias in local currency.
   double price;
 
-  /// The discount we can give to friends of the distillery.
+  /// Legacy mates rates website price alias.
   double matesRatesPrice;
+
+  /// Public website price in local currency.
+  double websitePrice;
+
+  /// Public distillery door/POS price in local currency.
+  double distilleryDoorPrice;
+
+  /// Approved trade customer price in local currency.
+  double? wholesalePrice;
+
+  /// Mates rates price for website checkout.
+  double? websiteMatesRatesPrice;
+
+  /// Mates rates price for distillery door/POS sales.
+  double? distilleryDoorMatesRatesPrice;
 
   /// Current stock level
   int stock;
@@ -148,7 +163,12 @@ class ProductModel extends DatabaseSerializable {
     super.id,
     required this.barcode,
     String? name,
-    required this.price,
+    double? price,
+    double? websitePrice,
+    double? distilleryDoorPrice,
+    this.wholesalePrice,
+    double? websiteMatesRatesPrice,
+    double? distilleryDoorMatesRatesPrice,
     int? stock = 0,
     ProductCategory? category,
     double? volume,
@@ -178,7 +198,17 @@ class ProductModel extends DatabaseSerializable {
         abv = abv ?? 0.37,
         name = name ?? '',
         percentAustralian = percentAustralian ?? 1.0,
-        matesRatesPrice = matesRatesPrice ?? price * .8,
+        price = price ?? websitePrice ?? 0,
+        websitePrice = websitePrice ?? price ?? 0,
+        distilleryDoorPrice = distilleryDoorPrice ?? websitePrice ?? price ?? 0,
+        matesRatesPrice =
+            matesRatesPrice ?? websiteMatesRatesPrice ?? (price ?? 0) * .8,
+        websiteMatesRatesPrice =
+            websiteMatesRatesPrice ?? matesRatesPrice ?? (price ?? 0) * .8,
+        distilleryDoorMatesRatesPrice = distilleryDoorMatesRatesPrice ??
+            websiteMatesRatesPrice ??
+            matesRatesPrice ??
+            (distilleryDoorPrice ?? websitePrice ?? price ?? 0) * .8,
         stock = stock ?? 0,
         category = category ?? ProductCategory.other;
 
@@ -188,6 +218,13 @@ class ProductModel extends DatabaseSerializable {
     final description = json['description'] as String?;
     json = Map<String, dynamic>.from(json);
     json['name'] = name ?? description ?? '';
+    json['price'] ??= json['websitePrice'];
+    json['websitePrice'] ??= json['price'];
+    json['distilleryDoorPrice'] ??= json['websitePrice'] ?? json['price'];
+    json['matesRatesPrice'] ??= json['websiteMatesRatesPrice'];
+    json['websiteMatesRatesPrice'] ??= json['matesRatesPrice'];
+    json['distilleryDoorMatesRatesPrice'] ??=
+        json['websiteMatesRatesPrice'] ?? json['matesRatesPrice'];
 
     return _$ProductModelFromJson(json);
   }
