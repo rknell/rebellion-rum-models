@@ -30,11 +30,25 @@ class ShippingQuoteRequestModel {
   /// Calculates the total number of items by summing all quantities in the items map
   int get totalItems => items.values.fold(0, (sum, quantity) => sum + quantity);
 
+  /// Weight per bottle in kilograms
+  static const double _bottleWeightKg = 1.5;
+
+  /// Packaging materials weight per package in kilograms (280g)
+  static const double _packagingMaterialsWeightKg = 0.28;
+
+  /// Package dimensions in meters (23 x 21 x 30 cm)
+  static const double _packageLengthM = 0.30;
+  static const double _packageWidthM = 0.23;
+  static const double _packageHeightM = 0.21;
+
+  /// Maximum items per package
+  static const int _maxItemsPerPackage = 6;
+
   List<StartShipItRatePackageModel> get packages {
     // Calculate how many packages we need based on the total items
-    // Each package can hold up to 6 items
+    // Each package can hold up to _maxItemsPerPackage items
     final int totalItems = this.totalItems;
-    final int packagesNeeded = (totalItems / 6).ceil();
+    final int packagesNeeded = (totalItems / _maxItemsPerPackage).ceil();
 
     // Create the list of packages
     final List<StartShipItRatePackageModel> result = [];
@@ -44,16 +58,19 @@ class ShippingQuoteRequestModel {
     // Create each package with the appropriate number of items
     for (int i = 0; i < packagesNeeded; i++) {
       // For each package, determine how many items it will contain
-      // (up to 6 items per package)
-      final int itemsInPackage = remainingItems >= 6 ? 6 : remainingItems;
+      final int itemsInPackage =
+          remainingItems >= _maxItemsPerPackage ? _maxItemsPerPackage : remainingItems;
+
+      // Weight = (bottles × 1.5kg) + 0.28kg packaging materials per package
+      final double packageWeight =
+          (itemsInPackage * _bottleWeightKg) + _packagingMaterialsWeightKg;
 
       result.add(
         StartShipItRatePackageModel(
-          weight: itemsInPackage.toDouble() *
-              1.4, // Weight based on number of items
-          length: 0.29,
-          width: 0.25,
-          height: 0.20,
+          weight: packageWeight,
+          length: _packageLengthM,
+          width: _packageWidthM,
+          height: _packageHeightM,
         ),
       );
 
