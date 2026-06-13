@@ -1,0 +1,82 @@
+name: Pre-commit autofix
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pre-commit-autofix-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  pre-commit:
+    name: Generate, commit, and verify
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout pull request branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Checkout repository
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Generate and format
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+          dart format .
+
+      - name: Create autofix commit
+        id: autofix
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name || '' }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          if git diff --quiet --exit-code && [ -z "$(git ls-files --others --exclude-standard)" ]; then
+            echo "created=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ "$EVENT_NAME" = "pull_request" ] && [ "$HEAD_REPO" != "$REPOSITORY" ]; then
+            echo "::error::Pre-commit generation changed files, but this workflow cannot push to forked pull requests."
+            git status --short
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: apply generated pre-commit changes"
+          echo "created=true" >> "$GITHUB_OUTPUT"
+
+      - name: Analyze
+        run: dart analyze
+
+      - name: Test
+        run: dart test
+
+      - name: Push autofix commit
+        if: steps.autofix.outputs.created == 'true'
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+        run: git push origin "HEAD:$BRANCH_NAME"
