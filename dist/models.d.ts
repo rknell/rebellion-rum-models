@@ -329,6 +329,75 @@ export interface GinStillStocktakeModel {
   temperature: number | null;
 }
 
+export interface MailingArchiveBatchModel {
+  _id: string;
+  archivedAt: string | null;
+  batchId: string;
+  listKey: string;
+  listName: string;
+  memberCount: number | null;
+  reason: string | null;
+}
+
+export interface MailingContactModel {
+  _id: string;
+  createdAt: string | null;
+  displayContact: string;
+  email: string | null;
+  globalEmailOptOut: boolean | null;
+  globalOptOutAt: string | null;
+  globalSmsOptOut: boolean | null;
+  normalizedEmail: string;
+  normalizedPhone: string;
+  phone: string | null;
+  source: string | null;
+  storefrontId: string | null;
+  updatedAt: string | null;
+}
+
+export interface MailingListMembershipModel {
+  _id: string;
+  archiveBatchId: string | null;
+  archivedAt: string | null;
+  consentType: string | null;
+  contactId: string;
+  createdAt: string | null;
+  listKey: string;
+  listOptOutAt: string | null;
+  source: string | null;
+  status: string | null;
+  storefrontId: string | null;
+  updatedAt: string | null;
+}
+
+export interface MailingListModel {
+  _id: string;
+  createdAt: string | null;
+  key: string;
+  name: string;
+  productBarcode: string | null;
+  productName: string | null;
+  storefrontId: string | null;
+  type: string | null;
+  updatedAt: string | null;
+}
+
+export interface MailingSendModel {
+  _id: string;
+  archiveBatchId: string | null;
+  emailedCount: number | null;
+  htmlBody: string;
+  listKey: string;
+  sentAt: string | null;
+  skippedPhoneOnlyCount: number | null;
+  skippedPhones: string[] | null;
+  smsBody: string | null;
+  subject: string;
+  suppressedGlobalCount: number | null;
+  suppressedListCount: number | null;
+  textBody: string;
+}
+
 export interface NewsletterSignupModel {
   _id: string;
   contactInfo: string;

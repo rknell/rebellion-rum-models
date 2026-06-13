@@ -1925,6 +1925,255 @@ class FermentationProgressModel {
 
 ```
 
+## mailing_archive_batch
+
+*File: lib/src/models/mailing_archive_batch.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
+
+part 'mailing_archive_batch.g.dart';
+
+@JsonSerializable()
+class MailingArchiveBatchModel extends DatabaseSerializable {
+  String batchId;
+  String listKey;
+  String listName;
+  DateTime archivedAt;
+  String reason;
+  int memberCount;
+
+  MailingArchiveBatchModel({
+    super.id,
+    required this.batchId,
+    required this.listKey,
+    required this.listName,
+    DateTime? archivedAt,
+    this.reason = 'clear-list',
+    this.memberCount = 0,
+  }) : archivedAt = archivedAt ?? DateTime.now();
+
+  factory MailingArchiveBatchModel.fromJson(Map<String, dynamic> json) =>
+      _$MailingArchiveBatchModelFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$MailingArchiveBatchModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+}
+
+```
+
+## mailing_contact
+
+*File: lib/src/models/mailing_contact.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
+
+part 'mailing_contact.g.dart';
+
+@JsonSerializable()
+class MailingContactModel extends DatabaseSerializable {
+  String? email;
+  String? phone;
+  String normalizedEmail;
+  String normalizedPhone;
+  String displayContact;
+  String storefrontId;
+  String source;
+  DateTime createdAt;
+  DateTime updatedAt;
+  bool globalEmailOptOut;
+  bool globalSmsOptOut;
+  DateTime? globalOptOutAt;
+
+  MailingContactModel({
+    super.id,
+    this.email,
+    this.phone,
+    required this.normalizedEmail,
+    required this.normalizedPhone,
+    required this.displayContact,
+    this.storefrontId = 'rebellion',
+    this.source = 'unknown',
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    this.globalEmailOptOut = false,
+    this.globalSmsOptOut = false,
+    this.globalOptOutAt,
+  })  : createdAt = createdAt ?? DateTime.now(),
+        updatedAt = updatedAt ?? DateTime.now();
+
+  factory MailingContactModel.fromJson(Map<String, dynamic> json) =>
+      _$MailingContactModelFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$MailingContactModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+}
+
+```
+
+## mailing_list
+
+*File: lib/src/models/mailing_list.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
+
+part 'mailing_list.g.dart';
+
+@JsonSerializable()
+class MailingListModel extends DatabaseSerializable {
+  String key;
+  String name;
+  String type;
+  String storefrontId;
+  String? productBarcode;
+  String? productName;
+  DateTime createdAt;
+  DateTime updatedAt;
+
+  MailingListModel({
+    super.id,
+    required this.key,
+    required this.name,
+    this.type = 'custom',
+    this.storefrontId = 'rebellion',
+    this.productBarcode,
+    this.productName,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  })  : createdAt = createdAt ?? DateTime.now(),
+        updatedAt = updatedAt ?? DateTime.now();
+
+  factory MailingListModel.fromJson(Map<String, dynamic> json) =>
+      _$MailingListModelFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$MailingListModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+}
+
+```
+
+## mailing_list_membership
+
+*File: lib/src/models/mailing_list_membership.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
+
+part 'mailing_list_membership.g.dart';
+
+@JsonSerializable()
+class MailingListMembershipModel extends DatabaseSerializable {
+  @ObjectIdConverter()
+  ObjectId contactId;
+  String listKey;
+  String status;
+  String source;
+  String consentType;
+  String storefrontId;
+  DateTime createdAt;
+  DateTime updatedAt;
+  String? archiveBatchId;
+  DateTime? archivedAt;
+  DateTime? listOptOutAt;
+
+  MailingListMembershipModel({
+    super.id,
+    required this.contactId,
+    required this.listKey,
+    this.status = 'active',
+    this.source = 'unknown',
+    this.consentType = 'express',
+    this.storefrontId = 'rebellion',
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    this.archiveBatchId,
+    this.archivedAt,
+    this.listOptOutAt,
+  })  : createdAt = createdAt ?? DateTime.now(),
+        updatedAt = updatedAt ?? DateTime.now();
+
+  factory MailingListMembershipModel.fromJson(Map<String, dynamic> json) =>
+      _$MailingListMembershipModelFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$MailingListMembershipModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id', 'contactId'};
+}
+
+```
+
+## mailing_send
+
+*File: lib/src/models/mailing_send.dart*
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
+
+part 'mailing_send.g.dart';
+
+@JsonSerializable()
+class MailingSendModel extends DatabaseSerializable {
+  String listKey;
+  String? archiveBatchId;
+  String subject;
+  String htmlBody;
+  String textBody;
+  String? smsBody;
+  DateTime sentAt;
+  int emailedCount;
+  int skippedPhoneOnlyCount;
+  int suppressedGlobalCount;
+  int suppressedListCount;
+  List<String> skippedPhones;
+
+  MailingSendModel({
+    super.id,
+    required this.listKey,
+    this.archiveBatchId,
+    required this.subject,
+    required this.htmlBody,
+    required this.textBody,
+    this.smsBody,
+    DateTime? sentAt,
+    this.emailedCount = 0,
+    this.skippedPhoneOnlyCount = 0,
+    this.suppressedGlobalCount = 0,
+    this.suppressedListCount = 0,
+    List<String>? skippedPhones,
+  })  : sentAt = sentAt ?? DateTime.now(),
+        skippedPhones = skippedPhones ?? <String>[];
+
+  factory MailingSendModel.fromJson(Map<String, dynamic> json) =>
+      _$MailingSendModelFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$MailingSendModelToJson(this);
+
+  @override
+  Set<String> get objectIdFields => {'_id'};
+}
+
+```
+
 ## newsletter_signup
 
 *File: lib/src/models/newsletter_signup.dart*
@@ -2377,431 +2626,6 @@ class PaymentIntentRequest extends ShippingQuoteRequestModel {
   /// Converts this instance to a JSON object
   @override
   Map<String, dynamic> toJson() => _$PaymentIntentRequestToJson(this);
-}
-
-```
-
-## pos_api
-
-*File: lib/src/models/pos_api.dart*
-
-```dart
-import 'package:rebellion_rum_models/src/models/coupon.dart';
-import 'package:rebellion_rum_models/src/models/customer.dart';
-import 'package:rebellion_rum_models/src/models/eftpos_terminal.dart';
-import 'package:rebellion_rum_models/src/models/product.dart';
-import 'package:rebellion_rum_models/src/models/reconciliation.dart';
-import 'package:rebellion_rum_models/src/models/sale.dart';
-
-class PosSyncOperationType {
-  static const finalizeSale = 'finalizeSale';
-  static const upsertProduct = 'upsertProduct';
-  static const deleteProduct = 'deleteProduct';
-  static const setProductEnabled = 'setProductEnabled';
-  static const setProductWebsiteVisible = 'setProductWebsiteVisible';
-  static const setProductImages = 'setProductImages';
-  static const adjustStock = 'adjustStock';
-  static const openTill = 'openTill';
-  static const addTillWithdrawal = 'addTillWithdrawal';
-  static const closeTill = 'closeTill';
-  static const addEftposTerminal = 'addEftposTerminal';
-  static const updateEftposTerminalLastUsed = 'updateEftposTerminalLastUsed';
-
-  static const values = <String>{
-    finalizeSale,
-    upsertProduct,
-    deleteProduct,
-    setProductEnabled,
-    setProductWebsiteVisible,
-    setProductImages,
-    adjustStock,
-    openTill,
-    addTillWithdrawal,
-    closeTill,
-    addEftposTerminal,
-    updateEftposTerminalLastUsed,
-  };
-}
-
-class PosSaleFinalizeRequest {
-  final SaleModel sale;
-  final String? operationId;
-  final String? clientId;
-
-  PosSaleFinalizeRequest({
-    required this.sale,
-    this.operationId,
-    this.clientId,
-  });
-
-  factory PosSaleFinalizeRequest.fromJson(Map<String, dynamic> json) {
-    return PosSaleFinalizeRequest(
-      sale: SaleModel.fromJson(Map<String, dynamic>.from(json['sale'] as Map)),
-      operationId: json['operationId'] as String?,
-      clientId: json['clientId'] as String?,
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'sale': sale.toJson(),
-        if (operationId != null) 'operationId': operationId,
-        if (clientId != null) 'clientId': clientId,
-      };
-}
-
-class PosSaleFinalizeResponse {
-  final SaleModel sale;
-  final List<ProductModel> products;
-  final List<CouponModel> coupons;
-
-  PosSaleFinalizeResponse({
-    required this.sale,
-    this.products = const [],
-    this.coupons = const [],
-  });
-
-  factory PosSaleFinalizeResponse.fromJson(Map<String, dynamic> json) {
-    return PosSaleFinalizeResponse(
-      sale: SaleModel.fromJson(Map<String, dynamic>.from(json['sale'] as Map)),
-      products: _models(json['products'], ProductModel.fromJson),
-      coupons: _models(json['coupons'], CouponModel.fromJson),
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'sale': sale.toJson(),
-        'products': products.map((p) => p.toJson()).toList(),
-        'coupons': coupons.map((c) => c.toJson()).toList(),
-      };
-}
-
-class PosStockAdjustmentRequest {
-  final String barcode;
-  final int? delta;
-  final int? stock;
-  final String? reason;
-
-  PosStockAdjustmentRequest({
-    required this.barcode,
-    this.delta,
-    this.stock,
-    this.reason,
-  });
-
-  factory PosStockAdjustmentRequest.fromJson(Map<String, dynamic> json) {
-    return PosStockAdjustmentRequest(
-      barcode: json['barcode'] as String,
-      delta: (json['delta'] as num?)?.toInt(),
-      stock: (json['stock'] as num?)?.toInt(),
-      reason: json['reason'] as String?,
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'barcode': barcode,
-        if (delta != null) 'delta': delta,
-        if (stock != null) 'stock': stock,
-        if (reason != null) 'reason': reason,
-      };
-}
-
-class PosStockAdjustmentResponse {
-  final ProductModel product;
-
-  PosStockAdjustmentResponse({required this.product});
-
-  factory PosStockAdjustmentResponse.fromJson(Map<String, dynamic> json) {
-    return PosStockAdjustmentResponse(
-      product:
-          ProductModel.fromJson(Map<String, dynamic>.from(json['product'] as Map)),
-    );
-  }
-
-  Map<String, dynamic> toJson() => {'product': product.toJson()};
-}
-
-class PosCouponSearchResponse {
-  final List<CouponModel> coupons;
-
-  PosCouponSearchResponse({required this.coupons});
-
-  factory PosCouponSearchResponse.fromJson(Map<String, dynamic> json) {
-    return PosCouponSearchResponse(
-      coupons: _models(json['coupons'], CouponModel.fromJson),
-    );
-  }
-
-  Map<String, dynamic> toJson() =>
-      {'coupons': coupons.map((c) => c.toJson()).toList()};
-}
-
-class PosCouponRedeemRequest {
-  final double appliedAmount;
-
-  PosCouponRedeemRequest({required this.appliedAmount});
-
-  factory PosCouponRedeemRequest.fromJson(Map<String, dynamic> json) {
-    return PosCouponRedeemRequest(
-      appliedAmount: (json['appliedAmount'] as num).toDouble(),
-    );
-  }
-
-  Map<String, dynamic> toJson() => {'appliedAmount': appliedAmount};
-}
-
-class PosReconciliationOpenRequest {
-  final String tillId;
-  final double startingFloat;
-
-  PosReconciliationOpenRequest({
-    required this.tillId,
-    required this.startingFloat,
-  });
-
-  factory PosReconciliationOpenRequest.fromJson(Map<String, dynamic> json) {
-    return PosReconciliationOpenRequest(
-      tillId: json['tillId'] as String? ?? 'default',
-      startingFloat: (json['startingFloat'] as num).toDouble(),
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'tillId': tillId,
-        'startingFloat': startingFloat,
-      };
-}
-
-class PosReconciliationCloseRequest {
-  final String tillId;
-  final ReconciliationModel reconciliation;
-  final Map<String, dynamic>? eodCloseSnapshot;
-
-  PosReconciliationCloseRequest({
-    required this.tillId,
-    required this.reconciliation,
-    this.eodCloseSnapshot,
-  });
-
-  factory PosReconciliationCloseRequest.fromJson(Map<String, dynamic> json) {
-    return PosReconciliationCloseRequest(
-      tillId: json['tillId'] as String? ?? 'default',
-      reconciliation: ReconciliationModel.fromJson(
-        Map<String, dynamic>.from(json['reconciliation'] as Map),
-      ),
-      eodCloseSnapshot: json['eodCloseSnapshot'] == null
-          ? null
-          : Map<String, dynamic>.from(json['eodCloseSnapshot'] as Map),
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'tillId': tillId,
-        'reconciliation': reconciliation.toJson(),
-        if (eodCloseSnapshot != null) 'eodCloseSnapshot': eodCloseSnapshot,
-      };
-}
-
-class PosReconciliationResponse {
-  final ReconciliationModel? reconciliation;
-  final String tillId;
-  final Map<String, dynamic>? eodCloseSnapshot;
-
-  PosReconciliationResponse({
-    required this.tillId,
-    this.reconciliation,
-    this.eodCloseSnapshot,
-  });
-
-  factory PosReconciliationResponse.fromJson(Map<String, dynamic> json) {
-    return PosReconciliationResponse(
-      tillId: json['tillId'] as String? ?? 'default',
-      reconciliation: json['reconciliation'] == null
-          ? null
-          : ReconciliationModel.fromJson(
-              Map<String, dynamic>.from(json['reconciliation'] as Map),
-            ),
-      eodCloseSnapshot: json['eodCloseSnapshot'] == null
-          ? null
-          : Map<String, dynamic>.from(json['eodCloseSnapshot'] as Map),
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'tillId': tillId,
-        'reconciliation': reconciliation?.toJson(),
-        if (eodCloseSnapshot != null) 'eodCloseSnapshot': eodCloseSnapshot,
-      };
-}
-
-class PosSyncOperation {
-  final String operationId;
-  final String clientId;
-  final String type;
-  final DateTime createdAt;
-  final Map<String, dynamic> payload;
-
-  PosSyncOperation({
-    required this.operationId,
-    required this.clientId,
-    required this.type,
-    required this.createdAt,
-    required this.payload,
-  });
-
-  factory PosSyncOperation.fromJson(Map<String, dynamic> json) {
-    return PosSyncOperation(
-      operationId: json['operationId'] as String,
-      clientId: json['clientId'] as String,
-      type: json['type'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      payload: Map<String, dynamic>.from(json['payload'] as Map),
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'operationId': operationId,
-        'clientId': clientId,
-        'type': type,
-        'createdAt': createdAt.toIso8601String(),
-        'payload': payload,
-      };
-}
-
-class PosSyncBatchRequest {
-  final List<PosSyncOperation> operations;
-
-  PosSyncBatchRequest({required this.operations});
-
-  factory PosSyncBatchRequest.fromJson(Map<String, dynamic> json) {
-    return PosSyncBatchRequest(
-      operations: _models(json['operations'], PosSyncOperation.fromJson),
-    );
-  }
-
-  Map<String, dynamic> toJson() =>
-      {'operations': operations.map((op) => op.toJson()).toList()};
-}
-
-class PosSyncOperationResult {
-  final String operationId;
-  final bool success;
-  final Map<String, dynamic>? result;
-  final PosErrorResponse? error;
-  final bool replayed;
-
-  PosSyncOperationResult({
-    required this.operationId,
-    required this.success,
-    this.result,
-    this.error,
-    this.replayed = false,
-  });
-
-  factory PosSyncOperationResult.fromJson(Map<String, dynamic> json) {
-    return PosSyncOperationResult(
-      operationId: json['operationId'] as String,
-      success: json['success'] == true,
-      result: json['result'] == null
-          ? null
-          : Map<String, dynamic>.from(json['result'] as Map),
-      error: json['error'] == null
-          ? null
-          : PosErrorResponse.fromJson(
-              Map<String, dynamic>.from(json['error'] as Map),
-            ),
-      replayed: json['replayed'] == true,
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'operationId': operationId,
-        'success': success,
-        if (result != null) 'result': result,
-        if (error != null) 'error': error!.toJson(),
-        'replayed': replayed,
-      };
-}
-
-class PosSyncBatchResponse {
-  final List<PosSyncOperationResult> results;
-
-  PosSyncBatchResponse({required this.results});
-
-  factory PosSyncBatchResponse.fromJson(Map<String, dynamic> json) {
-    return PosSyncBatchResponse(
-      results: _models(json['results'], PosSyncOperationResult.fromJson),
-    );
-  }
-
-  Map<String, dynamic> toJson() =>
-      {'results': results.map((r) => r.toJson()).toList()};
-}
-
-class PosErrorResponse {
-  final String code;
-  final String message;
-  final Map<String, dynamic>? details;
-
-  PosErrorResponse({
-    required this.code,
-    required this.message,
-    this.details,
-  });
-
-  factory PosErrorResponse.fromJson(Map<String, dynamic> json) {
-    return PosErrorResponse(
-      code: json['code'] as String? ?? 'unknown',
-      message: json['message'] as String? ?? '',
-      details: json['details'] == null
-          ? null
-          : Map<String, dynamic>.from(json['details'] as Map),
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'code': code,
-        'message': message,
-        if (details != null) 'details': details,
-      };
-}
-
-class PosBootstrapResponse {
-  final List<ProductModel> products;
-  final List<CustomerModel> customers;
-  final List<EftposTerminalModel> eftposTerminals;
-
-  PosBootstrapResponse({
-    this.products = const [],
-    this.customers = const [],
-    this.eftposTerminals = const [],
-  });
-
-  factory PosBootstrapResponse.fromJson(Map<String, dynamic> json) {
-    return PosBootstrapResponse(
-      products: _models(json['products'], ProductModel.fromJson),
-      customers: _models(json['customers'], CustomerModel.fromJson),
-      eftposTerminals: _models(
-        json['eftposTerminals'],
-        EftposTerminalModel.fromJson,
-      ),
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'products': products.map((p) => p.toJson()).toList(),
-        'customers': customers.map((c) => c.toJson()).toList(),
-        'eftposTerminals': eftposTerminals.map((t) => t.toJson()).toList(),
-      };
-}
-
-List<T> _models<T>(
-  dynamic raw,
-  T Function(Map<String, dynamic>) fromJson,
-) {
-  if (raw == null) return <T>[];
-  return (raw as List)
-      .map((item) => fromJson(Map<String, dynamic>.from(item as Map)))
-      .toList();
 }
 
 ```

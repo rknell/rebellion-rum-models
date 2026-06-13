@@ -19,6 +19,13 @@ part 'shipping_quote_request_model.g.dart';
 /// ```
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ShippingQuoteRequestModel {
+  static const double _bottleWeightKg = 1.5;
+  static const double _packagingMaterialsWeightKg = 0.28;
+  static const double _packageLengthM = 0.30;
+  static const double _packageWidthM = 0.23;
+  static const double _packageHeightM = 0.21;
+  static const int _maxItemsPerPackage = 6;
+
   /// The destination address for the shipping quote
   final StartShipItRateDestinationAddressModel address;
 
@@ -34,7 +41,7 @@ class ShippingQuoteRequestModel {
     // Calculate how many packages we need based on the total items
     // Each package can hold up to 6 items
     final int totalItems = this.totalItems;
-    final int packagesNeeded = (totalItems / 6).ceil();
+    final int packagesNeeded = (totalItems / _maxItemsPerPackage).ceil();
 
     // Create the list of packages
     final List<StartShipItRatePackageModel> result = [];
@@ -45,15 +52,17 @@ class ShippingQuoteRequestModel {
     for (int i = 0; i < packagesNeeded; i++) {
       // For each package, determine how many items it will contain
       // (up to 6 items per package)
-      final int itemsInPackage = remainingItems >= 6 ? 6 : remainingItems;
+      final int itemsInPackage = remainingItems >= _maxItemsPerPackage
+          ? _maxItemsPerPackage
+          : remainingItems;
 
       result.add(
         StartShipItRatePackageModel(
-          weight: itemsInPackage.toDouble() *
-              1.4, // Weight based on number of items
-          length: 0.29,
-          width: 0.25,
-          height: 0.20,
+          weight:
+              (itemsInPackage * _bottleWeightKg) + _packagingMaterialsWeightKg,
+          length: _packageLengthM,
+          width: _packageWidthM,
+          height: _packageHeightM,
         ),
       );
 
