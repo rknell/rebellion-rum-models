@@ -58,8 +58,9 @@ class ShippingQuoteRequestModel {
     // Create each package with the appropriate number of items
     for (int i = 0; i < packagesNeeded; i++) {
       // For each package, determine how many items it will contain
-      final int itemsInPackage =
-          remainingItems >= _maxItemsPerPackage ? _maxItemsPerPackage : remainingItems;
+      final int itemsInPackage = remainingItems >= _maxItemsPerPackage
+          ? _maxItemsPerPackage
+          : remainingItems;
 
       // Weight = (bottles × 1.5kg) + 0.28kg packaging materials per package
       final double packageWeight =
