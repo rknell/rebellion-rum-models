@@ -25,7 +25,8 @@ void main() {
         source: 'stock-reminder',
       );
 
-      expect(contact.toJson()['normalizedEmail'], equals('customer@example.com'));
+      expect(
+          contact.toJson()['normalizedEmail'], equals('customer@example.com'));
       expect(newsletter.toJson()['contactId'], equals(contactId.oid));
       expect(stock.toJson()['contactId'], equals(contactId.oid));
       expect(newsletter.toJson()['listKey'], equals('newsletter'));
