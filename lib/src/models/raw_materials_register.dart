@@ -12,8 +12,8 @@ class RawMaterialsRegisterModel extends DatabaseSerializable {
   @NullableObjectIdConverter()
   ObjectId? fermentationRecordId;
   String materialType;
-  num qtyIn;
-  num qtyOut;
+  double qtyIn;
+  double qtyOut;
 
   @JsonKey(name: 'timestamp', includeIfNull: false)
   DateTime? _timestamp;

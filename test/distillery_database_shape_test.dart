@@ -25,6 +25,7 @@ void main() {
 
   test('fermentation record preserves final strength metadata', () {
     final timestamp = DateTime.utc(2026, 6, 29, 1, 2, 3);
+    final deletedAt = DateTime.utc(2026, 6, 29, 2, 3, 4);
     final model = FermentationRecordModel(
       batchNumber: 12,
       type: FermentationType.molasses,
@@ -36,6 +37,7 @@ void main() {
       finalStrengthMethod: 'manual',
       finalStrengthTimestamp: timestamp,
       isDeleted: true,
+      deletedAt: deletedAt,
     );
 
     final parsed = FermentationRecordModel.fromJson(model.toJson());
@@ -44,6 +46,7 @@ void main() {
     expect(parsed.finalStrengthMethod, equals('manual'));
     expect(parsed.finalStrengthTimestamp, equals(timestamp));
     expect(parsed.isDeleted, isTrue);
+    expect(parsed.deletedAt, equals(deletedAt));
   });
 
   test('raw material definition is a shared database model', () {

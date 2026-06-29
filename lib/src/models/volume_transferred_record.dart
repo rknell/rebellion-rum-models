@@ -17,7 +17,7 @@ class VolumeTransferredRecordModel extends DatabaseSerializable {
   double lals;
   double? abvPercent;
   WashStrengthMethod strengthMethod;
-  DateTime timestamp;
+  DateTime? timestamp;
 
   VolumeTransferredRecordModel({
     super.id,
@@ -27,8 +27,8 @@ class VolumeTransferredRecordModel extends DatabaseSerializable {
     required this.lals,
     this.abvPercent,
     this.strengthMethod = WashStrengthMethod.unknown,
-    DateTime? timestamp,
-  }) : timestamp = timestamp ?? DateTime.now();
+    this.timestamp,
+  });
 
   factory VolumeTransferredRecordModel.fromJson(Map<String, dynamic> json) =>
       _$VolumeTransferredRecordModelFromJson(json);

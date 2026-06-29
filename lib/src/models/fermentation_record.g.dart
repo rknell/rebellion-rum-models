@@ -33,6 +33,9 @@ FermentationRecordModel _$FermentationRecordModelFromJson(
           ? null
           : DateTime.parse(json['completionDate'] as String),
       isDeleted: json['isDeleted'] as bool? ?? false,
+      deletedAt: json['deletedAt'] == null
+          ? null
+          : DateTime.parse(json['deletedAt'] as String),
     );
 
 Map<String, dynamic> _$FermentationRecordModelToJson(
@@ -59,6 +62,8 @@ Map<String, dynamic> _$FermentationRecordModelToJson(
       if (instance.completionDate?.toIso8601String() case final value?)
         'completionDate': value,
       'isDeleted': instance.isDeleted,
+      if (instance.deletedAt?.toIso8601String() case final value?)
+        'deletedAt': value,
     };
 
 const _$FermentationTypeEnumMap = {

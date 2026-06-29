@@ -15,8 +15,8 @@ RawMaterialsRegisterModel _$RawMaterialsRegisterModelFromJson(
       fermentationRecordId: const NullableObjectIdConverter()
           .fromJson(json['fermentationRecordId']),
       materialType: json['materialType'] as String,
-      qtyIn: json['qtyIn'] as num,
-      qtyOut: json['qtyOut'] as num,
+      qtyIn: (json['qtyIn'] as num).toDouble(),
+      qtyOut: (json['qtyOut'] as num).toDouble(),
       timestamp: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),

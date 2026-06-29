@@ -40,7 +40,7 @@ class PackagingRunItemModel extends DatabaseSerializable {
   double? strength;
 
   /// Number of units packaged
-  double? unitsPackaged;
+  int? unitsPackaged;
 
   /// Losses during packaging in LALs
   double? packagingLosses;
@@ -64,7 +64,7 @@ class PackagingRunItemModel extends DatabaseSerializable {
   double? abvReading;
 
   /// Target number of bottles to fill, compare to units packaged and ensure its within 1.5% plus or minus
-  double targetBottles;
+  int targetBottles;
 
   /// The timestamp of the packaging run
   /// If not set, falls back to the ObjectId timestamp

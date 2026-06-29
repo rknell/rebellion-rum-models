@@ -36,7 +36,8 @@ Map<String, dynamic> _$VolumeTransferredRecordModelToJson(
       'lals': instance.lals,
       if (instance.abvPercent case final value?) 'abvPercent': value,
       'strengthMethod': _$WashStrengthMethodEnumMap[instance.strengthMethod]!,
-      'timestamp': instance.timestamp.toIso8601String(),
+      if (instance.timestamp?.toIso8601String() case final value?)
+        'timestamp': value,
     };
 
 const _$WashStrengthMethodEnumMap = {

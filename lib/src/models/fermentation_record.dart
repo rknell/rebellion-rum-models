@@ -83,6 +83,8 @@ class FermentationRecordModel extends DatabaseSerializable {
 
   bool isDeleted;
 
+  DateTime? deletedAt;
+
   FermentationRecordModel({
     super.id,
     required this.batchNumber,
@@ -100,6 +102,7 @@ class FermentationRecordModel extends DatabaseSerializable {
     this.completed = false,
     this.completionDate,
     this.isDeleted = false,
+    this.deletedAt,
   }) : fermentationProgress = fermentationProgress ?? [];
 
   factory FermentationRecordModel.fromJson(Map<String, dynamic> json) =>
