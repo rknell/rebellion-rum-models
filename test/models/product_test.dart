@@ -8,7 +8,6 @@ void main() {
         "barcode": "3531954279220",
         "name": "Cloak & Dagger",
         "price": 59.99,
-        "stock": 15,
         "volume": 700.0,
         "abv": 0.37,
         "shortDescription":
@@ -51,7 +50,6 @@ void main() {
       expect(product.barcode, equals('3531954279220'));
       expect(product.name, equals('Cloak & Dagger'));
       expect(product.price, equals(59.99));
-      expect(product.stock, equals(15));
       expect(product.volume, equals(700.0));
       expect(product.abv, equals(0.37));
       expect(product.category, equals(ProductCategory.rum));
@@ -98,7 +96,6 @@ void main() {
         barcode: 'TEST123',
         price: 49.99,
         name: 'Test Product',
-        stock: 10,
         category: ProductCategory.gin,
         isFeatured: true,
         heroImage: '/test-hero.jpg',
@@ -118,6 +115,7 @@ void main() {
       final json = product.toJson();
 
       expect(json['barcode'], equals('TEST123'));
+      expect(json.containsKey('stock'), isFalse);
       expect(json['isFeatured'], isTrue);
       expect(json['heroImage'], equals('/test-hero.jpg'));
       expect(json['awards'], hasLength(1));
@@ -147,6 +145,24 @@ void main() {
       expect(product.storefrontIds, equals(['rebellion']));
     });
 
+    test('should reject legacy product stock fields', () {
+      expect(
+        () => ProductModel.fromJson({
+          'barcode': 'LEGACY-STOCK',
+          'name': 'Legacy Stock Product',
+          'price': 49,
+          'stock': 12,
+        }),
+        throwsA(
+          isA<StateError>().having(
+            (error) => error.message,
+            'message',
+            contains('ProductModel.stock has been removed'),
+          ),
+        ),
+      );
+    });
+
     test('should serialize and deserialize storefrontIds', () {
       final product = ProductModel(
         barcode: 'FH-SOUR-001',
@@ -172,7 +188,6 @@ void main() {
         'wholesalePrice': 31.5,
         'websiteMatesRatesPrice': 39,
         'distilleryDoorMatesRatesPrice': 35,
-        'stock': 20,
       });
 
       expect(product.price, equals(49));

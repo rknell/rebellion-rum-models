@@ -32,7 +32,6 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
           (json['websiteMatesRatesPrice'] as num?)?.toDouble(),
       distilleryDoorMatesRatesPrice:
           (json['distilleryDoorMatesRatesPrice'] as num?)?.toDouble(),
-      stock: (json['stock'] as num?)?.toInt() ?? 0,
       category: $enumDecodeNullable(_$ProductCategoryEnumMap, json['category'],
           unknownValue: ProductCategory.other),
       volume: (json['volume'] as num?)?.toDouble(),
@@ -91,7 +90,6 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
         'websiteMatesRatesPrice': value,
       if (instance.distilleryDoorMatesRatesPrice case final value?)
         'distilleryDoorMatesRatesPrice': value,
-      'stock': instance.stock,
       if (_$ProductCategoryEnumMap[instance.category] case final value?)
         'category': value,
       if (instance.productType case final value?) 'productType': value,
