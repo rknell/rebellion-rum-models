@@ -4,7 +4,6 @@
     "barcode": "ALOE-SPORTSRUB",
     "description": "Aloe Vera Sports Rub",
     "price": 18.45,
-    "stock": -1,
     "category": "other"
   },
   {
@@ -12,7 +11,6 @@
     "barcode": "ALOE-TEATREE",
     "description": "Aloe Vera Tea Tree",
     "price": 12.45,
-    "stock": -1,
     "category": "other"
   },
   {
@@ -20,7 +18,6 @@
     "barcode": "ALOE-GEL",
     "description": "Aloe Vera Gel",
     "price": 9.45,
-    "stock": -1,
     "category": "other"
   },
   {
@@ -28,7 +25,6 @@
     "barcode": "3549606338546",
     "description": "Vodka Inferno",
     "price": 45,
-    "stock": 29,
     "category": "vodka",
     "isAvailableOnline": true,
     "abv": 0.33,
@@ -47,7 +43,6 @@
     "barcode": "t3546098780013",
     "description": "Tail Wagger",
     "price": 22,
-    "stock": 120,
     "category": "vodka",
     "isAvailableOnline": false,
     "abv": 0.12,
@@ -61,7 +56,6 @@
     "barcode": "glitter",
     "description": "+ Glitter",
     "price": 1,
-    "stock": -132,
     "category": "other",
     "shortcut": "G"
   },
@@ -70,7 +64,6 @@
     "barcode": "SML Decal Promotion",
     "description": "SML Decal Promotion",
     "price": -15.0,
-    "stock": -29,
     "category": "other"
   },
   {
@@ -78,7 +71,6 @@
     "barcode": "LRG Decal Promotion",
     "description": "LRG Decal Promotion",
     "price": -35.0,
-    "stock": -35,
     "category": "other"
   },
   {
@@ -86,7 +78,6 @@
     "barcode": "3546098780013",
     "description": "Pepito's Hard Lemonade",
     "price": 19,
-    "stock": -132,
     "category": "vodka",
     "isAvailableOnline": false,
     "abv": 0.12,
@@ -101,7 +92,6 @@
     "barcode": "9300675014779",
     "description": "10 Pack Cans",
     "price": 13,
-    "stock": 2,
     "category": "softdrink"
   },
   {
@@ -109,7 +99,6 @@
     "barcode": "9300601292950",
     "description": "1.25L Mixer",
     "price": 3.5,
-    "stock": -245,
     "category": "softdrink",
     "shortcut": "1"
   },
@@ -118,7 +107,6 @@
     "barcode": "9300675008419",
     "description": "Can",
     "price": 2.5,
-    "stock": -56,
     "category": "softdrink",
     "shortcut": "2"
   },
@@ -127,7 +115,6 @@
     "barcode": "3545899450941",
     "description": "Limoncello",
     "price": 55.0,
-    "stock": 225,
     "category": "vodka",
     "isAvailableOnline": true,
     "abv": 0.3,
@@ -146,7 +133,6 @@
     "barcode": "ZESTY50G",
     "description": "FRUIT - 50G JAR",
     "price": 29,
-    "stock": 0,
     "category": "other"
   },
   {
@@ -154,7 +140,6 @@
     "barcode": "ZESTY40G",
     "description": "FRUIT - 40G BAG",
     "price": 18,
-    "stock": 0,
     "category": "other"
   },
   {
@@ -162,7 +147,6 @@
     "barcode": "ZESTY20G",
     "description": "FRUIT - 20G BAG",
     "price": 8,
-    "stock": -4,
     "category": "other"
   },
   {
@@ -170,7 +154,6 @@
     "barcode": "ZESTY10G",
     "description": "FRUIT - 10G BAG",
     "price": 5,
-    "stock": -2,
     "category": "other"
   },
   {
@@ -178,7 +161,6 @@
     "barcode": "3541867132413",
     "description": "Spiced Gold",
     "price": 30,
-    "stock": 0,
     "category": "rum"
   },
   {
@@ -186,7 +168,6 @@
     "barcode": "HONEY-SINGLE",
     "description": "Honey - Brush Box / Ironbark",
     "price": 8.5,
-    "stock": -1,
     "category": "other"
   },
   {
@@ -194,7 +175,6 @@
     "barcode": "HONEY-MIXED",
     "description": "Honey - Mixed",
     "price": 7.5,
-    "stock": -29,
     "category": "other",
     "shortcut": "h"
   },
@@ -202,7 +182,6 @@
     "_id": "62d771929096bb341ba24d34",
     "description": "Tincture Spirit",
     "price": 90,
-    "stock": 0,
     "category": "vodka",
     "barcode": "tincture"
   },
@@ -210,7 +189,6 @@
     "_id": "62d10bdf9096bb341bdcd87e",
     "description": "Caninha",
     "price": 35.0,
-    "stock": 108,
     "category": "rum",
     "enabled": true,
     "barcode": "3543398584679",
@@ -231,7 +209,6 @@
     "barcode": "3545540725800",
     "description": "American Oak",
     "price": 35.0,
-    "stock": 210,
     "category": "rum",
     "isAvailableOnline": true,
     "abv": 0.37,
@@ -250,7 +227,6 @@
     "barcode": "3547297877207",
     "description": "Butterfly Pea Gin",
     "price": 35.0,
-    "stock": 48,
     "category": "gin",
     "isAvailableOnline": true,
     "abv": 0.37,
@@ -269,7 +245,6 @@
     "barcode": "010001",
     "description": "Bottle Return",
     "price": -3.0,
-    "stock": -10633,
     "category": "other",
     "shortcut": "r"
   },
@@ -278,7 +253,6 @@
     "barcode": "3544071619862",
     "description": "Zesty Hound Gin",
     "price": 43.0,
-    "stock": 141,
     "category": "gin",
     "isAvailableOnline": true,
     "abv": 0.37,
@@ -297,7 +271,6 @@
     "barcode": "003003",
     "description": "Ginnie in a Bottle - The Flamingo",
     "price": 30,
-    "stock": 0,
     "category": "gin",
     "enabled": false
   },
@@ -306,7 +279,6 @@
     "barcode": "003005",
     "description": "The Leprechaun",
     "price": 30,
-    "stock": 0,
     "category": "gin",
     "enabled": true
   },
@@ -315,7 +287,6 @@
     "barcode": "3545116261664",
     "description": "Fine Dry Gin",
     "price": 35.0,
-    "stock": 69,
     "category": "gin",
     "isAvailableOnline": true,
     "abv": 0.37,
@@ -334,7 +305,6 @@
     "barcode": "3538497880326",
     "description": "White Stag Vodka",
     "price": 35.0,
-    "stock": 320,
     "category": "vodka",
     "isAvailableOnline": true,
     "abv": 0.37,
@@ -353,7 +323,6 @@
     "barcode": "3531954279220",
     "description": "Cloak & Dagger",
     "price": 35.0,
-    "stock": 110,
     "category": "rum",
     "isAvailableOnline": true,
     "name": "Cloak & Dagger",

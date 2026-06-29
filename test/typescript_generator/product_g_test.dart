@@ -20,7 +20,6 @@ ProductModel _\$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       barcode: json['barcode'] as String,
       name: json['name'] as String?,
       price: (json['price'] as num).toDouble(),
-      stock: (json['stock'] as num?)?.toInt() ?? 0,
       category: \$enumDecodeNullable(_\$ProductCategoryEnumMap, json['category'],
           unknownValue: ProductCategory.other),
       volume: (json['volume'] as num?)?.toDouble(),
@@ -53,7 +52,6 @@ Map<String, dynamic> _\$ProductModelToJson(ProductModel instance) =>
       'name': instance.name,
       'price': instance.price,
       'matesRatesPrice': instance.matesRatesPrice,
-      'stock': instance.stock,
       if (_\$ProductCategoryEnumMap[instance.category] case final value?)
         'category': value,
       if (instance.productType case final value?) 'productType': value,
@@ -119,7 +117,6 @@ Map<String, dynamic> _\$ProductRecipeToJson(ProductRecipe instance) =>
       expect(result.contains('barcode: string'), isTrue);
       expect(result.contains('name: string | null'), isTrue);
       expect(result.contains('price: number'), isTrue);
-      expect(result.contains('stock: number | null'), isTrue);
       expect(result.contains('category: ProductCategory'), isTrue);
       expect(result.contains('volume: number | null'), isTrue);
       expect(result.contains('abv: number | null'), isTrue);

@@ -30,15 +30,19 @@ class ProductEphemeralDetails {
     required this.stock,
   });
 
-  /// Creates a ProductEphemeralDetails from a ProductModel
+  /// Creates a ProductEphemeralDetails from a ProductModel and derived stock.
   ///
   /// This factory constructor provides a convenient way to extract only
-  /// the ephemeral details (barcode, price, stock) from a full ProductModel.
-  factory ProductEphemeralDetails.fromProductModel(ProductModel product) {
+  /// the ephemeral details from a full ProductModel while keeping stock outside
+  /// the product document.
+  factory ProductEphemeralDetails.fromProductModel(
+    ProductModel product, {
+    required int stock,
+  }) {
     return ProductEphemeralDetails(
       barcode: product.barcode,
       price: product.price,
-      stock: product.stock,
+      stock: stock,
     );
   }
 
