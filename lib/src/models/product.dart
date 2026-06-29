@@ -206,17 +206,11 @@ class ProductModel extends DatabaseSerializable {
         category = category ?? ProductCategory.other;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
-    if (json.containsKey('stock')) {
-      throw StateError(
-        'ProductModel.stock has been removed. Use the stock register for '
-        'finished-goods stock.',
-      );
-    }
-
     // Handle the name/description merge during deserialization
     final name = json['name'] as String?;
     final description = json['description'] as String?;
     json = Map<String, dynamic>.from(json);
+    json.remove('stock');
     json['name'] = name ?? description ?? '';
     json['price'] ??= json['websitePrice'];
     json['websitePrice'] ??= json['price'];

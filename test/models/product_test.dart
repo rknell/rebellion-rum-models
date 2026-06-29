@@ -145,21 +145,18 @@ void main() {
       expect(product.storefrontIds, equals(['rebellion']));
     });
 
-    test('should reject legacy product stock fields', () {
+    test('should ignore legacy product stock fields', () {
+      final product = ProductModel.fromJson({
+        'barcode': 'LEGACY-STOCK',
+        'name': 'Legacy Stock Product',
+        'price': 49,
+        'stock': 12,
+      });
+
+      expect(product.barcode, equals('LEGACY-STOCK'));
       expect(
-        () => ProductModel.fromJson({
-          'barcode': 'LEGACY-STOCK',
-          'name': 'Legacy Stock Product',
-          'price': 49,
-          'stock': 12,
-        }),
-        throwsA(
-          isA<StateError>().having(
-            (error) => error.message,
-            'message',
-            contains('ProductModel.stock has been removed'),
-          ),
-        ),
+        product.toJson(),
+        isNot(containsPair('stock', anything)),
       );
     });
 
