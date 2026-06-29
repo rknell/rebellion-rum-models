@@ -17,6 +17,11 @@ FermentationRecordModel _$FermentationRecordModelFromJson(
       vesselBarcode: json['vesselBarcode'] as String,
       sgStart: (json['sgStart'] as num).toDouble(),
       sgEnd: (json['sgEnd'] as num).toDouble(),
+      finalStrengthPercent: (json['finalStrengthPercent'] as num?)?.toDouble(),
+      finalStrengthMethod: json['finalStrengthMethod'] as String? ?? '',
+      finalStrengthTimestamp: json['finalStrengthTimestamp'] == null
+          ? null
+          : DateTime.parse(json['finalStrengthTimestamp'] as String),
       fermentationProgress: (json['fermentationProgress'] as List<dynamic>?)
           ?.map((e) =>
               FermentationProgressModel.fromJson(e as Map<String, dynamic>))
@@ -27,6 +32,7 @@ FermentationRecordModel _$FermentationRecordModelFromJson(
       completionDate: json['completionDate'] == null
           ? null
           : DateTime.parse(json['completionDate'] as String),
+      isDeleted: json['isDeleted'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$FermentationRecordModelToJson(
@@ -40,6 +46,11 @@ Map<String, dynamic> _$FermentationRecordModelToJson(
       'vesselBarcode': instance.vesselBarcode,
       'sgStart': instance.sgStart,
       'sgEnd': instance.sgEnd,
+      if (instance.finalStrengthPercent case final value?)
+        'finalStrengthPercent': value,
+      'finalStrengthMethod': instance.finalStrengthMethod,
+      if (instance.finalStrengthTimestamp?.toIso8601String() case final value?)
+        'finalStrengthTimestamp': value,
       'fermentationProgress':
           instance.fermentationProgress.map((e) => e.toJson()).toList(),
       'notes': instance.notes,
@@ -47,6 +58,7 @@ Map<String, dynamic> _$FermentationRecordModelToJson(
       'completed': instance.completed,
       if (instance.completionDate?.toIso8601String() case final value?)
         'completionDate': value,
+      'isDeleted': instance.isDeleted,
     };
 
 const _$FermentationTypeEnumMap = {

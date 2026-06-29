@@ -14,9 +14,17 @@ DistillationRecordModel _$DistillationRecordModelFromJson(
       startTime: json['startTime'] == null
           ? null
           : DateTime.parse(json['startTime'] as String),
+      distillationDate: json['distillationDate'] == null
+          ? null
+          : DateTime.parse(json['distillationDate'] as String),
       status:
           $enumDecodeNullable(_$DistillationStatusEnumMap, json['status']) ??
               DistillationStatus.inProgress,
+      chargeNumber: (json['chargeNumber'] as num?)?.toInt() ?? 0,
+      alcoholType: $enumDecodeNullable(
+              _$DistillationAlcoholTypeEnumMap, json['alcoholType']) ??
+          DistillationAlcoholType.rum,
+      alcoholTypeOther: json['alcoholTypeOther'] as String?,
       feintsAdded: (json['feintsAdded'] as num?)?.toDouble() ?? 0,
       lalsCharged: (json['lalsCharged'] as num?)?.toDouble() ?? 0,
       totalLALsCharged: (json['totalLALsCharged'] as num?)?.toDouble() ?? 0,
@@ -36,7 +44,12 @@ Map<String, dynamic> _$DistillationRecordModelToJson(
         '_id': value,
       'stillUsed': instance.stillUsed,
       'startTime': instance.startTime.toIso8601String(),
+      'distillationDate': instance.distillationDate.toIso8601String(),
       'status': _$DistillationStatusEnumMap[instance.status]!,
+      'chargeNumber': instance.chargeNumber,
+      'alcoholType': _$DistillationAlcoholTypeEnumMap[instance.alcoholType]!,
+      if (instance.alcoholTypeOther case final value?)
+        'alcoholTypeOther': value,
       'feintsAdded': instance.feintsAdded,
       'lalsCharged': instance.lalsCharged,
       'totalLALsCharged': instance.totalLALsCharged,
@@ -50,6 +63,17 @@ const _$DistillationStatusEnumMap = {
   DistillationStatus.inProgress: 'inProgress',
   DistillationStatus.completed: 'completed',
   DistillationStatus.archived: 'archived',
+};
+
+const _$DistillationAlcoholTypeEnumMap = {
+  DistillationAlcoholType.rum: 'rum',
+  DistillationAlcoholType.gin: 'gin',
+  DistillationAlcoholType.vodka: 'vodka',
+  DistillationAlcoholType.whisky: 'whisky',
+  DistillationAlcoholType.brandy: 'brandy',
+  DistillationAlcoholType.liqueur: 'liqueur',
+  DistillationAlcoholType.neutralSpirit: 'neutralSpirit',
+  DistillationAlcoholType.other: 'other',
 };
 
 NoteModel _$NoteModelFromJson(Map<String, dynamic> json) => NoteModel(

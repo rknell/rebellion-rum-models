@@ -14,6 +14,13 @@ VolumeTransferredRecordModel _$VolumeTransferredRecordModelFromJson(
       washId: const ObjectIdConverter().fromJson(json['washId']),
       volume: (json['volume'] as num).toDouble(),
       lals: (json['lals'] as num).toDouble(),
+      abvPercent: (json['abvPercent'] as num?)?.toDouble(),
+      strengthMethod: $enumDecodeNullable(
+              _$WashStrengthMethodEnumMap, json['strengthMethod']) ??
+          WashStrengthMethod.unknown,
+      timestamp: json['timestamp'] == null
+          ? null
+          : DateTime.parse(json['timestamp'] as String),
     );
 
 Map<String, dynamic> _$VolumeTransferredRecordModelToJson(
@@ -27,4 +34,14 @@ Map<String, dynamic> _$VolumeTransferredRecordModelToJson(
         'washId': value,
       'volume': instance.volume,
       'lals': instance.lals,
+      if (instance.abvPercent case final value?) 'abvPercent': value,
+      'strengthMethod': _$WashStrengthMethodEnumMap[instance.strengthMethod]!,
+      'timestamp': instance.timestamp.toIso8601String(),
     };
+
+const _$WashStrengthMethodEnumMap = {
+  WashStrengthMethod.unknown: 'unknown',
+  WashStrengthMethod.estimatedFromSg: 'estimatedFromSg',
+  WashStrengthMethod.measured: 'measured',
+  WashStrengthMethod.manual: 'manual',
+};

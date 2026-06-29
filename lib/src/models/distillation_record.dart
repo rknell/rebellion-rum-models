@@ -17,6 +17,17 @@ enum DistillationStatus {
   archived
 }
 
+enum DistillationAlcoholType {
+  rum,
+  gin,
+  vodka,
+  whisky,
+  brandy,
+  liqueur,
+  neutralSpirit,
+  other
+}
+
 /// Represents a record of a distillation run in the production process.
 ///
 /// Each distillation record tracks the details of a single distillation run,
@@ -30,9 +41,19 @@ class DistillationRecordModel extends DatabaseSerializable {
   /// Start time of the distillation
   final DateTime startTime;
 
+  /// Distillation date used for excise and production records.
+  DateTime distillationDate;
+
   /// Current status of the distillation record
   @JsonKey(defaultValue: DistillationStatus.inProgress)
   final DistillationStatus status;
+
+  int chargeNumber;
+
+  @JsonKey(defaultValue: DistillationAlcoholType.rum)
+  DistillationAlcoholType alcoholType;
+
+  String? alcoholTypeOther;
 
   /// Amount of feints added during the run
   double feintsAdded;
@@ -55,13 +76,18 @@ class DistillationRecordModel extends DatabaseSerializable {
     super.id,
     this.stillUsed = '',
     DateTime? startTime,
+    DateTime? distillationDate,
     this.status = DistillationStatus.inProgress,
+    this.chargeNumber = 0,
+    this.alcoholType = DistillationAlcoholType.rum,
+    this.alcoholTypeOther,
     this.feintsAdded = 0,
     this.lalsCharged = 0,
     this.totalLALsCharged = 0,
     this.totalLALsYield = 0,
     List<NoteModel>? notes,
   })  : startTime = startTime ?? DateTime.now(),
+        distillationDate = distillationDate ?? startTime ?? DateTime.now(),
         notes = notes ?? [];
 
   factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>

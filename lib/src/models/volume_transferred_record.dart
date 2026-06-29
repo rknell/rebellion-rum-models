@@ -4,6 +4,8 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'volume_transferred_record.g.dart';
 
+enum WashStrengthMethod { unknown, estimatedFromSg, measured, manual }
+
 @JsonSerializable()
 class VolumeTransferredRecordModel extends DatabaseSerializable {
   @ObjectIdConverter()
@@ -13,6 +15,9 @@ class VolumeTransferredRecordModel extends DatabaseSerializable {
   ObjectId washId;
   double volume;
   double lals;
+  double? abvPercent;
+  WashStrengthMethod strengthMethod;
+  DateTime timestamp;
 
   VolumeTransferredRecordModel({
     super.id,
@@ -20,7 +25,10 @@ class VolumeTransferredRecordModel extends DatabaseSerializable {
     required this.washId,
     required this.volume,
     required this.lals,
-  });
+    this.abvPercent,
+    this.strengthMethod = WashStrengthMethod.unknown,
+    DateTime? timestamp,
+  }) : timestamp = timestamp ?? DateTime.now();
 
   factory VolumeTransferredRecordModel.fromJson(Map<String, dynamic> json) =>
       _$VolumeTransferredRecordModelFromJson(json);

@@ -60,6 +60,12 @@ class FermentationRecordModel extends DatabaseSerializable {
   /// Final specific gravity
   double sgEnd;
 
+  double? finalStrengthPercent;
+
+  String finalStrengthMethod;
+
+  DateTime? finalStrengthTimestamp;
+
   /// Progress measurements during fermentation
   List<FermentationProgressModel> fermentationProgress;
 
@@ -75,6 +81,8 @@ class FermentationRecordModel extends DatabaseSerializable {
   /// Date when the fermentation was marked as complete
   DateTime? completionDate;
 
+  bool isDeleted;
+
   FermentationRecordModel({
     super.id,
     required this.batchNumber,
@@ -83,11 +91,15 @@ class FermentationRecordModel extends DatabaseSerializable {
     required this.vesselBarcode,
     required this.sgStart,
     required this.sgEnd,
+    this.finalStrengthPercent,
+    this.finalStrengthMethod = '',
+    this.finalStrengthTimestamp,
     List<FermentationProgressModel>? fermentationProgress,
     this.notes = '',
     this.recipe = '',
     this.completed = false,
     this.completionDate,
+    this.isDeleted = false,
   }) : fermentationProgress = fermentationProgress ?? [];
 
   factory FermentationRecordModel.fromJson(Map<String, dynamic> json) =>
