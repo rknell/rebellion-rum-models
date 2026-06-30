@@ -2,6 +2,8 @@
 /// A library containing shared data models for Rebellion Rum projects.
 library;
 
+export 'src/excise_reporting.dart';
+
 // Models
 export 'src/models/alcocalc_dilution_calculation.dart';
 export 'src/models/alcocalc_lals_calculation.dart';

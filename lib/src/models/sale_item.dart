@@ -30,12 +30,43 @@ class SaleItemModel {
   /// Quantity sold
   int qty;
 
+  /// Product volume in millilitres at the time of sale.
+  double? unitVolumeMl;
+
+  /// Product ABV at the time of sale, stored as a decimal (0.37 for 37%).
+  double? unitAbv;
+
+  /// Litres of absolute alcohol for one unit at the time of sale.
+  double? lalPerUnit;
+
+  /// Total litres of absolute alcohol for this sale line.
+  double? totalLals;
+
   SaleItemModel({
     required this.description,
     required this.price,
     required this.itemId,
     required this.qty,
+    this.unitVolumeMl,
+    this.unitAbv,
+    this.lalPerUnit,
+    this.totalLals,
   });
+
+  bool get hasAlcoholSnapshot =>
+      (unitVolumeMl ?? 0) > 0 &&
+      (unitAbv ?? 0) > 0 &&
+      (lalPerUnit ?? 0) > 0 &&
+      (totalLals ?? 0) > 0;
+
+  void refreshAlcoholTotals() {
+    final perUnit = lalPerUnit;
+    if (perUnit == null || perUnit <= 0) {
+      totalLals = null;
+      return;
+    }
+    totalLals = perUnit * qty;
+  }
 
   factory SaleItemModel.fromJson(Map<String, dynamic> json) =>
       _$SaleItemModelFromJson(json);
