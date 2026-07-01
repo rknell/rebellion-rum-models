@@ -26,7 +26,6 @@ ProductModel _\$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       abv: (json['abv'] as num?)?.toDouble(),
       percentAustralian: (json['percentAustralian'] as num?)?.toDouble(),
       productType: json['productType'] as String?,
-      isAvailableOnline: json['isAvailableOnline'] as bool? ?? false,
       images: (json['images'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -37,6 +36,7 @@ ProductModel _\$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       enabled: json['enabled'] as bool?,
       matesRatesPrice: (json['matesRatesPrice'] as num?)?.toDouble(),
       isArchived: json['isArchived'] as bool? ?? false,
+      isInventoryItem: json['isInventoryItem'] as bool? ?? false,
       recipe: json['recipe'] == null
           ? null
           : ProductRecipe.fromJson(json['recipe'] as Map<String, dynamic>),
@@ -55,7 +55,6 @@ Map<String, dynamic> _\$ProductModelToJson(ProductModel instance) =>
       if (_\$ProductCategoryEnumMap[instance.category] case final value?)
         'category': value,
       if (instance.productType case final value?) 'productType': value,
-      'isAvailableOnline': instance.isAvailableOnline,
       'images': instance.images,
       if (instance.longDescription case final value?) 'longDescription': value,
       if (instance.shortDescription case final value?)
@@ -66,6 +65,7 @@ Map<String, dynamic> _\$ProductModelToJson(ProductModel instance) =>
       'percentAustralian': instance.percentAustralian,
       if (instance.enabled case final value?) 'enabled': value,
       'isArchived': instance.isArchived,
+      'isInventoryItem': instance.isInventoryItem,
       if (instance.recipe?.toJson() case final value?) 'recipe': value,
       if (instance.slug case final value?) 'slug': value,
       if (instance.image case final value?) 'image': value,
@@ -122,7 +122,6 @@ Map<String, dynamic> _\$ProductRecipeToJson(ProductRecipe instance) =>
       expect(result.contains('abv: number | null'), isTrue);
       expect(result.contains('percentAustralian: number | null'), isTrue);
       expect(result.contains('productType: string | null'), isTrue);
-      expect(result.contains('isAvailableOnline: boolean | null'), isTrue);
       expect(result.contains('images: string[] | null'), isTrue);
       expect(result.contains('longDescription: string | null'), isTrue);
       expect(result.contains('shortDescription: string | null'), isTrue);
@@ -132,6 +131,7 @@ Map<String, dynamic> _\$ProductRecipeToJson(ProductRecipe instance) =>
       expect(result.contains('enabled: boolean | null'), isTrue);
       expect(result.contains('matesRatesPrice: number | null'), isTrue);
       expect(result.contains('isArchived: boolean | null'), isTrue);
+      expect(result.contains('isInventoryItem: boolean | null'), isTrue);
       expect(result.contains('recipe: ProductRecipe | null'), isTrue);
     });
 

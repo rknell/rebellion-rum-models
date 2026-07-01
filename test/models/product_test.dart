@@ -143,6 +143,7 @@ void main() {
       expect(product.recipeSlugs, isEmpty);
       expect(product.headerAlignment, isNull);
       expect(product.storefrontIds, equals(['rebellion']));
+      expect(product.isInventoryItem, isFalse);
     });
 
     test('should ignore legacy product stock fields', () {
@@ -173,6 +174,21 @@ void main() {
 
       final deserialized = ProductModel.fromJson(json);
       expect(deserialized.storefrontIds, equals(['fuckhead']));
+    });
+
+    test('should serialize and deserialize inventory item flag', () {
+      final product = ProductModel(
+        barcode: 'INV-001',
+        price: 49,
+        name: 'Inventory Product',
+        isInventoryItem: true,
+      );
+
+      final json = product.toJson();
+      expect(json['isInventoryItem'], isTrue);
+
+      final deserialized = ProductModel.fromJson(json);
+      expect(deserialized.isInventoryItem, isTrue);
     });
 
     test('should preserve explicit trade and channel price tiers', () {

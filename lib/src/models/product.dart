@@ -18,7 +18,7 @@ part 'product.g.dart';
 ///   description: 'Premium Dark Rum',
 ///   price: 49.99,
 ///   category: 'spirits',
-///   isAvailableOnline: true,
+///   storefrontIds: ['rebellion'],
 /// );
 /// ```
 
@@ -86,9 +86,6 @@ class ProductModel extends DatabaseSerializable {
   /// Legacy product type string (for compatibility)
   String? productType;
 
-  /// Whether the product can be purchased online
-  bool isAvailableOnline;
-
   /// Product volume in milliliters (ml)
   double volume;
 
@@ -106,6 +103,9 @@ class ProductModel extends DatabaseSerializable {
 
   /// Whether the product is archived (soft deleted)
   bool isArchived;
+
+  /// Whether this product should be included in inventory stocktake/planning.
+  bool isInventoryItem;
 
   /// Recipe information for producing this product
   ProductRecipe? recipe;
@@ -170,11 +170,11 @@ class ProductModel extends DatabaseSerializable {
     double? abv,
     double? percentAustralian,
     this.productType,
-    this.isAvailableOnline = false,
     this.weight,
     this.enabled,
     double? matesRatesPrice,
     this.isArchived = false,
+    this.isInventoryItem = false,
     this.recipe,
     this.isFeatured,
     this.heroImage,

@@ -38,11 +38,11 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       abv: (json['abv'] as num?)?.toDouble(),
       percentAustralian: (json['percentAustralian'] as num?)?.toDouble(),
       productType: json['productType'] as String?,
-      isAvailableOnline: json['isAvailableOnline'] as bool? ?? false,
       weight: (json['weight'] as num?)?.toDouble(),
       enabled: json['enabled'] as bool?,
       matesRatesPrice: (json['matesRatesPrice'] as num?)?.toDouble(),
       isArchived: json['isArchived'] as bool? ?? false,
+      isInventoryItem: json['isInventoryItem'] as bool? ?? false,
       recipe: json['recipe'] == null
           ? null
           : ProductRecipe.fromJson(json['recipe'] as Map<String, dynamic>),
@@ -93,13 +93,13 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       if (_$ProductCategoryEnumMap[instance.category] case final value?)
         'category': value,
       if (instance.productType case final value?) 'productType': value,
-      'isAvailableOnline': instance.isAvailableOnline,
       'volume': instance.volume,
       if (instance.weight case final value?) 'weight': value,
       'abv': instance.abv,
       'percentAustralian': instance.percentAustralian,
       if (instance.enabled case final value?) 'enabled': value,
       'isArchived': instance.isArchived,
+      'isInventoryItem': instance.isInventoryItem,
       if (instance.recipe?.toJson() case final value?) 'recipe': value,
       if (instance.slug case final value?) 'slug': value,
       if (instance.isFeatured case final value?) 'isFeatured': value,
