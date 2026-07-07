@@ -146,6 +146,24 @@ void main() {
       expect(product.isInventoryItem, isFalse);
     });
 
+    test('should not default explicit non-alcohol categories to alcohol', () {
+      for (final category in [
+        ProductCategory.other,
+        ProductCategory.softdrink,
+        ProductCategory.merch,
+      ]) {
+        final product = ProductModel(
+          barcode: 'NON-ALC-${category.name}',
+          name: 'Non alcohol ${category.name}',
+          price: 3,
+          category: category,
+        );
+
+        expect(product.volume, equals(0));
+        expect(product.abv, equals(0));
+      }
+    });
+
     test('should ignore legacy product stock fields', () {
       final product = ProductModel.fromJson({
         'barcode': 'LEGACY-STOCK',

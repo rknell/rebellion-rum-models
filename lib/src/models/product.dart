@@ -189,8 +189,8 @@ class ProductModel extends DatabaseSerializable {
     this.recipeSlugs = const [],
     this.headerAlignment,
     this.storefrontIds = const ['rebellion'],
-  })  : volume = volume ?? 700.0,
-        abv = abv ?? 0.37,
+  })  : volume = volume ?? _defaultVolumeForCategory(category),
+        abv = abv ?? _defaultAbvForCategory(category),
         name = name ?? '',
         percentAustralian = percentAustralian ?? 1.0,
         price = price ?? websitePrice ?? 0,
@@ -204,6 +204,17 @@ class ProductModel extends DatabaseSerializable {
             websiteMatesRatesPrice ??
             (distilleryDoorPrice ?? websitePrice ?? price ?? 0) * .8,
         category = category ?? ProductCategory.other;
+
+  static double _defaultVolumeForCategory(ProductCategory? category) =>
+      _isNonAlcoholCategory(category) ? 0 : 700.0;
+
+  static double _defaultAbvForCategory(ProductCategory? category) =>
+      _isNonAlcoholCategory(category) ? 0 : 0.37;
+
+  static bool _isNonAlcoholCategory(ProductCategory? category) =>
+      category == ProductCategory.other ||
+      category == ProductCategory.softdrink ||
+      category == ProductCategory.merch;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     // Handle the name/description merge during deserialization
