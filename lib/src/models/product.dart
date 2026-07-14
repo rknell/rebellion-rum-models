@@ -22,7 +22,7 @@ part 'product.g.dart';
 /// );
 /// ```
 
-enum ProductCategory { vodka, gin, rum, softdrink, merch, other }
+enum ProductCategory { vodka, gin, rum, cans, softdrink, merch, other }
 
 /// Represents an award received by a product
 @JsonSerializable()
@@ -98,7 +98,9 @@ class ProductModel extends DatabaseSerializable {
   /// Percentage of Australian content
   double percentAustralian;
 
-  /// Whether the product is currently enabled for sale
+  /// Legacy availability field retained for reading old product documents.
+  ///
+  /// Use [isArchived] as the source of truth for product visibility.
   bool? enabled;
 
   /// Whether the product is archived (soft deleted)

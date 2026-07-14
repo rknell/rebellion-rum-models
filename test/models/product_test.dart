@@ -179,6 +179,18 @@ void main() {
       );
     });
 
+    test('should deserialize cans product category', () {
+      final product = ProductModel.fromJson({
+        'barcode': 'PINA-COLADA-320',
+        'name': 'Pina Colada 320ml',
+        'price': 8,
+        'category': 'cans',
+      });
+
+      expect(product.category, equals(ProductCategory.cans));
+      expect(product.toJson()['category'], equals('cans'));
+    });
+
     test('should serialize and deserialize storefrontIds', () {
       final product = ProductModel(
         barcode: 'FH-SOUR-001',

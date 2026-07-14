@@ -122,6 +122,7 @@ const _$ProductCategoryEnumMap = {
   ProductCategory.vodka: 'vodka',
   ProductCategory.gin: 'gin',
   ProductCategory.rum: 'rum',
+  ProductCategory.cans: 'cans',
   ProductCategory.softdrink: 'softdrink',
   ProductCategory.merch: 'merch',
   ProductCategory.other: 'other',

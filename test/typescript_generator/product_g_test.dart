@@ -75,6 +75,7 @@ const _\$ProductCategoryEnumMap = {
   ProductCategory.vodka: 'vodka',
   ProductCategory.gin: 'gin',
   ProductCategory.rum: 'rum',
+  ProductCategory.cans: 'cans',
   ProductCategory.softdrink: 'softdrink',
   ProductCategory.merch: 'merch',
   ProductCategory.other: 'other',
@@ -150,6 +151,7 @@ Map<String, dynamic> _\$ProductRecipeToJson(ProductRecipe instance) =>
       expect(result.contains('vodka = "vodka"'), isTrue);
       expect(result.contains('gin = "gin"'), isTrue);
       expect(result.contains('rum = "rum"'), isTrue);
+      expect(result.contains('cans = "cans"'), isTrue);
       expect(result.contains('softdrink = "softdrink"'), isTrue);
       expect(result.contains('merch = "merch"'), isTrue);
       expect(result.contains('other = "other"'), isTrue);
