@@ -9,9 +9,11 @@ part 'reconciliation.g.dart';
 @JsonSerializable(explicitToJson: true)
 class ReconciliationModel extends DatabaseSerializable {
   /// The time the shift or day opened
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   final DateTime openingTime;
 
   /// The time the shift or day closed
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? closingTime;
 
   /// Name or signature of the person who completed reconciliation
@@ -67,9 +69,10 @@ class ReconciliationModel extends DatabaseSerializable {
   Set<String> get objectIdFields => {'_id'};
 
   @override
-  Map<String, bool> get nestedDatabaseSerializables => {
-        'withdrawals': true,
-      };
+  Set<String> get databaseDateTimeFields => {'openingTime', 'closingTime'};
+
+  @override
+  Map<String, bool> get nestedDatabaseSerializables => {'withdrawals': true};
 
   @override
   Map<String, Function> get nestedTypes => {
@@ -86,11 +89,7 @@ class WithdrawalModel extends DatabaseSerializable {
   /// Amount of the withdrawal
   final double amount;
 
-  WithdrawalModel({
-    super.id,
-    required this.purpose,
-    required this.amount,
-  });
+  WithdrawalModel({super.id, required this.purpose, required this.amount});
 
   factory WithdrawalModel.fromJson(Map<String, dynamic> json) =>
       _$WithdrawalModelFromJson(json);

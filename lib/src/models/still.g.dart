@@ -12,10 +12,8 @@ StillModel _$StillModelFromJson(Map<String, dynamic> json) => StillModel(
       capacityLiters: (json['capacityLiters'] as num).toDouble(),
       description: json['description'] as String? ?? '',
       isActive: json['isActive'] as bool? ?? true,
-      commissionedDate: DateTime.parse(json['commissionedDate'] as String),
-      decommissionedDate: json['decommissionedDate'] == null
-          ? null
-          : DateTime.parse(json['decommissionedDate'] as String),
+      commissionedDate: jsonToDateTime(json['commissionedDate']),
+      decommissionedDate: jsonToNullableDateTime(json['decommissionedDate']),
     );
 
 Map<String, dynamic> _$StillModelToJson(StillModel instance) =>
@@ -26,7 +24,7 @@ Map<String, dynamic> _$StillModelToJson(StillModel instance) =>
       'capacityLiters': instance.capacityLiters,
       'description': instance.description,
       'isActive': instance.isActive,
-      'commissionedDate': instance.commissionedDate.toIso8601String(),
-      if (instance.decommissionedDate?.toIso8601String() case final value?)
+      'commissionedDate': dateTimeToJson(instance.commissionedDate),
+      if (dateTimeToJsonNullable(instance.decommissionedDate) case final value?)
         'decommissionedDate': value,
     };

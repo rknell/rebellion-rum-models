@@ -25,7 +25,7 @@ enum PackagingRunStatus {
   complete,
 
   /// Run is excised (final state)
-  excised
+  excised,
 }
 
 @JsonSerializable()
@@ -68,9 +68,11 @@ class PackagingRunItemModel extends DatabaseSerializable {
 
   /// The timestamp of the packaging run
   /// If not set, falls back to the ObjectId timestamp
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? timestamp;
 
   /// The date when this packaging run was marked as complete
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? completionDate;
 
   /// Get the effective timestamp, falling back to ObjectId timestamp if not set
@@ -94,26 +96,27 @@ class PackagingRunItemModel extends DatabaseSerializable {
   double get lals =>
       ((unitSize ?? 0) / 1000) * (unitsPackaged ?? 0) * (strength ?? 0);
 
-  PackagingRunItemModel(
-      {super.id,
-      this.productBarcode,
-      this.unitSize,
-      this.strength,
-      this.unitsPackaged,
-      this.packagingLosses,
-      this.remaining,
-      this.volumeAvailable,
-      this.volumeRemaining,
-      this.targetBottles = 0,
-      this.status = PackagingRunStatus.inProgress,
-      this.estimatedDilution,
-      this.productionDilution,
-      this.abvReading,
-      this.exciseReturn,
-      this.timestamp,
-      this.discrepancyNote,
-      this.completionDate,
-      this.isConfirmedSugars = false});
+  PackagingRunItemModel({
+    super.id,
+    this.productBarcode,
+    this.unitSize,
+    this.strength,
+    this.unitsPackaged,
+    this.packagingLosses,
+    this.remaining,
+    this.volumeAvailable,
+    this.volumeRemaining,
+    this.targetBottles = 0,
+    this.status = PackagingRunStatus.inProgress,
+    this.estimatedDilution,
+    this.productionDilution,
+    this.abvReading,
+    this.exciseReturn,
+    this.timestamp,
+    this.discrepancyNote,
+    this.completionDate,
+    this.isConfirmedSugars = false,
+  });
 
   factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
       _$PackagingRunItemModelFromJson(json);
@@ -122,4 +125,12 @@ class PackagingRunItemModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {
+        'timestamp',
+        'completionDate',
+        'estimatedDilution.date',
+        'productionDilution.date',
+      };
 }

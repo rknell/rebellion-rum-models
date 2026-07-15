@@ -11,7 +11,9 @@ class MailingListModel extends DatabaseSerializable {
   String storefrontId;
   String? productBarcode;
   String? productName;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   DateTime createdAt;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   DateTime updatedAt;
 
   MailingListModel({
@@ -35,4 +37,7 @@ class MailingListModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'createdAt', 'updatedAt'};
 }

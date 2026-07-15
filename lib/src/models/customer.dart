@@ -96,12 +96,14 @@ class CustomerModel extends DatabaseSerializable {
   String? tradeApplicationMessage;
 
   /// Timestamp when this customer became an authenticated website account.
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? accountCreatedAt;
 
   /// Bcrypt hash of the current password reset token.
   String? passwordResetTokenHash;
 
   /// Expiry timestamp for the password reset token.
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? passwordResetExpiresAt;
 
   /// Customer's product preferences (optional)
@@ -234,4 +236,10 @@ class CustomerModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {
+        'accountCreatedAt',
+        'passwordResetExpiresAt',
+      };
 }

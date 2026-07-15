@@ -11,6 +11,7 @@ class MailingSendModel extends DatabaseSerializable {
   String htmlBody;
   String textBody;
   String? smsBody;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   DateTime sentAt;
   int emailedCount;
   int skippedPhoneOnlyCount;
@@ -43,4 +44,7 @@ class MailingSendModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'sentAt'};
 }

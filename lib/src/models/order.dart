@@ -11,7 +11,7 @@ enum OrderStatus {
   paid, // Payment confirmed, order being prepared
   shipped, // Order has been shipped
   delivered, // Order has been delivered
-  cancelled // Order was cancelled
+  cancelled, // Order was cancelled
 }
 
 /// Represents a customer order in the system.
@@ -56,7 +56,9 @@ class OrderModel extends DatabaseSerializable {
 
   /// Current status of the order in the fulfillment process
   @JsonKey(
-      defaultValue: OrderStatus.pending, unknownEnumValue: OrderStatus.pending)
+    defaultValue: OrderStatus.pending,
+    unknownEnumValue: OrderStatus.pending,
+  )
   OrderStatus status;
 
   /// Metadata for the order
@@ -122,8 +124,27 @@ class OrderModel extends DatabaseSerializable {
     return this;
   }
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) =>
-      _$OrderModelFromJson(json);
+  factory OrderModel.fromJson(Map<String, dynamic> json) {
+    final normalized = Map<String, dynamic>.from(json);
+    final date = normalized['date'];
+    if (date is DateTime) normalized['date'] = date.toIso8601String();
+    final metadata = normalized['metadata'];
+    if (metadata is Map) {
+      final normalizedMetadata = Map<String, dynamic>.from(metadata);
+      for (final field in const {
+        'stockAdjustedAt',
+        'starshipitErrorAt',
+        'confirmationEmailSentAt',
+      }) {
+        final value = normalizedMetadata[field];
+        if (value is DateTime) {
+          normalizedMetadata[field] = value.toUtc().toIso8601String();
+        }
+      }
+      normalized['metadata'] = normalizedMetadata;
+    }
+    return _$OrderModelFromJson(normalized);
+  }
   @override
   Map<String, dynamic> toJson() => _$OrderModelToJson(this);
 
@@ -142,6 +163,14 @@ class OrderModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id', 'customerId'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {
+        'date',
+        'metadata.stockAdjustedAt',
+        'metadata.starshipitErrorAt',
+        'metadata.confirmationEmailSentAt',
+      };
 
   @override
   Map<String, bool> get nestedDatabaseSerializables => {};

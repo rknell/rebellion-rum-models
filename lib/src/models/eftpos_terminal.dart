@@ -7,7 +7,9 @@ part 'eftpos_terminal.g.dart';
 class EftposTerminalModel extends DatabaseSerializable {
   final String name;
   final String secret;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   final DateTime createdAt;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   final DateTime lastUsed;
 
   EftposTerminalModel({
@@ -27,4 +29,7 @@ class EftposTerminalModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'createdAt', 'lastUsed'};
 }

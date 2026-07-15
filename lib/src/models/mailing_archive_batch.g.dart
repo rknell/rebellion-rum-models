@@ -13,9 +13,7 @@ MailingArchiveBatchModel _$MailingArchiveBatchModelFromJson(
       batchId: json['batchId'] as String,
       listKey: json['listKey'] as String,
       listName: json['listName'] as String,
-      archivedAt: json['archivedAt'] == null
-          ? null
-          : DateTime.parse(json['archivedAt'] as String),
+      archivedAt: jsonToDateTime(json['archivedAt']),
       reason: json['reason'] as String? ?? 'clear-list',
       memberCount: (json['memberCount'] as num?)?.toInt() ?? 0,
     );
@@ -28,7 +26,7 @@ Map<String, dynamic> _$MailingArchiveBatchModelToJson(
       'batchId': instance.batchId,
       'listKey': instance.listKey,
       'listName': instance.listName,
-      'archivedAt': instance.archivedAt.toIso8601String(),
+      'archivedAt': dateTimeToJson(instance.archivedAt),
       'reason': instance.reason,
       'memberCount': instance.memberCount,
     };
