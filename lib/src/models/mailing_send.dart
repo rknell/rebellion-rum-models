@@ -33,8 +33,8 @@ class MailingSendModel extends DatabaseSerializable {
     this.suppressedGlobalCount = 0,
     this.suppressedListCount = 0,
     List<String>? skippedPhones,
-  }) : sentAt = sentAt ?? DateTime.now(),
-       skippedPhones = skippedPhones ?? <String>[];
+  })  : sentAt = sentAt ?? DateTime.now(),
+        skippedPhones = skippedPhones ?? <String>[];
 
   factory MailingSendModel.fromJson(Map<String, dynamic> json) =>
       _$MailingSendModelFromJson(json);

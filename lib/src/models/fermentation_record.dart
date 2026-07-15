@@ -118,21 +118,21 @@ class FermentationRecordModel extends DatabaseSerializable {
 
   @override
   Set<String> get databaseDateTimeFields => {
-    'finalStrengthTimestamp',
-    'completionDate',
-    'deletedAt',
-    'fermentationProgress[].timestamp',
-  };
+        'finalStrengthTimestamp',
+        'completionDate',
+        'deletedAt',
+        'fermentationProgress[].timestamp',
+      };
 
   @override
   Map<String, bool> get nestedDatabaseSerializables => {
-    'fermentationProgress': true,
-  };
+        'fermentationProgress': true,
+      };
 
   @override
   Map<String, Function> get nestedTypes => {
-    'fermentationProgress': FermentationProgressModel.fromJson,
-  };
+        'fermentationProgress': FermentationProgressModel.fromJson,
+      };
 }
 
 @JsonSerializable()
