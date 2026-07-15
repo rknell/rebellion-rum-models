@@ -13,10 +13,14 @@ class MailingListMembershipModel extends DatabaseSerializable {
   String source;
   String consentType;
   String storefrontId;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   DateTime createdAt;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   DateTime updatedAt;
   String? archiveBatchId;
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? archivedAt;
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? listOptOutAt;
 
   MailingListMembershipModel({
@@ -32,8 +36,8 @@ class MailingListMembershipModel extends DatabaseSerializable {
     this.archiveBatchId,
     this.archivedAt,
     this.listOptOutAt,
-  })  : createdAt = createdAt ?? DateTime.now(),
-        updatedAt = updatedAt ?? DateTime.now();
+  }) : createdAt = createdAt ?? DateTime.now(),
+       updatedAt = updatedAt ?? DateTime.now();
 
   factory MailingListMembershipModel.fromJson(Map<String, dynamic> json) =>
       _$MailingListMembershipModelFromJson(json);
@@ -43,4 +47,12 @@ class MailingListMembershipModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id', 'contactId'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {
+    'createdAt',
+    'updatedAt',
+    'archivedAt',
+    'listOptOutAt',
+  };
 }

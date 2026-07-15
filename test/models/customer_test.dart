@@ -223,8 +223,7 @@ void main() {
       expect(databaseJson['password'], equals('hashed-password'));
       expect(
           databaseJson['passwordResetTokenHash'], equals('hashed-reset-token'));
-      expect(databaseJson['passwordResetExpiresAt'],
-          equals(resetExpiresAt.toIso8601String()));
+      expect(databaseJson['passwordResetExpiresAt'], equals(resetExpiresAt));
 
       final deserialized = CustomerModel.fromJson(databaseJson);
       expect(deserialized.accountCreatedAt, equals(accountCreatedAt));

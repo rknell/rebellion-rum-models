@@ -14,7 +14,7 @@ enum DistillationStatus {
   completed,
 
   /// Record has been archived
-  archived
+  archived,
 }
 
 enum DistillationAlcoholType {
@@ -25,7 +25,7 @@ enum DistillationAlcoholType {
   brandy,
   liqueur,
   neutralSpirit,
-  other
+  other,
 }
 
 /// Represents a record of a distillation run in the production process.
@@ -90,8 +90,14 @@ class DistillationRecordModel extends DatabaseSerializable {
         distillationDate = distillationDate ?? startTime ?? DateTime.now(),
         notes = notes ?? [];
 
-  factory DistillationRecordModel.fromJson(Map<String, dynamic> json) =>
-      _$DistillationRecordModelFromJson(json);
+  factory DistillationRecordModel.fromJson(Map<String, dynamic> json) {
+    final normalized = Map<String, dynamic>.from(json);
+    for (final field in const ['startTime', 'distillationDate']) {
+      final value = normalized[field];
+      if (value is DateTime) normalized[field] = value.toIso8601String();
+    }
+    return _$DistillationRecordModelFromJson(normalized);
+  }
   @override
   Map<String, dynamic> toJson() => _$DistillationRecordModelToJson(this);
 
@@ -99,28 +105,28 @@ class DistillationRecordModel extends DatabaseSerializable {
   Set<String> get objectIdFields => {'_id'};
 
   @override
-  Map<String, bool> get nestedDatabaseSerializables => {
-        'notes': true,
+  Set<String> get databaseDateTimeFields => {
+        'startTime',
+        'distillationDate',
+        'notes[].date',
       };
 
   @override
-  Map<String, Function> get nestedTypes => {
-        'notes': NoteModel.fromJson,
-      };
+  Map<String, bool> get nestedDatabaseSerializables => {'notes': true};
+
+  @override
+  Map<String, Function> get nestedTypes => {'notes': NoteModel.fromJson};
 }
 
 /// Represents a note in the distillation process
 @JsonSerializable()
 class NoteModel {
   String content;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   final DateTime date;
   final bool isSystem;
 
-  NoteModel({
-    required this.content,
-    required this.date,
-    this.isSystem = false,
-  });
+  NoteModel({required this.content, required this.date, this.isSystem = false});
 
   factory NoteModel.fromJson(Map<String, dynamic> json) =>
       _$NoteModelFromJson(json);
@@ -181,9 +187,10 @@ class GinStillStocktakeModel {
     this.temperature = 20,
   })  : volume = currentVolume(height),
         lals = AlcocalcLalsCalculation(
-            weight: Alcocalc.abvToAbw(abv) * currentVolume(height),
-            abv: abv,
-            temperature: temperature);
+          weight: Alcocalc.abvToAbw(abv) * currentVolume(height),
+          abv: abv,
+          temperature: temperature,
+        );
 
   factory GinStillStocktakeModel.fromJson(Map<String, dynamic> json) =>
       _$GinStillStocktakeModelFromJson(json);

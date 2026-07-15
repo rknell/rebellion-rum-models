@@ -36,7 +36,7 @@ enum FermentationType {
   mixed,
 
   /// Other fermentation types
-  other
+  other,
 }
 
 @JsonSerializable()
@@ -64,6 +64,7 @@ class FermentationRecordModel extends DatabaseSerializable {
 
   String finalStrengthMethod;
 
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? finalStrengthTimestamp;
 
   /// Progress measurements during fermentation
@@ -79,10 +80,12 @@ class FermentationRecordModel extends DatabaseSerializable {
   bool completed;
 
   /// Date when the fermentation was marked as complete
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? completionDate;
 
   bool isDeleted;
 
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? deletedAt;
 
   FermentationRecordModel({
@@ -114,14 +117,22 @@ class FermentationRecordModel extends DatabaseSerializable {
   Set<String> get objectIdFields => {'_id'};
 
   @override
+  Set<String> get databaseDateTimeFields => {
+    'finalStrengthTimestamp',
+    'completionDate',
+    'deletedAt',
+    'fermentationProgress[].timestamp',
+  };
+
+  @override
   Map<String, bool> get nestedDatabaseSerializables => {
-        'fermentationProgress': true,
-      };
+    'fermentationProgress': true,
+  };
 
   @override
   Map<String, Function> get nestedTypes => {
-        'fermentationProgress': FermentationProgressModel.fromJson,
-      };
+    'fermentationProgress': FermentationProgressModel.fromJson,
+  };
 }
 
 @JsonSerializable()
@@ -129,6 +140,7 @@ class FermentationProgressModel {
   final double sg;
   final double? ph;
   final double? temp;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   final DateTime timestamp;
   final String notes;
 

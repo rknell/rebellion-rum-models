@@ -15,12 +15,8 @@ MailingListModel _$MailingListModelFromJson(Map<String, dynamic> json) =>
       storefrontId: json['storefrontId'] as String? ?? 'rebellion',
       productBarcode: json['productBarcode'] as String?,
       productName: json['productName'] as String?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      createdAt: jsonToDateTime(json['createdAt']),
+      updatedAt: jsonToDateTime(json['updatedAt']),
     );
 
 Map<String, dynamic> _$MailingListModelToJson(MailingListModel instance) =>
@@ -33,6 +29,6 @@ Map<String, dynamic> _$MailingListModelToJson(MailingListModel instance) =>
       'storefrontId': instance.storefrontId,
       if (instance.productBarcode case final value?) 'productBarcode': value,
       if (instance.productName case final value?) 'productName': value,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'createdAt': dateTimeToJson(instance.createdAt),
+      'updatedAt': dateTimeToJson(instance.updatedAt),
     };

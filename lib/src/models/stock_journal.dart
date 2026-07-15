@@ -90,6 +90,9 @@ class StockJournalModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'timestamp', 'createdAt'};
 }
 
 Map<String, dynamic> _normalizeStockJournalJson(Map<String, dynamic> json) {

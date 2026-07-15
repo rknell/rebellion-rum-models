@@ -12,10 +12,13 @@ class MailingContactModel extends DatabaseSerializable {
   String displayContact;
   String storefrontId;
   String source;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   DateTime createdAt;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   DateTime updatedAt;
   bool globalEmailOptOut;
   bool globalSmsOptOut;
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? globalOptOutAt;
 
   MailingContactModel({
@@ -32,8 +35,8 @@ class MailingContactModel extends DatabaseSerializable {
     this.globalEmailOptOut = false,
     this.globalSmsOptOut = false,
     this.globalOptOutAt,
-  })  : createdAt = createdAt ?? DateTime.now(),
-        updatedAt = updatedAt ?? DateTime.now();
+  }) : createdAt = createdAt ?? DateTime.now(),
+       updatedAt = updatedAt ?? DateTime.now();
 
   factory MailingContactModel.fromJson(Map<String, dynamic> json) =>
       _$MailingContactModelFromJson(json);
@@ -43,4 +46,11 @@ class MailingContactModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {
+    'createdAt',
+    'updatedAt',
+    'globalOptOutAt',
+  };
 }

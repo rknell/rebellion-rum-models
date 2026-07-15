@@ -19,9 +19,8 @@ FermentationRecordModel _$FermentationRecordModelFromJson(
       sgEnd: (json['sgEnd'] as num).toDouble(),
       finalStrengthPercent: (json['finalStrengthPercent'] as num?)?.toDouble(),
       finalStrengthMethod: json['finalStrengthMethod'] as String? ?? '',
-      finalStrengthTimestamp: json['finalStrengthTimestamp'] == null
-          ? null
-          : DateTime.parse(json['finalStrengthTimestamp'] as String),
+      finalStrengthTimestamp:
+          jsonToNullableDateTime(json['finalStrengthTimestamp']),
       fermentationProgress: (json['fermentationProgress'] as List<dynamic>?)
           ?.map((e) =>
               FermentationProgressModel.fromJson(e as Map<String, dynamic>))
@@ -29,13 +28,9 @@ FermentationRecordModel _$FermentationRecordModelFromJson(
       notes: json['notes'] as String? ?? '',
       recipe: json['recipe'] as String? ?? '',
       completed: json['completed'] as bool? ?? false,
-      completionDate: json['completionDate'] == null
-          ? null
-          : DateTime.parse(json['completionDate'] as String),
+      completionDate: jsonToNullableDateTime(json['completionDate']),
       isDeleted: json['isDeleted'] as bool? ?? false,
-      deletedAt: json['deletedAt'] == null
-          ? null
-          : DateTime.parse(json['deletedAt'] as String),
+      deletedAt: jsonToNullableDateTime(json['deletedAt']),
     );
 
 Map<String, dynamic> _$FermentationRecordModelToJson(
@@ -52,17 +47,18 @@ Map<String, dynamic> _$FermentationRecordModelToJson(
       if (instance.finalStrengthPercent case final value?)
         'finalStrengthPercent': value,
       'finalStrengthMethod': instance.finalStrengthMethod,
-      if (instance.finalStrengthTimestamp?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.finalStrengthTimestamp)
+          case final value?)
         'finalStrengthTimestamp': value,
       'fermentationProgress':
           instance.fermentationProgress.map((e) => e.toJson()).toList(),
       'notes': instance.notes,
       'recipe': instance.recipe,
       'completed': instance.completed,
-      if (instance.completionDate?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.completionDate) case final value?)
         'completionDate': value,
       'isDeleted': instance.isDeleted,
-      if (instance.deletedAt?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.deletedAt) case final value?)
         'deletedAt': value,
     };
 
@@ -81,7 +77,7 @@ FermentationProgressModel _$FermentationProgressModelFromJson(
       sg: (json['sg'] as num).toDouble(),
       ph: (json['ph'] as num?)?.toDouble(),
       temp: (json['temp'] as num?)?.toDouble(),
-      timestamp: DateTime.parse(json['timestamp'] as String),
+      timestamp: jsonToDateTime(json['timestamp']),
       notes: json['notes'] as String,
     );
 
@@ -91,6 +87,6 @@ Map<String, dynamic> _$FermentationProgressModelToJson(
       'sg': instance.sg,
       if (instance.ph case final value?) 'ph': value,
       if (instance.temp case final value?) 'temp': value,
-      'timestamp': instance.timestamp.toIso8601String(),
+      'timestamp': dateTimeToJson(instance.timestamp),
       'notes': instance.notes,
     };
