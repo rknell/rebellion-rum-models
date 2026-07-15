@@ -46,7 +46,7 @@ class StillModel extends DatabaseSerializable {
 
   @override
   Set<String> get databaseDateTimeFields => {
-    'commissionedDate',
-    'decommissionedDate',
-  };
+        'commissionedDate',
+        'decommissionedDate',
+      };
 }
