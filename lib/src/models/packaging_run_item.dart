@@ -128,9 +128,9 @@ class PackagingRunItemModel extends DatabaseSerializable {
 
   @override
   Set<String> get databaseDateTimeFields => {
-    'timestamp',
-    'completionDate',
-    'estimatedDilution.date',
-    'productionDilution.date',
-  };
+        'timestamp',
+        'completionDate',
+        'estimatedDilution.date',
+        'productionDilution.date',
+      };
 }

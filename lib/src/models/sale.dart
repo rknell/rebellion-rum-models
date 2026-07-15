@@ -110,12 +110,12 @@ class SaleModel extends DatabaseSerializable {
     bool? isMatesRates,
     this.dueDate,
     SaleStatus? status,
-  }) : _timestamp = timestamp,
-       coupons = _couponsFromJson(coupons),
-       items = items ?? [],
-       payments = payments ?? [],
-       isMatesRates = isMatesRates ?? false,
-       status = status ?? SaleStatus.unpaid;
+  })  : _timestamp = timestamp,
+        coupons = _couponsFromJson(coupons),
+        items = items ?? [],
+        payments = payments ?? [],
+        isMatesRates = isMatesRates ?? false,
+        status = status ?? SaleStatus.unpaid;
 
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);

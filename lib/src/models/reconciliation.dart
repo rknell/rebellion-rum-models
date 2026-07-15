@@ -76,8 +76,8 @@ class ReconciliationModel extends DatabaseSerializable {
 
   @override
   Map<String, Function> get nestedTypes => {
-    'withdrawals': WithdrawalModel.fromJson,
-  };
+        'withdrawals': WithdrawalModel.fromJson,
+      };
 }
 
 /// Represents a till/float withdrawal (e.g., cash paid out during shift)

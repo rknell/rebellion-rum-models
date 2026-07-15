@@ -185,11 +185,10 @@ class CustomerModel extends DatabaseSerializable {
   }
 
   StartShipItRateDestinationAddressModel
-  toStartShipItRateDestinationAddressModel() {
+      toStartShipItRateDestinationAddressModel() {
     return StartShipItRateDestinationAddressModel(
-      street: addressLine2 != null
-          ? '$addressLine1, $addressLine2'
-          : addressLine1,
+      street:
+          addressLine2 != null ? '$addressLine1, $addressLine2' : addressLine1,
       suburb: city,
       state: state,
       postCode: postcode,
@@ -240,7 +239,7 @@ class CustomerModel extends DatabaseSerializable {
 
   @override
   Set<String> get databaseDateTimeFields => {
-    'accountCreatedAt',
-    'passwordResetExpiresAt',
-  };
+        'accountCreatedAt',
+        'passwordResetExpiresAt',
+      };
 }

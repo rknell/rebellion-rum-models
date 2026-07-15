@@ -36,8 +36,8 @@ class MailingListMembershipModel extends DatabaseSerializable {
     this.archiveBatchId,
     this.archivedAt,
     this.listOptOutAt,
-  }) : createdAt = createdAt ?? DateTime.now(),
-       updatedAt = updatedAt ?? DateTime.now();
+  })  : createdAt = createdAt ?? DateTime.now(),
+        updatedAt = updatedAt ?? DateTime.now();
 
   factory MailingListMembershipModel.fromJson(Map<String, dynamic> json) =>
       _$MailingListMembershipModelFromJson(json);
@@ -50,9 +50,9 @@ class MailingListMembershipModel extends DatabaseSerializable {
 
   @override
   Set<String> get databaseDateTimeFields => {
-    'createdAt',
-    'updatedAt',
-    'archivedAt',
-    'listOptOutAt',
-  };
+        'createdAt',
+        'updatedAt',
+        'archivedAt',
+        'listOptOutAt',
+      };
 }
