@@ -15,7 +15,12 @@ class RawMaterialsRegisterModel extends DatabaseSerializable {
   double qtyIn;
   double qtyOut;
 
-  @JsonKey(name: 'timestamp', includeIfNull: false)
+  @JsonKey(
+    name: 'timestamp',
+    includeIfNull: false,
+    fromJson: jsonToNullableDateTime,
+    toJson: dateTimeToJsonNullable,
+  )
   DateTime? _timestamp;
 
   DateTime get timestamp => _timestamp ?? id.dateTime;
@@ -23,16 +28,16 @@ class RawMaterialsRegisterModel extends DatabaseSerializable {
     _timestamp = value;
   }
 
-  RawMaterialsRegisterModel(
-      {super.id,
-      this.invoiceNumber,
-      this.batchNumber,
-      this.fermentationRecordId,
-      required this.materialType,
-      required this.qtyIn,
-      required this.qtyOut,
-      DateTime? timestamp})
-      : _timestamp = timestamp;
+  RawMaterialsRegisterModel({
+    super.id,
+    this.invoiceNumber,
+    this.batchNumber,
+    this.fermentationRecordId,
+    required this.materialType,
+    required this.qtyIn,
+    required this.qtyOut,
+    DateTime? timestamp,
+  }) : _timestamp = timestamp;
 
   factory RawMaterialsRegisterModel.fromJson(Map<String, dynamic> json) =>
       _$RawMaterialsRegisterModelFromJson(json);
@@ -41,4 +46,7 @@ class RawMaterialsRegisterModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id', 'fermentationRecordId'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'timestamp'};
 }

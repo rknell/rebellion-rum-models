@@ -64,9 +64,11 @@ class CocktailRecipeModel extends DatabaseSerializable {
   final List<String> featuredProductIds;
 
   /// Creation timestamp
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   final DateTime? createdAt;
 
   /// Last updated timestamp
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   final DateTime? updatedAt;
 
   CocktailRecipeModel({
@@ -96,4 +98,7 @@ class CocktailRecipeModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'createdAt', 'updatedAt'};
 }

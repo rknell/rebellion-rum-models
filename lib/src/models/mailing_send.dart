@@ -11,6 +11,7 @@ class MailingSendModel extends DatabaseSerializable {
   String htmlBody;
   String textBody;
   String? smsBody;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   DateTime sentAt;
   int emailedCount;
   int skippedPhoneOnlyCount;
@@ -32,8 +33,8 @@ class MailingSendModel extends DatabaseSerializable {
     this.suppressedGlobalCount = 0,
     this.suppressedListCount = 0,
     List<String>? skippedPhones,
-  })  : sentAt = sentAt ?? DateTime.now(),
-        skippedPhones = skippedPhones ?? <String>[];
+  }) : sentAt = sentAt ?? DateTime.now(),
+       skippedPhones = skippedPhones ?? <String>[];
 
   factory MailingSendModel.fromJson(Map<String, dynamic> json) =>
       _$MailingSendModelFromJson(json);
@@ -43,4 +44,7 @@ class MailingSendModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'sentAt'};
 }

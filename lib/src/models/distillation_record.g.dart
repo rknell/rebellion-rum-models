@@ -78,13 +78,13 @@ const _$DistillationAlcoholTypeEnumMap = {
 
 NoteModel _$NoteModelFromJson(Map<String, dynamic> json) => NoteModel(
       content: json['content'] as String,
-      date: DateTime.parse(json['date'] as String),
+      date: jsonToDateTime(json['date']),
       isSystem: json['isSystem'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
       'content': instance.content,
-      'date': instance.date.toIso8601String(),
+      'date': dateTimeToJson(instance.date),
       'isSystem': instance.isSystem,
     };
 

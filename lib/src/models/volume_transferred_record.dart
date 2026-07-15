@@ -17,6 +17,7 @@ class VolumeTransferredRecordModel extends DatabaseSerializable {
   double lals;
   double? abvPercent;
   WashStrengthMethod strengthMethod;
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? timestamp;
 
   VolumeTransferredRecordModel({
@@ -37,4 +38,7 @@ class VolumeTransferredRecordModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id', 'chargeId', 'washId'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'timestamp'};
 }

@@ -29,12 +29,8 @@ CocktailRecipeModel _$CocktailRecipeModelFromJson(Map<String, dynamic> json) =>
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      createdAt: jsonToNullableDateTime(json['createdAt']),
+      updatedAt: jsonToNullableDateTime(json['updatedAt']),
     );
 
 Map<String, dynamic> _$CocktailRecipeModelToJson(
@@ -55,8 +51,8 @@ Map<String, dynamic> _$CocktailRecipeModelToJson(
       'isFeatured': instance.isFeatured,
       'isActive': instance.isActive,
       'featuredProductIds': instance.featuredProductIds,
-      if (instance.createdAt?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.createdAt) case final value?)
         'createdAt': value,
-      if (instance.updatedAt?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.updatedAt) case final value?)
         'updatedAt': value,
     };

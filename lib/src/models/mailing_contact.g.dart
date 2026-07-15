@@ -16,17 +16,11 @@ MailingContactModel _$MailingContactModelFromJson(Map<String, dynamic> json) =>
       displayContact: json['displayContact'] as String,
       storefrontId: json['storefrontId'] as String? ?? 'rebellion',
       source: json['source'] as String? ?? 'unknown',
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      createdAt: jsonToDateTime(json['createdAt']),
+      updatedAt: jsonToDateTime(json['updatedAt']),
       globalEmailOptOut: json['globalEmailOptOut'] as bool? ?? false,
       globalSmsOptOut: json['globalSmsOptOut'] as bool? ?? false,
-      globalOptOutAt: json['globalOptOutAt'] == null
-          ? null
-          : DateTime.parse(json['globalOptOutAt'] as String),
+      globalOptOutAt: jsonToNullableDateTime(json['globalOptOutAt']),
     );
 
 Map<String, dynamic> _$MailingContactModelToJson(
@@ -41,10 +35,10 @@ Map<String, dynamic> _$MailingContactModelToJson(
       'displayContact': instance.displayContact,
       'storefrontId': instance.storefrontId,
       'source': instance.source,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'createdAt': dateTimeToJson(instance.createdAt),
+      'updatedAt': dateTimeToJson(instance.updatedAt),
       'globalEmailOptOut': instance.globalEmailOptOut,
       'globalSmsOptOut': instance.globalSmsOptOut,
-      if (instance.globalOptOutAt?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.globalOptOutAt) case final value?)
         'globalOptOutAt': value,
     };

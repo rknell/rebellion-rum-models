@@ -28,13 +28,10 @@ CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) =>
       venueType: json['venueType'] as String?,
       tradeStatus: json['tradeStatus'] as String? ?? 'none',
       tradeApplicationMessage: json['tradeApplicationMessage'] as String?,
-      accountCreatedAt: json['accountCreatedAt'] == null
-          ? null
-          : DateTime.parse(json['accountCreatedAt'] as String),
+      accountCreatedAt: jsonToNullableDateTime(json['accountCreatedAt']),
       passwordResetTokenHash: json['passwordResetTokenHash'] as String?,
-      passwordResetExpiresAt: json['passwordResetExpiresAt'] == null
-          ? null
-          : DateTime.parse(json['passwordResetExpiresAt'] as String),
+      passwordResetExpiresAt:
+          jsonToNullableDateTime(json['passwordResetExpiresAt']),
     )..password = json['password'] as String?;
 
 Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
@@ -58,11 +55,12 @@ Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
       'tradeStatus': instance.tradeStatus,
       if (instance.tradeApplicationMessage case final value?)
         'tradeApplicationMessage': value,
-      if (instance.accountCreatedAt?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.accountCreatedAt) case final value?)
         'accountCreatedAt': value,
       if (instance.passwordResetTokenHash case final value?)
         'passwordResetTokenHash': value,
-      if (instance.passwordResetExpiresAt?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.passwordResetExpiresAt)
+          case final value?)
         'passwordResetExpiresAt': value,
       'preferences': instance.preferences
           .map((e) => _$CustomerPreferencesEnumMap[e]!)

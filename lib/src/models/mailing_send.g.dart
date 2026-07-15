@@ -15,9 +15,7 @@ MailingSendModel _$MailingSendModelFromJson(Map<String, dynamic> json) =>
       htmlBody: json['htmlBody'] as String,
       textBody: json['textBody'] as String,
       smsBody: json['smsBody'] as String?,
-      sentAt: json['sentAt'] == null
-          ? null
-          : DateTime.parse(json['sentAt'] as String),
+      sentAt: jsonToDateTime(json['sentAt']),
       emailedCount: (json['emailedCount'] as num?)?.toInt() ?? 0,
       skippedPhoneOnlyCount:
           (json['skippedPhoneOnlyCount'] as num?)?.toInt() ?? 0,
@@ -39,7 +37,7 @@ Map<String, dynamic> _$MailingSendModelToJson(MailingSendModel instance) =>
       'htmlBody': instance.htmlBody,
       'textBody': instance.textBody,
       if (instance.smsBody case final value?) 'smsBody': value,
-      'sentAt': instance.sentAt.toIso8601String(),
+      'sentAt': dateTimeToJson(instance.sentAt),
       'emailedCount': instance.emailedCount,
       'skippedPhoneOnlyCount': instance.skippedPhoneOnlyCount,
       'suppressedGlobalCount': instance.suppressedGlobalCount,

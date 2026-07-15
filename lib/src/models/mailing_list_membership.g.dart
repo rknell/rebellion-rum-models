@@ -16,19 +16,11 @@ MailingListMembershipModel _$MailingListMembershipModelFromJson(
       source: json['source'] as String? ?? 'unknown',
       consentType: json['consentType'] as String? ?? 'express',
       storefrontId: json['storefrontId'] as String? ?? 'rebellion',
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      createdAt: jsonToDateTime(json['createdAt']),
+      updatedAt: jsonToDateTime(json['updatedAt']),
       archiveBatchId: json['archiveBatchId'] as String?,
-      archivedAt: json['archivedAt'] == null
-          ? null
-          : DateTime.parse(json['archivedAt'] as String),
-      listOptOutAt: json['listOptOutAt'] == null
-          ? null
-          : DateTime.parse(json['listOptOutAt'] as String),
+      archivedAt: jsonToNullableDateTime(json['archivedAt']),
+      listOptOutAt: jsonToNullableDateTime(json['listOptOutAt']),
     );
 
 Map<String, dynamic> _$MailingListMembershipModelToJson(
@@ -44,11 +36,11 @@ Map<String, dynamic> _$MailingListMembershipModelToJson(
       'source': instance.source,
       'consentType': instance.consentType,
       'storefrontId': instance.storefrontId,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'createdAt': dateTimeToJson(instance.createdAt),
+      'updatedAt': dateTimeToJson(instance.updatedAt),
       if (instance.archiveBatchId case final value?) 'archiveBatchId': value,
-      if (instance.archivedAt?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.archivedAt) case final value?)
         'archivedAt': value,
-      if (instance.listOptOutAt?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.listOptOutAt) case final value?)
         'listOptOutAt': value,
     };
