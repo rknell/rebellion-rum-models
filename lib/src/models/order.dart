@@ -128,6 +128,21 @@ class OrderModel extends DatabaseSerializable {
     final normalized = Map<String, dynamic>.from(json);
     final date = normalized['date'];
     if (date is DateTime) normalized['date'] = date.toIso8601String();
+    final metadata = normalized['metadata'];
+    if (metadata is Map) {
+      final normalizedMetadata = Map<String, dynamic>.from(metadata);
+      for (final field in const {
+        'stockAdjustedAt',
+        'starshipitErrorAt',
+        'confirmationEmailSentAt',
+      }) {
+        final value = normalizedMetadata[field];
+        if (value is DateTime) {
+          normalizedMetadata[field] = value.toUtc().toIso8601String();
+        }
+      }
+      normalized['metadata'] = normalizedMetadata;
+    }
     return _$OrderModelFromJson(normalized);
   }
   @override
