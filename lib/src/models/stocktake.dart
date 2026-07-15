@@ -8,6 +8,7 @@ class StocktakeModel extends DatabaseSerializable {
   final String materialType;
   int currentStock;
   int newCount;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   final DateTime timestamp;
 
   StocktakeModel({
@@ -38,4 +39,7 @@ class StocktakeModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'timestamp'};
 }

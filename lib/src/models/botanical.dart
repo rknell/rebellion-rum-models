@@ -48,9 +48,11 @@ class BotanicalModel extends DatabaseSerializable {
   final List<String> productIds;
 
   /// Creation timestamp
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   final DateTime? createdAt;
 
   /// Last updated timestamp
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   final DateTime? updatedAt;
 
   BotanicalModel({
@@ -75,4 +77,7 @@ class BotanicalModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'createdAt', 'updatedAt'};
 }

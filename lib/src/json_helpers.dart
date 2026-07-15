@@ -47,6 +47,13 @@ String dateTimeToJson(DateTime dateTime) => dateTime.toIso8601String();
 String? dateTimeToJsonNullable(DateTime? dateTime) =>
     dateTime?.toIso8601String();
 
+/// Normalizes a BSON Date or ISO string to the legacy string backing used by
+/// models that expose a computed DateTime property.
+String? jsonToNullableDateTimeString(dynamic json) {
+  if (json == null) return null;
+  return jsonToDateTime(json).toIso8601String();
+}
+
 /// Converts ObjectIds to and from JSON format.
 ///
 /// When deserializing (fromJson):
@@ -138,6 +145,12 @@ abstract class DatabaseSerializable extends JsonSerializableModel {
   /// Key is the field name, value is whether it's a list of objects
   Map<String, bool> get nestedDatabaseSerializables => {};
 
+  /// Field paths that must be persisted as BSON Date values.
+  ///
+  /// List elements use `[]`, for example `notes[].date`. JSON serialization
+  /// continues to emit ISO strings; only [toDatabase] applies this contract.
+  Set<String> get databaseDateTimeFields => {};
+
   /// Converts the model to a database-friendly format, preserving ObjectId instances.
   ///
   /// This method:
@@ -147,7 +160,7 @@ abstract class DatabaseSerializable extends JsonSerializableModel {
   /// 4. Returns a Map that can be directly used with MongoDB operations
   Map<String, dynamic> toDatabase({Map<String, dynamic>? data}) {
     // Get the raw data from the object
-    data = data ?? toJson();
+    data = _deepCopyDatabaseMap(data ?? toJson());
 
     // Get the actual objectIdFields from the extension if available
     Set<String> fields;
@@ -169,7 +182,8 @@ abstract class DatabaseSerializable extends JsonSerializableModel {
       if (value == null) continue;
 
       print(
-          'DEBUG: Processing field $field with value $value (${value.runtimeType})');
+        'DEBUG: Processing field $field with value $value (${value.runtimeType})',
+      );
 
       if (value is ObjectId) {
         // Already an ObjectId, keep it as is
@@ -236,6 +250,8 @@ abstract class DatabaseSerializable extends JsonSerializableModel {
       }
     }
 
+    convertDatabaseDateFields(data, databaseDateTimeFields);
+
     print('DEBUG: Final database data: $data');
     return data;
   }
@@ -276,7 +292,8 @@ abstract class DatabaseSerializable extends JsonSerializableModel {
             return result;
           } else {
             throw FormatException(
-                'Object\'s toJson method did not return a Map<String, dynamic>');
+              'Object\'s toJson method did not return a Map<String, dynamic>',
+            );
           }
         };
       }
@@ -287,4 +304,61 @@ abstract class DatabaseSerializable extends JsonSerializableModel {
 
     return null;
   }
+}
+
+Map<String, dynamic> _deepCopyDatabaseMap(Map<String, dynamic> source) {
+  return source.map(
+    (key, value) => MapEntry(key, _deepCopyDatabaseValue(value)),
+  );
+}
+
+dynamic _deepCopyDatabaseValue(dynamic value) {
+  if (value is Map) {
+    return <String, dynamic>{
+      for (final entry in value.entries)
+        entry.key.toString(): _deepCopyDatabaseValue(entry.value),
+    };
+  }
+  if (value is List) return value.map(_deepCopyDatabaseValue).toList();
+  return value;
+}
+
+/// Converts declared ISO date paths in [data] to BSON-compatible [DateTime]s.
+/// Undeclared strings, including embedded third-party payloads, are untouched.
+void convertDatabaseDateFields(
+  Map<String, dynamic> data,
+  Iterable<String> fieldPaths,
+) {
+  for (final path in fieldPaths) {
+    _convertDatabaseDatePath(data, path.split('.'), 0);
+  }
+}
+
+void _convertDatabaseDatePath(dynamic current, List<String> parts, int index) {
+  if (current == null || index >= parts.length) return;
+
+  final part = parts[index];
+  final isList = part.endsWith('[]');
+  final key = isList ? part.substring(0, part.length - 2) : part;
+  if (current is! Map || !current.containsKey(key)) return;
+
+  final value = current[key];
+  if (isList) {
+    if (value is! List) return;
+    for (final item in value) {
+      _convertDatabaseDatePath(item, parts, index + 1);
+    }
+    return;
+  }
+
+  if (index == parts.length - 1) {
+    if (value is DateTime) return;
+    if (value is String && value.trim().isNotEmpty) {
+      final parsed = DateTime.tryParse(value.trim());
+      if (parsed != null) current[key] = parsed;
+    }
+    return;
+  }
+
+  _convertDatabaseDatePath(value, parts, index + 1);
 }

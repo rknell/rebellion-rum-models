@@ -12,9 +12,7 @@ StocktakeModel _$StocktakeModelFromJson(Map<String, dynamic> json) =>
       materialType: json['materialType'] as String,
       currentStock: (json['currentStock'] as num).toInt(),
       newCount: (json['newCount'] as num).toInt(),
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
+      timestamp: jsonToDateTime(json['timestamp']),
     );
 
 Map<String, dynamic> _$StocktakeModelToJson(StocktakeModel instance) =>
@@ -24,5 +22,5 @@ Map<String, dynamic> _$StocktakeModelToJson(StocktakeModel instance) =>
       'materialType': instance.materialType,
       'currentStock': instance.currentStock,
       'newCount': instance.newCount,
-      'timestamp': instance.timestamp.toIso8601String(),
+      'timestamp': dateTimeToJson(instance.timestamp),
     };

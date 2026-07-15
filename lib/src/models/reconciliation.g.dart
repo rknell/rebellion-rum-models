@@ -9,10 +9,8 @@ part of 'reconciliation.dart';
 ReconciliationModel _$ReconciliationModelFromJson(Map<String, dynamic> json) =>
     ReconciliationModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
-      openingTime: DateTime.parse(json['openingTime'] as String),
-      closingTime: json['closingTime'] == null
-          ? null
-          : DateTime.parse(json['closingTime'] as String),
+      openingTime: jsonToDateTime(json['openingTime']),
+      closingTime: jsonToNullableDateTime(json['closingTime']),
       signature: json['signature'] as String?,
       totalSales: (json['totalSales'] as num?)?.toDouble() ?? 0,
       actualEftposSales: (json['actualEftposSales'] as num?)?.toDouble() ?? 0,
@@ -32,8 +30,8 @@ Map<String, dynamic> _$ReconciliationModelToJson(
     <String, dynamic>{
       if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
-      'openingTime': instance.openingTime.toIso8601String(),
-      if (instance.closingTime?.toIso8601String() case final value?)
+      'openingTime': dateTimeToJson(instance.openingTime),
+      if (dateTimeToJsonNullable(instance.closingTime) case final value?)
         'closingTime': value,
       if (instance.signature case final value?) 'signature': value,
       'totalSales': instance.totalSales,

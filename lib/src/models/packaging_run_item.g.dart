@@ -33,13 +33,9 @@ PackagingRunItemModel _$PackagingRunItemModelFromJson(
       abvReading: (json['abvReading'] as num?)?.toDouble(),
       exciseReturn:
           const NullableObjectIdConverter().fromJson(json['exciseReturn']),
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
+      timestamp: jsonToNullableDateTime(json['timestamp']),
       discrepancyNote: json['discrepancyNote'] as String?,
-      completionDate: json['completionDate'] == null
-          ? null
-          : DateTime.parse(json['completionDate'] as String),
+      completionDate: jsonToNullableDateTime(json['completionDate']),
       isConfirmedSugars: json['isConfirmedSugars'] as bool? ?? false,
     );
 
@@ -62,9 +58,9 @@ Map<String, dynamic> _$PackagingRunItemModelToJson(
         'productionDilution': value,
       if (instance.abvReading case final value?) 'abvReading': value,
       'targetBottles': instance.targetBottles,
-      if (instance.timestamp?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.timestamp) case final value?)
         'timestamp': value,
-      if (instance.completionDate?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.completionDate) case final value?)
         'completionDate': value,
       'status': _$PackagingRunStatusEnumMap[instance.status]!,
       if (const NullableObjectIdConverter().toJson(instance.exciseReturn)

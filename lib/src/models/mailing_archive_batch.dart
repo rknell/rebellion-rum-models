@@ -8,6 +8,7 @@ class MailingArchiveBatchModel extends DatabaseSerializable {
   String batchId;
   String listKey;
   String listName;
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   DateTime archivedAt;
   String reason;
   int memberCount;
@@ -30,4 +31,7 @@ class MailingArchiveBatchModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'archivedAt'};
 }

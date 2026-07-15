@@ -39,6 +39,7 @@ class SaleModel extends DatabaseSerializable {
   }
 
   /// Due date for credit sales
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? dueDate;
 
   /// Status of the sale (paid or unpaid)
@@ -77,16 +78,20 @@ class SaleModel extends DatabaseSerializable {
     if (json == null) return <CouponModel>[];
     if (json is List) {
       return json
-          .map((e) => e is CouponModel
-              ? e
-              : CouponModel.fromJson(e as Map<String, dynamic>))
+          .map(
+            (e) => e is CouponModel
+                ? e
+                : CouponModel.fromJson(e as Map<String, dynamic>),
+          )
           .toList();
     }
     if (json is Map) {
       return json.values
-          .map((e) => e is CouponModel
-              ? e
-              : CouponModel.fromJson(e as Map<String, dynamic>))
+          .map(
+            (e) => e is CouponModel
+                ? e
+                : CouponModel.fromJson(e as Map<String, dynamic>),
+          )
           .toList();
     }
     return <CouponModel>[];
@@ -105,12 +110,12 @@ class SaleModel extends DatabaseSerializable {
     bool? isMatesRates,
     this.dueDate,
     SaleStatus? status,
-  })  : _timestamp = timestamp,
-        coupons = _couponsFromJson(coupons),
-        items = items ?? [],
-        payments = payments ?? [],
-        isMatesRates = isMatesRates ?? false,
-        status = status ?? SaleStatus.unpaid;
+  }) : _timestamp = timestamp,
+       coupons = _couponsFromJson(coupons),
+       items = items ?? [],
+       payments = payments ?? [],
+       isMatesRates = isMatesRates ?? false,
+       status = status ?? SaleStatus.unpaid;
 
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);
@@ -119,6 +124,9 @@ class SaleModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'timestamp', 'dueDate'};
 }
 
 /// Status of a sale
@@ -127,5 +135,5 @@ enum SaleStatus {
   unpaid,
 
   /// Sale is completed and fully paid
-  paid
+  paid,
 }

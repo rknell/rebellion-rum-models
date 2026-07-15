@@ -22,6 +22,7 @@ class NewsletterSignupModel extends DatabaseSerializable {
 
   /// Timestamp when the signup occurred
   /// If not set, falls back to the ObjectId timestamp
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   final DateTime? signupDate;
 
   /// Whether this signup is still active (for managing unsubscribes)
@@ -49,4 +50,7 @@ class NewsletterSignupModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'signupDate'};
 }

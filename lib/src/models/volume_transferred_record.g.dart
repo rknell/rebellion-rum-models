@@ -18,9 +18,7 @@ VolumeTransferredRecordModel _$VolumeTransferredRecordModelFromJson(
       strengthMethod: $enumDecodeNullable(
               _$WashStrengthMethodEnumMap, json['strengthMethod']) ??
           WashStrengthMethod.unknown,
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
+      timestamp: jsonToNullableDateTime(json['timestamp']),
     );
 
 Map<String, dynamic> _$VolumeTransferredRecordModelToJson(
@@ -36,7 +34,7 @@ Map<String, dynamic> _$VolumeTransferredRecordModelToJson(
       'lals': instance.lals,
       if (instance.abvPercent case final value?) 'abvPercent': value,
       'strengthMethod': _$WashStrengthMethodEnumMap[instance.strengthMethod]!,
-      if (instance.timestamp?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.timestamp) case final value?)
         'timestamp': value,
     };
 

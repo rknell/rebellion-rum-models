@@ -19,9 +19,11 @@ class StillModel extends DatabaseSerializable {
   bool isActive;
 
   /// Date when the still was commissioned
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   DateTime commissionedDate;
 
   /// Date when the still was decommissioned (if applicable)
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? decommissionedDate;
 
   StillModel({
@@ -41,4 +43,10 @@ class StillModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {
+    'commissionedDate',
+    'decommissionedDate',
+  };
 }

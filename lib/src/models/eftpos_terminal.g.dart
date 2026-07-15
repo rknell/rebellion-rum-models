@@ -11,12 +11,8 @@ EftposTerminalModel _$EftposTerminalModelFromJson(Map<String, dynamic> json) =>
       id: const ObjectIdConverter().fromJson(json['_id']),
       name: json['name'] as String,
       secret: json['secret'] as String,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      lastUsed: json['lastUsed'] == null
-          ? null
-          : DateTime.parse(json['lastUsed'] as String),
+      createdAt: jsonToDateTime(json['createdAt']),
+      lastUsed: jsonToDateTime(json['lastUsed']),
     );
 
 Map<String, dynamic> _$EftposTerminalModelToJson(
@@ -26,6 +22,6 @@ Map<String, dynamic> _$EftposTerminalModelToJson(
         '_id': value,
       'name': instance.name,
       'secret': instance.secret,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'lastUsed': instance.lastUsed.toIso8601String(),
+      'createdAt': dateTimeToJson(instance.createdAt),
+      'lastUsed': dateTimeToJson(instance.lastUsed),
     };
