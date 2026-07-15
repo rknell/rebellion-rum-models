@@ -63,6 +63,25 @@ void main() {
     expect(model.metadata['stockAdjustedAt'], isA<String>());
   });
 
+  test('order BSON metadata dates return to JSON as ISO strings', () {
+    final model = OrderModel.fromJson({
+      '_id': ObjectId(),
+      'date': DateTime.utc(2026, 7, 15),
+      'items': <String, int>{},
+      'status': 'paid',
+      'metadata': {
+        'stockAdjustedAt': DateTime.utc(2026, 7, 15, 1),
+        'starshipit': {'order_date': '2026-07-15T02:00:00.000Z'},
+      },
+    });
+
+    expect(model.metadata['stockAdjustedAt'], isA<String>());
+    expect(
+      (model.metadata['starshipit'] as Map)['order_date'],
+      isA<String>(),
+    );
+  });
+
   test('path conversion supports lists and leaves vendor dates untouched', () {
     final data = <String, dynamic>{
       'notes': <Map<String, dynamic>>[
