@@ -28,6 +28,8 @@ export 'src/models/mailing_list_membership.dart';
 export 'src/models/mailing_send.dart';
 export 'src/models/newsletter_signup.dart';
 export 'src/models/order.dart';
+export 'src/models/packaging_material_definition.dart';
+export 'src/models/packaging_material_movement.dart';
 export 'src/models/packaging_run_item.dart';
 export 'src/models/payment.dart';
 export 'src/models/payment_intent_request.dart';
