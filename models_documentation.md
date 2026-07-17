@@ -2719,7 +2719,7 @@ part 'product.g.dart';
 /// );
 /// ```
 
-enum ProductCategory { vodka, gin, rum, softdrink, merch, other }
+enum ProductCategory { vodka, gin, rum, cans, softdrink, merch, other }
 
 /// Represents an award received by a product
 @JsonSerializable()
@@ -5360,4 +5360,3 @@ class VolumeTransferredRecordModel extends DatabaseSerializable {
 }
 
 ```
-

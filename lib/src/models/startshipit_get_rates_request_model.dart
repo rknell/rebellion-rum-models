@@ -41,7 +41,8 @@ class StartShipItGetRatesRequestModel {
     this.currency = "AUD",
   }) : sender = sender ??
             StartShipItRateSenderAddressModel(
-              street: '27/3 Octal Street',
+              building: 'Unit 27',
+              street: '3 Octal Street',
               suburb: 'Yatala',
               state: 'QLD',
               postCode: '4207',

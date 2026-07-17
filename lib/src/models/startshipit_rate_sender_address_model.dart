@@ -20,6 +20,9 @@ part 'startshipit_rate_sender_address_model.g.dart';
 /// ```
 @JsonSerializable(fieldRename: FieldRename.snake)
 class StartShipItRateSenderAddressModel {
+  /// Unit, suite, or building name of the sender address
+  final String? building;
+
   /// Street number and name of the sender address
   final String street;
 
@@ -39,6 +42,7 @@ class StartShipItRateSenderAddressModel {
   final String countryCode;
 
   const StartShipItRateSenderAddressModel({
+    this.building,
     required this.street,
     required this.suburb,
     required this.state,

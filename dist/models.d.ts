@@ -63,6 +63,7 @@ export enum PaymentType {
 }
 
 export enum ProductCategory {
+  cans = "cans",
   gin = "gin",
   merch = "merch",
   other = "other",
@@ -736,6 +737,7 @@ export interface StartShipItRatePackageModel {
 }
 
 export interface StartShipItRateSenderAddressModel {
+  building: string | null;
   country_code: string;
   post_code: string;
   state: string;
@@ -911,4 +913,3 @@ export interface WithdrawalModel {
   amount: number;
   purpose: string;
 }
-
