@@ -17,9 +17,7 @@ RawMaterialsRegisterModel _$RawMaterialsRegisterModelFromJson(
       materialType: json['materialType'] as String,
       qtyIn: (json['qtyIn'] as num).toDouble(),
       qtyOut: (json['qtyOut'] as num).toDouble(),
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
+      timestamp: json['timestamp'],
     );
 
 Map<String, dynamic> _$RawMaterialsRegisterModelToJson(
