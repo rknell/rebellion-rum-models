@@ -11,12 +11,8 @@ DistillationRecordModel _$DistillationRecordModelFromJson(
     DistillationRecordModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
       stillUsed: json['stillUsed'] as String? ?? '',
-      startTime: json['startTime'] == null
-          ? null
-          : DateTime.parse(json['startTime'] as String),
-      distillationDate: json['distillationDate'] == null
-          ? null
-          : DateTime.parse(json['distillationDate'] as String),
+      startTime: jsonToDateTimeOrNow(json['startTime']),
+      distillationDate: jsonToDateTimeOrNow(json['distillationDate']),
       status:
           $enumDecodeNullable(_$DistillationStatusEnumMap, json['status']) ??
               DistillationStatus.inProgress,
@@ -43,8 +39,8 @@ Map<String, dynamic> _$DistillationRecordModelToJson(
       if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
       'stillUsed': instance.stillUsed,
-      'startTime': instance.startTime.toIso8601String(),
-      'distillationDate': instance.distillationDate.toIso8601String(),
+      'startTime': dateTimeToJson(instance.startTime),
+      'distillationDate': dateTimeToJson(instance.distillationDate),
       'status': _$DistillationStatusEnumMap[instance.status]!,
       'chargeNumber': instance.chargeNumber,
       'alcoholType': _$DistillationAlcoholTypeEnumMap[instance.alcoholType]!,

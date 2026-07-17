@@ -10,8 +10,7 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
       customerId:
           const NullableObjectIdConverter().fromJson(json['customerId']),
-      date:
-          json['date'] == null ? null : DateTime.parse(json['date'] as String),
+      date: jsonToDateTimeOrNow(json['date']),
       items: Map<String, int>.from(json['items'] as Map),
       orderNumber: json['orderNumber'] as String?,
       paymentMethod: json['paymentMethod'] as String?,
@@ -38,7 +37,7 @@ Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
           case final value?)
         'customerId': value,
       if (instance.customer?.toJson() case final value?) 'customer': value,
-      'date': instance.date.toIso8601String(),
+      'date': dateTimeToJson(instance.date),
       'items': instance.items,
       if (instance.orderNumber case final value?) 'orderNumber': value,
       if (instance.paymentMethod case final value?) 'paymentMethod': value,

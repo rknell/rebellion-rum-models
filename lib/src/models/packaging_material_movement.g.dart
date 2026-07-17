@@ -23,12 +23,8 @@ PackagingMaterialMovementModel _$PackagingMaterialMovementModelFromJson(
       idempotencyKey: json['idempotencyKey'] as String,
       note: json['note'] as String?,
       actor: json['actor'] as String?,
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
+      timestamp: json['timestamp'],
+      createdAt: json['createdAt'],
     );
 
 Map<String, dynamic> _$PackagingMaterialMovementModelToJson(

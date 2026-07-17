@@ -42,6 +42,7 @@ class OrderModel extends DatabaseSerializable {
   CustomerModel? customer;
 
   /// When the order was placed
+  @JsonKey(fromJson: jsonToDateTimeOrNow, toJson: dateTimeToJson)
   DateTime date;
 
   /// Map of product IDs to quantities ordered

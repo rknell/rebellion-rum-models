@@ -99,7 +99,7 @@ class SaleModel extends DatabaseSerializable {
 
   SaleModel({
     super.id,
-    DateTime? timestamp,
+    dynamic timestamp,
     List<SaleItemModel>? items,
     this.customerId,
     dynamic coupons,

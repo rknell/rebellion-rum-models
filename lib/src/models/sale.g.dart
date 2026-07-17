@@ -8,9 +8,7 @@ part of 'sale.dart';
 
 SaleModel _$SaleModelFromJson(Map<String, dynamic> json) => SaleModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
+      timestamp: json['timestamp'],
       items: (json['items'] as List<dynamic>?)
               ?.map((e) => SaleItemModel.fromJson(e as Map<String, dynamic>))
               .toList() ??

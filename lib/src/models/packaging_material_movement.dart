@@ -28,18 +28,28 @@ class PackagingMaterialMovementModel extends DatabaseSerializable {
   String? note;
   String? actor;
 
-  @JsonKey(name: 'timestamp', includeIfNull: false)
-  DateTime? _timestamp;
+  @JsonKey(
+    name: 'timestamp',
+    includeIfNull: false,
+    fromJson: jsonToNullableDateTime,
+    toJson: dateTimeToJsonNullable,
+  )
+  dynamic _timestamp;
 
-  @JsonKey(name: 'createdAt', includeIfNull: false)
-  DateTime? _createdAt;
+  @JsonKey(
+    name: 'createdAt',
+    includeIfNull: false,
+    fromJson: jsonToNullableDateTime,
+    toJson: dateTimeToJsonNullable,
+  )
+  dynamic _createdAt;
 
-  DateTime get timestamp => _timestamp ?? id.dateTime;
+  DateTime get timestamp => jsonToNullableDateTime(_timestamp) ?? id.dateTime;
   set timestamp(DateTime value) {
     _timestamp = value;
   }
 
-  DateTime get createdAt => _createdAt ?? timestamp;
+  DateTime get createdAt => jsonToNullableDateTime(_createdAt) ?? timestamp;
   set createdAt(DateTime value) {
     _createdAt = value;
   }
@@ -56,8 +66,8 @@ class PackagingMaterialMovementModel extends DatabaseSerializable {
     required this.idempotencyKey,
     this.note,
     this.actor,
-    DateTime? timestamp,
-    DateTime? createdAt,
+    dynamic timestamp,
+    dynamic createdAt,
   })  : _timestamp = timestamp,
         _createdAt = createdAt;
 

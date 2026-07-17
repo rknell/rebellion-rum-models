@@ -39,9 +39,11 @@ class DistillationRecordModel extends DatabaseSerializable {
   String stillUsed;
 
   /// Start time of the distillation
+  @JsonKey(fromJson: jsonToDateTimeOrNow, toJson: dateTimeToJson)
   final DateTime startTime;
 
   /// Distillation date used for excise and production records.
+  @JsonKey(fromJson: jsonToDateTimeOrNow, toJson: dateTimeToJson)
   DateTime distillationDate;
 
   /// Current status of the distillation record

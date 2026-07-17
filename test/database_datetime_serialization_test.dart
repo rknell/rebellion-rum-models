@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/rebellion_rum_models.dart';
 import 'package:test/test.dart';
@@ -56,9 +58,16 @@ void main() {
     );
 
     final database = model.toDatabase();
+    final fromDatabase = PackagingMaterialMovementModel.fromJson({
+      ...database,
+      'timestamp': timestamp,
+      'createdAt': timestamp,
+    });
 
     expect(database['timestamp'], timestamp);
     expect(database['createdAt'], timestamp);
+    expect(fromDatabase.timestamp, timestamp);
+    expect(fromDatabase.createdAt, timestamp);
   });
 
   test('alcocalc nested models accept BSON Date values', () {
@@ -119,6 +128,72 @@ void main() {
     expect(packagingRun.estimatedDilution?.date, timestamp);
     expect(input.createdAt, timestamp);
     expect(alcoholAddition.createdAt, timestamp);
+  });
+
+  test('operational models accept BSON Date values at legacy date fields', () {
+    final timestamp = DateTime.utc(2026, 7, 17, 7);
+
+    final sale = SaleModel.fromJson({
+      '_id': ObjectId(),
+      'timestamp': timestamp,
+      'items': <Map<String, dynamic>>[],
+      'payments': <Map<String, dynamic>>[],
+      'coupons': <Map<String, dynamic>>[],
+    });
+    final rawMaterial = RawMaterialsRegisterModel.fromJson({
+      '_id': ObjectId(),
+      'materialType': 'molasses',
+      'qtyIn': 100,
+      'qtyOut': 0,
+      'timestamp': timestamp,
+    });
+    final order = OrderModel.fromJson({
+      '_id': ObjectId(),
+      'customerId': null,
+      'date': timestamp,
+      'items': <String, int>{},
+      'orderNumber': 'RUM-TEST',
+      'paymentMethod': 'card',
+    });
+    final distillation = DistillationRecordModel.fromJson({
+      '_id': ObjectId(),
+      'startTime': timestamp,
+      'distillationDate': timestamp,
+    });
+
+    expect(sale.timestamp, timestamp);
+    expect(rawMaterial.timestamp, timestamp);
+    expect(order.date, timestamp);
+    expect(distillation.startTime, timestamp);
+    expect(distillation.distillationDate, timestamp);
+  });
+
+  test('generated operational serializers do not require DateTime strings', () {
+    const jsonTransportDateFiles = {
+      'starshipit_create_order_request_model.g.dart',
+      'starshipit_create_order_response_model.g.dart',
+    };
+    final unsafe = <String>[];
+    final modelDirectory = Directory('lib/src/models');
+
+    for (final entity in modelDirectory.listSync()) {
+      if (entity is! File || !entity.path.endsWith('.g.dart')) continue;
+      final fileName = entity.uri.pathSegments.last;
+      if (jsonTransportDateFiles.contains(fileName)) continue;
+      if (entity.readAsStringSync().contains(
+            RegExp(r'DateTime\.parse\(json\[[^\]]+\] as String\)'),
+          )) {
+        unsafe.add(fileName);
+      }
+    }
+
+    expect(
+      unsafe,
+      isEmpty,
+      reason: 'MongoDB-facing serializers must accept BSON DateTime values. '
+          'Use jsonToDateTime/jsonToNullableDateTime or explicitly normalize '
+          'the database input.',
+    );
   });
 
   test('order operational metadata dates are BSON without touching vendor data',
