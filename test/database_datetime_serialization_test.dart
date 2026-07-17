@@ -40,6 +40,27 @@ void main() {
     expect(model.lastUsed, DateTime.utc(2026, 7, 15, 2));
   });
 
+  test('packaging material movement dates use BSON Date values', () {
+    final timestamp = DateTime.utc(2026, 7, 15, 3);
+    final model = PackagingMaterialMovementModel(
+      materialDefinitionId: ObjectId(),
+      materialType: PackagingMaterialType.label,
+      quantityDelta: 100,
+      movementType: PackagingMaterialMovementType.purchase,
+      sourceSystem: 'manager',
+      sourceDocumentType: 'purchase',
+      sourceDocumentId: 'delivery-1',
+      idempotencyKey: 'purchase:delivery-1',
+      timestamp: timestamp,
+      createdAt: timestamp,
+    );
+
+    final database = model.toDatabase();
+
+    expect(database['timestamp'], timestamp);
+    expect(database['createdAt'], timestamp);
+  });
+
   test('order operational metadata dates are BSON without touching vendor data',
       () {
     final model = OrderModel(

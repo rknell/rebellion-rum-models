@@ -83,7 +83,8 @@ class ShippingQuoteRequestModel {
 
   StartShipItRateSenderAddressModel get sender =>
       StartShipItRateSenderAddressModel(
-          street: "Unit 27/3 Octal St",
+          building: "Unit 27",
+          street: "3 Octal Street",
           suburb: "Yatala",
           state: "QLD",
           postCode: "4207",

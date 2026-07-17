@@ -9,6 +9,7 @@ part of 'startshipit_rate_sender_address_model.dart';
 StartShipItRateSenderAddressModel _$StartShipItRateSenderAddressModelFromJson(
         Map<String, dynamic> json) =>
     StartShipItRateSenderAddressModel(
+      building: json['building'] as String?,
       street: json['street'] as String,
       suburb: json['suburb'] as String,
       state: json['state'] as String,
@@ -19,6 +20,7 @@ StartShipItRateSenderAddressModel _$StartShipItRateSenderAddressModelFromJson(
 Map<String, dynamic> _$StartShipItRateSenderAddressModelToJson(
         StartShipItRateSenderAddressModel instance) =>
     <String, dynamic>{
+      if (instance.building case final value?) 'building': value,
       'street': instance.street,
       'suburb': instance.suburb,
       'state': instance.state,
