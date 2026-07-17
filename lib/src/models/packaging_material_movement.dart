@@ -71,4 +71,7 @@ class PackagingMaterialMovementModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id', 'materialDefinitionId'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'timestamp', 'createdAt'};
 }
