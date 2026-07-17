@@ -33,9 +33,7 @@ AlcocalcDilutionInputModel _$AlcocalcDilutionInputModelFromJson(
       targetABV: (json['targetABV'] as num).toDouble(),
       productId: const NullableObjectIdConverter().fromJson(json['productId']),
       bottleSize: (json['bottleSize'] as num?)?.toDouble() ?? 0.7,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
+      createdAt: jsonToDateTimeOrNow(json['createdAt']),
     );
 
 Map<String, dynamic> _$AlcocalcDilutionInputModelToJson(
@@ -50,7 +48,7 @@ Map<String, dynamic> _$AlcocalcDilutionInputModelToJson(
           case final value?)
         'productId': value,
       'bottleSize': instance.bottleSize,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': dateTimeToJson(instance.createdAt),
     };
 
 SugarResultModel _$SugarResultModelFromJson(Map<String, dynamic> json) =>
@@ -70,7 +68,7 @@ Map<String, dynamic> _$SugarResultModelToJson(SugarResultModel instance) =>
 AlcocalcDilutionResultModel _$AlcocalcDilutionResultModelFromJson(
         Map<String, dynamic> json) =>
     AlcocalcDilutionResultModel(
-      date: DateTime.parse(json['date'] as String),
+      date: jsonToDateTime(json['date']),
       startingWeight: (json['startingWeight'] as num).toDouble(),
       correctedStartingABV: (json['correctedStartingABV'] as num).toDouble(),
       lals: (json['lals'] as num).toDouble(),
@@ -91,7 +89,7 @@ AlcocalcDilutionResultModel _$AlcocalcDilutionResultModelFromJson(
 Map<String, dynamic> _$AlcocalcDilutionResultModelToJson(
         AlcocalcDilutionResultModel instance) =>
     <String, dynamic>{
-      'date': instance.date.toIso8601String(),
+      'date': dateTimeToJson(instance.date),
       'startingWeight': instance.startingWeight,
       'correctedStartingABV': instance.correctedStartingABV,
       'lals': instance.lals,
@@ -126,9 +124,7 @@ AlcoholAdditionResultModel _$AlcoholAdditionResultModelFromJson(
       finalWeight: (json['finalWeight'] as num).toDouble(),
       finalVolume: (json['finalVolume'] as num).toDouble(),
       lals: (json['lals'] as num).toDouble(),
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
+      createdAt: jsonToDateTimeOrNow(json['createdAt']),
     );
 
 Map<String, dynamic> _$AlcoholAdditionResultModelToJson(
@@ -151,5 +147,5 @@ Map<String, dynamic> _$AlcoholAdditionResultModelToJson(
       'finalWeight': instance.finalWeight,
       'finalVolume': instance.finalVolume,
       'lals': instance.lals,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': dateTimeToJson(instance.createdAt),
     };

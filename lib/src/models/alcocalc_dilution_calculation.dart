@@ -154,6 +154,7 @@ class AlcocalcDilutionInputModel {
   final double bottleSize;
 
   /// Timestamp of when this calculation was created
+  @JsonKey(fromJson: jsonToDateTimeOrNow, toJson: dateTimeToJson)
   final DateTime createdAt;
 
   AlcocalcDilutionInputModel({
@@ -216,6 +217,7 @@ class SugarResultModel {
 @JsonSerializable(explicitToJson: true)
 class AlcocalcDilutionResultModel {
   /// Date when the calculation was performed
+  @JsonKey(fromJson: jsonToDateTime, toJson: dateTimeToJson)
   final DateTime date;
 
   /// Initial weight in kilograms
@@ -369,6 +371,7 @@ class AlcoholAdditionResultModel {
   final double lals;
 
   /// Date when the calculation was performed
+  @JsonKey(fromJson: jsonToDateTimeOrNow, toJson: dateTimeToJson)
   final DateTime createdAt;
 
   AlcoholAdditionResultModel({

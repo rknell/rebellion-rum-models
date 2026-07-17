@@ -43,6 +43,12 @@ DateTime? jsonToNullableDateTime(dynamic json) {
   return jsonToDateTime(json);
 }
 
+/// Converts a BSON Date or ISO string, defaulting missing creation dates to now.
+DateTime jsonToDateTimeOrNow(dynamic json) {
+  if (json == null) return DateTime.now();
+  return jsonToDateTime(json);
+}
+
 String dateTimeToJson(DateTime dateTime) => dateTime.toIso8601String();
 String? dateTimeToJsonNullable(DateTime? dateTime) =>
     dateTime?.toIso8601String();

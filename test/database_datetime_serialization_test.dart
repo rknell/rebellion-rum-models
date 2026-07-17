@@ -61,6 +61,66 @@ void main() {
     expect(database['createdAt'], timestamp);
   });
 
+  test('alcocalc nested models accept BSON Date values', () {
+    final timestamp = DateTime.utc(2026, 7, 17, 6);
+    final dilutionJson = <String, dynamic>{
+      'date': timestamp,
+      'startingWeight': 100,
+      'correctedStartingABV': 0.6,
+      'lals': 60,
+      'additionalWaterLitres': 50,
+      'targetWeightAfterWater': 150,
+      'calculatedABV': 0.4,
+      'acceptableABVLow': 0.395,
+      'acceptableABVHigh': 0.405,
+      'sugarResults': <Map<String, dynamic>>[],
+      'targetVolume': 150,
+      'expectedBottles': 214,
+      'targetFinalWeight': 150,
+    };
+
+    final dilution = AlcocalcDilutionResultModel.fromJson(dilutionJson);
+    final packagingRun = PackagingRunItemModel.fromJson({
+      '_id': ObjectId(),
+      'status': 'inProgress',
+      'estimatedDilution': dilutionJson,
+    });
+    final input = AlcocalcDilutionInputModel.fromJson({
+      'startingWeight': 100,
+      'startingABV': 0.6,
+      'startingTemperature': 20,
+      'sugars': <Map<String, dynamic>>[],
+      'targetABV': 0.4,
+      'bottleSize': 0.7,
+      'createdAt': timestamp,
+    });
+    final alcoholAddition = AlcoholAdditionResultModel.fromJson({
+      'currentWeight': 100,
+      'currentABV': 0.35,
+      'targetABV': 0.4,
+      'additionABV': 0.96,
+      'temperature': 20,
+      'correctedCurrentABV': 0.35,
+      'correctedAdditionABV': 0.96,
+      'currentDensity': 0.95,
+      'additionDensity': 0.8,
+      'targetDensity': 0.93,
+      'currentVolume': 105,
+      'currentAlcoholVolume': 36.75,
+      'additionVolume': 10,
+      'requiredAlcoholWeight': 8,
+      'finalWeight': 108,
+      'finalVolume': 115,
+      'lals': 9.6,
+      'createdAt': timestamp,
+    });
+
+    expect(dilution.date, timestamp);
+    expect(packagingRun.estimatedDilution?.date, timestamp);
+    expect(input.createdAt, timestamp);
+    expect(alcoholAddition.createdAt, timestamp);
+  });
+
   test('order operational metadata dates are BSON without touching vendor data',
       () {
     final model = OrderModel(
