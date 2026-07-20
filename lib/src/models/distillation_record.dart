@@ -189,7 +189,8 @@ class GinStillStocktakeModel {
     this.temperature = 20,
   })  : volume = currentVolume(height),
         lals = AlcocalcLalsCalculation(
-          weight: Alcocalc.abvToAbw(abv) * currentVolume(height),
+          weight: (OIMLTables.tableII(abv, temperature) / 1000) *
+              currentVolume(height),
           abv: abv,
           temperature: temperature,
         );
