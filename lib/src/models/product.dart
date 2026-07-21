@@ -190,7 +190,7 @@ class ProductModel extends DatabaseSerializable {
     this.botanicals = const [],
     this.recipeSlugs = const [],
     this.headerAlignment,
-    this.storefrontIds = const [],
+    this.storefrontIds = const ['rebellion'],
   })  : volume = volume ?? _defaultVolumeForCategory(category),
         abv = abv ?? _defaultAbvForCategory(category),
         name = name ?? '',

@@ -70,7 +70,7 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       storefrontIds: (json['storefrontIds'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
-          const [],
+          const ['rebellion'],
     )
       ..slug = json['slug'] as String?
       ..shortcut = json['shortcut'] as String?;
