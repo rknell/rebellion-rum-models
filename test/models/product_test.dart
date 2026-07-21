@@ -142,7 +142,7 @@ void main() {
       expect(product.botanicals, isEmpty);
       expect(product.recipeSlugs, isEmpty);
       expect(product.headerAlignment, isNull);
-      expect(product.storefrontIds, equals(['rebellion']));
+      expect(product.storefrontIds, isEmpty);
       expect(product.isInventoryItem, isFalse);
     });
 
