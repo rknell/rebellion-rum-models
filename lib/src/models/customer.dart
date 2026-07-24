@@ -83,6 +83,12 @@ class CustomerModel extends DatabaseSerializable {
   /// True if the customer is a wholesale customer
   bool isWholesale;
 
+  /// True when an administrator has enabled website mates-rates pricing.
+  ///
+  /// This is an account entitlement and must not be changed by customer profile
+  /// updates.
+  bool isMatesRates;
+
   /// Australian Business Number for trade applications.
   String? abn;
 
@@ -139,6 +145,7 @@ class CustomerModel extends DatabaseSerializable {
     this.country = "Australia",
     Set<CustomerPreferences>? preferences,
     this.isWholesale = false,
+    this.isMatesRates = false,
     this.abn,
     this.venueType,
     this.tradeStatus = 'none',

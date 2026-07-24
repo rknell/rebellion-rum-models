@@ -24,6 +24,7 @@ CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) =>
           ?.map((e) => $enumDecode(_$CustomerPreferencesEnumMap, e))
           .toSet(),
       isWholesale: json['isWholesale'] as bool? ?? false,
+      isMatesRates: json['isMatesRates'] as bool? ?? false,
       abn: json['abn'] as String?,
       venueType: json['venueType'] as String?,
       tradeStatus: json['tradeStatus'] as String? ?? 'none',
@@ -50,6 +51,7 @@ Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
       'postcode': instance.postcode,
       'country': instance.country,
       'isWholesale': instance.isWholesale,
+      'isMatesRates': instance.isMatesRates,
       if (instance.abn case final value?) 'abn': value,
       if (instance.venueType case final value?) 'venueType': value,
       'tradeStatus': instance.tradeStatus,

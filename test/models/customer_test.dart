@@ -193,6 +193,72 @@ void main() {
       expect(original.tradeStatus, equals('pending'));
     });
 
+    test('mates rates entitlement defaults false and round-trips', () {
+      final legacyCustomer = CustomerModel.fromJson({
+        '_id': '507f1f77bcf86cd799439011',
+        'firstName': 'Legacy',
+        'lastName': 'Customer',
+        'email': 'legacy@example.com',
+        'phone': '0400000000',
+        'addressLine1': '1 Legacy Street',
+        'city': 'Yatala',
+        'state': 'QLD',
+        'postcode': '4207',
+        'country': 'AU',
+        'isWholesale': false,
+        'preferences': <String>[],
+      });
+      expect(legacyCustomer.isMatesRates, isFalse);
+
+      final entitled = CustomerModel(
+        firstName: 'Mate',
+        lastName: 'Customer',
+        email: 'mate@example.com',
+        phone: '0400000000',
+        addressLine1: '2 Mates Street',
+        city: 'Yatala',
+        state: 'QLD',
+        postcode: '4207',
+        isMatesRates: true,
+      );
+
+      expect(entitled.toJson()['isMatesRates'], isTrue);
+      expect(
+        CustomerModel.fromJson(entitled.toDatabase()).isMatesRates,
+        isTrue,
+      );
+    });
+
+    test('mergeSanitized should not update mates rates entitlement', () {
+      final original = CustomerModel(
+        firstName: 'Mate',
+        lastName: 'Customer',
+        email: 'mate@example.com',
+        phone: '0400000000',
+        addressLine1: '2 Mates Street',
+        city: 'Yatala',
+        state: 'QLD',
+        postcode: '4207',
+        isMatesRates: true,
+      );
+      final submittedProfile = CustomerModel(
+        firstName: 'Updated',
+        lastName: 'Customer',
+        email: 'mate@example.com',
+        phone: '0400000001',
+        addressLine1: '3 Updated Street',
+        city: 'Yatala',
+        state: 'QLD',
+        postcode: '4207',
+        isMatesRates: false,
+      );
+
+      original.mergeSanitized(submittedProfile);
+
+      expect(original.firstName, equals('Updated'));
+      expect(original.isMatesRates, isTrue);
+    });
+
     test('should serialize account metadata and hide reset secrets publicly',
         () {
       final accountCreatedAt = DateTime.utc(2026, 6, 8, 1, 2, 3);
