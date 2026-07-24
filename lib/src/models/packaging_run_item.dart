@@ -76,7 +76,7 @@ class PackagingRunItemModel extends DatabaseSerializable {
   DateTime? completionDate;
 
   /// Get the effective timestamp, falling back to ObjectId timestamp if not set
-  DateTime get effectiveTimestamp => timestamp ?? id.dateTime;
+  DateTime get effectiveTimestamp => timestamp?.toUtc() ?? id.dateTime.toUtc();
 
   /// Default value of inProgress aligns with the migration path where both
   /// empty strings and null values in the legacy exciseReturn field map to inProgress,

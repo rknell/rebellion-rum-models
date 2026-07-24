@@ -293,4 +293,12 @@ void main() {
       isA<String>(),
     );
   });
+
+  test('ObjectId-derived model timestamps are exposed as UTC instants', () {
+    final bulk = BulkStorageRegisterItemModel(legacyLals: 1);
+    final packaging = PackagingRunItemModel();
+
+    expect(bulk.timestamp.isUtc, isTrue);
+    expect(packaging.effectiveTimestamp.isUtc, isTrue);
+  });
 }
