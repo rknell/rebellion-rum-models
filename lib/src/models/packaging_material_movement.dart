@@ -44,14 +44,15 @@ class PackagingMaterialMovementModel extends DatabaseSerializable {
   )
   dynamic _createdAt;
 
-  DateTime get timestamp => jsonToNullableDateTime(_timestamp) ?? id.dateTime;
+  DateTime get timestamp =>
+      jsonToNullableDateTime(_timestamp) ?? id.dateTime.toUtc();
   set timestamp(DateTime value) {
-    _timestamp = value;
+    _timestamp = value.toUtc();
   }
 
   DateTime get createdAt => jsonToNullableDateTime(_createdAt) ?? timestamp;
   set createdAt(DateTime value) {
-    _createdAt = value;
+    _createdAt = value.toUtc();
   }
 
   PackagingMaterialMovementModel({
@@ -68,8 +69,8 @@ class PackagingMaterialMovementModel extends DatabaseSerializable {
     this.actor,
     dynamic timestamp,
     dynamic createdAt,
-  })  : _timestamp = timestamp,
-        _createdAt = createdAt;
+  })  : _timestamp = timestamp is DateTime ? timestamp.toUtc() : timestamp,
+        _createdAt = createdAt is DateTime ? createdAt.toUtc() : createdAt;
 
   factory PackagingMaterialMovementModel.fromJson(
     Map<String, dynamic> json,

@@ -68,7 +68,7 @@ class StockJournalModel extends DatabaseSerializable {
     required this.barcode,
     required this.quantityDelta,
     required this.movementType,
-    required this.timestamp,
+    required DateTime timestamp,
     required this.sourceSystem,
     required this.sourceDocumentType,
     required this.sourceDocumentId,
@@ -80,7 +80,8 @@ class StockJournalModel extends DatabaseSerializable {
     this.previousStock,
     this.resultingStock,
     DateTime? createdAt,
-  }) : createdAt = createdAt ?? DateTime.now();
+  })  : timestamp = timestamp.toUtc(),
+        createdAt = (createdAt ?? DateTime.now()).toUtc();
 
   factory StockJournalModel.fromJson(Map<String, dynamic> json) =>
       _$StockJournalModelFromJson(_normalizeStockJournalJson(json));
@@ -99,7 +100,7 @@ Map<String, dynamic> _normalizeStockJournalJson(Map<String, dynamic> json) {
   final normalized = Map<String, dynamic>.from(json);
   final id = normalized['_id'];
   final idText = id?.toString() ?? '';
-  final now = DateTime.now().toIso8601String();
+  final now = dateTimeToJson(DateTime.now());
 
   normalized['barcode'] ??= normalized['productRef'];
   normalized['quantityDelta'] ??= normalized['qty'];

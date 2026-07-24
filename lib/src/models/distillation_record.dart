@@ -88,15 +88,16 @@ class DistillationRecordModel extends DatabaseSerializable {
     this.totalLALsCharged = 0,
     this.totalLALsYield = 0,
     List<NoteModel>? notes,
-  })  : startTime = startTime ?? DateTime.now(),
-        distillationDate = distillationDate ?? startTime ?? DateTime.now(),
+  })  : startTime = (startTime ?? DateTime.now()).toUtc(),
+        distillationDate =
+            (distillationDate ?? startTime ?? DateTime.now()).toUtc(),
         notes = notes ?? [];
 
   factory DistillationRecordModel.fromJson(Map<String, dynamic> json) {
     final normalized = Map<String, dynamic>.from(json);
     for (final field in const ['startTime', 'distillationDate']) {
       final value = normalized[field];
-      if (value is DateTime) normalized[field] = value.toIso8601String();
+      if (value is DateTime) normalized[field] = dateTimeToJson(value);
     }
     return _$DistillationRecordModelFromJson(normalized);
   }

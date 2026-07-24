@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/json_helpers.dart';
 
 part 'starshipit_create_order_response_model.g.dart';
 
@@ -30,7 +31,11 @@ class StarShipItOrderResponse {
   final int orderId;
 
   /// The date when the order was created in UTC
-  @JsonKey(name: 'order_date')
+  @JsonKey(
+    name: 'order_date',
+    fromJson: jsonToDateTime,
+    toJson: dateTimeToJson,
+  )
   final DateTime orderDate;
 
   /// The identifier of the order pulled from source e-Commerce platform

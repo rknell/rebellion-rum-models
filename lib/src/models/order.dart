@@ -102,7 +102,7 @@ class OrderModel extends DatabaseSerializable {
     this.notes,
     this.storefrontId = 'rebellion',
     this.sourceDomain,
-  })  : date = date ?? DateTime.now(),
+  })  : date = (date ?? DateTime.now()).toUtc(),
         metadata = metadata ?? {};
 
   /// Updates this order with sanitized fields from another order
@@ -128,7 +128,7 @@ class OrderModel extends DatabaseSerializable {
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     final normalized = Map<String, dynamic>.from(json);
     final date = normalized['date'];
-    if (date is DateTime) normalized['date'] = date.toIso8601String();
+    if (date is DateTime) normalized['date'] = dateTimeToJson(date);
     final metadata = normalized['metadata'];
     if (metadata is Map) {
       final normalizedMetadata = Map<String, dynamic>.from(metadata);

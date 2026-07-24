@@ -36,8 +36,8 @@ class MailingListMembershipModel extends DatabaseSerializable {
     this.archiveBatchId,
     this.archivedAt,
     this.listOptOutAt,
-  })  : createdAt = createdAt ?? DateTime.now(),
-        updatedAt = updatedAt ?? DateTime.now();
+  })  : createdAt = (createdAt ?? DateTime.now()).toUtc(),
+        updatedAt = (updatedAt ?? DateTime.now()).toUtc();
 
   factory MailingListMembershipModel.fromJson(Map<String, dynamic> json) =>
       _$MailingListMembershipModelFromJson(json);

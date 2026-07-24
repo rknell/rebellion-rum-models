@@ -20,9 +20,7 @@ Map<String, dynamic> _$StarShipItCreateOrderRequestToJson(
 
 StarShipItOrder _$StarShipItOrderFromJson(Map<String, dynamic> json) =>
     StarShipItOrder(
-      orderDate: json['order_date'] == null
-          ? null
-          : DateTime.parse(json['order_date'] as String),
+      orderDate: jsonToNullableDateTime(json['order_date']),
       orderNumber: json['order_number'] as String,
       reference: json['reference'] as String?,
       carrier: json['carrier'] as String?,
@@ -48,7 +46,7 @@ StarShipItOrder _$StarShipItOrderFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$StarShipItOrderToJson(StarShipItOrder instance) =>
     <String, dynamic>{
-      if (instance.orderDate?.toIso8601String() case final value?)
+      if (dateTimeToJsonNullable(instance.orderDate) case final value?)
         'order_date': value,
       'order_number': instance.orderNumber,
       if (instance.reference case final value?) 'reference': value,

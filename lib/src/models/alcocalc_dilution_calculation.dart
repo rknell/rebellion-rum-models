@@ -166,7 +166,7 @@ class AlcocalcDilutionInputModel {
     this.productId,
     this.bottleSize = 0.7,
     DateTime? createdAt,
-  }) : createdAt = createdAt ?? DateTime.now();
+  }) : createdAt = (createdAt ?? DateTime.now()).toUtc();
 
   factory AlcocalcDilutionInputModel.fromJson(Map<String, dynamic> json) =>
       _$AlcocalcDilutionInputModelFromJson(json);
@@ -393,7 +393,7 @@ class AlcoholAdditionResultModel {
     required this.finalVolume,
     required this.lals,
     DateTime? createdAt,
-  }) : createdAt = createdAt ?? DateTime.now();
+  }) : createdAt = (createdAt ?? DateTime.now()).toUtc();
 
   /// Creates an AlcoholAdditionResultModel from an Alcocalc AlcoholAdditionResult instance
   factory AlcoholAdditionResultModel.fromAlcoCalc(

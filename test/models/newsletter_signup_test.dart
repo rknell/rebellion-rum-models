@@ -24,7 +24,7 @@ void main() {
       );
 
       expect(signup.contactInfo, equals('test@example.com'));
-      expect(signup.signupDate, equals(signupDate));
+      expect(signup.signupDate, equals(signupDate.toUtc()));
       expect(signup.isActive, isFalse);
     });
 
@@ -35,7 +35,7 @@ void main() {
         signupDate: signupDate,
       );
 
-      expect(signup.effectiveSignupDate, equals(signupDate));
+      expect(signup.effectiveSignupDate, equals(signupDate.toUtc()));
     });
 
     test('should use effectiveSignupDate from ObjectId when signupDate is null',
@@ -45,7 +45,7 @@ void main() {
       );
 
       // The effective date should come from the ObjectId timestamp
-      expect(signup.effectiveSignupDate, equals(signup.id.dateTime));
+      expect(signup.effectiveSignupDate, equals(signup.id.dateTime.toUtc()));
     });
 
     group('JSON Serialization', () {
@@ -63,7 +63,8 @@ void main() {
 
         expect(json['_id'], equals(objectId.oid));
         expect(json['contactInfo'], equals('test@example.com'));
-        expect(json['signupDate'], equals(signupDate.toIso8601String()));
+        expect(
+            json['signupDate'], equals(signupDate.toUtc().toIso8601String()));
         expect(json['isActive'], isFalse);
       });
 
@@ -85,7 +86,7 @@ void main() {
         final json = {
           '_id': objectId.oid,
           'contactInfo': 'test@example.com',
-          'signupDate': signupDate.toIso8601String(),
+          'signupDate': signupDate.toUtc().toIso8601String(),
           'isActive': false,
         };
 
@@ -93,7 +94,7 @@ void main() {
 
         expect(signup.id.oid, equals(objectId.oid));
         expect(signup.contactInfo, equals('test@example.com'));
-        expect(signup.signupDate, equals(signupDate));
+        expect(signup.signupDate, equals(signupDate.toUtc()));
         expect(signup.isActive, isFalse);
       });
 

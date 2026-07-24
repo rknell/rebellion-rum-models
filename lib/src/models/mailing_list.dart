@@ -26,8 +26,8 @@ class MailingListModel extends DatabaseSerializable {
     this.productName,
     DateTime? createdAt,
     DateTime? updatedAt,
-  })  : createdAt = createdAt ?? DateTime.now(),
-        updatedAt = updatedAt ?? DateTime.now();
+  })  : createdAt = (createdAt ?? DateTime.now()).toUtc(),
+        updatedAt = (updatedAt ?? DateTime.now()).toUtc();
 
   factory MailingListModel.fromJson(Map<String, dynamic> json) =>
       _$MailingListModelFromJson(json);

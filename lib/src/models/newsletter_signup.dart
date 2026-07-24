@@ -32,15 +32,15 @@ class NewsletterSignupModel extends DatabaseSerializable {
   final String storefrontId;
 
   /// Get the effective signup timestamp, falling back to ObjectId timestamp if not set
-  DateTime get effectiveSignupDate => signupDate ?? id.dateTime;
+  DateTime get effectiveSignupDate => signupDate ?? id.dateTime.toUtc();
 
   NewsletterSignupModel({
     super.id,
     required this.contactInfo,
-    this.signupDate,
+    DateTime? signupDate,
     this.isActive = true,
     this.storefrontId = 'rebellion',
-  });
+  }) : signupDate = signupDate?.toUtc();
 
   factory NewsletterSignupModel.fromJson(Map<String, dynamic> json) =>
       _$NewsletterSignupModelFromJson(json);

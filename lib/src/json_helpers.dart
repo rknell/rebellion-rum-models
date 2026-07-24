@@ -14,12 +14,26 @@ import 'package:json_annotation/json_annotation.dart';
 /// @return DateTime object
 DateTime jsonToDateTime(dynamic json) {
   // Already a DateTime
-  if (json is DateTime) return json;
+  if (json is DateTime) return json.toUtc();
 
   // String format (ISO 8601)
   if (json is String) {
     try {
-      return DateTime.parse(json);
+      final text = json.trim();
+      final parsed = DateTime.parse(text);
+      if (_hasExplicitTimeZone(text)) return parsed.toUtc();
+      // Legacy unzoned values are treated consistently as UTC. Callers with a
+      // known local-time legacy contract must normalize at that boundary.
+      return DateTime.utc(
+        parsed.year,
+        parsed.month,
+        parsed.day,
+        parsed.hour,
+        parsed.minute,
+        parsed.second,
+        parsed.millisecond,
+        parsed.microsecond,
+      );
     } catch (e) {
       throw FormatException('Invalid DateTime format: $json');
     }
@@ -45,20 +59,24 @@ DateTime? jsonToNullableDateTime(dynamic json) {
 
 /// Converts a BSON Date or ISO string, defaulting missing creation dates to now.
 DateTime jsonToDateTimeOrNow(dynamic json) {
-  if (json == null) return DateTime.now();
+  if (json == null) return DateTime.now().toUtc();
   return jsonToDateTime(json);
 }
 
-String dateTimeToJson(DateTime dateTime) => dateTime.toIso8601String();
+String dateTimeToJson(DateTime dateTime) => dateTime.toUtc().toIso8601String();
 String? dateTimeToJsonNullable(DateTime? dateTime) =>
-    dateTime?.toIso8601String();
+    dateTime?.toUtc().toIso8601String();
 
 /// Normalizes a BSON Date or ISO string to the legacy string backing used by
 /// models that expose a computed DateTime property.
 String? jsonToNullableDateTimeString(dynamic json) {
   if (json == null) return null;
-  return jsonToDateTime(json).toIso8601String();
+  return dateTimeToJson(jsonToDateTime(json));
 }
+
+bool _hasExplicitTimeZone(String value) => RegExp(
+      r'(?:[zZ]|[+-]\d{2}:?\d{2})$',
+    ).hasMatch(value);
 
 /// Converts ObjectIds to and from JSON format.
 ///
@@ -358,10 +376,16 @@ void _convertDatabaseDatePath(dynamic current, List<String> parts, int index) {
   }
 
   if (index == parts.length - 1) {
-    if (value is DateTime) return;
+    if (value is DateTime) {
+      current[key] = value.toUtc();
+      return;
+    }
     if (value is String && value.trim().isNotEmpty) {
-      final parsed = DateTime.tryParse(value.trim());
-      if (parsed != null) current[key] = parsed;
+      try {
+        current[key] = jsonToDateTime(value);
+      } on FormatException {
+        // Preserve legacy invalid values for the caller's validation path.
+      }
     }
     return;
   }

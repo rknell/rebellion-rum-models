@@ -5,6 +5,39 @@ import 'package:rebellion_rum_models/rebellion_rum_models.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group('UTC JSON contract', () {
+    test('serializes local DateTime values as ISO-8601 Zulu instants', () {
+      final local = DateTime(2026, 7, 24, 11, 5, 32, 339, 465);
+
+      final encoded = dateTimeToJson(local);
+
+      expect(encoded, endsWith('Z'));
+      expect(DateTime.parse(encoded), local.toUtc());
+    });
+
+    test('normalizes offset and legacy unzoned strings to UTC', () {
+      expect(
+        jsonToDateTime('2026-07-24T11:05:32.000+10:00'),
+        DateTime.utc(2026, 7, 24, 1, 5, 32),
+      );
+      expect(
+        jsonToDateTime('2026-07-24T01:05:32.000'),
+        DateTime.utc(2026, 7, 24, 1, 5, 32),
+      );
+    });
+
+    test('normalizes BSON Date values to UTC in memory and database', () {
+      final local = DateTime(2026, 7, 24, 11, 5);
+      final data = <String, dynamic>{'timestamp': local};
+
+      convertDatabaseDateFields(data, const {'timestamp'});
+
+      expect(jsonToDateTime(local), local.toUtc());
+      expect(data['timestamp'], local.toUtc());
+      expect((data['timestamp'] as DateTime).isUtc, isTrue);
+    });
+  });
+
   test('toDatabase persists declared date fields as BSON Date values', () {
     final model = CustomerModel(
       id: ObjectId(),
@@ -27,6 +60,8 @@ void main() {
     expect(database['passwordResetExpiresAt'], isA<DateTime>());
     expect(json['accountCreatedAt'], isA<String>());
     expect(json['passwordResetExpiresAt'], isA<String>());
+    expect(json['accountCreatedAt'], endsWith('Z'));
+    expect(json['passwordResetExpiresAt'], endsWith('Z'));
   });
 
   test('models accept BSON Date values when reading MongoDB documents', () {
@@ -66,6 +101,8 @@ void main() {
 
     expect(database['timestamp'], timestamp);
     expect(database['createdAt'], timestamp);
+    expect(model.toJson()['timestamp'], endsWith('Z'));
+    expect(model.toJson()['createdAt'], endsWith('Z'));
     expect(fromDatabase.timestamp, timestamp);
     expect(fromDatabase.createdAt, timestamp);
   });
