@@ -71,6 +71,8 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
               ?.map((e) => e as String)
               .toList() ??
           const ['rebellion'],
+      revision: (json['revision'] as num?)?.toInt() ?? 0,
+      updatedAt: jsonToNullableDateTime(json['updatedAt']),
     )
       ..slug = json['slug'] as String?
       ..shortcut = json['shortcut'] as String?;
@@ -116,6 +118,9 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       if (instance.headerAlignment case final value?) 'headerAlignment': value,
       if (instance.shortcut case final value?) 'shortcut': value,
       'storefrontIds': instance.storefrontIds,
+      'revision': instance.revision,
+      if (dateTimeToJsonNullable(instance.updatedAt) case final value?)
+        'updatedAt': value,
     };
 
 const _$ProductCategoryEnumMap = {

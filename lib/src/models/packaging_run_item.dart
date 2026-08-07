@@ -31,7 +31,13 @@ enum PackagingRunStatus {
 
 @JsonSerializable()
 class PackagingRunItemModel extends DatabaseSerializable {
+  /// Immutable id of the canonical website-owned product.
+  @NullableObjectIdConverter()
+  ObjectId? productId;
+
   /// Barcode of the product being packaged
+  ///
+  /// Retained for compatibility and as a transaction-time snapshot.
   String? productBarcode;
 
   /// Size of individual units. Canonical rows use millilitres (for example
@@ -103,6 +109,7 @@ class PackagingRunItemModel extends DatabaseSerializable {
 
   PackagingRunItemModel({
     super.id,
+    this.productId,
     this.productBarcode,
     this.unitSize,
     this.strength,
@@ -129,7 +136,7 @@ class PackagingRunItemModel extends DatabaseSerializable {
   Map<String, dynamic> toJson() => _$PackagingRunItemModelToJson(this);
 
   @override
-  Set<String> get objectIdFields => {'_id'};
+  Set<String> get objectIdFields => {'_id', 'productId'};
 
   @override
   Set<String> get databaseDateTimeFields => {

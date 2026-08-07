@@ -157,6 +157,13 @@ class ProductModel extends DatabaseSerializable {
   /// Storefront IDs this product is available on.
   List<String> storefrontIds;
 
+  /// Monotonically increasing catalogue revision used for optimistic locking.
+  int revision;
+
+  /// Last authoritative update time assigned by the catalogue service.
+  @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
+  DateTime? updatedAt;
+
   ProductModel({
     super.id,
     required this.barcode,
@@ -191,6 +198,8 @@ class ProductModel extends DatabaseSerializable {
     this.recipeSlugs = const [],
     this.headerAlignment,
     this.storefrontIds = const ['rebellion'],
+    this.revision = 0,
+    this.updatedAt,
   })  : volume = volume ?? _defaultVolumeForCategory(category),
         abv = abv ?? _defaultAbvForCategory(category),
         name = name ?? '',
@@ -240,6 +249,9 @@ class ProductModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {'_id'};
+
+  @override
+  Set<String> get databaseDateTimeFields => {'updatedAt'};
 }
 
 /// Represents a recipe for a product, including target ABV and sugar additions.
