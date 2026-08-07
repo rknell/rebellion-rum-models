@@ -14,7 +14,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: 83f255d8f15e7c45b189154545acb394c6979d11
+      resolved-ref: "83f255d8f15e7c45b189154545acb394c6979d11"
       url: "https://github.com/rknell/alcocalc.git"
     source: git
     version: "1.0.0"
