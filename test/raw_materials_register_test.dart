@@ -12,7 +12,7 @@ void main() {
         timestamp: explicitTime,
       );
 
-      expect(model.timestamp, equals(explicitTime));
+      expect(model.timestamp, equals(explicitTime.toUtc()));
     });
 
     test('timestamp should fall back to ObjectId timestamp when not provided',
@@ -42,7 +42,7 @@ void main() {
       final json = model.toJson();
       final deserialized = RawMaterialsRegisterModel.fromJson(json);
 
-      expect(deserialized.timestamp, equals(explicitTime));
+      expect(deserialized.timestamp, equals(explicitTime.toUtc()));
     });
 
     test(
@@ -59,7 +59,7 @@ void main() {
       json.remove('timestamp');
 
       final deserialized = RawMaterialsRegisterModel.fromJson(json);
-      expect(deserialized.timestamp, equals(model.id.dateTime));
+      expect(deserialized.timestamp, equals(model.id.dateTime.toUtc()));
     });
   });
 }

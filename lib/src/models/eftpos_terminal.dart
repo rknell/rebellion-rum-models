@@ -18,8 +18,8 @@ class EftposTerminalModel extends DatabaseSerializable {
     required this.secret,
     DateTime? createdAt,
     DateTime? lastUsed,
-  })  : createdAt = createdAt ?? DateTime.now(),
-        lastUsed = lastUsed ?? DateTime.now();
+  })  : createdAt = (createdAt ?? DateTime.now()).toUtc(),
+        lastUsed = (lastUsed ?? DateTime.now()).toUtc();
 
   factory EftposTerminalModel.fromJson(Map<String, dynamic> json) =>
       _$EftposTerminalModelFromJson(json);

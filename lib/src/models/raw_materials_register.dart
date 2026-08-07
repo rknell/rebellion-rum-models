@@ -23,9 +23,10 @@ class RawMaterialsRegisterModel extends DatabaseSerializable {
   )
   dynamic _timestamp;
 
-  DateTime get timestamp => jsonToNullableDateTime(_timestamp) ?? id.dateTime;
+  DateTime get timestamp =>
+      jsonToNullableDateTime(_timestamp) ?? id.dateTime.toUtc();
   set timestamp(DateTime value) {
-    _timestamp = value;
+    _timestamp = value.toUtc();
   }
 
   RawMaterialsRegisterModel({
@@ -37,7 +38,7 @@ class RawMaterialsRegisterModel extends DatabaseSerializable {
     required this.qtyIn,
     required this.qtyOut,
     dynamic timestamp,
-  }) : _timestamp = timestamp;
+  }) : _timestamp = timestamp is DateTime ? timestamp.toUtc() : timestamp;
 
   factory RawMaterialsRegisterModel.fromJson(Map<String, dynamic> json) =>
       _$RawMaterialsRegisterModelFromJson(json);

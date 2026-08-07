@@ -35,8 +35,8 @@ class MailingContactModel extends DatabaseSerializable {
     this.globalEmailOptOut = false,
     this.globalSmsOptOut = false,
     this.globalOptOutAt,
-  })  : createdAt = createdAt ?? DateTime.now(),
-        updatedAt = updatedAt ?? DateTime.now();
+  })  : createdAt = (createdAt ?? DateTime.now()).toUtc(),
+        updatedAt = (updatedAt ?? DateTime.now()).toUtc();
 
   factory MailingContactModel.fromJson(Map<String, dynamic> json) =>
       _$MailingContactModelFromJson(json);

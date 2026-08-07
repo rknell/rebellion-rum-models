@@ -25,7 +25,7 @@ StarShipItOrderResponse _$StarShipItOrderResponseFromJson(
         Map<String, dynamic> json) =>
     StarShipItOrderResponse(
       orderId: (json['order_id'] as num).toInt(),
-      orderDate: DateTime.parse(json['order_date'] as String),
+      orderDate: jsonToDateTime(json['order_date']),
       orderNumber: json['order_number'] as String,
       reference: json['reference'] as String?,
       carrier: StarShipItOrderResponse._carrierFromJson(json['carrier']),
@@ -51,7 +51,7 @@ Map<String, dynamic> _$StarShipItOrderResponseToJson(
         StarShipItOrderResponse instance) =>
     <String, dynamic>{
       'order_id': instance.orderId,
-      'order_date': instance.orderDate.toIso8601String(),
+      'order_date': dateTimeToJson(instance.orderDate),
       'order_number': instance.orderNumber,
       if (instance.reference case final value?) 'reference': value,
       if (StarShipItOrderResponse._carrierToJson(instance.carrier)

@@ -3,6 +3,7 @@
 library;
 
 export 'src/excise_reporting.dart';
+export 'src/alcohol_measurements.dart';
 
 // Models
 export 'src/models/alcocalc_dilution_calculation.dart';

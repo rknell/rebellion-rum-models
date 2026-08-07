@@ -29,13 +29,11 @@ class SaleModel extends DatabaseSerializable {
   dynamic _timestamp;
 
   DateTime get timestamp {
-    return _timestamp is String
-        ? DateTime.tryParse(_timestamp)
-        : _timestamp ?? id.dateTime;
+    return jsonToNullableDateTime(_timestamp) ?? id.dateTime.toUtc();
   }
 
   set timestamp(DateTime time) {
-    _timestamp = time;
+    _timestamp = time.toUtc();
   }
 
   /// Due date for credit sales
@@ -110,7 +108,7 @@ class SaleModel extends DatabaseSerializable {
     bool? isMatesRates,
     this.dueDate,
     SaleStatus? status,
-  })  : _timestamp = timestamp,
+  })  : _timestamp = timestamp is DateTime ? timestamp.toUtc() : timestamp,
         coupons = _couponsFromJson(coupons),
         items = items ?? [],
         payments = payments ?? [],

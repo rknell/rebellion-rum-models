@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
+import 'package:rebellion_rum_models/src/alcohol_measurements.dart';
 import 'package:rebellion_rum_models/src/models/alcocalc_dilution_calculation.dart';
 
 part 'packaging_run_item.g.dart';
@@ -33,7 +34,8 @@ class PackagingRunItemModel extends DatabaseSerializable {
   /// Barcode of the product being packaged
   String? productBarcode;
 
-  /// Size of individual units (typically 700ml, expressed in litres as 0.7)
+  /// Size of individual units. Canonical rows use millilitres (for example
+  /// `700`), while legacy rows may contain litres (for example `0.7`).
   double? unitSize;
 
   /// Alcohol strength (ABV) expressed as 0.50 for 50%
@@ -76,7 +78,7 @@ class PackagingRunItemModel extends DatabaseSerializable {
   DateTime? completionDate;
 
   /// Get the effective timestamp, falling back to ObjectId timestamp if not set
-  DateTime get effectiveTimestamp => timestamp ?? id.dateTime;
+  DateTime get effectiveTimestamp => timestamp?.toUtc() ?? id.dateTime.toUtc();
 
   /// Default value of inProgress aligns with the migration path where both
   /// empty strings and null values in the legacy exciseReturn field map to inProgress,
@@ -93,8 +95,11 @@ class PackagingRunItemModel extends DatabaseSerializable {
 
   bool isConfirmedSugars;
 
-  double get lals =>
-      ((unitSize ?? 0) / 1000) * (unitsPackaged ?? 0) * (strength ?? 0);
+  double get lals => litresOfAlcohol(
+        containerSize: unitSize ?? 0,
+        abv: strength ?? 0,
+        quantity: unitsPackaged ?? 0,
+      );
 
   PackagingRunItemModel({
     super.id,

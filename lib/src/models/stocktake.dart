@@ -17,7 +17,7 @@ class StocktakeModel extends DatabaseSerializable {
     required this.currentStock,
     required this.newCount,
     DateTime? timestamp,
-  }) : timestamp = timestamp ?? DateTime.now();
+  }) : timestamp = (timestamp ?? DateTime.now()).toUtc();
 
   String get displayName {
     final names = {

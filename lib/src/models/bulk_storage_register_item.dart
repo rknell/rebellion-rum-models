@@ -87,7 +87,7 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
   ObjectId? productId;
 
   /// Timestamp extracted from the document's ObjectId
-  DateTime get timestamp => id.dateTime;
+  DateTime get timestamp => id.dateTime.toUtc();
 
   @override
   Set<String> get objectIdFields => {

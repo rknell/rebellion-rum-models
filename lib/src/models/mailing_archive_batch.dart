@@ -21,7 +21,7 @@ class MailingArchiveBatchModel extends DatabaseSerializable {
     DateTime? archivedAt,
     this.reason = 'clear-list',
     this.memberCount = 0,
-  }) : archivedAt = archivedAt ?? DateTime.now();
+  }) : archivedAt = (archivedAt ?? DateTime.now()).toUtc();
 
   factory MailingArchiveBatchModel.fromJson(Map<String, dynamic> json) =>
       _$MailingArchiveBatchModelFromJson(json);
