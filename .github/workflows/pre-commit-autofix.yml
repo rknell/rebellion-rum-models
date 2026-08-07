@@ -1,16 +1,18 @@
 name: Pre-commit autofix
 
 on:
-  push:
-    branches:
-      - "**"
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Feature branch to update (main is not allowed)
+        required: true
+        type: string
 
 permissions:
   contents: write
 
 concurrency:
-  group: pre-commit-autofix-${{ github.head_ref || github.ref_name }}
+  group: pre-commit-autofix-${{ inputs.branch }}
   cancel-in-progress: true
 
 jobs:
@@ -19,17 +21,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout pull request branch
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
+      - name: Reject protected branch
+        env:
+          BRANCH_NAME: ${{ inputs.branch }}
+        run: |
+          if [ "$BRANCH_NAME" = "main" ]; then
+            echo "::error::Autofix must run against a feature branch, not main."
+            exit 1
+          fi
 
-      - name: Checkout repository
-        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
-        uses: actions/checkout@v4
+      - name: Checkout feature branch
+        uses: actions/checkout@v5
         with:
+          ref: ${{ inputs.branch }}
           fetch-depth: 0
 
       - name: Set up Dart
@@ -38,7 +42,7 @@ jobs:
           sdk: stable
 
       - name: Install dependencies
-        run: dart pub get
+        run: dart pub get --enforce-lockfile
 
       - name: Generate and format
         run: |
@@ -47,20 +51,10 @@ jobs:
 
       - name: Create autofix commit
         id: autofix
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name || '' }}
-          REPOSITORY: ${{ github.repository }}
         run: |
           if git diff --quiet --exit-code && [ -z "$(git ls-files --others --exclude-standard)" ]; then
             echo "created=false" >> "$GITHUB_OUTPUT"
             exit 0
-          fi
-
-          if [ "$EVENT_NAME" = "pull_request" ] && [ "$HEAD_REPO" != "$REPOSITORY" ]; then
-            echo "::error::Pre-commit generation changed files, but this workflow cannot push to forked pull requests."
-            git status --short
-            exit 1
           fi
 
           git config user.name "github-actions[bot]"
@@ -78,5 +72,5 @@ jobs:
       - name: Push autofix commit
         if: steps.autofix.outputs.created == 'true'
         env:
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+          BRANCH_NAME: ${{ inputs.branch }}
         run: git push origin "HEAD:$BRANCH_NAME"

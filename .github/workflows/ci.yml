@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dart:
+    name: Dart
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Install dependencies
+        run: dart pub get --enforce-lockfile
+      - name: Generate sources
+        run: dart run build_runner build --delete-conflicting-outputs
+      - name: Check formatting
+        run: dart format --output=none --set-exit-if-changed bin lib test tools
+      - name: Check generated sources are current
+        run: |
+          if ! git diff --quiet --exit-code || [ -n "$(git ls-files --others --exclude-standard)" ]; then
+            echo "::error::Generated sources are out of date. Run the models generator and commit its output."
+            git status --short
+            git diff --stat
+            exit 1
+          fi
+      - name: Analyze
+        run: dart analyze --fatal-infos --fatal-warnings
+      - name: Test
+        run: dart test
