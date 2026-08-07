@@ -36,6 +36,7 @@ export 'src/models/payment.dart';
 export 'src/models/payment_intent_request.dart';
 export 'src/models/postcode.dart';
 export 'src/models/product.dart';
+export 'src/models/product_catalog.dart';
 export 'src/models/product_ephemeral_details_response.dart';
 export 'src/models/raw_material_definition.dart';
 export 'src/models/raw_materials_register.dart';

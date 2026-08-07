@@ -10,6 +10,7 @@ PackagingRunItemModel _$PackagingRunItemModelFromJson(
         Map<String, dynamic> json) =>
     PackagingRunItemModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
+      productId: const NullableObjectIdConverter().fromJson(json['productId']),
       productBarcode: json['productBarcode'] as String?,
       unitSize: (json['unitSize'] as num?)?.toDouble(),
       strength: (json['strength'] as num?)?.toDouble(),
@@ -44,6 +45,9 @@ Map<String, dynamic> _$PackagingRunItemModelToJson(
     <String, dynamic>{
       if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
+      if (const NullableObjectIdConverter().toJson(instance.productId)
+          case final value?)
+        'productId': value,
       if (instance.productBarcode case final value?) 'productBarcode': value,
       if (instance.unitSize case final value?) 'unitSize': value,
       if (instance.strength case final value?) 'strength': value,
