@@ -43,6 +43,9 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       matesRatesPrice: (json['matesRatesPrice'] as num?)?.toDouble(),
       isArchived: json['isArchived'] as bool? ?? false,
       isInventoryItem: json['isInventoryItem'] as bool? ?? false,
+      productionMode: $enumDecodeNullable(
+          _$ProductProductionModeEnumMap, json['productionMode'],
+          unknownValue: JsonKey.nullForUndefinedEnumValue),
       recipe: json['recipe'] == null
           ? null
           : ProductRecipe.fromJson(json['recipe'] as Map<String, dynamic>),
@@ -102,6 +105,9 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       if (instance.enabled case final value?) 'enabled': value,
       'isArchived': instance.isArchived,
       'isInventoryItem': instance.isInventoryItem,
+      if (_$ProductProductionModeEnumMap[instance.productionMode]
+          case final value?)
+        'productionMode': value,
       if (instance.recipe?.toJson() case final value?) 'recipe': value,
       if (instance.slug case final value?) 'slug': value,
       if (instance.isFeatured case final value?) 'isFeatured': value,
@@ -131,6 +137,12 @@ const _$ProductCategoryEnumMap = {
   ProductCategory.softdrink: 'softdrink',
   ProductCategory.merch: 'merch',
   ProductCategory.other: 'other',
+};
+
+const _$ProductProductionModeEnumMap = {
+  ProductProductionMode.distilleryPackaging: 'distilleryPackaging',
+  ProductProductionMode.derivedAssembly: 'derivedAssembly',
+  ProductProductionMode.none: 'none',
 };
 
 ProductRecipe _$ProductRecipeFromJson(Map<String, dynamic> json) =>
