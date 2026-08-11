@@ -24,6 +24,21 @@ part 'product.g.dart';
 
 enum ProductCategory { vodka, gin, rum, cans, softdrink, merch, other }
 
+/// Selects the operational workflow which is allowed to create this product.
+///
+/// This is independent of inventory tracking, storefront visibility, and the
+/// presence of alcohol or recipe data.
+enum ProductProductionMode {
+  /// Bottled from bulk spirit using the distillery packaging and excise flow.
+  distilleryPackaging,
+
+  /// Assembled in a small batch from already-finished product inputs.
+  derivedAssembly,
+
+  /// Not created by an internal production workflow.
+  none,
+}
+
 /// Represents an award received by a product
 @JsonSerializable()
 class Award {
@@ -109,6 +124,13 @@ class ProductModel extends DatabaseSerializable {
   /// Whether this product should be included in inventory stocktake/planning.
   bool isInventoryItem;
 
+  /// The website-owned workflow classification for producing this product.
+  ///
+  /// Null is retained temporarily when deserializing an unmigrated legacy
+  /// record so migrations and API compatibility code can detect omission.
+  @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
+  ProductProductionMode? productionMode;
+
   /// Recipe information for producing this product
   ProductRecipe? recipe;
 
@@ -184,6 +206,7 @@ class ProductModel extends DatabaseSerializable {
     double? matesRatesPrice,
     this.isArchived = false,
     this.isInventoryItem = false,
+    this.productionMode,
     this.recipe,
     this.isFeatured,
     this.heroImage,

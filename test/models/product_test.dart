@@ -221,6 +221,33 @@ void main() {
       expect(deserialized.isInventoryItem, isTrue);
     });
 
+    test('should serialize and deserialize production mode', () {
+      final product = ProductModel(
+        barcode: 'PRODUCTION-001',
+        name: 'Production Product',
+        productionMode: ProductProductionMode.distilleryPackaging,
+      );
+
+      final json = product.toJson();
+
+      expect(json['productionMode'], equals('distilleryPackaging'));
+      expect(
+        ProductModel.fromJson(json).productionMode,
+        ProductProductionMode.distilleryPackaging,
+      );
+    });
+
+    test('should preserve a missing production mode for legacy compatibility',
+        () {
+      final product = ProductModel.fromJson({
+        'barcode': 'LEGACY-PRODUCTION-MODE',
+        'name': 'Legacy Product',
+      });
+
+      expect(product.productionMode, isNull);
+      expect(product.toJson(), isNot(contains('productionMode')));
+    });
+
     test('should preserve explicit trade and channel price tiers', () {
       final product = ProductModel.fromJson({
         'barcode': 'FH-SOUR-TRADE',
