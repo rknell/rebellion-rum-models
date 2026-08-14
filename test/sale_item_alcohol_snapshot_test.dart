@@ -52,4 +52,31 @@ void main() {
     expect(snapshot!.lalPerUnit, closeTo(0.28, 0.000001));
     expect(snapshot.totalLals, closeTo(1.68, 0.000001));
   });
+
+  test('return lines retain signed alcohol snapshots', () {
+    final snapshot = alcoholSnapshotForSaleLine(
+      volumeMl: 700,
+      abv: 0.4,
+      quantity: -1,
+    );
+    expect(snapshot, isNotNull);
+    expect(snapshot!.lalPerUnit, closeTo(0.28, 0.000001));
+    expect(snapshot.totalLals, closeTo(-0.28, 0.000001));
+
+    final item = SaleItemModel(
+      description: 'Returned 700ml 40% rum',
+      price: 79,
+      itemId: 'rum-700',
+      qty: -1,
+      unitVolumeMl: snapshot.unitVolumeMl,
+      unitAbv: snapshot.unitAbv,
+      lalPerUnit: snapshot.lalPerUnit,
+      totalLals: snapshot.totalLals,
+    );
+    expect(item.hasAlcoholSnapshot, isTrue);
+
+    item.qty = -2;
+    item.refreshAlcoholTotals();
+    expect(item.totalLals, closeTo(-0.56, 0.000001));
+  });
 }

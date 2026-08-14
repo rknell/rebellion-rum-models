@@ -144,7 +144,7 @@ AlcoholSnapshot? alcoholSnapshotForSaleLine({
   required double abv,
   required int quantity,
 }) {
-  if (!hasValidAlcoholFields(volumeMl: volumeMl, abv: abv) || quantity <= 0) {
+  if (!hasValidAlcoholFields(volumeMl: volumeMl, abv: abv) || quantity == 0) {
     return null;
   }
   final lalPerUnit = volumeMl / 1000 * abv;
