@@ -57,7 +57,8 @@ class SaleItemModel {
       (unitVolumeMl ?? 0) > 0 &&
       (unitAbv ?? 0) > 0 &&
       (lalPerUnit ?? 0) > 0 &&
-      (totalLals ?? 0) > 0;
+      qty != 0 &&
+      (totalLals ?? 0) != 0;
 
   void refreshAlcoholTotals() {
     final perUnit = lalPerUnit;
