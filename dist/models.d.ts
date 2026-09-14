@@ -522,6 +522,7 @@ export interface ProductModel {
   volume: number | null;
   websiteMatesRatesPrice: number | null;
   websitePrice: number | null;
+  storefrontRetailPrices: Record<string, number>;
   weight: number | null;
   wholesalePrice: number | null;
 }
