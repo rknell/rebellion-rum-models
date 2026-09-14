@@ -26,6 +26,11 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       name: json['name'] as String?,
       price: (json['price'] as num?)?.toDouble(),
       websitePrice: (json['websitePrice'] as num?)?.toDouble(),
+      storefrontRetailPrices:
+          (json['storefrontRetailPrices'] as Map<String, dynamic>?)?.map(
+                (k, e) => MapEntry(k, (e as num).toDouble()),
+              ) ??
+              const {},
       distilleryDoorPrice: (json['distilleryDoorPrice'] as num?)?.toDouble(),
       wholesalePrice: (json['wholesalePrice'] as num?)?.toDouble(),
       websiteMatesRatesPrice:
@@ -89,6 +94,7 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       'price': instance.price,
       'matesRatesPrice': instance.matesRatesPrice,
       'websitePrice': instance.websitePrice,
+      'storefrontRetailPrices': instance.storefrontRetailPrices,
       'distilleryDoorPrice': instance.distilleryDoorPrice,
       if (instance.wholesalePrice case final value?) 'wholesalePrice': value,
       if (instance.websiteMatesRatesPrice case final value?)

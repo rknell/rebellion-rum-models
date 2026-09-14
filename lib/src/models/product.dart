@@ -82,6 +82,10 @@ class ProductModel extends DatabaseSerializable {
   /// Public website price in local currency.
   double websitePrice;
 
+  /// Optional public retail prices by storefront ID. Missing IDs use
+  /// [websitePrice]; account-specific and POS prices remain independent.
+  Map<String, double> storefrontRetailPrices;
+
   /// Public distillery door/POS price in local currency.
   double distilleryDoorPrice;
 
@@ -192,6 +196,7 @@ class ProductModel extends DatabaseSerializable {
     String? name,
     double? price,
     double? websitePrice,
+    this.storefrontRetailPrices = const {},
     double? distilleryDoorPrice,
     this.wholesalePrice,
     double? websiteMatesRatesPrice,
