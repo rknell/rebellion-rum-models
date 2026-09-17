@@ -42,6 +42,7 @@ export 'src/models/raw_material_definition.dart';
 export 'src/models/raw_materials_register.dart';
 export 'src/models/reconciliation.dart';
 export 'src/models/sale.dart';
+export 'src/models/quote.dart';
 export 'src/models/sale_item.dart';
 export 'src/models/shipping_quote_request_model.dart';
 export 'src/models/starshipit_create_order_request_model.dart';
