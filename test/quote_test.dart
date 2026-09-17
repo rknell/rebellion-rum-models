@@ -38,4 +38,14 @@ void main() {
     expect(Quote.retentionDate(DateTime.utc(2023, 8, 31)),
         DateTime.utc(2024, 2, 29));
   });
+  test(
+      'short quote numbers survive transport and old references remain available',
+      () {
+    final original = Quote.create(basket(), customer: 'Customer');
+    final numbered =
+        Quote.fromJson({...original.toJson(), 'quoteNumber': 'Q-10001'});
+    expect(numbered.number, 'Q-10001');
+    expect(numbered.legacyNumber, original.number);
+    expect(Quote.fromJson(numbered.toDatabase()).number, 'Q-10001');
+  });
 }

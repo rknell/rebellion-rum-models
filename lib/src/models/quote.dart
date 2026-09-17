@@ -15,6 +15,7 @@ class Quote {
       required this.snapshot,
       this.status = 'open',
       this.owner,
+      this.quoteNumber,
       this.invoiceNumber});
 
   final ObjectId id;
@@ -25,7 +26,9 @@ class Quote {
   final String status;
   final String? owner, invoiceNumber;
 
-  String get number => 'Q-${id.oid.toUpperCase()}';
+  final String? quoteNumber;
+  String get legacyNumber => 'Q-${id.oid.toUpperCase()}';
+  String get number => quoteNumber ?? legacyNumber;
   double get subtotal =>
       snapshot.items.fold(0.0, (sum, item) => sum + item.price * item.qty);
   double get total => subtotal - (snapshot.discountTotal ?? 0);
@@ -114,6 +117,7 @@ class Quote {
         'address': address,
         'snapshot': snapshot.toJson(),
         'status': status,
+        if (quoteNumber != null) 'quoteNumber': quoteNumber,
         if (owner != null) 'owner': owner,
         if (invoiceNumber != null) 'invoiceNumber': invoiceNumber,
       };
@@ -140,6 +144,7 @@ class Quote {
             Map<String, dynamic>.from(json['snapshot'] as Map)),
         status: json['status'] as String? ?? 'open',
         owner: json['owner'] as String?,
+        quoteNumber: json['quoteNumber'] as String?,
         invoiceNumber: json['invoiceNumber'] as String?,
       );
 }
