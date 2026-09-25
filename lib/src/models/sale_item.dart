@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebellion_rum_models/src/excise_reporting.dart';
+import 'package:rebellion_rum_models/src/models/product.dart';
 
 part 'sale_item.g.dart';
 
@@ -30,6 +32,10 @@ class SaleItemModel {
   /// Quantity sold
   int qty;
 
+  /// Captured product classification. Null means a legacy or unknown line;
+  /// false positively identifies a non-alcoholic product.
+  bool? isAlcohol;
+
   /// Product volume in millilitres at the time of sale.
   double? unitVolumeMl;
 
@@ -47,11 +53,54 @@ class SaleItemModel {
     required this.price,
     required this.itemId,
     required this.qty,
+    this.isAlcohol,
     this.unitVolumeMl,
     this.unitAbv,
     this.lalPerUnit,
     this.totalLals,
   });
+
+  /// Shared checkout snapshot for POS and website sales, including returns.
+  factory SaleItemModel.fromProduct({
+    required ProductModel product,
+    required double price,
+    required int qty,
+  }) {
+    final alcohol = product.isAlcoholProduct;
+    final snapshot = alcohol == true
+        ? alcoholSnapshotForSaleLine(
+            volumeMl: product.volume, abv: product.abv, quantity: qty)
+        : null;
+    if (alcohol == true && snapshot == null) {
+      throw ArgumentError(
+          'Alcohol product "${product.name}" needs valid ABV, volume and quantity before it can be sold or returned.');
+    }
+    return SaleItemModel(
+      description: product.name,
+      price: price,
+      itemId: product.barcode,
+      qty: qty,
+      isAlcohol: alcohol,
+      unitVolumeMl: snapshot?.unitVolumeMl,
+      unitAbv: snapshot?.unitAbv,
+      lalPerUnit: snapshot?.lalPerUnit,
+      totalLals: snapshot?.totalLals,
+    );
+  }
+
+  bool get isMissingAlcoholSnapshot =>
+      !hasAlcoholSnapshot &&
+      isAlcohol != false &&
+      qty > 0 &&
+      price > 0 &&
+      itemId != 'shipping' &&
+      !itemId.startsWith('custom-sale-item:');
+
+  Map<String, dynamic> toCommerceLedgerJson() => {
+        ...toJson(),
+        'unitPriceCents': (price * 100).round(),
+        'totalCents': (price * qty * 100).round(),
+      };
 
   bool get hasAlcoholSnapshot =>
       (unitVolumeMl ?? 0) > 0 &&

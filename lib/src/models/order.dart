@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'package:rebellion_rum_models/src/models/customer.dart';
+import 'package:rebellion_rum_models/src/models/sale_item.dart';
 
 part 'order.g.dart';
 
@@ -49,6 +50,10 @@ class OrderModel extends DatabaseSerializable {
   /// Key: Product ID, Value: Quantity
   Map<String, int> items;
 
+  /// Server-owned checkout snapshots, preserved through fulfilment updates.
+  /// Null on legacy orders: never infer historical ABV from today's catalog.
+  List<SaleItemModel>? saleItems;
+
   /// Human-readable order reference number, should be assigned on first save
   String? orderNumber;
 
@@ -91,6 +96,7 @@ class OrderModel extends DatabaseSerializable {
     required this.customerId,
     DateTime? date,
     required this.items,
+    this.saleItems,
     required this.orderNumber,
     required this.paymentMethod,
     this.status = OrderStatus.pending,
@@ -115,6 +121,10 @@ class OrderModel extends DatabaseSerializable {
   /// Returns this OrderModel instance for method chaining
   OrderModel mergeSanitized(OrderModel source) {
     // Only specific fields can be edited
+    if (items.length != source.items.length ||
+        items.entries.any((entry) => source.items[entry.key] != entry.value)) {
+      saleItems = null;
+    }
     items = source.items;
     shippingMethod = source.shippingMethod;
     notes = source.notes;

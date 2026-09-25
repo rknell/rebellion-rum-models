@@ -190,6 +190,21 @@ class ProductModel extends DatabaseSerializable {
   @JsonKey(fromJson: jsonToNullableDateTime, toJson: dateTimeToJsonNullable)
   DateTime? updatedAt;
 
+  /// Positive ABV or an alcohol category requires an alcohol snapshot.
+  /// A missing category with zero ABV is unknown, not proof of no alcohol.
+  bool? get isAlcoholProduct {
+    if (abv > 0 ||
+        const {
+          ProductCategory.rum,
+          ProductCategory.gin,
+          ProductCategory.vodka,
+          ProductCategory.cans
+        }.contains(category)) {
+      return true;
+    }
+    return category == null ? null : false;
+  }
+
   ProductModel({
     super.id,
     required this.barcode,

@@ -136,7 +136,11 @@ bool hasValidAlcoholFields({
   required double volumeMl,
   required double abv,
 }) {
-  return volumeMl > 0 && abv > 0 && abv <= 1;
+  return volumeMl.isFinite &&
+      abv.isFinite &&
+      volumeMl > 0 &&
+      abv > 0 &&
+      abv <= 1;
 }
 
 AlcoholSnapshot? alcoholSnapshotForSaleLine({

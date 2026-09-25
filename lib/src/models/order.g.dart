@@ -12,6 +12,9 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
           const NullableObjectIdConverter().fromJson(json['customerId']),
       date: jsonToDateTimeOrNow(json['date']),
       items: Map<String, int>.from(json['items'] as Map),
+      saleItems: (json['saleItems'] as List<dynamic>?)
+          ?.map((e) => SaleItemModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       orderNumber: json['orderNumber'] as String?,
       paymentMethod: json['paymentMethod'] as String?,
       status: $enumDecodeNullable(_$OrderStatusEnumMap, json['status'],
@@ -39,6 +42,8 @@ Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
       if (instance.customer?.toJson() case final value?) 'customer': value,
       'date': dateTimeToJson(instance.date),
       'items': instance.items,
+      if (instance.saleItems?.map((e) => e.toJson()).toList() case final value?)
+        'saleItems': value,
       if (instance.orderNumber case final value?) 'orderNumber': value,
       if (instance.paymentMethod case final value?) 'paymentMethod': value,
       'status': _$OrderStatusEnumMap[instance.status]!,
