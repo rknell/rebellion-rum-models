@@ -13,6 +13,10 @@ CouponModel _$CouponModelFromJson(Map<String, dynamic> json) => CouponModel(
       amount: (json['amount'] as num).toDouble(),
       email: json['email'] as String?,
       phone: json['phone'] as String?,
+      recipientName: json['recipientName'] as String?,
+      isGiftCard: json['isGiftCard'] as bool? ?? false,
+      sourceSaleId: json['sourceSaleId'] as String?,
+      sourceSaleItemId: json['sourceSaleItemId'] as String?,
       redeemed: json['redeemed'] as bool?,
       remainingValue: (json['remainingValue'] as num?)?.toDouble(),
       storefrontIds: (json['storefrontIds'] as List<dynamic>?)
@@ -31,6 +35,11 @@ Map<String, dynamic> _$CouponModelToJson(CouponModel instance) =>
       if (instance.email case final value?) 'email': value,
       if (instance.phone case final value?) 'phone': value,
       if (instance.redeemed case final value?) 'redeemed': value,
+      if (instance.recipientName case final value?) 'recipientName': value,
+      'isGiftCard': instance.isGiftCard,
+      if (instance.sourceSaleId case final value?) 'sourceSaleId': value,
+      if (instance.sourceSaleItemId case final value?)
+        'sourceSaleItemId': value,
       'storefrontIds': instance.storefrontIds,
       'remainingValue': instance.remainingValue,
     };

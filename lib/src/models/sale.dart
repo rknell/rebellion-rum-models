@@ -72,6 +72,58 @@ class SaleModel extends DatabaseSerializable {
   /// Whether this sale was processed with mates rates pricing
   bool isMatesRates;
 
+  /// Charged value and sales revenue are deliberately separate: issuing credit
+  /// is a liability; merchandise purchased with that credit is revenue later.
+  int get chargeTotalCents =>
+      items.fold<int>(
+          0, (sum, item) => sum + (item.price * item.qty * 100).round()) -
+      ((discountTotal ?? 0) * 100).round();
+  int get giftCardsIssuedCents => items
+      .where((item) => item.isGiftCard)
+      .fold<int>(0, (sum, item) => sum + (item.price * item.qty * 100).round());
+  int get salesRevenueCents => chargeTotalCents - giftCardsIssuedCents;
+  double get salesRevenue => salesRevenueCents / 100;
+  double get giftCardsIssued => giftCardsIssuedCents / 100;
+
+  void validateGiftCardSale() {
+    final ids = <String>{};
+    for (final item in items) {
+      if (!item.isGiftCard) {
+        if (item.giftCard != null || item.itemId.startsWith('gift-card:')) {
+          throw ArgumentError(
+              'Gift card lines must be identified as gift cards.');
+        }
+        continue;
+      }
+      final card = item.giftCard;
+      if (card == null ||
+          item.qty != 1 ||
+          !item.itemId.startsWith('gift-card:') ||
+          !ids.add(item.itemId) ||
+          !item.price.isFinite ||
+          (item.price * 100 - card.valueCents).abs() > 0.00001) {
+        throw ArgumentError(
+            'Each gift card needs a unique line at its full face value.');
+      }
+      card.validate();
+      if (item.isAlcohol == true || item.hasAlcoholSnapshot) {
+        throw ArgumentError(
+            'Gift cards cannot contain alcohol or stock snapshots.');
+      }
+    }
+    if (giftCardsIssuedCents == 0) return;
+    final couponCents = payments
+        .where((payment) => payment.type == PaymentType.coupon)
+        .fold<int>(0, (sum, payment) => sum + (payment.amount * 100).round());
+    if (salesRevenueCents < 0 ||
+        couponCents > salesRevenueCents ||
+        items.any((item) => item.qty < 0 || item.price < 0) ||
+        (discountTotal ?? 0) < 0) {
+      throw ArgumentError(
+          'Gift cards must be paid at face value, without coupons, discounts or returns funding the card.');
+    }
+  }
+
   static List<CouponModel> _couponsFromJson(dynamic json) {
     if (json == null) return <CouponModel>[];
     if (json is List) {

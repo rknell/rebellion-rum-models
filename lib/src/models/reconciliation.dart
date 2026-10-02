@@ -22,6 +22,9 @@ class ReconciliationModel extends DatabaseSerializable {
   /// Total recorded sales in the system
   double totalSales;
 
+  /// Gift credit issued: included in takings, excluded from totalSales.
+  double giftCardsIssued;
+
   /// Actual Eftpos (card) sales counted/settled
   double actualEftposSales;
 
@@ -50,6 +53,7 @@ class ReconciliationModel extends DatabaseSerializable {
     this.closingTime,
     this.signature,
     this.totalSales = 0,
+    this.giftCardsIssued = 0,
     this.actualEftposSales = 0,
     this.eodCashInTill = 0,
     this.couponTotalAmount = 0,

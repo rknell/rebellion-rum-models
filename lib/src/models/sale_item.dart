@@ -2,7 +2,11 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:rebellion_rum_models/src/excise_reporting.dart';
 import 'package:rebellion_rum_models/src/models/product.dart';
 
+import 'package:rebellion_rum_models/src/models/gift_card.dart';
+
 part 'sale_item.g.dart';
+
+enum SaleItemKind { product, giftCard }
 
 /// Represents an individual item line in a sale.
 ///
@@ -22,6 +26,12 @@ part 'sale_item.g.dart';
 class SaleItemModel {
   /// Product description as shown on receipt
   String description;
+
+  @JsonKey(defaultValue: SaleItemKind.product)
+  SaleItemKind kind;
+  GiftCardDetails? giftCard;
+
+  bool get isGiftCard => kind == SaleItemKind.giftCard;
 
   /// Unit price at time of sale
   double price;
@@ -53,6 +63,8 @@ class SaleItemModel {
     required this.price,
     required this.itemId,
     required this.qty,
+    this.kind = SaleItemKind.product,
+    this.giftCard,
     this.isAlcohol,
     this.unitVolumeMl,
     this.unitAbv,
@@ -89,6 +101,7 @@ class SaleItemModel {
   }
 
   bool get isMissingAlcoholSnapshot =>
+      !isGiftCard &&
       !hasAlcoholSnapshot &&
       isAlcohol != false &&
       qty > 0 &&

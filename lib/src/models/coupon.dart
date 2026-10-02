@@ -11,6 +11,10 @@ class CouponModel extends DatabaseSerializable {
   String? email;
   String? phone;
   bool? redeemed;
+  String? recipientName;
+  bool isGiftCard;
+  String? sourceSaleId;
+  String? sourceSaleItemId;
 
   /// Storefront IDs this coupon can be used on.
   List<String> storefrontIds;
@@ -42,6 +46,10 @@ class CouponModel extends DatabaseSerializable {
     required this.amount,
     required this.email,
     this.phone,
+    this.recipientName,
+    this.isGiftCard = false,
+    this.sourceSaleId,
+    this.sourceSaleItemId,
     this.redeemed,
     double? remainingValue,
     this.storefrontIds = const ['rebellion'],
