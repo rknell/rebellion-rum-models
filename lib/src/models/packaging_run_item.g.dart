@@ -15,6 +15,8 @@ PackagingRunItemModel _$PackagingRunItemModelFromJson(
       unitSize: (json['unitSize'] as num?)?.toDouble(),
       strength: (json['strength'] as num?)?.toDouble(),
       unitsPackaged: (json['unitsPackaged'] as num?)?.toInt(),
+      labelNumberStart: (json['labelNumberStart'] as num?)?.toInt(),
+      labelNumberEnd: (json['labelNumberEnd'] as num?)?.toInt(),
       packagingLosses: (json['packagingLosses'] as num?)?.toDouble(),
       remaining: (json['remaining'] as num?)?.toDouble(),
       volumeAvailable: (json['volumeAvailable'] as num?)?.toDouble(),
@@ -52,6 +54,9 @@ Map<String, dynamic> _$PackagingRunItemModelToJson(
       if (instance.unitSize case final value?) 'unitSize': value,
       if (instance.strength case final value?) 'strength': value,
       if (instance.unitsPackaged case final value?) 'unitsPackaged': value,
+      if (instance.labelNumberStart case final value?)
+        'labelNumberStart': value,
+      if (instance.labelNumberEnd case final value?) 'labelNumberEnd': value,
       if (instance.packagingLosses case final value?) 'packagingLosses': value,
       if (instance.remaining case final value?) 'remaining': value,
       if (instance.volumeAvailable case final value?) 'volumeAvailable': value,
