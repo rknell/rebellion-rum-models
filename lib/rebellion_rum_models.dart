@@ -68,3 +68,4 @@ export 'src/models/stripe/stripe_confirm_payment_intent_request.dart';
 export 'src/models/stripe/stripe_confirm_payment_intent_response.dart';
 
 export 'src/models/gift_card.dart';
+export 'src/models/pos_checkout.dart';
