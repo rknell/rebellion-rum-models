@@ -22,6 +22,7 @@ SaleModel _$SaleModelFromJson(Map<String, dynamic> json) => SaleModel(
               ?.map((e) => PaymentModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      metadata: json['metadata'] as Map<String, dynamic>?,
       isMatesRates: json['isMatesRates'] as bool?,
       dueDate: jsonToNullableDateTime(json['dueDate']),
       status: $enumDecodeNullable(_$SaleStatusEnumMap, json['status'],
@@ -43,6 +44,7 @@ Map<String, dynamic> _$SaleModelToJson(SaleModel instance) => <String, dynamic>{
       if (instance.discountTotal case final value?) 'discountTotal': value,
       if (instance.eftposSessionId case final value?) 'eftposSessionId': value,
       'payments': instance.payments.map((e) => e.toJson()).toList(),
+      'metadata': instance.metadata,
       'isMatesRates': instance.isMatesRates,
     };
 

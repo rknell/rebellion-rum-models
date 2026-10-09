@@ -69,6 +69,10 @@ class SaleModel extends DatabaseSerializable {
   @JsonKey(defaultValue: <PaymentModel>[])
   List<PaymentModel> payments;
 
+  /// Extensible, JSON-compatible sale metadata. Legacy sales default to empty.
+  /// Payment integrations must sanitize sensitive card data before storing it.
+  Map<String, dynamic> metadata;
+
   /// Whether this sale was processed with mates rates pricing
   bool isMatesRates;
 
@@ -157,6 +161,7 @@ class SaleModel extends DatabaseSerializable {
     this.discountTotal,
     this.eftposSessionId,
     List<PaymentModel>? payments,
+    Map<String, dynamic>? metadata,
     bool? isMatesRates,
     this.dueDate,
     SaleStatus? status,
@@ -164,6 +169,7 @@ class SaleModel extends DatabaseSerializable {
         coupons = _couponsFromJson(coupons),
         items = items ?? [],
         payments = payments ?? [],
+        metadata = metadata ?? <String, dynamic>{},
         isMatesRates = isMatesRates ?? false,
         status = status ?? SaleStatus.unpaid;
 
