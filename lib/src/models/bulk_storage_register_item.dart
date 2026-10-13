@@ -124,17 +124,41 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
   /// Otherwise fall back to legacyLals if it exists and is greater than 0
   /// If neither exists, return 0
   double get lals {
-    if (lalsCalculation != null) {
-      return lalsCalculation!.lals;
-    }
-    if (legacyLals != null && legacyLals! > 0) {
-      return legacyLals!;
-    }
+    final calculation = lalsCalculation;
+    if (calculation != null) return calculation.lals;
+    final legacy = legacyLals;
+    if (legacy != null && legacy > 0) return legacy;
     return 0;
   }
 
-  factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) =>
-      _$BulkStorageRegisterItemModelFromJson(json);
+  /// Reads incomplete historical calculations using the recorded legacy LALs.
+  /// Never invent measurements or silently discard an unquantifiable movement.
+  factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) {
+    final rawCalculation = json['lalsCalculation'];
+    final legacy = json['lals'];
+    final hasLegacy = legacy is num && legacy.isFinite && legacy >= 0;
+    Map<String, dynamic> normalized = json;
+    try {
+      if (rawCalculation != null) {
+        if (rawCalculation is! Map<String, dynamic>) {
+          throw const FormatException('lalsCalculation must be an object');
+        }
+        AlcocalcLalsCalculation.fromJson(rawCalculation);
+      } else if (legacy is! num || !legacy.isFinite) {
+        // Historical signed legacy entries retain their existing getter semantics.
+        throw const FormatException('No usable calculation or legacy lals');
+      }
+    } on FormatException catch (error) {
+      if (!hasLegacy) {
+        throw FormatException(
+          'Bulk storage register entry ${json['_id'] ?? '(unknown id)'}: '
+          '${error.message}; repair the recorded measurements or legacy lals',
+        );
+      }
+      normalized = {...json, 'lalsCalculation': null};
+    }
+    return _$BulkStorageRegisterItemModelFromJson(normalized);
+  }
   @override
   Map<String, dynamic> toJson() => _$BulkStorageRegisterItemModelToJson(this);
 }
