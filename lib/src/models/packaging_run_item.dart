@@ -50,6 +50,11 @@ class PackagingRunItemModel extends DatabaseSerializable {
   /// Number of units packaged
   int? unitsPackaged;
 
+  /// Inclusive recall range. Both fields are null for legacy/un-numbered labels.
+  /// The end is the entered next-unused label number minus one.
+  int? labelNumberStart;
+  int? labelNumberEnd;
+
   /// Losses during packaging in LALs
   double? packagingLosses;
 
@@ -114,6 +119,8 @@ class PackagingRunItemModel extends DatabaseSerializable {
     this.unitSize,
     this.strength,
     this.unitsPackaged,
+    this.labelNumberStart,
+    this.labelNumberEnd,
     this.packagingLosses,
     this.remaining,
     this.volumeAvailable,
