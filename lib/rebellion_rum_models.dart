@@ -69,3 +69,5 @@ export 'src/models/stripe/stripe_confirm_payment_intent_response.dart';
 
 export 'src/models/gift_card.dart';
 export 'src/models/pos_checkout.dart';
+
+export 'src/provider_response_metadata.dart';
