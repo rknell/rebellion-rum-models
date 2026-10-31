@@ -71,3 +71,5 @@ export 'src/models/gift_card.dart';
 export 'src/models/pos_checkout.dart';
 
 export 'src/provider_response_metadata.dart';
+
+export 'src/models/desktop_data.dart';
