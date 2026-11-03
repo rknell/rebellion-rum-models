@@ -76,4 +76,23 @@ void main() {
             {...evidence.toJson(), 'ownAlcoholFraction': 1.01}),
         throwsFormatException);
   });
+  test('movement evidence cannot hide an absent or invalid alcohol measurement',
+      () {
+    final evidence = ProductionMovementEvidence(
+            role: 'charge',
+            occurredAt: DateTime.utc(2026),
+            recordedAt: DateTime.utc(2026),
+            operatorName: 'Ryan',
+            reference: 'Source')
+        .toJson();
+    for (final bad in [null, '10', double.nan, double.infinity, -1]) {
+      expect(
+          () => BulkStorageRegisterItemModel.fromJson({
+                '_id': ObjectId().oid,
+                'productionEvidence': evidence,
+                'lals': bad
+              }),
+          throwsFormatException);
+    }
+  });
 }

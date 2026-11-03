@@ -140,6 +140,17 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
 
   factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) {
     try {
+      if (json['productionEvidence'] != null) {
+        if (json['lalsCalculation'] != null) {
+          productionMeasurementFromJson(json['lalsCalculation']);
+        } else {
+          final lals = json['lals'];
+          if (lals is! num || !lals.isFinite || lals < 0) {
+            throw FormatException(
+                'lals: a recorded movement requires a finite non-negative measurement');
+          }
+        }
+      }
       return _$BulkStorageRegisterItemModelFromJson(json);
     } catch (e) {
       throw FormatException('Bulk register ${json['_id']}: $e');
