@@ -4,6 +4,8 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'package:rebellion_rum_models/src/models/alcocalc_lals_calculation.dart';
 import 'package:rebellion_rum_models/src/models/bulk_storage_movement_type.dart';
 
+import 'package:rebellion_rum_models/src/models/production_workflow.dart';
+
 part 'bulk_storage_register_item.g.dart';
 
 /// Represents an entry in the bulk storage register.
@@ -11,6 +13,8 @@ part 'bulk_storage_register_item.g.dart';
 /// to/from packaging, or other operations like stocktake adjustments.
 @JsonSerializable(explicitToJson: true)
 class BulkStorageRegisterItemModel extends DatabaseSerializable {
+  ProductionMovementEvidence? productionEvidence;
+
   /// LALs calculation for this movement
   @JsonKey(includeIfNull: false)
   final AlcocalcLalsCalculation? lalsCalculation;
@@ -103,6 +107,7 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
 
   BulkStorageRegisterItemModel({
     super.id,
+    this.productionEvidence,
     this.lalsCalculation,
     this.legacyLals,
     this.feintsDestroyed = false,
@@ -133,8 +138,24 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
     return 0;
   }
 
-  factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) =>
-      _$BulkStorageRegisterItemModelFromJson(json);
+  factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) {
+    try {
+      if (json['productionEvidence'] != null) {
+        if (json['lalsCalculation'] != null) {
+          productionMeasurementFromJson(json['lalsCalculation']);
+        } else {
+          final lals = json['lals'];
+          if (lals is! num || !lals.isFinite || lals < 0) {
+            throw FormatException(
+                'lals: a recorded movement requires a finite non-negative measurement');
+          }
+        }
+      }
+      return _$BulkStorageRegisterItemModelFromJson(json);
+    } catch (e) {
+      throw FormatException('Bulk register ${json['_id']}: $e');
+    }
+  }
   @override
   Map<String, dynamic> toJson() => _$BulkStorageRegisterItemModelToJson(this);
 }

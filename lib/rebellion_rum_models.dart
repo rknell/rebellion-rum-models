@@ -73,3 +73,5 @@ export 'src/models/pos_checkout.dart';
 export 'src/provider_response_metadata.dart';
 
 export 'src/models/desktop_data.dart';
+
+export 'src/models/production_workflow.dart';

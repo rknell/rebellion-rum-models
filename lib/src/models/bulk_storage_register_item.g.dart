@@ -10,6 +10,10 @@ BulkStorageRegisterItemModel _$BulkStorageRegisterItemModelFromJson(
         Map<String, dynamic> json) =>
     BulkStorageRegisterItemModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
+      productionEvidence: json['productionEvidence'] == null
+          ? null
+          : ProductionMovementEvidence.fromJson(
+              json['productionEvidence'] as Map<String, dynamic>),
       lalsCalculation: json['lalsCalculation'] == null
           ? null
           : AlcocalcLalsCalculation.fromJson(
@@ -39,6 +43,8 @@ Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
     <String, dynamic>{
       if (const ObjectIdConverter().toJson(instance.id) case final value?)
         '_id': value,
+      if (instance.productionEvidence?.toJson() case final value?)
+        'productionEvidence': value,
       if (instance.lalsCalculation?.toJson() case final value?)
         'lalsCalculation': value,
       if (instance.legacyLals case final value?) 'lals': value,
