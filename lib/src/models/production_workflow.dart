@@ -133,7 +133,8 @@ class ProductionMovementEvidence {
       throw FormatException('ownAlcoholFraction exceeds 1');
     }
     final role = _text(json, 'role');
-    if (!const ['collection', 'ingredient', 'barrel', 'loss'].contains(role)) {
+    if (!const ['charge', 'collection', 'ingredient', 'barrel', 'loss']
+        .contains(role)) {
       throw FormatException('productionEvidence.role invalid');
     }
     return ProductionMovementEvidence(

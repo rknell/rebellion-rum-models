@@ -23,7 +23,8 @@ void main() {
     expect(
         restored.productionWorkflow!.blends.single.settledMeasurement!.weight,
         80);
-    expect(restored.toDatabase()['productionWorkflow'], isA<Map<String, dynamic>>());
+    expect(restored.toDatabase()['productionWorkflow'],
+        isA<Map<String, dynamic>>());
   });
   test('required batch numbers reject missing null wrong and nonfinite values',
       () {
