@@ -6,10 +6,12 @@ import 'package:rebellion_rum_models/src/models/alcocalc_lals_calculation.dart';
 class ProductionWorkflow {
   String phase;
   String operatorName;
+  String feedstock;
   final List<ProductionBlendBatch> blends;
   ProductionWorkflow(
       {this.phase = 'load',
       this.operatorName = '',
+      this.feedstock = '',
       List<ProductionBlendBatch>? blends})
       : blends = blends ?? [];
 
@@ -26,6 +28,10 @@ class ProductionWorkflow {
     return ProductionWorkflow(
         phase: phase,
         operatorName: _text(json, 'operatorName', empty: true),
+        // Earlier version-1 records did not capture feedstock separately.
+        feedstock: json['feedstock'] == null
+            ? ''
+            : _text(json, 'feedstock', empty: true),
         blends: rows
             .map((e) => ProductionBlendBatch.fromJson(_map(e, 'blends')))
             .toList());
@@ -34,6 +40,7 @@ class ProductionWorkflow {
         'version': 1,
         'phase': phase,
         'operatorName': operatorName,
+        'feedstock': feedstock,
         'blends': blends.map((b) => b.toJson()).toList()
       };
 }

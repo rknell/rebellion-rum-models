@@ -95,4 +95,14 @@ void main() {
           throwsFormatException);
     }
   });
+  test('feedstock is explicit and old workflow records remain unknown', () {
+    final workflow =
+        ProductionWorkflow(feedstock: 'Molasses wash and rum feints');
+    expect(ProductionWorkflow.fromJson(workflow.toJson()).feedstock,
+        workflow.feedstock);
+    final old = workflow.toJson()..remove('feedstock');
+    expect(ProductionWorkflow.fromJson(old).feedstock, '');
+    expect(() => ProductionWorkflow.fromJson({...old, 'feedstock': 7}),
+        throwsFormatException);
+  });
 }
