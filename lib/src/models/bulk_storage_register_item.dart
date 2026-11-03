@@ -138,8 +138,13 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
     return 0;
   }
 
-  factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) =>
-      _$BulkStorageRegisterItemModelFromJson(json);
+  factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) {
+    try {
+      return _$BulkStorageRegisterItemModelFromJson(json);
+    } catch (e) {
+      throw FormatException('Bulk register ${json['_id']}: $e');
+    }
+  }
   @override
   Map<String, dynamic> toJson() => _$BulkStorageRegisterItemModelToJson(this);
 }
