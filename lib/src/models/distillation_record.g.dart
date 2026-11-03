@@ -10,6 +10,10 @@ DistillationRecordModel _$DistillationRecordModelFromJson(
         Map<String, dynamic> json) =>
     DistillationRecordModel(
       id: const ObjectIdConverter().fromJson(json['_id']),
+      productionWorkflow: json['productionWorkflow'] == null
+          ? null
+          : ProductionWorkflow.fromJson(
+              json['productionWorkflow'] as Map<String, dynamic>),
       stillUsed: json['stillUsed'] as String? ?? '',
       startTime: jsonToDateTimeOrNow(json['startTime']),
       distillationDate: jsonToDateTimeOrNow(json['distillationDate']),
@@ -42,6 +46,8 @@ Map<String, dynamic> _$DistillationRecordModelToJson(
       'startTime': dateTimeToJson(instance.startTime),
       'distillationDate': dateTimeToJson(instance.distillationDate),
       'status': _$DistillationStatusEnumMap[instance.status]!,
+      if (instance.productionWorkflow?.toJson() case final value?)
+        'productionWorkflow': value,
       'chargeNumber': instance.chargeNumber,
       'alcoholType': _$DistillationAlcoholTypeEnumMap[instance.alcoholType]!,
       if (instance.alcoholTypeOther case final value?)

@@ -3,6 +3,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:rebellion_rum_models/src/models/alcocalc_lals_calculation.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 
+import 'package:rebellion_rum_models/src/models/production_workflow.dart';
+
 part 'distillation_record.g.dart';
 
 /// Status of a distillation record
@@ -48,7 +50,9 @@ class DistillationRecordModel extends DatabaseSerializable {
 
   /// Current status of the distillation record
   @JsonKey(defaultValue: DistillationStatus.inProgress)
-  final DistillationStatus status;
+  DistillationStatus status;
+
+  ProductionWorkflow? productionWorkflow;
 
   int chargeNumber;
 
@@ -76,6 +80,7 @@ class DistillationRecordModel extends DatabaseSerializable {
 
   DistillationRecordModel({
     super.id,
+    this.productionWorkflow,
     this.stillUsed = '',
     DateTime? startTime,
     DateTime? distillationDate,
@@ -99,7 +104,11 @@ class DistillationRecordModel extends DatabaseSerializable {
       final value = normalized[field];
       if (value is DateTime) normalized[field] = dateTimeToJson(value);
     }
-    return _$DistillationRecordModelFromJson(normalized);
+    try {
+      return _$DistillationRecordModelFromJson(normalized);
+    } catch (e) {
+      throw FormatException('Distillation ${json['_id']}: $e');
+    }
   }
   @override
   Map<String, dynamic> toJson() => _$DistillationRecordModelToJson(this);
