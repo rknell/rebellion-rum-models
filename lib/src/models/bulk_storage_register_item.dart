@@ -95,15 +95,15 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {
-    '_id',
-    'fromChargeId',
-    'fromPackagingId',
-    'fromVesselId',
-    'productId',
-    'toChargeId',
-    'toPackagingId',
-    'toVesselId',
-  };
+        '_id',
+        'fromChargeId',
+        'fromPackagingId',
+        'fromVesselId',
+        'productId',
+        'toChargeId',
+        'toPackagingId',
+        'toVesselId',
+      };
 
   BulkStorageRegisterItemModel({
     super.id,
@@ -122,9 +122,9 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
     this.fromPackagingId,
     this.productId,
   }) : assert(
-         lalsCalculation != null || legacyLals != null,
-         'Either lalsCalculation or legacyLals must be provided',
-       );
+          lalsCalculation != null || legacyLals != null,
+          'Either lalsCalculation or legacyLals must be provided',
+        );
 
   /// Get the LALs value from either the calculation or legacy field
   /// If lalsCalculation exists, use its value
@@ -145,16 +145,14 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
     // records without production evidence may use the legacy fallback.
     if (json['productionEvidence'] != null) {
       try {
-        if (json['productionEvidence'] != null) {
-          if (json['lalsCalculation'] != null) {
-            productionMeasurementFromJson(json['lalsCalculation']);
-          } else {
-            final lals = json['lals'];
-            if (lals is! num || !lals.isFinite || lals < 0) {
-              throw FormatException(
-                'lals: a recorded movement requires a finite non-negative measurement',
-              );
-            }
+        if (json['lalsCalculation'] != null) {
+          productionMeasurementFromJson(json['lalsCalculation']);
+        } else {
+          final lals = json['lals'];
+          if (lals is! num || !lals.isFinite || lals < 0) {
+            throw FormatException(
+              'lals: a recorded movement requires a finite non-negative measurement',
+            );
           }
         }
         return _$BulkStorageRegisterItemModelFromJson(json);

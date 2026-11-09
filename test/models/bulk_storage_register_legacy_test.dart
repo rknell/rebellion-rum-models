@@ -60,6 +60,25 @@ void main() {
           throwsFormatException);
     }
   });
+  test('production evidence never permits malformed measurements to fall back',
+      () {
+    for (final calculation in invalid) {
+      expect(
+        () => BulkStorageRegisterItemModel.fromJson({
+          'productionEvidence': ProductionMovementEvidence(
+            role: 'charge',
+            occurredAt: DateTime.utc(2026),
+            recordedAt: DateTime.utc(2026),
+            operatorName: 'Ryan',
+            reference: 'Source',
+          ).toJson(),
+          'lalsCalculation': calculation,
+          'lals': 12,
+        }),
+        throwsFormatException,
+      );
+    }
+  });
   test('standalone calculation reports missing field', () {
     expect(
         () => AlcocalcLalsCalculation.fromJson({}),
