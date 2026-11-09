@@ -30,8 +30,15 @@ class AlcocalcLalsCalculation {
   final double lals;
 
   /// Creates an instance from a JSON object
-  factory AlcocalcLalsCalculation.fromJson(Map<String, dynamic> json) =>
-      _$AlcocalcLalsCalculationFromJson(json);
+  factory AlcocalcLalsCalculation.fromJson(Map<String, dynamic> json) {
+    for (final field in ['weight', 'abv', 'temperature']) {
+      final value = json[field];
+      if (value is! num || !value.isFinite) {
+        throw FormatException('lalsCalculation.$field must be a finite number');
+      }
+    }
+    return _$AlcocalcLalsCalculationFromJson(json);
+  }
 
   /// Converts this instance to a JSON object
   Map<String, dynamic> toJson() => _$AlcocalcLalsCalculationToJson(this);

@@ -95,15 +95,15 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
 
   @override
   Set<String> get objectIdFields => {
-        '_id',
-        'fromChargeId',
-        'fromPackagingId',
-        'fromVesselId',
-        'productId',
-        'toChargeId',
-        'toPackagingId',
-        'toVesselId',
-      };
+    '_id',
+    'fromChargeId',
+    'fromPackagingId',
+    'fromVesselId',
+    'productId',
+    'toChargeId',
+    'toPackagingId',
+    'toVesselId',
+  };
 
   BulkStorageRegisterItemModel({
     super.id,
@@ -121,40 +121,71 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
     this.toPackagingId,
     this.fromPackagingId,
     this.productId,
-  }) : assert(lalsCalculation != null || legacyLals != null,
-            'Either lalsCalculation or legacyLals must be provided');
+  }) : assert(
+         lalsCalculation != null || legacyLals != null,
+         'Either lalsCalculation or legacyLals must be provided',
+       );
 
   /// Get the LALs value from either the calculation or legacy field
   /// If lalsCalculation exists, use its value
   /// Otherwise fall back to legacyLals if it exists and is greater than 0
   /// If neither exists, return 0
   double get lals {
-    if (lalsCalculation != null) {
-      return lalsCalculation!.lals;
-    }
-    if (legacyLals != null && legacyLals! > 0) {
-      return legacyLals!;
-    }
+    final calculation = lalsCalculation;
+    if (calculation != null) return calculation.lals;
+    final legacy = legacyLals;
+    if (legacy != null && legacy > 0) return legacy;
     return 0;
   }
 
+  /// Reads incomplete historical calculations using the recorded legacy LALs.
+  /// Never invent measurements or silently discard an unquantifiable movement.
   factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) {
-    try {
-      if (json['productionEvidence'] != null) {
-        if (json['lalsCalculation'] != null) {
-          productionMeasurementFromJson(json['lalsCalculation']);
-        } else {
-          final lals = json['lals'];
-          if (lals is! num || !lals.isFinite || lals < 0) {
-            throw FormatException(
-                'lals: a recorded movement requires a finite non-negative measurement');
+    // New workflow records retain strict measurement validation. Only historical
+    // records without production evidence may use the legacy fallback.
+    if (json['productionEvidence'] != null) {
+      try {
+        if (json['productionEvidence'] != null) {
+          if (json['lalsCalculation'] != null) {
+            productionMeasurementFromJson(json['lalsCalculation']);
+          } else {
+            final lals = json['lals'];
+            if (lals is! num || !lals.isFinite || lals < 0) {
+              throw FormatException(
+                'lals: a recorded movement requires a finite non-negative measurement',
+              );
+            }
           }
         }
+        return _$BulkStorageRegisterItemModelFromJson(json);
+      } catch (e) {
+        throw FormatException('Bulk register ${json['_id']}: $e');
       }
-      return _$BulkStorageRegisterItemModelFromJson(json);
-    } catch (e) {
-      throw FormatException('Bulk register ${json['_id']}: $e');
     }
+    final rawCalculation = json['lalsCalculation'];
+    final legacy = json['lals'];
+    final hasLegacy = legacy is num && legacy.isFinite && legacy >= 0;
+    Map<String, dynamic> normalized = json;
+    try {
+      if (rawCalculation != null) {
+        if (rawCalculation is! Map<String, dynamic>) {
+          throw const FormatException('lalsCalculation must be an object');
+        }
+        AlcocalcLalsCalculation.fromJson(rawCalculation);
+      } else if (legacy is! num || !legacy.isFinite) {
+        // Historical signed legacy entries retain their existing getter semantics.
+        throw const FormatException('No usable calculation or legacy lals');
+      }
+    } on FormatException catch (error) {
+      if (!hasLegacy) {
+        throw FormatException(
+          'Bulk storage register entry ${json['_id'] ?? '(unknown id)'}: '
+          '${error.message}; repair the recorded measurements or legacy lals',
+        );
+      }
+      normalized = {...json, 'lalsCalculation': null};
+    }
+    return _$BulkStorageRegisterItemModelFromJson(normalized);
   }
   @override
   Map<String, dynamic> toJson() => _$BulkStorageRegisterItemModelToJson(this);
