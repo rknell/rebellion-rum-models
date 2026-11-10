@@ -194,10 +194,6 @@ abstract class DatabaseSerializable extends JsonSerializableModel {
       fields = objectIdFields;
     }
 
-    print('DEBUG: Converting to database format');
-    print('DEBUG: Object ID fields: $fields');
-    print('DEBUG: Initial data: $data');
-
     // Convert all ObjectId fields, preserving existing ObjectId instances
     for (final field in fields) {
       if (!data.containsKey(field)) continue;
@@ -205,22 +201,16 @@ abstract class DatabaseSerializable extends JsonSerializableModel {
       final value = data[field];
       if (value == null) continue;
 
-      print(
-        'DEBUG: Processing field $field with value $value (${value.runtimeType})',
-      );
-
       if (value is ObjectId) {
         // Already an ObjectId, keep it as is
-        print('DEBUG: Field $field is already an ObjectId');
         continue;
       }
 
       if (value is String && value.isNotEmpty) {
         try {
           data[field] = ObjectId.fromHexString(value);
-          print('DEBUG: Converted field $field from string to ObjectId');
         } catch (e) {
-          print('WARNING: Failed to convert field $field to ObjectId: $e');
+          print('WARNING: Invalid ObjectId in field $field');
         }
       }
     }
@@ -276,7 +266,6 @@ abstract class DatabaseSerializable extends JsonSerializableModel {
 
     convertDatabaseDateFields(data, databaseDateTimeFields);
 
-    print('DEBUG: Final database data: $data');
     return data;
   }
 
