@@ -5,6 +5,8 @@ library;
 export 'src/excise_reporting.dart';
 export 'src/alcohol_measurements.dart';
 
+export 'src/bottle_shipping_packages.dart';
+
 // Models
 export 'src/models/alcocalc_dilution_calculation.dart';
 export 'src/models/alcocalc_lals_calculation.dart';
