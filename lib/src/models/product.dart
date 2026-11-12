@@ -1,3 +1,4 @@
+import 'package:rebellion_rum_models/src/models/product_quantity_price.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'package:rebellion_rum_models/src/models/alcocalc_dilution_calculation.dart';
@@ -88,6 +89,9 @@ class ProductModel extends DatabaseSerializable {
 
   /// Public distillery door/POS price in local currency.
   double distilleryDoorPrice;
+
+  /// Optional POS quantity deals. Missing/null legacy values mean no deals.
+  List<ProductQuantityPrice> posQuantityPrices;
 
   /// Approved trade customer price in local currency.
   double? wholesalePrice;
@@ -214,6 +218,7 @@ class ProductModel extends DatabaseSerializable {
     this.storefrontRetailPrices = const {},
     double? distilleryDoorPrice,
     this.wholesalePrice,
+    this.posQuantityPrices = const [],
     double? websiteMatesRatesPrice,
     double? distilleryDoorMatesRatesPrice,
     ProductCategory? category,
@@ -285,6 +290,13 @@ class ProductModel extends DatabaseSerializable {
     json['distilleryDoorMatesRatesPrice'] ??=
         json['websiteMatesRatesPrice'] ?? json['matesRatesPrice'];
 
+    final tiers = json['posQuantityPrices'];
+    if (tiers != null &&
+        (tiers is! List ||
+            tiers.any((tier) => tier is! Map<String, dynamic>))) {
+      throw FormatException(
+          'Product ${json['_id'] ?? json['barcode']}: posQuantityPrices must be a list of objects');
+    }
     return _$ProductModelFromJson(json);
   }
   @override

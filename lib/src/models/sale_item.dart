@@ -36,6 +36,10 @@ class SaleItemModel {
   /// Unit price at time of sale
   double price;
 
+  /// Explicit opt-in for editable POS lines; legacy/quoted/manual lines retain their price.
+  @JsonKey(defaultValue: false)
+  bool automaticQuantityPricing;
+
   /// Reference to the product ID
   String itemId;
 
@@ -65,6 +69,7 @@ class SaleItemModel {
     required this.qty,
     this.kind = SaleItemKind.product,
     this.giftCard,
+    this.automaticQuantityPricing = false,
     this.isAlcohol,
     this.unitVolumeMl,
     this.unitAbv,

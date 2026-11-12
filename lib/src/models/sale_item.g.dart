@@ -17,6 +17,8 @@ SaleItemModel _$SaleItemModelFromJson(Map<String, dynamic> json) =>
       giftCard: json['giftCard'] == null
           ? null
           : GiftCardDetails.fromJson(json['giftCard'] as Map<String, dynamic>),
+      automaticQuantityPricing:
+          json['automaticQuantityPricing'] as bool? ?? false,
       isAlcohol: json['isAlcohol'] as bool?,
       unitVolumeMl: (json['unitVolumeMl'] as num?)?.toDouble(),
       unitAbv: (json['unitAbv'] as num?)?.toDouble(),
@@ -30,6 +32,7 @@ Map<String, dynamic> _$SaleItemModelToJson(SaleItemModel instance) =>
       'kind': _$SaleItemKindEnumMap[instance.kind]!,
       if (instance.giftCard?.toJson() case final value?) 'giftCard': value,
       'price': instance.price,
+      'automaticQuantityPricing': instance.automaticQuantityPricing,
       'itemId': instance.itemId,
       'qty': instance.qty,
       if (instance.isAlcohol case final value?) 'isAlcohol': value,
