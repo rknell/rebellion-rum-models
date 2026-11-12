@@ -16,7 +16,10 @@ class Quote {
       this.status = 'open',
       this.owner,
       this.quoteNumber,
-      this.invoiceNumber});
+      this.invoiceNumber,
+      this.revision = 0,
+      this.accountId,
+      this.wholesaleInvoiceId});
 
   final ObjectId id;
   final ObjectId saleId;
@@ -27,6 +30,8 @@ class Quote {
   final String? owner, invoiceNumber;
 
   final String? quoteNumber;
+  final int revision;
+  final String? accountId, wholesaleInvoiceId;
   String get legacyNumber => 'Q-${id.oid.toUpperCase()}';
   String get number => quoteNumber ?? legacyNumber;
   double get subtotal =>
@@ -35,11 +40,13 @@ class Quote {
   bool isExpired(DateTime now) => !now.isBefore(validUntil);
   String statusAt(DateTime now) => status == 'complete'
       ? 'Complete'
-      : status == 'inProgress'
-          ? 'In progress'
-          : isExpired(now)
-              ? 'Expired'
-              : 'Open';
+      : status == 'invoicing'
+          ? 'Invoice draft'
+          : status == 'inProgress'
+              ? 'In progress'
+              : isExpired(now)
+                  ? 'Review prices'
+                  : 'Open';
 
   static DateTime retentionDate(DateTime created) {
     final utc = created.toUtc();
@@ -103,11 +110,16 @@ class Quote {
         customerId: snapshot.customerId,
         isMatesRates: snapshot.isMatesRates,
         discountTotal: snapshot.discountTotal,
+        metadata: {'sourceQuoteId': id.oid, 'sourceQuoteRevision': revision},
       );
 
   Map<String, dynamic> toJson() => {
         '_id': id.oid,
-        'schemaVersion': 1,
+        'schemaVersion': 2,
+        'revision': revision,
+        if (accountId != null) 'accountId': accountId,
+        if (wholesaleInvoiceId != null)
+          'wholesaleInvoiceId': wholesaleInvoiceId,
         'saleId': saleId.oid,
         'createdAt': createdAt.toIso8601String(),
         'validUntil': validUntil.toIso8601String(),
@@ -146,5 +158,28 @@ class Quote {
         owner: json['owner'] as String?,
         quoteNumber: json['quoteNumber'] as String?,
         invoiceNumber: json['invoiceNumber'] as String?,
+        revision: _revision(json),
+        accountId: _reference(json, 'accountId'),
+        wholesaleInvoiceId: _reference(json, 'wholesaleInvoiceId'),
       );
+
+  // Legacy records have no revision or account link. Null means absent; other
+  // malformed persisted values are rejected before an edit can overwrite them.
+  static int _revision(Map<String, dynamic> json) {
+    final value = json['revision'];
+    if (value == null) return 0;
+    if (value is! int || value < 0) {
+      throw FormatException('Quote ${json['_id']}: invalid revision');
+    }
+    return value;
+  }
+
+  static String? _reference(Map<String, dynamic> json, String key) {
+    final value = json[key];
+    if (value == null) return null;
+    if (value is! String || value.trim().isEmpty || value.length > 200) {
+      throw FormatException('Quote ${json['_id']}: invalid $key');
+    }
+    return value;
+  }
 }

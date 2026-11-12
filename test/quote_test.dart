@@ -24,7 +24,34 @@ void main() {
     expect(restored.toSale().id, quote.saleId);
     expect(restored.toSale().payments, isEmpty);
     expect(restored.toSale().items.single.qty, 19);
-    expect(restored.statusAt(quote.validUntil), 'Expired');
+    expect(restored.statusAt(quote.validUntil), 'Review prices');
+  });
+  test(
+      'revision, account and invoice references round trip with legacy defaults',
+      () {
+    final original = Quote.create(basket(), customer: 'Buyer');
+    expect(original.revision, 0);
+    final json = {
+      ...original.toJson(),
+      'revision': 3,
+      'accountId': 'account-1',
+      'wholesaleInvoiceId': 'invoice-1'
+    };
+    final restored = Quote.fromJson(json);
+    expect(restored.revision, 3);
+    expect(restored.accountId, 'account-1');
+    expect(restored.wholesaleInvoiceId, 'invoice-1');
+    expect(Quote.fromJson(restored.toDatabase()).revision, 3);
+    expect(restored.toSale().metadata['sourceQuoteId'], restored.id.oid);
+    for (final invalid in [-1, 1.5, '2']) {
+      expect(() => Quote.fromJson({...json, 'revision': invalid}),
+          throwsFormatException);
+    }
+    for (final key in ['accountId', 'wholesaleInvoiceId']) {
+      expect(() => Quote.fromJson({...json, key: 7}), throwsFormatException);
+      expect(Quote.fromJson({...json, key: null}).toJson()[key], isNull);
+    }
+    expect(Quote.fromJson({...json, 'revision': null}).revision, 0);
   });
   test('rejects empty, paid and invalid baskets', () {
     expect(() => Quote.create(SaleModel(), customer: 'Customer'),
