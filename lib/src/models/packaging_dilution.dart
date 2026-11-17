@@ -3,9 +3,6 @@ import 'package:rebellion_rum_models/src/models/alcocalc_dilution_calculation.da
 
 part 'packaging_dilution.g.dart';
 
-/// How portions feed the single packaging run; neither mode creates sub-batches.
-enum PackagingDilutionMode { homogenised, continuous }
-
 /// One independently weighed, diluted and checked portion of a packaging run.
 @JsonSerializable(explicitToJson: true)
 class PackagingDilutionModel {

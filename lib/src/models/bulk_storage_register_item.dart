@@ -82,6 +82,10 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
   @NullableObjectIdConverter()
   ObjectId? toPackagingId;
 
+  /// Stable portion ID within toPackagingId. Null denotes an unassigned legacy
+  /// batch transfer; association never changes its inventory movement identity.
+  String? packagingDilutionId;
+
   /// Reference to the source packaging (if applicable)
   @NullableObjectIdConverter()
   ObjectId? fromPackagingId;
@@ -119,6 +123,7 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
     this.toVesselId,
     this.toDistillationId,
     this.toPackagingId,
+    this.packagingDilutionId,
     this.fromPackagingId,
     this.productId,
   }) : assert(
@@ -141,6 +146,7 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
   /// Reads incomplete historical calculations using the recorded legacy LALs.
   /// Never invent measurements or silently discard an unquantifiable movement.
   factory BulkStorageRegisterItemModel.fromJson(Map<String, dynamic> json) {
+    _validateDilutionReference(json);
     // New workflow records retain strict measurement validation. Only historical
     // records without production evidence may use the legacy fallback.
     if (json['productionEvidence'] != null) {
@@ -186,5 +192,20 @@ class BulkStorageRegisterItemModel extends DatabaseSerializable {
     return _$BulkStorageRegisterItemModelFromJson(normalized);
   }
   @override
-  Map<String, dynamic> toJson() => _$BulkStorageRegisterItemModelToJson(this);
+  Map<String, dynamic> toJson() {
+    final json = _$BulkStorageRegisterItemModelToJson(this);
+    _validateDilutionReference(json);
+    return json;
+  }
+
+  static void _validateDilutionReference(Map<String, dynamic> json) {
+    final dilution = json['packagingDilutionId'];
+    if (dilution != null &&
+        (dilution is! String ||
+            dilution.trim().isEmpty ||
+            json['toPackagingId'] == null)) {
+      throw FormatException(
+          'Bulk register ${json['_id']}: invalid packagingDilutionId or missing toPackagingId');
+    }
+  }
 }

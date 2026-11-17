@@ -33,6 +33,7 @@ BulkStorageRegisterItemModel _$BulkStorageRegisterItemModelFromJson(
           const NullableObjectIdConverter().fromJson(json['toChargeId']),
       toPackagingId:
           const NullableObjectIdConverter().fromJson(json['toPackagingId']),
+      packagingDilutionId: json['packagingDilutionId'] as String?,
       fromPackagingId:
           const NullableObjectIdConverter().fromJson(json['fromPackagingId']),
       productId: const NullableObjectIdConverter().fromJson(json['productId']),
@@ -67,6 +68,8 @@ Map<String, dynamic> _$BulkStorageRegisterItemModelToJson(
       if (const NullableObjectIdConverter().toJson(instance.toPackagingId)
           case final value?)
         'toPackagingId': value,
+      if (instance.packagingDilutionId case final value?)
+        'packagingDilutionId': value,
       if (const NullableObjectIdConverter().toJson(instance.fromPackagingId)
           case final value?)
         'fromPackagingId': value,

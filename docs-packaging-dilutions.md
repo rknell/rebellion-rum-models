@@ -4,7 +4,10 @@
 portions. Each has its own calculation (including sugar additions) and measured
 ABV. The run retains the product, estimate, transfers, final units, label range,
 status and excise reference. Portions are not batches or inventory postings.
-`dilutionMode` records whether portions are homogenised or continuously packaged.
+Bulk transfers retain `toPackagingId` and now carry `packagingDilutionId`, the
+stable ID of one nested portion. Missing/null links are legacy unassigned
+transfers and must be explicitly assigned by the operator; never infer a split.
+The obsolete `dilutionMode` is ignored on read and no longer written.
 
 Compatibility: missing/null `dilutions` means the legacy `productionDilution` and
 `abvReading` form a single portion with ID `legacy`. An explicit empty list means
