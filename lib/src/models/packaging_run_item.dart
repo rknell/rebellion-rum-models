@@ -4,6 +4,8 @@ import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'package:rebellion_rum_models/src/alcohol_measurements.dart';
 import 'package:rebellion_rum_models/src/models/alcocalc_dilution_calculation.dart';
 
+import 'package:rebellion_rum_models/src/models/packaging_dilution.dart';
+
 part 'packaging_run_item.g.dart';
 
 /// Status of a packaging run
@@ -73,6 +75,29 @@ class PackagingRunItemModel extends DatabaseSerializable {
   /// The actual production dilution calculation, performed when you have a known weight and abv
   AlcocalcDilutionResultModel? productionDilution;
 
+  /// Null means a legacy single-dilution record. A present list is authoritative,
+  /// including an empty list; never resurrect the legacy calculation after edits.
+  List<PackagingDilutionModel>? dilutions;
+
+  PackagingDilutionMode dilutionMode;
+
+  List<PackagingDilutionModel> get effectiveDilutions =>
+      dilutions ??
+      [
+        if (productionDilution != null)
+          PackagingDilutionModel(
+              id: 'legacy',
+              calculation: productionDilution,
+              abvReading: abvReading),
+      ];
+
+  bool get allDilutionsChecked =>
+      effectiveDilutions.isNotEmpty &&
+      effectiveDilutions.every((dilution) => dilution.isChecked);
+
+  double get totalDilutedVolume => effectiveDilutions.fold(0,
+      (total, dilution) => total + (dilution.calculation?.targetVolume ?? 0));
+
   /// ABV reading taken after dilution
   double? abvReading;
 
@@ -129,6 +154,8 @@ class PackagingRunItemModel extends DatabaseSerializable {
     this.status = PackagingRunStatus.inProgress,
     this.estimatedDilution,
     this.productionDilution,
+    this.dilutions,
+    this.dilutionMode = PackagingDilutionMode.continuous,
     this.abvReading,
     this.exciseReturn,
     this.timestamp,
@@ -137,8 +164,28 @@ class PackagingRunItemModel extends DatabaseSerializable {
     this.isConfirmedSugars = false,
   });
 
-  factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) =>
-      _$PackagingRunItemModelFromJson(json);
+  factory PackagingRunItemModel.fromJson(Map<String, dynamic> json) {
+    final entries = json['dilutions'];
+    if (entries != null) {
+      if (entries is! List) {
+        throw FormatException(
+            'Packaging run ${json['_id']}: invalid dilutions');
+      }
+      final ids = <String>{};
+      for (final entry in entries) {
+        if (entry is! Map<String, dynamic>) {
+          throw FormatException(
+              'Packaging run ${json['_id']}: invalid dilution');
+        }
+        PackagingDilutionModel.validateJson(entry);
+        if (!ids.add(entry['id'] as String)) {
+          throw FormatException(
+              'Packaging run ${json['_id']}: duplicate dilution id');
+        }
+      }
+    }
+    return _$PackagingRunItemModelFromJson(json);
+  }
   @override
   Map<String, dynamic> toJson() => _$PackagingRunItemModelToJson(this);
 

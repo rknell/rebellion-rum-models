@@ -80,3 +80,5 @@ export 'src/models/desktop_data.dart';
 export 'src/models/production_workflow.dart';
 
 export 'src/models/pos_shortcuts.dart';
+
+export 'src/models/packaging_dilution.dart';

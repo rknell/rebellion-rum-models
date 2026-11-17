@@ -33,6 +33,13 @@ PackagingRunItemModel _$PackagingRunItemModelFromJson(
           ? null
           : AlcocalcDilutionResultModel.fromJson(
               json['productionDilution'] as Map<String, dynamic>),
+      dilutions: (json['dilutions'] as List<dynamic>?)
+          ?.map(
+              (e) => PackagingDilutionModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      dilutionMode: $enumDecodeNullable(
+              _$PackagingDilutionModeEnumMap, json['dilutionMode']) ??
+          PackagingDilutionMode.continuous,
       abvReading: (json['abvReading'] as num?)?.toDouble(),
       exciseReturn:
           const NullableObjectIdConverter().fromJson(json['exciseReturn']),
@@ -65,6 +72,9 @@ Map<String, dynamic> _$PackagingRunItemModelToJson(
         'estimatedDilution': value,
       if (instance.productionDilution?.toJson() case final value?)
         'productionDilution': value,
+      if (instance.dilutions?.map((e) => e.toJson()).toList() case final value?)
+        'dilutions': value,
+      'dilutionMode': _$PackagingDilutionModeEnumMap[instance.dilutionMode]!,
       if (instance.abvReading case final value?) 'abvReading': value,
       'targetBottles': instance.targetBottles,
       if (dateTimeToJsonNullable(instance.timestamp) case final value?)
@@ -84,4 +94,9 @@ const _$PackagingRunStatusEnumMap = {
   PackagingRunStatus.awaitingExcise: 'awaitingExcise',
   PackagingRunStatus.complete: 'complete',
   PackagingRunStatus.excised: 'excised',
+};
+
+const _$PackagingDilutionModeEnumMap = {
+  PackagingDilutionMode.homogenised: 'homogenised',
+  PackagingDilutionMode.continuous: 'continuous',
 };
