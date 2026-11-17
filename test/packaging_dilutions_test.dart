@@ -18,7 +18,6 @@ void main() {
           3,
           (i) => PackagingDilutionModel(
               id: '$i', calculation: calculation(), abvReading: .4)),
-      dilutionMode: PackagingDilutionMode.homogenised,
       unitsPackaged: 400,
     );
     final copy =
@@ -28,7 +27,6 @@ void main() {
         closeTo(calculation().targetVolume * 3, .0001));
     expect(copy.allDilutionsChecked, isTrue);
     expect(copy.unitsPackaged, 400);
-    expect(copy.dilutionMode, PackagingDilutionMode.homogenised);
     expect(copy.toDatabase()['dilutions'], hasLength(3));
   });
   test('legacy missing/null list preserves its original calculation and ABV',

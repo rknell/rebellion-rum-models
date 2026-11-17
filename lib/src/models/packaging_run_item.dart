@@ -79,8 +79,6 @@ class PackagingRunItemModel extends DatabaseSerializable {
   /// including an empty list; never resurrect the legacy calculation after edits.
   List<PackagingDilutionModel>? dilutions;
 
-  PackagingDilutionMode dilutionMode;
-
   List<PackagingDilutionModel> get effectiveDilutions =>
       dilutions ??
       [
@@ -155,7 +153,6 @@ class PackagingRunItemModel extends DatabaseSerializable {
     this.estimatedDilution,
     this.productionDilution,
     this.dilutions,
-    this.dilutionMode = PackagingDilutionMode.continuous,
     this.abvReading,
     this.exciseReturn,
     this.timestamp,
