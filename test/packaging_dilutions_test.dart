@@ -11,6 +11,53 @@ AlcocalcDilutionResultModel calculation() =>
         targetABV: .4));
 
 void main() {
+  test('actual scale totals are optional and round trip with record identity',
+      () {
+    final base = PackagingDilutionModel(id: 'scale', calculation: calculation())
+        .toJson();
+    for (final weights in [
+      null,
+      <double?>[null],
+      <double?>[0],
+      <double?>[70.4]
+    ]) {
+      final copy = PackagingDilutionModel.fromJson(
+          {...base, 'actualWeightsKg': weights});
+      expect(copy.actualWeightsKg, weights);
+      expect(PackagingDilutionModel.fromJson(copy.toJson()).actualWeightsKg,
+          weights);
+    }
+    base.remove('actualWeightsKg');
+    expect(PackagingDilutionModel.fromJson(base).actualWeightsKg, isNull);
+    for (final invalid in [
+      1,
+      '70',
+      <Object?>[],
+      [null, null],
+      ['70'],
+      [double.nan],
+      [double.infinity],
+      [-1],
+      [<String, Object?>{}]
+    ]) {
+      expect(
+          () => PackagingDilutionModel.fromJson(
+              {...base, 'actualWeightsKg': invalid}),
+          throwsA(isA<FormatException>().having(
+              (e) => e.message,
+              'field and record',
+              contains('Packaging dilution scale: invalid actualWeightsKg'))));
+    }
+    expect(
+        () => PackagingDilutionModel(id: 'bad', actualWeightsKg: [1]).toJson(),
+        throwsFormatException);
+    expect(
+        () => PackagingDilutionModel(
+            id: 'bad',
+            calculation: calculation(),
+            actualWeightsKg: [double.nan]).toJson(),
+        throwsFormatException);
+  });
   test('three portions round trip as one run with one count and excise', () {
     final run = PackagingRunItemModel(
       productionDilution: calculation(), // stale legacy data must not be added

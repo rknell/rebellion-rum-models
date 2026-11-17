@@ -10,10 +10,16 @@ class PackagingDilutionModel {
   final AlcocalcDilutionResultModel? calculation;
   final double? abvReading;
 
+  /// Optional scale totals: index 0 is after water, then each sugar in order.
+  /// Missing/null means the planned totals apply. Null entries use the plan
+  /// from the preceding actual total; recipe addition masses stay unchanged.
+  final List<double?>? actualWeightsKg;
+
   PackagingDilutionModel({
     required this.id,
     this.calculation,
     this.abvReading,
+    this.actualWeightsKg,
   });
 
   bool get isChecked =>
@@ -42,9 +48,20 @@ class PackagingDilutionModel {
     if (abv != null && (abv is! num || !abv.isFinite || abv < 0 || abv > 1)) {
       invalid('abvReading');
     }
+    final weights = json['actualWeightsKg'];
+    if (weights != null) {
+      if (weights is! List) invalid('actualWeightsKg');
+      for (var i = 0; i < weights.length; i++) {
+        final value = weights[i];
+        if (value != null && (value is! num || !value.isFinite || value < 0)) {
+          invalid('actualWeightsKg[$i]');
+        }
+      }
+    }
     final calculation = json['calculation'];
     if (calculation == null) {
       if (abv != null) invalid('abvReading without calculation');
+      if (weights != null) invalid('actualWeightsKg without calculation');
       return; // A deliberately unfinished dilution is valid.
     }
     if (calculation is! Map<String, dynamic>) invalid('calculation');
@@ -80,6 +97,9 @@ class PackagingDilutionModel {
     }
     final sugars = calculation['sugarResults'];
     if (sugars is! List) invalid('calculation.sugarResults');
+    if (weights is List && weights.length != sugars.length + 1) {
+      invalid('actualWeightsKg length');
+    }
     for (final sugar in sugars) {
       if (sugar is! Map || sugar['name'] is! String) {
         invalid('calculation.sugarResults');

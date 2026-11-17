@@ -15,6 +15,9 @@ PackagingDilutionModel _$PackagingDilutionModelFromJson(
           : AlcocalcDilutionResultModel.fromJson(
               json['calculation'] as Map<String, dynamic>),
       abvReading: (json['abvReading'] as num?)?.toDouble(),
+      actualWeightsKg: (json['actualWeightsKg'] as List<dynamic>?)
+          ?.map((e) => (e as num?)?.toDouble())
+          .toList(),
     );
 
 Map<String, dynamic> _$PackagingDilutionModelToJson(
@@ -24,4 +27,5 @@ Map<String, dynamic> _$PackagingDilutionModelToJson(
       if (instance.calculation?.toJson() case final value?)
         'calculation': value,
       if (instance.abvReading case final value?) 'abvReading': value,
+      if (instance.actualWeightsKg case final value?) 'actualWeightsKg': value,
     };
