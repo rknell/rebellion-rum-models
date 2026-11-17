@@ -3,6 +3,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:rebellion_rum_models/src/json_helpers.dart';
 import 'package:rebellion_rum_models/src/models/product.dart';
 
+import 'package:rebellion_rum_models/src/models/pos_shortcuts.dart';
+
 part 'product_catalog.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -11,6 +13,7 @@ class ProductCatalogResponseModel {
     required this.products,
     required this.syncedAt,
     required this.revision,
+    this.posShortcuts,
   });
 
   final List<ProductModel> products;
@@ -19,6 +22,7 @@ class ProductCatalogResponseModel {
   final DateTime syncedAt;
 
   final int revision;
+  final PosShortcutConfiguration? posShortcuts;
 
   factory ProductCatalogResponseModel.fromJson(Map<String, dynamic> json) =>
       _$ProductCatalogResponseModelFromJson(json);

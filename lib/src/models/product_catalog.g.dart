@@ -14,6 +14,10 @@ ProductCatalogResponseModel _$ProductCatalogResponseModelFromJson(
           .toList(),
       syncedAt: jsonToDateTime(json['syncedAt']),
       revision: (json['revision'] as num).toInt(),
+      posShortcuts: json['posShortcuts'] == null
+          ? null
+          : PosShortcutConfiguration.fromJson(
+              json['posShortcuts'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ProductCatalogResponseModelToJson(
@@ -22,6 +26,8 @@ Map<String, dynamic> _$ProductCatalogResponseModelToJson(
       'products': instance.products.map((e) => e.toJson()).toList(),
       'syncedAt': dateTimeToJson(instance.syncedAt),
       'revision': instance.revision,
+      if (instance.posShortcuts?.toJson() case final value?)
+        'posShortcuts': value,
     };
 
 ProductMutationRequestModel _$ProductMutationRequestModelFromJson(
